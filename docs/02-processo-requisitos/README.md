@@ -4,7 +4,7 @@ Definição do processo de requisitos adotado pelo grupo: etapas (elicitação, 
 
 | Arquivo                 | Descrição                                | Status   |
 |-------------------------|------------------------------------------|----------|
-| processo-requisitos.md  | Documento do processo adotado            | Pendente |
-| processo-requisitos.png | Diagrama do fluxo do processo (opcional) | Pendente |
+| processo-requisitos.md  | Documento do processo adotado            | Concluído |
+| processo-requisitos.png | Diagrama do fluxo do processo (opcional) | Concluído |
 
-Responsável: [nome]
+Responsável: Gabriel
