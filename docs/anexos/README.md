@@ -4,7 +4,7 @@ Termo de consentimento para coleta e uso de dados pessoais nas entrevistas e nos
 
 | Arquivo                       | Descrição                      | Status   |
 |-------------------------------|--------------------------------|----------|
-| termo-consentimento-modelo.md | Modelo do termo                | Pendente |
+| termo-consentimento-modelo.pdf| Modelo do termo                | Concluído|
 | termo-ent-1.pdf               | Termo assinado: entrevista 1   | Pendente |
 | termo-ent-2.pdf               | Termo assinado: entrevista 2   | Pendente |
 | termo-que-1.pdf               | Termo assinado: questionário 1 | Pendente |
@@ -12,4 +12,4 @@ Termo de consentimento para coleta e uso de dados pessoais nas entrevistas e nos
 
 Esta pasta contém dados pessoais. Não copie o conteúdo para fora do repositório.
 
-Responsável: [nome]
+Responsável: José Eduardo

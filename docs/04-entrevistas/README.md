@@ -4,11 +4,11 @@ Roteiro, transcrições e síntese dos requisitos das 2 entrevistas. Cada entrev
 
 | ID    | Arquivo         | Descrição                              | Status   |
 |-------|-----------------|----------------------------------------|----------|
-|       | roteiro.md      | Perguntas-guia das entrevistas         | Pendente |
+|       | roteiro.md      | Perguntas-guia das entrevistas         | Concluído|
 | ENT-1 | entrevista-1.md | Transcrição: [função do entrevistado]  | Pendente |
 | ENT-2 | entrevista-2.md | Transcrição: [função do entrevistado]  | Pendente |
 |       | sintese.md      | Síntese dos requisitos das entrevistas | Pendente |
 
 Cada transcrição traz a identificação do entrevistado (nome, função e telefone) e a data. O termo de consentimento assinado fica em [anexos](../anexos).
 
-Responsável: [nome]
+Responsável: [Arthur Mamedes Borges e --]

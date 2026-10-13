@@ -10,13 +10,13 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 ## Equipe
 
-| Nome                  | Papel              |
-|-----------------------|--------------------|
-| Arthur Mamedes Borges | Gerente de Projeto |
-| [Nome]                | [Papel]            |
-| [Nome]                | [Papel]            |
-| [Nome]                | [Papel]            |
-| [Nome]                | [Papel]            |
+| Nome                    | Papel                  |
+| ----------------------- | --------------------   |
+| Arthur Mamedes Borges   | Gerente de Projeto     |
+| Lorenzo Oliveira Maciel | Analista de Requisitos |
+| Gabriel                 | Analista de Requisitos |
+| José Eduardo            | Analista de Requisitos |
+| Rikelmy Andrade         | Analista de Requisitos |
 
 ## Artefatos da 1ª etapa
 
