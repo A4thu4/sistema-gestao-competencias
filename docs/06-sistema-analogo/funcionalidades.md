@@ -7,7 +7,7 @@ Funcionalidades do SurveyMonkey relacionadas à avaliação de competências e a
 - [Modelo de avaliação 360º de funcionários](https://www.surveymonkey.com/mp/360-degree-employee-evaluation-survey-template/)
 - [Gestão de desempenho de funcionários](https://www.surveymonkey.com/welcome/employee-performance-management)
 
-Este levantamento é baseado na documentação pública do produto. As capturas de tela ficam em `capturas/` (ainda pendentes).
+Este levantamento é baseado na documentação pública do produto, nas páginas listadas acima.
 
 ## 1. Visão geral
 
