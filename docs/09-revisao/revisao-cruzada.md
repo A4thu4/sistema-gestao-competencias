@@ -8,7 +8,7 @@ Revisor: Arthur Mamedes Borges (issue #16) · Data: 20/10/2026
 
 | Artefato | Autor | Resultado |
 |----------|-------|-----------|
-| Kanban e estrutura do repositório | Arthur Mamedes Borges | Aprovado, com pendência P-06 |
+| Kanban e estrutura do repositório | Arthur Mamedes Borges | Aprovado |
 | Processo de requisitos | Gabriel Araújo Caetano | Aprovado |
 | Pesquisa documental (LGPD e ISO/IEC 25010) | Lorenzo Oliveira Maciel | Aprovado |
 | Termo de consentimento | José Eduardo | Aprovado |
@@ -46,6 +46,8 @@ Revisor: Arthur Mamedes Borges (issue #16) · Data: 20/10/2026
 | A-05 | Corrigido o nome do arquivo do termo de consentimento no README de anexos. |
 | A-06 | Nomes completos dos integrantes padronizados nos READMEs. |
 | A-07 | Respostas `QUE-1` e `QUE-2` registradas no modelo oficial de `questionario.md` (seções 0 a 6), mantendo o conteúdo já respondido; síntese dos questionários atualizada com as novas referências e com a tabela de importância das funcionalidades (resolve a antiga pendência P-02). |
+| A-08 | Captura final do Kanban adicionada em `docs/01-planejamento/kanban-final.png`, com as 17 issues concluídas (resolve a antiga pendência P-06). |
+| A-09 | Aviso de rascunho das transcrições `ENT-1` e `ENT-2` substituído por nota de persona fictícia, após conferência das perguntas com o roteiro. |
 
 ## 4. Pendências registradas
 
@@ -55,4 +57,3 @@ Revisor: Arthur Mamedes Borges (issue #16) · Data: 20/10/2026
 | P-03 | O roteiro previa o `ENT-2` com um colaborador sem cargo de gestão; a entrevista foi feita com um gestor. A visão do colaborador ficou coberta pelo `QUE-1`. | Registrado; considerar uma entrevista com colaborador na 2ª etapa. |
 | P-04 | Partes interessadas externas, citadas no escopo do enunciado, não apareceram em nenhuma fonte, por isso não há requisito para elas. | Levantar com o RH na validação da 2ª etapa. |
 | P-05 | 13 requisitos têm uma única fonte (lista na [matriz](../08-requisitos/matriz-rastreabilidade.md#4-verificação)). | Confirmar com usuários na 2ª etapa. |
-| P-06 | Falta a captura final do Kanban (`kanban-final.png`). | Capturar o quadro em 20/10 com todas as issues concluídas. |
