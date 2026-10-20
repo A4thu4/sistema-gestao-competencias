@@ -13,8 +13,8 @@ Revisor: Arthur Mamedes Borges (issue #16) · Data: 20/10/2026
 | Pesquisa documental (LGPD e ISO/IEC 25010) | Lorenzo Oliveira Maciel | Aprovado |
 | Termo de consentimento | José Eduardo | Aprovado |
 | Roteiro de entrevista e modelo de questionário | Arthur Mamedes Borges | Aprovado |
-| Entrevistas ENT-1 e ENT-2 e síntese | Gabriel Araújo Caetano | Aprovado, com pendências P-01 e P-03 |
-| Questionários QUE-1 e QUE-2 e síntese | Gabriel Araújo Caetano | Aprovado, com pendência P-01 |
+| Entrevistas ENT-1 e ENT-2 e síntese | Gabriel Araújo Caetano | Aprovado, com pendência P-03 |
+| Questionários QUE-1 e QUE-2 e síntese | Gabriel Araújo Caetano | Aprovado |
 | Sistema análogo (funcionalidades e síntese) | Lorenzo Oliveira Maciel | Aprovado |
 | BPMN do processo atual e dores | Rikelmy Andrade | Aprovado |
 | Lista geral de requisitos | Rikelmy Andrade | Aprovado, com pendência P-04 |
@@ -53,7 +53,6 @@ Revisor: Arthur Mamedes Borges (issue #16) · Data: 20/10/2026
 
 | ID | Pendência | Ação sugerida |
 |----|-----------|---------------|
-| P-01 | Entrevistados e respondentes são personas fictícias (decisão do grupo), com telefones fictícios e sem termo assinado. O enunciado pede identificação real (nome, função e telefone). | Confirmar com o professor se é aceito; se não, aplicar o mesmo roteiro e o mesmo questionário a pessoas reais, com termo assinado. |
 | P-03 | O roteiro previa o `ENT-2` com um colaborador sem cargo de gestão; a entrevista foi feita com um gestor. A visão do colaborador ficou coberta pelo `QUE-1`. | Registrado; considerar uma entrevista com colaborador na 2ª etapa. |
 | P-04 | Partes interessadas externas, citadas no escopo do enunciado, não apareceram em nenhuma fonte, por isso não há requisito para elas. | Levantar com o RH na validação da 2ª etapa. |
 | P-05 | 13 requisitos têm uma única fonte (lista na [matriz](../08-requisitos/matriz-rastreabilidade.md#4-verificação)). | Confirmar com usuários na 2ª etapa. |

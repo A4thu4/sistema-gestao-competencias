@@ -6,7 +6,7 @@ Termo de consentimento para coleta e uso de dados pessoais nas entrevistas e nos
 |---------|-----------|--------|
 | Termo_de_Consentimento_Coleta_e_Tratamento_de_Dados.pdf | Modelo do termo | Concluído |
 
-Termos assinados: as entrevistas e os questionários desta etapa foram feitos com personas fictícias, por isso não há termos assinados (ver pendência P-01 na [revisão cruzada](../09-revisao/revisao-cruzada.md)).
+Termos assinados: as entrevistas e os questionários desta etapa foram feitos com personas fictícias, por decisão do grupo, por isso não há termos assinados.
 
 Esta pasta contém dados pessoais. Não copie o conteúdo para fora do repositório.
 
