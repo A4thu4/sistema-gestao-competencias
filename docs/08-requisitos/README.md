@@ -10,3 +10,5 @@ Lista geral de requisitos, consolidada a partir das sínteses, e matriz de rastr
 Fontes usadas na matriz: `ENT-1`, `ENT-2`, `QUE-1`, `QUE-2`, `ANA`, `DOC-1`, `DOC-2`.
 
 Regra: todo requisito da lista aparece na matriz ligado a pelo menos uma fonte.
+
+Responsáveis: Rikelmy Andrade (lista, issue #14) e José Eduardo (matriz, issue #15)

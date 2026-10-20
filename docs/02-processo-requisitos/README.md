@@ -7,4 +7,4 @@ Definição do processo de requisitos adotado pelo grupo: etapas (elicitação, 
 | processo-requisitos.md  | Documento do processo adotado            | Concluído |
 | processo-requisitos.png | Diagrama do fluxo do processo (opcional) | Concluído |
 
-Responsável: Gabriel
+Responsável: Gabriel Araújo Caetano (issue #3)

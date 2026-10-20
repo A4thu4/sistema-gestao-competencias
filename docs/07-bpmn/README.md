@@ -2,12 +2,12 @@
 
 Modelo em BPMN do processo atual (as-is) de avaliação de competências, com as principais dores destacadas.
 
-Ferramenta usada: [ex.: Bizagi Modeler, bpmn.io, Camunda Modeler]
+Ferramenta usada: bpmn.io (BPMN 2.0). Raias: RH, Gestor e Colaborador.
 
-| Arquivo             | Descrição                                                      | Status   |
-|---------------------|----------------------------------------------------------------|----------|
-| processo-atual.bpmn | Arquivo-fonte do modelo                                        | Pendente |
-| processo-atual.png  | Diagrama exportado (versão para impressão)                     | Pendente |
-| dores.md            | Lista das dores do processo, ligadas às atividades do diagrama | Pendente |
+| Arquivo             | Descrição                                                      | Status    |
+|---------------------|----------------------------------------------------------------|-----------|
+| processo-atual.bpmn | Arquivo-fonte do modelo                                        | Concluído |
+| processo-atual.png  | Diagrama exportado (versão para impressão)                     | Concluído |
+| dores.md            | Lista das dores do processo, ligadas às atividades do diagrama | Concluído |
 
-Responsável: [nome]
+Responsável: Rikelmy Andrade (issue #8)

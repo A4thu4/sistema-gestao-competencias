@@ -2,14 +2,12 @@
 
 Termo de consentimento para coleta e uso de dados pessoais nas entrevistas e nos questionários, e os termos assinados pelos participantes.
 
-| Arquivo                       | Descrição                      | Status   |
-|-------------------------------|--------------------------------|----------|
-| termo-consentimento-modelo.pdf| Modelo do termo                | Concluído|
-| termo-ent-1.pdf               | Termo assinado: entrevista 1   | Pendente |
-| termo-ent-2.pdf               | Termo assinado: entrevista 2   | Pendente |
-| termo-que-1.pdf               | Termo assinado: questionário 1 | Pendente |
-| termo-que-2.pdf               | Termo assinado: questionário 2 | Pendente |
+| Arquivo | Descrição | Status |
+|---------|-----------|--------|
+| Termo_de_Consentimento_Coleta_e_Tratamento_de_Dados.pdf | Modelo do termo | Concluído |
+
+Termos assinados: as entrevistas e os questionários desta etapa foram feitos com personas fictícias, por isso não há termos assinados (ver pendência P-01 na [revisão cruzada](../09-revisao/revisao-cruzada.md)).
 
 Esta pasta contém dados pessoais. Não copie o conteúdo para fora do repositório.
 
-Responsável: José Eduardo
+Responsável: José Eduardo (issue #5)
