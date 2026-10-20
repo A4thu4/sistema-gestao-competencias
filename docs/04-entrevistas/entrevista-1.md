@@ -1,6 +1,6 @@
 # ENT-1: Entrevista com Gerente de RH
 
-> **Rascunho.** Entrevistado fictício (persona simulada com apoio de IA, conforme decisão do grupo). As perguntas devem ser conferidas com o `roteiro.md` (issue #6).
+> **Nota.** Entrevistado fictício (persona simulada com apoio de IA, conforme decisão do grupo). Perguntas conferidas com o [roteiro](roteiro.md) na revisão cruzada.
 
 ## Identificação
 

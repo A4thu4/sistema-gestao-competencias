@@ -10,6 +10,12 @@ Colunas: Backlog, A fazer, Em andamento, Em revisão, Concluído. Cada cartão �
 |--------------------|----------------------------------------------------|-----------|
 | kanban-marco-1.png | Captura do quadro em 07/10                         | Concluído |
 | kanban-marco-2.png | Captura do quadro em 13/10                         | Concluído |
-| kanban-final.png   | Captura do quadro em 20/10 (versão para impressão) | Pendente  |
+| kanban-final.png   | Captura do quadro em 20/10 (versão para impressão) | Concluído |
 
 Responsável: Arthur Mamedes Borges (issues #1 e #2)
+
+## Quadro final (20/10)
+
+Todas as 17 issues da 1ª etapa na coluna Concluído.
+
+![Kanban em 20/10](kanban-final.png)
