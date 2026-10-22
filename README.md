@@ -36,6 +36,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 ### Atalhos para impressão
 
+- **[Versão consolidada para impressão (PDF)](docs/impressao/entrega-etapa1.pdf)**: todos os artefatos em um único arquivo, com capa e sumário
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
 - [Matriz de rastreabilidade](docs/08-requisitos/matriz-rastreabilidade.md)
 - [Síntese das entrevistas](docs/04-entrevistas/sintese.md) · [Síntese dos questionários](docs/05-questionarios/sintese.md) · [Síntese do sistema análogo](docs/06-sistema-analogo/sintese.md)
