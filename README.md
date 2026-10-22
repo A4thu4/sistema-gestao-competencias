@@ -4,7 +4,7 @@ Sistema web para avaliação de competências (chefe–colaborador, por pares e 
 
 Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
-- **Etapa atual:** 1ª, Levantamento de Requisitos (entrega final em 21/10): **concluída**, com 46 requisitos rastreados
+- **Etapa atual:** 1ª, Levantamento de Requisitos (entrega final em 21/10): **concluída**, com 47 requisitos rastreados
 - **Sistema análogo escolhido:** SurveyMonkey
 - **Kanban:** [GitHub Project](https://github.com/users/A4thu4/projects/6)
 
@@ -22,6 +22,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 | Entregável                                            | Local                                                      |
 |-------------------------------------------------------|------------------------------------------------------------|
+| Escopo do produto (funcionalidades mínimas e restrições) | [docs/00-escopo](docs/00-escopo)                         |
 | Planejamento das atividades (Kanban)                  | [docs/01-planejamento](docs/01-planejamento)               |
 | Processo de requisitos adotado                        | [docs/02-processo-requisitos](docs/02-processo-requisitos) |
 | Pesquisa documental (leis e normas)                   | [docs/03-pesquisa-documental](docs/03-pesquisa-documental) |
@@ -35,6 +36,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 ### Atalhos para impressão
 
+- **[Versão consolidada para impressão (PDF)](docs/impressao/entrega-etapa1.pdf)**: todos os artefatos em um único arquivo, com capa e sumário
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
 - [Matriz de rastreabilidade](docs/08-requisitos/matriz-rastreabilidade.md)
 - [Síntese das entrevistas](docs/04-entrevistas/sintese.md) · [Síntese dos questionários](docs/05-questionarios/sintese.md) · [Síntese do sistema análogo](docs/06-sistema-analogo/sintese.md)
@@ -65,5 +67,6 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Sistema análogo         | `ANA`    | `ANA`    |
 | Item de síntese         | `SE-NN`, `SQ-NN`, `SA-NN` | `SE-01` |
 | Pesquisa documental     | `DOC-N`  | `DOC-1`  |
+| Escopo do enunciado     | `ESC §N.N` | `ESC §2.2` |
 
 **Dados pessoais:** nome, função e telefone de entrevistados e respondentes ficam apenas nos arquivos de transcrição e de respostas, nunca em READMEs, issues ou mensagens de commit.

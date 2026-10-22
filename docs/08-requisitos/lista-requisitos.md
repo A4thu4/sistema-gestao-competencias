@@ -1,6 +1,6 @@
 # Lista geral de requisitos
 
-Requisitos do **Sistema de Gestão de Competências** consolidados a partir das sínteses de [entrevistas](../04-entrevistas/sintese.md) (`SE-NN`), [questionários](../05-questionarios/sintese.md) (`SQ-NN`), [sistema análogo](../06-sistema-analogo/sintese.md) (`SA-NN`) e da [pesquisa documental](../03-pesquisa-documental) (`DOC-N §seção`).
+Requisitos do **Sistema de Gestão de Competências** consolidados a partir das sínteses de [entrevistas](../04-entrevistas/sintese.md) (`SE-NN`), [questionários](../05-questionarios/sintese.md) (`SQ-NN`), [sistema análogo](../06-sistema-analogo/sintese.md) (`SA-NN`) da [pesquisa documental](../03-pesquisa-documental) (`DOC-N §seção`) e do [escopo do enunciado](../00-escopo/escopo.md) (`ESC §seção`).
 
 Responsável: Rikelmy Andrade
 
@@ -42,6 +42,7 @@ Responsável: Rikelmy Andrade
 | RF-11 | O sistema deve apresentar a cada avaliador apenas as perguntas correspondentes à sua relação com o avaliado (chefe, par, subordinado ou autoavaliação). | Média | `SA-04` |
 | RF-12 | O sistema deve enviar convite por e-mail na abertura do ciclo e lembretes automáticos aos avaliadores com respostas pendentes antes do encerramento. | Alta | `SE-14`, `SQ-08`, `SA-07` |
 | RF-13 | O sistema deve exibir o andamento do ciclo (respondidas e pendentes por avaliador): ao RH para toda a organização e ao gestor para a sua equipe. | Alta | `SE-14`, `SQ-09` |
+| RF-34 | O sistema deve permitir incluir avaliadores externos (clientes, fornecedores ou parceiros) em um ciclo, convidados por e-mail com link individual que dá acesso apenas ao questionário daquela avaliação, sem necessidade de conta no sistema; as respostas externas seguem as mesmas regras de anonimato e de número mínimo de respondentes (`RNF-01`, `RNF-02`). | Média | `ESC §2.2` |
 
 ### Preenchimento
 
@@ -120,9 +121,9 @@ Responsável: Rikelmy Andrade
 
 | Tipo | Quantidade |
 |------|-----------:|
-| Funcionais (RF) | 33 |
+| Funcionais (RF) | 34 |
 | Não funcionais (RNF) | 13 |
-| **Total** | **46** |
+| **Total** | **47** |
 | Prioridade alta | 33 |
-| Prioridade média | 11 |
+| Prioridade média | 12 |
 | Prioridade baixa | 2 |

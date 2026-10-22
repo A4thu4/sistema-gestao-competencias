@@ -17,6 +17,7 @@ Processo de engenharia de requisitos adotado pelo grupo no **Sistema de Gestão 
 
 | Técnica               | Fonte (ID)       | Descrição                                                                         | Local                                    |
 |-----------------------|------------------|-----------------------------------------------------------------------------------|------------------------------------------|
+| Leitura do escopo     | `ESC`            | Funcionalidades mínimas e restrições definidas no enunciado do projeto            | [00-escopo](../00-escopo)                |
 | Pesquisa documental   | `DOC-N`          | Leitura de leis e normas aplicáveis (LGPD, ISO/IEC 25010)                         | [03-pesquisa-documental](../03-pesquisa-documental) |
 | Entrevistas           | `ENT-1`, `ENT-2` | Entrevistas semiestruturadas com roteiro-guia, transcritas e sintetizadas         | [04-entrevistas](../04-entrevistas)      |
 | Questionários         | `QUE-1`, `QUE-2` | Questionário aplicado a pessoas diferentes das entrevistadas                      | [05-questionarios](../05-questionarios)  |
