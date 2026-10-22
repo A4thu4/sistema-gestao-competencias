@@ -1,6 +1,6 @@
 # ESC: Escopo do produto
 
-Escopo do **Sistema de Gestão de Competências** conforme o enunciado do projeto da disciplina (1ª etapa, seções 2 e 3). É a entrada da etapa de elicitação no [processo de requisitos](../02-processo-requisitos/processo-requisitos.md) e aparece como fonte `ESC` na [matriz de rastreabilidade](../08-requisitos/matriz-rastreabilidade.md).
+Escopo do sistema copiado do enunciado do projeto (1ª etapa, seções 2 e 3). Usamos como ponto de partida da elicitação, conforme o [processo de requisitos](../02-processo-requisitos/processo-requisitos.md), e ele aparece como fonte `ESC` na [matriz de rastreabilidade](../08-requisitos/matriz-rastreabilidade.md).
 
 Responsável: Gabriel Araújo Caetano
 
@@ -28,4 +28,4 @@ Sistema web para atividades de avaliação de competências, contemplando difere
 
 ## 4. Uso na rastreabilidade
 
-A cobertura de cada item acima pelos requisitos está na [seção 4 da matriz](../08-requisitos/matriz-rastreabilidade.md#4-cobertura-do-escopo-do-enunciado). As partes interessadas externas (`ESC §2.2`) não apareceram nas entrevistas, nos questionários nem no sistema análogo; por isso o requisito `RF-34` tem o escopo como única origem e deve ser validado com o RH na 2ª etapa.
+Os requisitos que atendem cada item estão na [seção 4 da matriz](../08-requisitos/matriz-rastreabilidade.md#4-cobertura-do-escopo-do-enunciado). As partes interessadas externas (`ESC §2.2`) não foram citadas nas entrevistas, nos questionários nem no SurveyMonkey, então o `RF-34` saiu só do escopo e precisa ser validado com o RH na 2ª etapa.

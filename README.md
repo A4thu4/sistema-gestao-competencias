@@ -4,7 +4,7 @@ Sistema web para avaliação de competências (chefe–colaborador, por pares e 
 
 Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
-- **Etapa atual:** 1ª, Levantamento de Requisitos (entrega final em 21/10): **concluída**, com 47 requisitos rastreados
+- **Etapa atual:** 1ª, Levantamento de Requisitos (entrega final em 21/10), concluída com 47 requisitos rastreados
 - **Sistema análogo escolhido:** SurveyMonkey
 - **Kanban:** [GitHub Project](https://github.com/users/A4thu4/projects/6)
 
@@ -36,7 +36,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 ### Atalhos para impressão
 
-- **[Versão consolidada para impressão (PDF)](docs/impressao/entrega-etapa1.pdf)**: todos os artefatos em um único arquivo, com capa e sumário
+- [Versão para impressão em PDF](docs/impressao/entrega-etapa1.pdf) (todos os artefatos em um arquivo só)
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
 - [Matriz de rastreabilidade](docs/08-requisitos/matriz-rastreabilidade.md)
 - [Síntese das entrevistas](docs/04-entrevistas/sintese.md) · [Síntese dos questionários](docs/05-questionarios/sintese.md) · [Síntese do sistema análogo](docs/06-sistema-analogo/sintese.md)
@@ -45,12 +45,12 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 ## Cronograma
 
-| Marco         | Data  | Entrega                                                                      |
-|---------------|-------|------------------------------------------------------------------------------|
-| Marco 1       | 07/10 | Kanban e processo de requisitos publicados; sistema análogo registrado ✅    |
-| Marco 2       | 14/10 | Entrevistas e questionários concluídos (versão preliminar); BPMN em rascunho ✅ |
-| Marco 3       | 20/10 | Todos os artefatos versionados e revisados ✅                                |
-| Entrega final | 21/10 | Envio do link do repositório e artefatos impressos                           |
+| Marco         | Data  | Entrega                                                                       | Status    |
+|---------------|-------|-------------------------------------------------------------------------------|-----------|
+| Marco 1       | 07/10 | Kanban e processo de requisitos publicados; sistema análogo registrado        | Concluído |
+| Marco 2       | 14/10 | Entrevistas e questionários concluídos (versão preliminar); BPMN em rascunho  | Concluído |
+| Marco 3       | 20/10 | Todos os artefatos versionados e revisados                                    | Concluído |
+| Entrega final | 21/10 | Envio do link do repositório e artefatos impressos                            | Em andamento |
 
 ## Convenções
 

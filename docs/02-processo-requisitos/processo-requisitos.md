@@ -22,7 +22,7 @@ Processo de engenharia de requisitos adotado pelo grupo no **Sistema de Gestão 
 | Entrevistas           | `ENT-1`, `ENT-2` | Entrevistas semiestruturadas com roteiro-guia, transcritas e sintetizadas         | [04-entrevistas](../04-entrevistas)      |
 | Questionários         | `QUE-1`, `QUE-2` | Questionário aplicado a pessoas diferentes das entrevistadas                      | [05-questionarios](../05-questionarios)  |
 | Análise de sistema análogo | `ANA`       | Estudo das funcionalidades do SurveyMonkey relacionadas a avaliação e feedback    | [06-sistema-analogo](../06-sistema-analogo) |
-| Modelagem de processo | —                | BPMN do processo atual (as-is) para identificar as dores                          | [07-bpmn](../07-bpmn)                    |
+| Modelagem de processo | - | BPMN do processo atual (as-is) para identificar as dores                          | [07-bpmn](../07-bpmn)                    |
 
 Antes de entrevistas e questionários, cada participante assina o termo de consentimento para coleta e uso de dados pessoais (LGPD), arquivado em [anexos](../anexos).
 
