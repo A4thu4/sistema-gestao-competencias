@@ -171,12 +171,12 @@
 
 **6.1** Qual é a maior dificuldade que você enfrenta hoje com avaliações de desempenho ou de competências?
 
-Falta de padrão entre os gestores. Cada um interpreta a escala de um jeito, então uma nota 4 minha não vale o mesmo que a de outro supervisor. Além disso, perco muito tempo preenchendo e não tenho como comparar com o ano anterior.
+Falta padrão entre os gestores. Cada um entende a escala de um jeito, então o meu 4 não é o mesmo 4 de outro supervisor. E perco muito tempo preenchendo, sem ter como comparar com o ano anterior.
 
 **6.2** Que funcionalidade um sistema de avaliação de competências precisa ter para que você o use de verdade?
 
-Ver o resultado da minha equipe consolidado, com média por competência e comparação entre as pessoas, sem expor quem respondeu o quê. Ver quem da equipe ainda não respondeu e receber lembretes de prazo por e-mail. Acompanhar as metas de desenvolvimento e ser lembrado de revisá-las a cada trimestre.
+Resultado da equipe junto, com média por competência e comparando as pessoas, sem mostrar quem respondeu o quê. Saber quem ainda não respondeu e receber lembrete de prazo por e-mail. Acompanhar as metas e o sistema me lembrar de revisar a cada trimestre.
 
 **6.3** Algum comentário ou sugestão adicional?
 
-Descrição de cada nível da escala para todos avaliarem do mesmo jeito, exportação dos resultados em Excel e PDF e uma opção de "não tenho como avaliar" quando não convivo com a pessoa naquela competência. Também quero que a equipe possa avaliar o líder. Na operação uso mais o celular, mas às vezes o tablet. Avaliar cada pessoa deveria levar no máximo 10 minutos. Aceito o termo sobre o uso dos dados no primeiro acesso.
+Explicar o que significa cada nota da escala, pra todo mundo avaliar igual. Exportar em Excel e PDF. Ter um "não tenho como avaliar" pra quando eu não acompanho a pessoa naquele ponto. Queria também que a equipe pudesse avaliar o líder. Na operação uso mais o celular, às vezes o tablet. Cada pessoa deveria levar no máximo uns 10 minutos. Termo de uso dos dados no primeiro acesso, por mim tudo bem.

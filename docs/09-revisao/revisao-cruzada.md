@@ -50,7 +50,7 @@ Revisor: Arthur Mamedes Borges (issue #16) · Data: 20/10/2026
 | A-07 | Respostas `QUE-1` e `QUE-2` registradas no modelo oficial de `questionario.md` (seções 0 a 6), mantendo o conteúdo já respondido; síntese dos questionários atualizada com as novas referências e com a tabela de importância das funcionalidades (resolve a antiga pendência P-02). |
 | A-08 | Captura final do Kanban adicionada em `docs/01-planejamento/kanban-final.png`, com as 17 issues concluídas (resolve a antiga pendência P-06). |
 | A-09 | Aviso de rascunho das transcrições `ENT-1` e `ENT-2` substituído por nota de persona fictícia, após conferência das perguntas com o roteiro. |
-| A-10 | Escopo do enunciado registrado como fonte `ESC` ([escopo.md](../00-escopo/escopo.md)); criado o requisito `RF-34` (avaliadores externos), que cobre as partes interessadas externas do escopo, e adicionada à matriz a conferência de cobertura do escopo (resolve a antiga pendência P-04). |
+| A-10 | Incluído o escopo do enunciado como fonte `ESC` ([escopo.md](../00-escopo/escopo.md)) e criado o `RF-34` para os avaliadores externos. A matriz ganhou a conferência de cobertura do escopo (resolve a antiga pendência P-04). |
 
 ## 4. Pendências registradas
 

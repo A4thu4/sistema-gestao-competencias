@@ -1,20 +1,27 @@
 # DOC-1: Lei Geral de Proteção de Dados (Lei nº 13.709/2018)
 
 ## 1. Descrição
-Este documento mapeia as exigências da LGPD aplicáveis ao **Sistema de Gestão de Competências**, com foco no tratamento de dados pessoais e organizacionais (como avaliações de desempenho, dados de identificação e feedbacks do modelo 360º).
 
-## 2. Artigos Aplicáveis e Requisitos Derivados
+Pontos da LGPD que se aplicam ao Sistema de Gestão de Competências. O sistema trata dados pessoais dos colaboradores (identificação, avaliações de desempenho e comentários das avaliações 360º), então a lei afeta principalmente consentimento, anonimato, acesso e segurança.
 
-### 2.1. Gestão de Consentimento e Transparência (Art. 7º e Art. 8º)
-*   **Requisito Funcional:** O sistema deve apresentar um Termo de Consentimento claro no primeiro acesso do usuário (seja avaliador ou avaliado), detalhando a finalidade da coleta de dados para gestão de RH.
-*   **Requisito Funcional:** O titular dos dados deve ter a opção de gerenciar seu consentimento e, caso permitido pelas políticas da empresa, solicitar a exclusão de seus dados pessoais.
+## 2. Artigos aplicáveis e requisitos derivados
 
-### 2.2. Anonimato e Sigilo nas Avaliações (Art. 6º, Inciso III - Princípio da Necessidade/Minimização)
-*   **Requisito Funcional:** Para garantir a integridade do processo de Avaliação 360º, os resultados apresentados em relatórios e dashboards devem ser agregados e anonimizados. O avaliado não deve conseguir identificar quem aplicou notas específicas (pares ou subordinados).
+### 2.1. Consentimento e transparência (arts. 7º e 8º)
 
-### 2.3. Controle de Acesso e Perfis (Art. 46)
-*   **Requisito de Segurança:** O sistema deve implementar um controle de acesso baseado em papéis (RBAC). Exemplo: Administrador/RH, Gestor e Colaborador.
-*   **Requisito Não Funcional:** A visibilidade dos dados deve ser estritamente controlada; um gestor deve ter acesso apenas aos relatórios de sua equipe direta.
+- O termo de consentimento deve aparecer no primeiro acesso de qualquer usuário, avaliador ou avaliado, explicando para que os dados serão usados na gestão de RH.
+- O titular deve conseguir consultar o consentimento que deu e, se a política da empresa permitir, pedir a exclusão dos seus dados.
 
-### 2.4. Segurança e Criptografia (Art. 46)
-*   **Requisito Não Funcional:** Todos os dados pessoais e resultados de avaliações devem ser armazenados de forma segura e o tráfego na aplicação web deve utilizar protocolos criptografados (HTTPS/TLS).
+### 2.2. Anonimato e necessidade (art. 6º, inciso III)
+
+- Nos relatórios e painéis da avaliação 360º, as notas de pares e subordinados aparecem só agregadas. O avaliado não pode descobrir quem deu cada nota.
+- Pelo princípio da necessidade, o sistema só deve coletar os dados realmente usados na avaliação.
+
+### 2.3. Controle de acesso por perfil (art. 46)
+
+- Cada perfil (RH/administrador, gestor e colaborador) tem permissões diferentes.
+- O gestor só acessa os relatórios da própria equipe direta.
+
+### 2.4. Segurança e criptografia (art. 46)
+
+- Dados pessoais e resultados das avaliações ficam armazenados de forma protegida, e o acesso à aplicação é feito por HTTPS/TLS.
+- Acessos aos resultados devem ficar registrados, para que seja possível saber quem consultou o quê.

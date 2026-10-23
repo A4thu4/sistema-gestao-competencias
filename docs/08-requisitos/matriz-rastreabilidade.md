@@ -23,49 +23,49 @@ Responsável: José Eduardo
 |-----------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|---------------|
 | RF-01 | X |  |  |  | X |  |  |  | D-05 |
 | RF-02 | X |  |  |  | X |  |  |  | D-05 |
-| RF-03 | X |  |  |  | X |  | X |  | — |
+| RF-03 | X |  |  |  | X |  | X |  | - |
 | RF-04 | X |  |  | X | X |  |  |  | D-07 |
-| RF-05 | X |  | X |  | X |  |  |  | — |
-| RF-06 |  |  |  | X |  |  |  |  | — |
-| RF-07 | X |  |  |  | X |  |  |  | — |
+| RF-05 | X |  | X |  | X |  |  |  | - |
+| RF-06 |  |  |  | X |  |  |  |  | - |
+| RF-07 | X |  |  |  | X |  |  |  | - |
 | RF-08 | X | X | X | X |  |  |  |  | D-06 |
 | RF-09 | X |  |  |  |  |  |  |  | D-04 |
 | RF-10 |  | X |  |  |  |  |  |  | D-06 |
-| RF-11 |  |  |  |  | X |  |  |  | — |
+| RF-11 |  |  |  |  | X |  |  |  | - |
 | RF-12 | X |  | X | X | X |  |  |  | D-04 |
 | RF-13 | X |  |  | X |  |  |  |  | D-04 |
-| RF-14 |  | X | X |  |  |  |  |  | — |
+| RF-14 |  | X | X |  |  |  |  |  | - |
 | RF-15 |  | X |  |  |  |  | X |  | D-02 |
-| RF-16 |  | X |  |  |  |  | X |  | — |
+| RF-16 |  | X |  |  |  |  | X |  | - |
 | RF-17 |  | X |  |  |  |  |  |  | D-08 |
 | RF-18 |  | X | X | X |  |  |  |  | D-08 |
 | RF-19 | X |  |  |  | X |  | X |  | D-01, D-09 |
 | RF-20 | X | X | X |  | X |  |  |  | D-09 |
 | RF-21 | X | X |  | X | X |  |  |  | D-09 |
-| RF-22 |  | X | X |  |  |  |  |  | — |
-| RF-23 | X |  |  | X | X |  |  |  | — |
+| RF-22 |  | X | X |  |  |  |  |  | - |
+| RF-23 | X |  |  | X | X |  |  |  | - |
 | RF-24 |  |  | X |  |  |  |  |  | D-11 |
 | RF-25 |  |  | X | X |  |  |  |  | D-11 |
 | RF-26 | X |  | X | X | X |  |  |  | D-08 |
 | RF-27 | X | X | X | X | X |  |  |  | D-10 |
 | RF-28 | X | X | X | X |  |  |  |  | D-10 |
-| RF-29 | X |  | X | X |  | X |  |  | — |
-| RF-30 |  |  |  |  |  | X |  |  | — |
-| RF-31 |  | X |  |  |  |  |  |  | — |
-| RF-32 |  | X |  |  |  |  |  |  | — |
+| RF-29 | X |  | X | X |  | X |  |  | - |
+| RF-30 |  |  |  |  |  | X |  |  | - |
+| RF-31 |  | X |  |  |  |  |  |  | - |
+| RF-32 |  | X |  |  |  |  |  |  | - |
 | RF-33 | X | X |  |  | X | X |  |  | D-03 |
 | RF-34 |  |  |  |  |  |  |  | X | D-06 |
 | RNF-01 | X | X | X | X | X | X |  |  | D-06 |
-| RNF-02 | X |  |  |  | X |  |  |  | — |
+| RNF-02 | X |  |  |  | X |  |  |  | - |
 | RNF-03 | X | X |  |  |  | X | X |  | D-03 |
 | RNF-04 | X |  |  |  |  | X |  |  | D-03 |
-| RNF-05 | X | X |  |  |  | X |  |  | — |
-| RNF-06 |  |  |  |  |  | X |  |  | — |
-| RNF-07 | X | X | X | X |  |  | X |  | — |
+| RNF-05 | X | X |  |  |  | X |  |  | - |
+| RNF-06 |  |  |  |  |  | X |  |  | - |
+| RNF-07 | X | X | X | X |  |  | X |  | - |
 | RNF-08 | X | X | X | X |  |  |  |  | D-12 |
-| RNF-09 |  |  | X |  |  |  |  |  | — |
-| RNF-10 |  |  |  |  | X |  |  |  | — |
-| RNF-11 | X |  |  |  |  |  | X |  | — |
+| RNF-09 |  |  | X |  |  |  |  |  | - |
+| RNF-10 |  |  |  |  | X |  |  |  | - |
+| RNF-11 | X |  |  |  |  |  | X |  | - |
 | RNF-12 |  |  |  |  |  |  | X |  | D-02 |
 | RNF-13 | X |  |  |  |  |  | X |  | D-05 |
 | **Total** | **28** | **20** | **17** | **16** | **18** | **8** | **9** | **1** | |
@@ -145,7 +145,7 @@ Itens das sínteses que deram origem a cada requisito, para rastrear até o trec
 
 ## 4. Cobertura do escopo do enunciado
 
-Conferência de que cada funcionalidade mínima e cada restrição do [escopo](../00-escopo/escopo.md) tem requisito correspondente. A coluna `ESC` da matriz só é marcada quando o escopo é a única origem do requisito (`RF-34`); nos demais casos o item do escopo foi confirmado pelas fontes de elicitação.
+Confere se cada funcionalidade mínima e cada restrição do [escopo](../00-escopo/escopo.md) tem requisito. A coluna `ESC` da matriz só foi marcada no `RF-34`, que veio apenas do escopo; os outros itens do escopo apareceram também nas entrevistas, nos questionários ou nas outras fontes.
 
 | Item do escopo | Requisitos que o atendem |
 |----------------|--------------------------|

@@ -19,46 +19,46 @@
 
 **Entrevistador:** Carlos, conte qual é o seu papel e como é a sua relação com a avaliação da equipe.
 
-**Carlos:** Coordeno uma equipe de 12 pessoas de desenvolvimento e suporte. Todo fim de ano eu preciso avaliar cada uma delas e também sou avaliado pelo meu diretor.
+**Carlos:** Eu coordeno uma equipe de 12 pessoas, entre desenvolvimento e suporte. Todo fim de ano tenho que avaliar cada uma delas e, ao mesmo tempo, sou avaliado pelo meu diretor.
 
 **Entrevistador:** Como é esse processo para você, como gestor?
 
-**Carlos:** Cansativo. Recebo uma planilha enorme, com mais de 30 competências por pessoa, e preciso preencher para 12 pessoas em um prazo curto. Acabo avaliando com base no que lembro dos últimos dois ou três meses, não do ano inteiro. Isso é injusto com quem entregou bem no início do ano.
+**Carlos:** Cansativo, pra ser sincero. Chega uma planilha enorme, com mais de 30 competências por pessoa, e eu tenho que preencher pras 12 num prazo curto. No fim eu acabo avaliando pelo que lembro dos últimos dois, três meses, não do ano todo. E isso é injusto com quem foi muito bem no começo do ano.
 
 **Entrevistador:** O que ajudaria a resolver isso?
 
-**Carlos:** Poder registrar observações ao longo do ano. Um tipo de caderno onde eu anoto um ponto positivo ou um ponto de melhoria quando acontece, e na hora da avaliação essas anotações aparecem para me ajudar. Também gostaria de ver a avaliação do ciclo anterior da pessoa no momento de avaliar, para comparar.
+**Carlos:** Se eu pudesse ir anotando durante o ano... Tipo um caderninho: aconteceu alguma coisa boa ou alguma coisa pra melhorar, eu registro ali, e na hora de avaliar essas anotações aparecem pra mim. E ver a avaliação do ano anterior da pessoa na hora de avaliar também ajudaria, pra comparar.
 
 **Entrevistador:** Qual é a sua opinião sobre a avaliação feita pelos colegas e pela equipe?
 
-**Carlos:** Acho valiosa, porque eu não vejo tudo. Uma pessoa pode ser ótima comigo e difícil com os colegas, e eu só descubro assim. Mas tem risco: se os avaliadores forem escolhidos errado, vira disputa. Então eu acho que o RH ou o gestor deve definir quem avalia quem, e não o próprio avaliado.
+**Carlos:** Acho que vale muito, porque eu não vejo tudo. A pessoa pode ser ótima comigo e complicada com os colegas, e eu só fico sabendo assim. Só que tem um risco: se escolherem mal quem avalia, vira briga. Por isso eu acho que quem define os avaliadores tem que ser o RH ou o gestor, e não a própria pessoa avaliada.
 
 **Entrevistador:** E sobre o anonimato?
 
-**Carlos:** Para quem avalia, sim, anonimato total. Mas o resultado não pode ser só uma nota. Os comentários escritos são o que mais me ajuda a orientar a pessoa. Então o sistema tem que mostrar os comentários sem expor o autor, e talvez permitir que o RH remova um comentário ofensivo.
+**Carlos:** Pra quem avalia, anonimato total. Mas o resultado não pode ser só número. O que mais me ajuda a orientar alguém são os comentários escritos. Então tem que mostrar os comentários sem dizer quem escreveu, e talvez o RH poder tirar algum comentário ofensivo, porque sempre aparece um.
 
 **Entrevistador:** Como você gostaria de ver os resultados da sua equipe?
 
-**Carlos:** Uma visão geral da equipe, com as médias por competência, para eu ver onde o grupo todo está fraco. Depois, o detalhe de cada pessoa. E gráficos, porque tabela cheia de número ninguém lê. Também preciso comparar a avaliação que eu dei com a autoavaliação da pessoa, porque a conversa de feedback nasce dessa diferença.
+**Carlos:** Primeiro uma visão da equipe toda, com as médias por competência, pra eu ver onde o grupo está mais fraco. Depois o detalhe de cada um. E com gráfico, porque tabela cheia de número ninguém lê. Ah, e comparar a nota que eu dei com a autoavaliação da pessoa. A conversa de feedback sai justamente dessa diferença.
 
 **Entrevistador:** O que acontece depois da avaliação?
 
-**Carlos:** Hoje, quase nada. Eu tenho a conversa de feedback e ela fica na memória. Gostaria de registrar no sistema o que combinamos, como metas e cursos, e ser lembrado de acompanhar isso. Assim a avaliação vira acompanhamento e não só um formulário de fim de ano.
+**Carlos:** Hoje quase nada. Tem a conversa de feedback e fica na memória. Eu queria registrar no sistema o que a gente combinou, meta, curso, essas coisas, e ser lembrado de acompanhar. Aí a avaliação vira acompanhamento de verdade, e não só um formulário de fim de ano.
 
 **Entrevistador:** Você acha importante controlar quem pode alterar uma avaliação depois de enviada?
 
-**Carlos:** Sim. Depois de enviada, ninguém deveria mudar, nem eu. Se houver um erro, o RH reabre e fica registrado quem reabriu e por quê. Se não houver esse controle, perde a credibilidade.
+**Carlos:** Acho. Mandou, ninguém mexe mais, nem eu. Se tiver algum erro, o RH reabre e fica registrado quem reabriu e por quê. Sem isso a avaliação perde a credibilidade.
 
 **Entrevistador:** O acesso deveria ser como?
 
-**Carlos:** Eu vejo só a minha equipe. Não faz sentido eu ver a avaliação de outra área. E o colaborador vê somente a dele. O acesso deve ser com login individual, e se a empresa usa conta corporativa, seria bom entrar com a mesma conta, sem criar mais uma senha.
+**Carlos:** Eu vejo só a minha equipe, não faz sentido eu ver avaliação de outra área. E o colaborador vê só a dele. Login individual, cada um com o seu. E se der pra entrar com a conta corporativa da empresa, melhor ainda, que ninguém aguenta mais uma senha.
 
 **Entrevistador:** Existe algum requisito de uso prático?
 
-**Carlos:** Salvar o progresso. Se eu estou no meio da avaliação e preciso parar, não posso perder o que preenchi. E avisar quando eu esquecer algum campo obrigatório, em vez de dar erro só no fim. Também seria bom o sistema funcionar no celular para o pessoal do suporte.
+**Carlos:** Salvar o que eu já fiz. Se eu estou no meio e preciso parar, não posso perder o que preenchi. E avisar na hora quando eu esquecer algum campo obrigatório, e não dar erro só no final. Também seria bom funcionar no celular, por causa do pessoal do suporte.
 
 **Entrevistador:** Algo mais que você gostaria de acrescentar?
 
-**Carlos:** Que seja simples. Se o preenchimento for pesado, ninguém usa. Se der para fazer a avaliação de uma pessoa em dez minutos, está ótimo.
+**Carlos:** Só que seja simples. Se for pesado de preencher, ninguém usa. Se der pra avaliar uma pessoa em uns dez minutos, pra mim está ótimo.
 
-**Entrevistador:** Obrigado, Carlos.
+**Entrevistador:** Beleza. Obrigado, Carlos.

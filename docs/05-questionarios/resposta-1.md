@@ -171,12 +171,12 @@
 
 **6.1** Qual é a maior dificuldade que você enfrenta hoje com avaliações de desempenho ou de competências?
 
-Eu não sei em que critérios estou sendo avaliada e só recebo o resultado semanas depois, numa conversa rápida. Também não sei quem mais pode ter visto minhas respostas.
+Não sei direito em quais critérios sou avaliada, e o resultado só chega semanas depois, numa conversa rápida. Também não sei quem mais viu as minhas respostas.
 
 **6.2** Que funcionalidade um sistema de avaliação de competências precisa ter para que você o use de verdade?
 
-Ver o meu resultado detalhado por competência, com gráfico e com os comentários, e acompanhar as minhas metas de desenvolvimento com prazos e lembretes por e-mail. A avaliação completa não pode passar de uns 15 minutos.
+Ver meu resultado por competência, com gráfico e os comentários. E acompanhar minhas metas, com prazo e lembrete no e-mail. Ah, e não pode demorar mais que uns 15 minutos pra responder tudo.
 
 **6.3** Algum comentário ou sugestão adicional?
 
-Poder salvar a avaliação e continuar depois, ver o histórico dos meus resultados de anos anteriores e receber um aviso quando o resultado estiver liberado para mim. Se houver um termo sobre o uso dos meus dados no primeiro acesso, que seja claro e escrito de forma simples.
+Salvar e continuar depois. Ver meus resultados dos anos anteriores. Receber um aviso quando o meu resultado sair. E se tiver termo sobre os dados no primeiro acesso, que seja escrito de um jeito simples, sem juridiquês.
