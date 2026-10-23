@@ -4,7 +4,8 @@ Sistema web para avaliação de competências (chefe–colaborador, por pares e 
 
 Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
-- **Etapa atual:** 1ª, Levantamento de Requisitos (entrega final em 21/10), concluída com 47 requisitos rastreados
+- **Etapa atual:** Marco 4, Modelagem e especificação (22/10 a 19/11)
+- **1ª etapa:** Levantamento de Requisitos, entregue em 21/10 com 47 requisitos rastreados
 - **Sistema análogo escolhido:** SurveyMonkey
 - **Kanban:** [GitHub Project](https://github.com/users/A4thu4/projects/6)
 
@@ -34,7 +35,19 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Revisão cruzada (validação)                           | [docs/09-revisao](docs/09-revisao)                         |
 | Termos de consentimento                               | [docs/anexos](docs/anexos)                                 |
 
-### Atalhos para impressão
+## Artefatos do Marco 4 (entrega em 19/11)
+
+| Entregável | Local | Responsável | Issue |
+|------------|-------|-------------|-------|
+| Documento Visão (Larman, cap. 7) | [docs/10-documento-visao](docs/10-documento-visao) | Arthur Mamedes Borges | #24 |
+| Atores e diagrama de casos de uso (Larman, cap. 6) | [docs/11-casos-de-uso](docs/11-casos-de-uso) | Arthur Mamedes Borges | #25 |
+| Casos de uso completos, 1 por integrante | [docs/11-casos-de-uso](docs/11-casos-de-uso) | A definir | #26 a #30 |
+| Casos de uso resumidos | [docs/11-casos-de-uso](docs/11-casos-de-uso) | A definir | #31 |
+| Protótipos das telas (Figma) | [docs/12-prototipos](docs/12-prototipos) | A definir | #32 |
+| Especificação de Requisitos (IEEE 830) | [docs/13-especificacao-requisitos](docs/13-especificacao-requisitos) | A definir | #33 |
+| Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | A definir | #34 |
+
+### Atalhos para impressão (1ª etapa)
 
 - [Versão para impressão em PDF](docs/impressao/entrega-etapa1.pdf) (todos os artefatos em um arquivo só)
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
@@ -50,7 +63,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 1       | 07/10 | Kanban e processo de requisitos publicados; sistema análogo registrado        | Concluído |
 | Marco 2       | 14/10 | Entrevistas e questionários concluídos (versão preliminar); BPMN em rascunho  | Concluído |
 | Marco 3       | 20/10 | Todos os artefatos versionados e revisados                                    | Concluído |
-| Entrega final | 21/10 | Envio do link do repositório e artefatos impressos                            | Em andamento |
+| Entrega final | 21/10 | Envio do link do repositório e artefatos impressos                            | Concluído |
+| Marco 4.1     | 29/10 | Documento Visão e diagrama de casos de uso                                    | Em andamento |
+| Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | A fazer   |
+| Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | A fazer   |
+| Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | A fazer   |
 
 ## Convenções
 
@@ -68,5 +85,8 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Item de síntese         | `SE-NN`, `SQ-NN`, `SA-NN` | `SE-01` |
 | Pesquisa documental     | `DOC-N`  | `DOC-1`  |
 | Escopo do enunciado     | `ESC §N.N` | `ESC §2.2` |
+| Característica (Visão)  | `CAR-NN` | `CAR-01` |
+| Caso de uso             | `UC-NN`  | `UC-03`  |
+| Tela do protótipo       | `TL-NN`  | `TL-08`  |
 
 **Dados pessoais:** nome, função e telefone de entrevistados e respondentes ficam apenas nos arquivos de transcrição e de respostas, nunca em READMEs, issues ou mensagens de commit.
