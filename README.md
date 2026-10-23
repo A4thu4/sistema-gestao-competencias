@@ -19,26 +19,21 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14)                                             |
 | José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15)                                             |
 
-## Artefatos da 1ª etapa
-
-| Entregável                                            | Local                                                      |
-|-------------------------------------------------------|------------------------------------------------------------|
-| Escopo do produto (funcionalidades mínimas e restrições) | [docs/00-escopo](docs/00-escopo)                         |
-| Planejamento das atividades (Kanban)                  | [docs/01-planejamento](docs/01-planejamento)               |
-| Processo de requisitos adotado                        | [docs/02-processo-requisitos](docs/02-processo-requisitos) |
-| Pesquisa documental (leis e normas)                   | [docs/03-pesquisa-documental](docs/03-pesquisa-documental) |
-| Entrevistas e síntese dos requisitos                  | [docs/04-entrevistas](docs/04-entrevistas)                 |
-| Questionários preenchidos e síntese dos requisitos    | [docs/05-questionarios](docs/05-questionarios)             |
-| Síntese dos requisitos do sistema análogo             | [docs/06-sistema-analogo](docs/06-sistema-analogo)         |
-| BPMN do processo atual e dores                        | [docs/07-bpmn](docs/07-bpmn)                               |
-| Lista geral de requisitos e matriz de rastreabilidade | [docs/08-requisitos](docs/08-requisitos)                   |
-| Revisão cruzada (validação)                           | [docs/09-revisao](docs/09-revisao)                         |
-| Termos de consentimento                               | [docs/anexos](docs/anexos)                                 |
-
-## Artefatos do Marco 4 (entrega em 19/11)
+## Artefatos de entrega
 
 | Entregável | Local | Responsável | Issue |
 |------------|-------|-------------|-------|
+| Escopo do produto (funcionalidades mínimas e restrições) | [docs/00-escopo](docs/00-escopo) | Grupo | — |
+| Planejamento das atividades (Kanban) | [docs/01-planejamento](docs/01-planejamento) | Arthur Mamedes Borges | #2 |
+| Processo de requisitos adotado | [docs/02-processo-requisitos](docs/02-processo-requisitos) | Gabriel Araújo Caetano | #3 |
+| Pesquisa documental (leis e normas) | [docs/03-pesquisa-documental](docs/03-pesquisa-documental) | Lorenzo Oliveira Maciel | #4 |
+| Entrevistas e síntese dos requisitos | [docs/04-entrevistas](docs/04-entrevistas) | Gabriel Araújo Caetano | #7, #11 |
+| Questionários preenchidos e síntese dos requisitos | [docs/05-questionarios](docs/05-questionarios) | Gabriel Araújo Caetano | #9, #12 |
+| Síntese dos requisitos do sistema análogo | [docs/06-sistema-analogo](docs/06-sistema-analogo) | Lorenzo Oliveira Maciel | #10, #13 |
+| BPMN do processo atual e dores | [docs/07-bpmn](docs/07-bpmn) | Rikelmy Andrade | #8 |
+| Lista geral de requisitos e matriz de rastreabilidade | [docs/08-requisitos](docs/08-requisitos) | Rikelmy Andrade, José Eduardo | #14, #15 |
+| Revisão cruzada (validação) | [docs/09-revisao](docs/09-revisao) | Arthur Mamedes Borges | #16 |
+| Termos de consentimento | [docs/anexos](docs/anexos) | José Eduardo | #5 |
 | Documento Visão (Larman, cap. 7) | [docs/10-documento-visao](docs/10-documento-visao) | Arthur Mamedes Borges | #24 |
 | Atores e diagrama de casos de uso (Larman, cap. 6) | [docs/11-casos-de-uso](docs/11-casos-de-uso) | Arthur Mamedes Borges | #25 |
 | Casos de uso completos, 1 por integrante | [docs/11-casos-de-uso](docs/11-casos-de-uso) | A definir | #26 a #30 |
@@ -47,7 +42,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Especificação de Requisitos (IEEE 830) | [docs/13-especificacao-requisitos](docs/13-especificacao-requisitos) | A definir | #33 |
 | Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | A definir | #34 |
 
-### Atalhos para impressão (1ª etapa)
+### Atalhos para impressão
 
 - [Versão para impressão em PDF](docs/impressao/entrega-etapa1.pdf) (todos os artefatos em um arquivo só)
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
@@ -63,7 +58,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 1       | 07/10 | Kanban e processo de requisitos publicados; sistema análogo registrado        | Concluído |
 | Marco 2       | 14/10 | Entrevistas e questionários concluídos (versão preliminar); BPMN em rascunho  | Concluído |
 | Marco 3       | 20/10 | Todos os artefatos versionados e revisados                                    | Concluído |
-| Entrega final | 21/10 | Envio do link do repositório e artefatos impressos                            | Concluído |
+| 1ª entrega    | 21/10 | Envio do link do repositório e artefatos impressos                            | Concluído |
 | Marco 4.1     | 29/10 | Documento Visão e diagrama de casos de uso                                    | Em andamento |
 | Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | A fazer   |
 | Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | A fazer   |
