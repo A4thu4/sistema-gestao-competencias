@@ -55,29 +55,46 @@ Um sistema próprio elimina o retrabalho de consolidação, amplia as fontes de 
 
 | Parte interessada | Interesse |
 |-------------------|-----------|
-| _..._ | _..._ |
+| Diretoria da organização | Decisões de pessoas (promoção, treinamento, sucessão) baseadas em dados confiáveis e comparáveis entre equipes |
+| Encarregado de dados (DPO) | Tratamento de dados pessoais conforme a LGPD: consentimento, necessidade, direitos do titular e registro de acessos |
+| Equipe de TI | Sistema seguro, configurável pelo RH sem alteração de código e com login corporativo quando disponível |
 
 ### 3.2 Usuários
 
 | Usuário | Descrição | Responsabilidades no sistema |
 |---------|-----------|------------------------------|
-| _..._ | _..._ | _..._ |
+| RH (administrador) | Equipe de Recursos Humanos que organiza o processo de avaliação (`ENT-1`) | Manter o catálogo de competências e os questionários; criar e acompanhar ciclos; liberar resultados; moderar comentários e reabrir avaliações |
+| Gestor | Líder de equipe que avalia os subordinados e também é avaliado (`ENT-2`, `QUE-2`) | Avaliar a equipe; registrar observações ao longo do ano; acompanhar o ciclo e os resultados da equipe; conduzir o plano de desenvolvimento |
+| Colaborador | Pessoa avaliada, que também avalia colegas e o próprio líder (`QUE-1`) | Fazer a autoavaliação; avaliar pares e o líder; consultar os próprios resultados; registrar o progresso das metas |
+| Avaliador externo | Cliente, fornecedor ou parceiro convidado para um ciclo (`ESC §2.2`, `RF-34`) | Responder à avaliação por link individual, sem conta no sistema |
 
 ### 3.3 Ambiente do usuário
 
-_Onde e como os usuários acessam o sistema (dispositivos, frequência, restrições)._
+- Acesso pelo navegador, em computador, tablet ou celular (`RNF-07`); um aplicativo móvel é perspectiva futura (`R-01`).
+- Ciclos de avaliação periódicos (hoje anuais), com picos de acesso de toda a organização perto do encerramento (`RNF-11`).
+- Avaliadores sem treinamento: avaliar uma pessoa deve levar até 10 minutos e a autoavaliação até 15 minutos (`RNF-08`).
+- O preenchimento pode ser interrompido e retomado depois (`RF-14`).
 
 ### 3.4 Objetivos de alto nível e problemas das partes interessadas
 
 | Objetivo de alto nível | Prioridade | Problemas e preocupações | Soluções atuais |
 |------------------------|------------|--------------------------|-----------------|
-| _..._ | Alta | _..._ | _..._ |
+| Reduzir o tempo de fechamento do ciclo | Alta | Consolidação manual de cerca de três semanas e planilhas com erros (`D-01`, `D-02`) | RH junta as planilhas e confere uma a uma |
+| Obter feedback de várias fontes com honestidade | Alta | Só o chefe avalia; sem anonimato as pessoas não são francas (`D-06`) | Nenhuma |
+| Proteger os dados pessoais | Alta | Planilhas encaminhadas sem controle de acesso (`D-03`) | Envio por e-mail |
+| Tornar a avaliação justa e compreensível | Média | Escala interpretada de formas diferentes; colaborador não conhece os critérios (`D-07`, `D-11`) | Orientação verbal dos gestores |
+| Acompanhar a evolução das pessoas | Alta | Avaliação baseada na memória recente, sem histórico nem metas acompanhadas (`D-08`, `D-10`) | Anotações pessoais dos gestores |
+| Apoiar decisões com dados | Média | Sem painel por pessoa ou equipe nem comparação entre avaliações (`D-09`) | Planilha geral montada à mão |
 
 ### 3.5 Objetivos no nível do usuário
 
-> Estes objetivos são a base para identificar os casos de uso da [pasta 11](../11-casos-de-uso).
+Estes objetivos são a base para os [casos de uso](../11-casos-de-uso).
 
-- **_Usuário_:** _..._
+- **RH:** manter competências e questionários por cargo; criar ciclos de avaliação; acompanhar o andamento e cobrar pendências; liberar resultados; reabrir avaliações e moderar comentários; gerar relatórios.
+- **Gestor:** avaliar a equipe; registrar observações ao longo do ano; acompanhar o andamento da equipe no ciclo; consultar e exportar resultados da equipe; definir e acompanhar planos de desenvolvimento.
+- **Colaborador:** consultar critérios e escala; fazer a autoavaliação; avaliar pares e o líder; consultar os próprios resultados e a evolução; registrar o progresso das metas.
+- **Avaliador externo:** responder à avaliação para a qual foi convidado.
+- **Todos os usuários:** acessar o sistema com segurança; aceitar o termo de consentimento; consultar e exercer os direitos sobre os próprios dados.
 
 ## 4. Visão geral do produto
 
