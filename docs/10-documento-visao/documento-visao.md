@@ -1,10 +1,9 @@
 # Documento Visão — Sistema de Gestão de Competências
 
-> Modelo baseado no capítulo 7 do Larman. Substitua os trechos em _itálico_ e remova as dicas (`>`) ao concluir.
-
 | Versão | Data | Autor | Alteração |
 |--------|------|-------|-----------|
 | 0.1 | 22/10/2026 | Arthur Mamedes Borges | Estrutura inicial |
+| 1.0 | 01/11/2026 | Arthur Mamedes Borges | Primeira versão completa |
 
 ## 1. Introdução
 
@@ -100,33 +99,50 @@ Estes objetivos são a base para os [casos de uso](../11-casos-de-uso).
 
 ### 4.1 Perspectiva do produto
 
-_Como o sistema se relaciona com outros sistemas e serviços._
+Aplicação web independente, sem integração obrigatória com outros sistemas da organização. Depende de dois serviços externos:
+
+- **Serviço de e-mail:** convites, lembretes e notificações (`RF-12`, `RF-24`, `RF-28`, `RF-34`).
+- **Provedor de identidade corporativa (SSO):** login com a conta da empresa, quando disponível (`RF-32`).
+
+Toda a comunicação usa HTTPS e os dados são armazenados criptografados (`RNF-04`).
 
 ### 4.2 Resumo dos benefícios
 
 | Característica de suporte | Benefício para a parte interessada |
 |---------------------------|------------------------------------|
-| _..._ | _..._ |
+| Consolidação automática ao encerrar o ciclo | O RH fecha o ciclo sem as três semanas de trabalho manual |
+| Avaliação por várias fontes com anonimato | Feedback mais completo e honesto para o colaborador e o gestor |
+| Questionários e escala por cargo, com descrição dos níveis | Avaliações comparáveis e critérios conhecidos por todos |
+| Painéis, relatórios e histórico | Decisões de pessoas baseadas em dados e evolução visível ao longo do tempo |
+| Plano de desenvolvimento com lembretes | O feedback vira ação acompanhada, não um evento anual |
+| Perfis, consentimento e registro de acessos | Conformidade com a LGPD e menor risco de exposição de dados |
 
 ### 4.3 Custo e preço / licenciamento e instalação
 
-_Fora do escopo acadêmico ou descrever premissas (SaaS, hospedagem em nuvem)._
+Projeto acadêmico, sem modelo comercial definido. Premissa: aplicação hospedada em nuvem e acessada pelo navegador, sem instalação nos computadores dos usuários.
 
 ## 5. Resumo das características do sistema
 
 | ID | Característica | Requisitos relacionados |
 |----|----------------|-------------------------|
-| CAR-01 | _..._ | _..._ |
-
-> Agrupar os requisitos da [lista geral](../08-requisitos/lista-requisitos.md) em características de alto nível.
+| CAR-01 | Catálogo de competências e questionários personalizáveis por cargo | `RF-01` a `RF-07`, `RNF-13` |
+| CAR-02 | Ciclos de avaliação com várias fontes (chefe, autoavaliação, pares, 360º e externos) | `RF-08` a `RF-13`, `RF-34` |
+| CAR-03 | Preenchimento simples, com salvamento automático e apoio ao avaliador | `RF-14` a `RF-18`, `RNF-08` |
+| CAR-04 | Resultados consolidados, painéis e relatórios | `RF-19` a `RF-25`, `RNF-11`, `RNF-12` |
+| CAR-05 | Histórico e plano de desenvolvimento | `RF-26` a `RF-28` |
+| CAR-06 | Acesso por perfil, confidencialidade e LGPD | `RF-29` a `RF-33`, `RNF-01` a `RNF-06`, `RNF-09` |
 
 ## 6. Outros requisitos e restrições
 
 - `R-01` Plataforma web, com perspectiva de aplicativo móvel.
 - `R-02` Conformidade com a LGPD (Lei nº 13.709/2018).
-- Qualidade (ISO/IEC 25010): _..._
+- Qualidade (ISO/IEC 25010):
+  - **Segurança:** anonimato, visibilidade por perfil, criptografia e auditoria (`RNF-01` a `RNF-05`).
+  - **Usabilidade e portabilidade:** interface responsiva, tempo de preenchimento, linguagem simples e identidade visual (`RNF-07` a `RNF-10`).
+  - **Eficiência de desempenho:** carga do encerramento do ciclo (`RNF-11`).
+  - **Confiabilidade e manutenibilidade:** cálculos reproduzíveis e configuração sem código (`RNF-12`, `RNF-13`).
 
 ## 7. Documentação e referências
 
 - LARMAN, C. *Utilizando UML e Padrões*. Cap. 6 e 7.
-- Artefatos da 1ª etapa deste repositório.
+- Artefatos da 1ª etapa deste repositório: [escopo](../00-escopo/escopo.md), [pesquisa documental](../03-pesquisa-documental), sínteses de [entrevistas](../04-entrevistas/sintese.md), [questionários](../05-questionarios/sintese.md) e [sistema análogo](../06-sistema-analogo/sintese.md), [dores do BPMN](../07-bpmn/dores.md) e [lista de requisitos](../08-requisitos/lista-requisitos.md).
