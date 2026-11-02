@@ -10,9 +10,17 @@ Atores, diagrama e descrição dos casos de uso essenciais, no modelo do capítu
 
 ## Atores
 
-| Ator | Tipo (principal/suporte) | Descrição |
-|------|--------------------------|-----------|
-| _..._ | _..._ | _..._ |
+Identificados a partir dos usuários e serviços externos do [Documento Visão](../10-documento-visao/documento-visao.md) (seções 3.2 e 4.1).
+
+| Ator | Tipo | Descrição |
+|------|------|-----------|
+| Usuário | Principal (abstrato) | Qualquer pessoa com conta no sistema; generaliza RH, Gestor e Colaborador |
+| RH | Principal | Mantém competências e questionários, cria e acompanha ciclos, libera resultados e modera comentários |
+| Gestor | Principal | Avalia a equipe, registra observações, acompanha o ciclo e conduz o plano de desenvolvimento |
+| Colaborador | Principal | Faz a autoavaliação, avalia pares e o líder, consulta os próprios resultados e registra o progresso das metas |
+| Avaliador externo | Principal | Cliente, fornecedor ou parceiro que responde por link individual, sem conta (`RF-34`) |
+| Serviço de e-mail | Suporte | Envia convites, lembretes e notificações (`RF-12`, `RF-24`, `RF-28`) |
+| Provedor de identidade (SSO) | Suporte | Autentica com a conta corporativa, quando disponível (`RF-32`) |
 
 ## Casos de uso essenciais
 
