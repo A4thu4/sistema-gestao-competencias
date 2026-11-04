@@ -5,7 +5,8 @@ Atores, diagrama e descrição dos casos de uso essenciais, no modelo do capítu
 | Arquivo | Descrição | Status |
 |---------|-----------|--------|
 | modelo-caso-de-uso.md | Modelo do formato completo (*fully dressed*) | Concluído |
-| diagrama-casos-de-uso.* | Diagrama de casos de uso (fonte e imagem) | A fazer |
+| diagrama-casos-de-uso.puml | Fonte do diagrama (PlantUML) | Concluído |
+| diagrama-casos-de-uso.png | Diagrama exportado | Concluído |
 | UC-NN-*.md | Um arquivo por caso de uso completo | A fazer |
 
 ## Atores
@@ -56,9 +57,15 @@ Todos os 34 requisitos funcionais da [lista geral](../08-requisitos/lista-requis
 
 Os requisitos não funcionais transversais (`RNF-04`, `RNF-07`, `RNF-10`, `RNF-11`) valem para todos os casos de uso e não são ligados a um caso específico.
 
+## Diagrama de casos de uso
+
+![Diagrama de casos de uso](diagrama-casos-de-uso.png)
+
+Fonte em [diagrama-casos-de-uso.puml](diagrama-casos-de-uso.puml). Para regenerar a imagem: `java -jar plantuml.jar -tpng diagrama-casos-de-uso.puml`.
+
 ## Casos de uso resumidos
 
-> Um parágrafo por caso de uso (formato *brief* do Larman): cenário principal de sucesso em poucas frases.
+> Um parágrafo por caso de uso (formato *brief* do Larman): cenário principal de sucesso em poucas frases. A fazer na issue #31.
 
 ## Convenções
 
