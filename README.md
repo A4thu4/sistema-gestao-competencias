@@ -59,7 +59,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 2       | 14/10 | Entrevistas e questionários concluídos (versão preliminar); BPMN em rascunho  | Concluído |
 | Marco 3       | 20/10 | Todos os artefatos versionados e revisados                                    | Concluído |
 | 1ª entrega    | 21/10 | Envio do link do repositório e artefatos impressos                            | Concluído |
-| Marco 4.1     | 29/10 | Documento Visão e diagrama de casos de uso                                    | Em andamento |
+| Marco 4.1     | 29/10 | Documento Visão e diagrama de casos de uso                                    | Concluído |
 | Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | A fazer   |
 | Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | A fazer   |
 | Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | A fazer   |

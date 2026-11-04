@@ -1,0 +1,60 @@
+@startuml diagrama-casos-de-uso
+' Diagrama de casos de uso do Sistema de Gestão de Competências (Larman, cap. 6).
+' Gerar a imagem: java -jar plantuml.jar -tpng diagrama-casos-de-uso.puml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Usuário" as Usuario
+actor "RH" as RH
+actor "Gestor" as Gestor
+actor "Colaborador" as Colab
+actor "Avaliador externo" as Externo
+actor "Serviço de e-mail" as Email <<sistema>>
+actor "Provedor de\nidentidade (SSO)" as SSO <<sistema>>
+
+RH -|> Usuario
+Gestor -|> Usuario
+Colab -|> Usuario
+
+rectangle "Sistema de Gestão de Competências" {
+  usecase "UC-01 Gerenciar competências\ne questionários" as UC01
+  usecase "UC-02 Criar ciclo\nde avaliação" as UC02
+  usecase "UC-03 Responder\navaliação" as UC03
+  usecase "UC-04 Consultar resultados\nda avaliação" as UC04
+  usecase "UC-05 Gerenciar consentimento\ne dados pessoais" as UC05
+  usecase "UC-06 Gerenciar plano\nde desenvolvimento" as UC06
+  usecase "UC-07 Acompanhar andamento\ndo ciclo" as UC07
+  usecase "UC-08 Registrar observações\nsobre a equipe" as UC08
+  usecase "UC-09 Reabrir avaliação e\nmoderar comentários" as UC09
+  usecase "UC-10 Autenticar-se" as UC10
+}
+
+RH --> UC01
+RH --> UC02
+RH --> UC04
+RH --> UC07
+RH --> UC09
+
+Gestor --> UC03
+Gestor --> UC04
+Gestor --> UC06
+Gestor --> UC07
+Gestor --> UC08
+
+Colab --> UC03
+Colab --> UC04
+Colab --> UC06
+
+Externo --> UC03
+
+Usuario --> UC05
+Usuario --> UC10
+
+UC02 --> Email
+UC04 --> Email
+UC06 --> Email
+UC07 --> Email
+UC10 --> SSO
+
+@enduml
