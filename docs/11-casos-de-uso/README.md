@@ -31,7 +31,7 @@ Derivados dos objetivos no nível do usuário (seção 3.5 do Documento Visão),
 |----|-------------|----------------|---------|------------|-------------|
 | UC-01 | Gerenciar competências e questionários | RH | **Completo** | `RF-01` a `RF-07`, `RNF-13` | A definir |
 | UC-02 | Criar ciclo de avaliação | RH | **Completo** | `RF-08` a `RF-10`, `RF-12`, `RF-34` | A definir |
-| UC-03 | Responder avaliação | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | A definir |
+| UC-03 | [Responder avaliação](UC-03-responder-avaliacao.md) | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | Gabriel Araújo Caetano |
 | UC-04 | Consultar resultados da avaliação | Colaborador, Gestor, RH | **Completo** | `RF-19` a `RF-21`, `RF-23`, `RF-24`, `RF-26`, `RNF-02`, `RNF-03`, `RNF-12` | A definir |
 | UC-05 | Gerenciar consentimento e dados pessoais | Usuário | **Completo** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` | A definir |
 | UC-06 | Gerenciar plano de desenvolvimento | Gestor, Colaborador | Resumido | `RF-27`, `RF-28` | A definir |
