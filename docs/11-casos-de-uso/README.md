@@ -29,18 +29,18 @@ Derivados dos objetivos no nível do usuário (seção 3.5 do Documento Visão),
 
 | ID | Caso de uso | Ator principal | Formato | Requisitos | Responsável |
 |----|-------------|----------------|---------|------------|-------------|
-| UC-01 | Gerenciar competências e questionários | RH | **Completo** | `RF-01` a `RF-07`, `RNF-13` | A definir |
-| UC-02 | Criar ciclo de avaliação | RH | **Completo** | `RF-08` a `RF-10`, `RF-12`, `RF-34` | A definir |
+| UC-01 | Gerenciar competências e questionários | RH | **Completo** | `RF-01` a `RF-07`, `RNF-13` | José Eduardo |
+| UC-02 | Criar ciclo de avaliação | RH | **Completo** | `RF-08` a `RF-10`, `RF-12`, `RF-34` | Rikelmy Andrade |
 | UC-03 | [Responder avaliação](UC-03-responder-avaliacao.md) | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | Gabriel Araújo Caetano |
-| UC-04 | Consultar resultados da avaliação | Colaborador, Gestor, RH | **Completo** | `RF-19` a `RF-21`, `RF-23`, `RF-24`, `RF-26`, `RNF-02`, `RNF-03`, `RNF-12` | A definir |
-| UC-05 | Gerenciar consentimento e dados pessoais | Usuário | **Completo** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` | A definir |
+| UC-04 | Consultar resultados da avaliação | Colaborador, Gestor, RH | **Completo** | `RF-19` a `RF-21`, `RF-23`, `RF-24`, `RF-26`, `RNF-02`, `RNF-03`, `RNF-12` | Lorenzo Oliveira Maciel |
+| UC-05 | Gerenciar consentimento e dados pessoais | Usuário | **Completo** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` | Arthur Mamedes Borges |
 | UC-06 | Gerenciar plano de desenvolvimento | Gestor, Colaborador | Resumido | `RF-27`, `RF-28` | A definir |
 | UC-07 | Acompanhar andamento do ciclo | RH, Gestor | Resumido | `RF-12`, `RF-13` | A definir |
 | UC-08 | Registrar observações sobre a equipe | Gestor | Resumido | `RF-17` | A definir |
 | UC-09 | Reabrir avaliação e moderar comentários | RH | Resumido | `RF-16`, `RF-22`, `RNF-05` | A definir |
 | UC-10 | Autenticar-se | Usuário | Resumido | `RF-31` a `RF-33` | A definir |
 
-Os cinco casos completos (UC-01 a UC-05) cobrem as funcionalidades centrais do escopo; os resumidos (UC-06 a UC-10) completam a cobertura dos requisitos. A divisão dos casos completos entre os integrantes é feita nas issues #26 a #30.
+Os cinco casos completos (UC-01 a UC-05) cobrem as funcionalidades centrais do escopo; os resumidos (UC-06 a UC-10) completam a cobertura dos requisitos. Cada integrante escreve um caso completo: UC-01 na issue #26, UC-02 na #27, UC-03 na #28, UC-04 na #29 e UC-05 na #30.
 
 ### Cobertura dos requisitos funcionais
 
