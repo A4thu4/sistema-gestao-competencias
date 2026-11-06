@@ -65,7 +65,37 @@ Fonte em [diagrama-casos-de-uso.puml](diagrama-casos-de-uso.puml). Para regenera
 
 ## Casos de uso resumidos
 
-> Um parágrafo por caso de uso (formato *brief* do Larman): cenário principal de sucesso em poucas frases. A fazer na issue #31.
+Formato resumido (*brief*, Larman cap. 6): um parágrafo com o cenário principal de sucesso. Os casos completos (UC-01 a UC-05) ficam em arquivos próprios.
+
+### UC-06 Gerenciar plano de desenvolvimento
+
+**Ator principal:** Gestor, Colaborador · **Requisitos:** `RF-27`, `RF-28`
+
+Depois que o resultado do ciclo é liberado, o gestor abre o plano de desenvolvimento do colaborador e, junto com ele, registra as metas, cada uma ligada a uma competência (por exemplo, as de menor média no ciclo), com as ações previstas (como um curso), o prazo e a situação. O sistema salva o plano no histórico do colaborador. A cada trimestre, o sistema envia por e-mail um lembrete ao gestor e ao colaborador para revisarem as metas; o colaborador registra o progresso das ações, os dois atualizam a situação de cada meta e o sistema guarda a data de cada atualização.
+
+### UC-07 Acompanhar andamento do ciclo
+
+**Ator principal:** RH, Gestor · **Requisitos:** `RF-12`, `RF-13`
+
+Com um ciclo aberto, o RH acessa o painel de andamento e vê, para toda a organização, as avaliações respondidas e pendentes por avaliador; o gestor acessa o mesmo painel limitado à sua equipe direta. O usuário identifica quem ainda tem respostas pendentes e cobra esses avaliadores. Enquanto isso, o sistema envia por e-mail os lembretes automáticos aos pendentes antes do encerramento e atualiza o painel à medida que as respostas são enviadas.
+
+### UC-08 Registrar observações sobre a equipe
+
+**Ator principal:** Gestor · **Requisitos:** `RF-17`
+
+Ao longo do ano, sempre que presencia um fato relevante, o gestor seleciona um membro da sua equipe e registra uma observação, indicando se é um ponto positivo ou de melhoria e descrevendo o fato. O sistema grava a observação com a data e a mantém em uma lista cronológica por colaborador. Quando o gestor responde à avaliação desse colaborador (UC-03), o sistema exibe as observações do período para que a avaliação não dependa só da memória dos últimos meses.
+
+### UC-09 Reabrir avaliação e moderar comentários
+
+**Ator principal:** RH · **Requisitos:** `RF-16`, `RF-22`, `RNF-05`
+
+Um avaliador pede ao RH para corrigir uma avaliação que já enviou. O RH localiza a avaliação, informa o motivo e confirma a reabertura; o sistema volta a avaliação para preenchimento, permite que o avaliador a altere e envie de novo e registra a reabertura no log de auditoria (usuário, data, hora e motivo). Na moderação, o RH revisa os comentários das perguntas abertas de um ciclo, que aparecem sem a identificação do autor (`RNF-01`), oculta um comentário ofensivo informando o motivo e o sistema deixa de exibi-lo nos resultados, registrando também essa ação no log de auditoria.
+
+### UC-10 Autenticar-se
+
+**Ator principal:** Usuário · **Requisitos:** `RF-31` a `RF-33`
+
+O usuário acessa o sistema e informa suas credenciais individuais ou, quando o login corporativo está disponível, escolhe entrar com a conta da empresa e é redirecionado ao provedor de identidade (SSO). O sistema valida a autenticação, identifica o perfil do usuário (RH, gestor ou colaborador) e exibe a página inicial apenas com as funcionalidades permitidas a esse perfil. No primeiro acesso, antes da página inicial, o sistema apresenta o termo de consentimento (UC-05). O avaliador externo não passa por este caso de uso: ele responde pelo link individual recebido por e-mail (`RF-34`).
 
 ## Convenções
 
