@@ -9,7 +9,7 @@
 | **Nível** | Objetivo do usuário |
 | **Ator principal** | RH |
 | **Requisitos cobertos** | `RF-01` a `RF-07`, `RNF-13` |
-| **Telas relacionadas** | A definir (ver [protótipos](../12-prototipos)) |
+| **Telas relacionadas** | A definir na issue #32 (ver [protótipos](../12-prototipos)) |
 
 ## Interessados e interesses
 
