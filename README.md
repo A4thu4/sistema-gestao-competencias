@@ -36,8 +36,8 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Termos de consentimento | [docs/anexos](docs/anexos) | José Eduardo | #5 |
 | Documento Visão (Larman, cap. 7) | [docs/10-documento-visao](docs/10-documento-visao) | Arthur Mamedes Borges | #24 |
 | Atores e diagrama de casos de uso (Larman, cap. 6) | [docs/11-casos-de-uso](docs/11-casos-de-uso) | Arthur Mamedes Borges | #25 |
-| Casos de uso completos, 1 por integrante | [docs/11-casos-de-uso](docs/11-casos-de-uso) | José Eduardo (UC-01), Rikelmy Andrade (UC-02), Gabriel Araújo Caetano (UC-03), Lorenzo Oliveira Maciel (UC-04), Arthur Mamedes Borges (UC-05) | #26 a #30 |
-| Casos de uso resumidos | [docs/11-casos-de-uso](docs/11-casos-de-uso) | A definir | #31 |
+| Casos de uso completos, 1 por integrante | [docs/11-casos-de-uso](docs/11-casos-de-uso) | Todos (ver [tabela de responsáveis](docs/11-casos-de-uso/README.md#casos-de-uso-essenciais)) | #26 a #30 |
+| Casos de uso resumidos | [docs/11-casos-de-uso](docs/11-casos-de-uso) | Gabriel Araújo Caetano | #31 |
 | Protótipos das telas (Figma) | [docs/12-prototipos](docs/12-prototipos) | A definir | #32 |
 | Especificação de Requisitos (IEEE 830) | [docs/13-especificacao-requisitos](docs/13-especificacao-requisitos) | A definir | #33 |
 | Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | A definir | #34 |
@@ -60,7 +60,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 3       | 20/10 | Todos os artefatos versionados e revisados                                    | Concluído |
 | 1ª entrega    | 21/10 | Envio do link do repositório e artefatos impressos                            | Concluído |
 | Marco 4.1     | 29/10 | Documento Visão e diagrama de casos de uso                                    | Concluído |
-| Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | A fazer   |
+| Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | Em andamento |
 | Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | A fazer   |
 | Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | A fazer   |
 

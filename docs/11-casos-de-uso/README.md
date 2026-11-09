@@ -7,8 +7,7 @@ Atores, diagrama e descrição dos casos de uso essenciais, no modelo do capítu
 | modelo-caso-de-uso.md | Modelo do formato completo (*fully dressed*) | Concluído |
 | diagrama-casos-de-uso.puml | Fonte do diagrama (PlantUML) | Concluído |
 | diagrama-casos-de-uso.png | Diagrama exportado | Concluído |
-| [UC-05-gerenciar-consentimento.md](UC-05-gerenciar-consentimento.md) | UC-05 completo | Rascunho |
-| UC-NN-*.md | Demais casos de uso completos (UC-01 a UC-04) | A fazer |
+| UC-NN-*.md | Um arquivo por caso de uso completo | Em andamento (UC-01 e UC-03 concluídos) |
 
 ## Atores
 
@@ -30,9 +29,9 @@ Derivados dos objetivos no nível do usuário (seção 3.5 do Documento Visão),
 
 | ID | Caso de uso | Ator principal | Formato | Requisitos | Responsável |
 |----|-------------|----------------|---------|------------|-------------|
-| UC-01 | Gerenciar competências e questionários | RH | **Completo** | `RF-01` a `RF-07`, `RNF-13` | José Eduardo |
+| UC-01 | [Gerenciar competências e questionários](UC-01-gerenciar-competencias-questionarios.md) | RH | **Completo** | `RF-01` a `RF-07`, `RNF-13` | José Eduardo |
 | UC-02 | Criar ciclo de avaliação | RH | **Completo** | `RF-08` a `RF-10`, `RF-12`, `RF-34` | Rikelmy Andrade |
-| UC-03 | Responder avaliação | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | Gabriel Araújo Caetano |
+| UC-03 | [Responder avaliação](UC-03-responder-avaliacao.md) | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | Gabriel Araújo Caetano |
 | UC-04 | Consultar resultados da avaliação | Colaborador, Gestor, RH | **Completo** | `RF-19` a `RF-21`, `RF-23`, `RF-24`, `RF-26`, `RNF-02`, `RNF-03`, `RNF-12` | Lorenzo Oliveira Maciel |
 | UC-05 | Gerenciar consentimento e dados pessoais | Usuário | **Completo** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` | Arthur Mamedes Borges |
 | UC-06 | Gerenciar plano de desenvolvimento | Gestor, Colaborador | Resumido | `RF-27`, `RF-28` | A definir |
@@ -41,7 +40,7 @@ Derivados dos objetivos no nível do usuário (seção 3.5 do Documento Visão),
 | UC-09 | Reabrir avaliação e moderar comentários | RH | Resumido | `RF-16`, `RF-22`, `RNF-05` | A definir |
 | UC-10 | Autenticar-se | Usuário | Resumido | `RF-31` a `RF-33` | A definir |
 
-Os cinco casos completos (UC-01 a UC-05) cobrem as funcionalidades centrais do escopo; os resumidos (UC-06 a UC-10) completam a cobertura dos requisitos. A divisão dos casos completos entre os integrantes é feita nas issues #26 a #30.
+Os cinco casos completos (UC-01 a UC-05) cobrem as funcionalidades centrais do escopo; os resumidos (UC-06 a UC-10) completam a cobertura dos requisitos. Cada integrante escreve um caso completo: UC-01 na issue #26, UC-02 na #27, UC-03 na #28, UC-04 na #29 e UC-05 na #30.
 
 ### Cobertura dos requisitos funcionais
 
@@ -66,7 +65,37 @@ Fonte em [diagrama-casos-de-uso.puml](diagrama-casos-de-uso.puml). Para regenera
 
 ## Casos de uso resumidos
 
-> Um parágrafo por caso de uso (formato *brief* do Larman): cenário principal de sucesso em poucas frases. A fazer na issue #31.
+Formato resumido (*brief*, Larman cap. 6): um parágrafo com o cenário principal de sucesso. Os casos completos (UC-01 a UC-05) ficam em arquivos próprios.
+
+### UC-06 Gerenciar plano de desenvolvimento
+
+**Ator principal:** Gestor, Colaborador · **Requisitos:** `RF-27`, `RF-28`
+
+Depois que o resultado do ciclo é liberado, o gestor abre o plano de desenvolvimento do colaborador e, junto com ele, registra as metas, cada uma ligada a uma competência (por exemplo, as de menor média no ciclo), com as ações previstas (como um curso), o prazo e a situação. O sistema salva o plano no histórico do colaborador. A cada trimestre, o sistema envia por e-mail um lembrete ao gestor e ao colaborador para revisarem as metas; o colaborador registra o progresso das ações, os dois atualizam a situação de cada meta e o sistema guarda a data de cada atualização.
+
+### UC-07 Acompanhar andamento do ciclo
+
+**Ator principal:** RH, Gestor · **Requisitos:** `RF-12`, `RF-13`
+
+Com um ciclo aberto, o RH acessa o painel de andamento e vê, para toda a organização, as avaliações respondidas e pendentes por avaliador; o gestor acessa o mesmo painel limitado à sua equipe direta. O usuário identifica quem ainda tem respostas pendentes e cobra esses avaliadores. Enquanto isso, o sistema envia por e-mail os lembretes automáticos aos pendentes antes do encerramento e atualiza o painel à medida que as respostas são enviadas.
+
+### UC-08 Registrar observações sobre a equipe
+
+**Ator principal:** Gestor · **Requisitos:** `RF-17`
+
+Ao longo do ano, sempre que presencia um fato relevante, o gestor seleciona um membro da sua equipe e registra uma observação, indicando se é um ponto positivo ou de melhoria e descrevendo o fato. O sistema grava a observação com a data e a mantém em uma lista cronológica por colaborador. Quando o gestor responde à avaliação desse colaborador (UC-03), o sistema exibe as observações do período para que a avaliação não dependa só da memória dos últimos meses.
+
+### UC-09 Reabrir avaliação e moderar comentários
+
+**Ator principal:** RH · **Requisitos:** `RF-16`, `RF-22`, `RNF-05`
+
+Um avaliador pede ao RH para corrigir uma avaliação que já enviou. O RH localiza a avaliação, informa o motivo e confirma a reabertura; o sistema volta a avaliação para preenchimento, permite que o avaliador a altere e envie de novo e registra a reabertura no log de auditoria (usuário, data, hora e motivo). Na moderação, o RH revisa os comentários das perguntas abertas de um ciclo, que aparecem sem a identificação do autor (`RNF-01`), oculta um comentário ofensivo informando o motivo e o sistema deixa de exibi-lo nos resultados, registrando também essa ação no log de auditoria.
+
+### UC-10 Autenticar-se
+
+**Ator principal:** Usuário · **Requisitos:** `RF-31` a `RF-33`
+
+O usuário acessa o sistema e informa suas credenciais individuais ou, quando o login corporativo está disponível, escolhe entrar com a conta da empresa e é redirecionado ao provedor de identidade (SSO). O sistema valida a autenticação, identifica o perfil do usuário (RH, gestor ou colaborador) e exibe a página inicial apenas com as funcionalidades permitidas a esse perfil. No primeiro acesso, antes da página inicial, o sistema apresenta o termo de consentimento (UC-05). O avaliador externo não passa por este caso de uso: ele responde pelo link individual recebido por e-mail (`RF-34`).
 
 ## Convenções
 
