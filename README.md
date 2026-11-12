@@ -39,7 +39,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Casos de uso completos, 1 por integrante | [docs/11-casos-de-uso](docs/11-casos-de-uso) | José Eduardo (UC-01, UC-02), Gabriel Araújo Caetano (UC-03), Lorenzo Oliveira Maciel (UC-04), Arthur Mamedes Borges (UC-05) | #26 a #30 |
 | Casos de uso resumidos | [docs/11-casos-de-uso](docs/11-casos-de-uso) | Gabriel Araújo Caetano | #31 |
 | Protótipos das telas (Figma) | [docs/12-prototipos](docs/12-prototipos) | A definir | #32 |
-| Especificação de Requisitos (IEEE 830) | [docs/13-especificacao-requisitos](docs/13-especificacao-requisitos) | A definir | #33 |
+| Especificação de Requisitos (IEEE 830) | [docs/13-especificacao-requisitos](docs/13-especificacao-requisitos) | José Eduardo | #33 |
 | Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | A definir | #34 |
 
 ### Atalhos para impressão
