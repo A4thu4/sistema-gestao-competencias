@@ -9,7 +9,7 @@
 | **Nível** | Objetivo do usuário |
 | **Ator principal** | RH |
 | **Requisitos cobertos** | `RF-01` a `RF-07`, `RNF-13` |
-| **Telas relacionadas** | A definir na issue #32 (ver [protótipos](../12-prototipos)) |
+| **Telas relacionadas** | [TL-01](../12-prototipos/telas/TL-01-gerenciar-competencias.png) (ver [protótipos](../12-prototipos/README.md#telas)) |
 
 ## Interessados e interesses
 

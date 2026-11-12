@@ -7,7 +7,7 @@
 | **Nível** | Objetivo do usuário |
 | **Ator principal** | Avaliador: Gestor, Colaborador ou Avaliador externo |
 | **Requisitos cobertos** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` |
-| **Telas relacionadas** | A definir na issue #32 (ver [protótipos](../12-prototipos)) |
+| **Telas relacionadas** | [TL-03](../12-prototipos/telas/TL-03-responder-avaliacao.png) (ver [protótipos](../12-prototipos/README.md#telas)) |
 
 ## Interessados e interesses
 
