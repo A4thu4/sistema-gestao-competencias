@@ -214,25 +214,25 @@ Requisitos que não são de prioridade Alta: `RF-06`, `RF-07`, `RF-11`, `RF-17`,
 
 ### 3.1 Interfaces externas
 
-- **3.1.1 Interfaces de usuário:** interface web responsiva, para computador, tablet e celular (`RNF-07`). Os protótipos estão sendo feitos no Figma (issue #32); ver [protótipos](../12-prototipos). As áreas previstas e as regras de interface estão nas tabelas 3.1.1-a e 3.1.1-b.
+- **3.1.1 Interfaces de usuário:** interface web responsiva, para computador, tablet e celular (`RNF-07`). Os protótipos foram feitos no Figma (issue #32); ver [protótipos](../12-prototipos). As áreas da interface, com as telas prototipadas, e as regras de interface estão nas tabelas 3.1.1-a e 3.1.1-b.
 - **3.1.2 Interfaces de hardware:** nenhuma específica. O acesso é por navegador em computador, tablet ou celular, e a aplicação é hospedada em nuvem (S-05).
 - **3.1.3 Interfaces de software:** serviço de e-mail, provedor de identidade (SSO), navegadores e arquivos exportados, na tabela 3.1.3.
 - **3.1.4 Interfaces de comunicação:** HTTPS/TLS 1.2+ (`RNF-04`). O avaliador externo acessa por link individual enviado por e-mail (`RF-34`); o prazo de validade e a forma do link são decisões de projeto pendentes (`Q-03`).
 
-**Tabela 3.1.1-a — Áreas previstas da interface**, derivadas dos casos de uso; serão registradas com o identificador `TL-NN` quando os protótipos existirem (`Q-18`).
+**Tabela 3.1.1-a — Áreas da interface**, derivadas dos casos de uso, com a tela do protótipo. Os casos resumidos (UC-06 a UC-10) ainda não têm protótipo.
 
-| Área da interface | Caso de uso | Perfil |
-|-------------------|-------------|--------|
-| Competências e questionários | UC-01 | RH |
-| Ciclos de avaliação | UC-02 | RH |
-| Minhas avaliações e formulário de avaliação | UC-03 | Gestor, colaborador, avaliador externo (por link) |
-| Resultados: painel individual, relatórios e exportação | UC-04 | Colaborador, gestor, RH |
-| Termo de consentimento e "Meus dados" | UC-05 | Todos os perfis |
-| Plano de desenvolvimento | UC-06 | Gestor, colaborador |
-| Painel de andamento do ciclo | UC-07 | RH, gestor |
-| Observações sobre a equipe | UC-08 | Gestor |
-| Reabertura de avaliação e moderação de comentários | UC-09 | RH |
-| Entrada no sistema | UC-10 | Todos os perfis |
+| Área da interface | Caso de uso | Perfil | Tela |
+|-------------------|-------------|--------|------|
+| Competências e questionários | UC-01 | RH | TL-01 |
+| Ciclos de avaliação | UC-02 | RH | TL-02 |
+| Minhas avaliações e formulário de avaliação | UC-03 | Gestor, colaborador, avaliador externo (por link) | TL-03 |
+| Resultados: painel individual, relatórios e exportação | UC-04 | Colaborador, gestor, RH | TL-04 |
+| Termo de consentimento e "Meus dados" | UC-05 | Todos os perfis | TL-05 |
+| Plano de desenvolvimento | UC-06 | Gestor, colaborador | — |
+| Painel de andamento do ciclo | UC-07 | RH, gestor | — |
+| Observações sobre a equipe | UC-08 | Gestor | — |
+| Reabertura de avaliação e moderação de comentários | UC-09 | RH | — |
+| Entrada no sistema | UC-10 | Todos os perfis | — |
 
 **Tabela 3.1.1-b — Regras de interface** que valem para todas as telas.
 
@@ -480,7 +480,7 @@ Reúne as questões em aberto dos casos de uso e as lacunas encontradas ao escre
 | Q-15 | Duplicar o ciclo anterior (avaliados e avaliadores). `RF-07` cobre só questionários. | `RF-07`, `RF-08` | UC-02 | Em aberto. | Novo requisito, se o grupo concordar. |
 | Q-16 | Atributos não levantados: disponibilidade, cópia de segurança e recuperação, retenção de dados, protocolo do SSO e do serviço de e-mail. | Seção 3.1.3, 3.4 e 3.6.6 | ERS | Em aberto, para a 2ª etapa. | Novos requisitos não funcionais. |
 | Q-17 | Pendências da 1ª etapa: `P-03` (visão do colaborador sem cargo de gestão só vem do `QUE-1`) e `P-05` (14 requisitos com fonte única, entre eles `RF-34`, que vem só do escopo). | `RF-34` e outros | Revisão cruzada | Em aberto; **validar com usuários na 2ª etapa**. | — |
-| Q-18 | Protótipos das telas (issue #32) ainda não feitos; a seção 3.1.1 lista só as áreas previstas. | Seção 3.1.1 | Issue #32 | Pendente. | Preencher a seção 3.1.1 com os `TL-NN`. |
+| Q-18 | Protótipos das telas (issue #32) ainda não feitos; a seção 3.1.1 listava só as áreas previstas. | Seção 3.1.1 | Issue #32 | Resolvido: `TL-01` a `TL-05` na tabela 3.1.1-a. | Protótipos dos casos resumidos ficam para a próxima etapa. |
 | Q-19 | Confirmar se a IEEE 830 basta ou se a professora quer também a EOR. | Todo o documento | README da pasta 13 | **Depende da professora.** | Se necessário, criar `eor.md` nesta pasta. |
 
 ---
