@@ -46,8 +46,9 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 ### Atalhos para impressão
 
-- **Marco 4:** [versão para impressão em PDF](docs/impressao/entrega-marco4.pdf) · [Documento Visão](docs/10-documento-visao/documento-visao.md) · [casos de uso](docs/11-casos-de-uso/README.md) · [protótipos](docs/12-prototipos/README.md) · [ERS IEEE 830](docs/13-especificacao-requisitos/ers-ieee830.md) · [matriz vertical](docs/14-rastreabilidade/matriz-vertical.md) e [horizontal](docs/14-rastreabilidade/matriz-horizontal.md) · [revisão cruzada](docs/09-revisao/revisao-cruzada-marco4.md)
-- **1ª etapa:** [versão para impressão em PDF](docs/impressao/entrega-etapa1.pdf) (todos os artefatos em um arquivo só)
+- **Entrega completa (1ª etapa + Marco 4):** [versão para impressão em PDF](docs/impressao/entrega-completa.pdf)
+- **Marco 4:** [Documento Visão](docs/10-documento-visao/documento-visao.md) · [casos de uso](docs/11-casos-de-uso/README.md) · [protótipos](docs/12-prototipos/README.md) · [ERS IEEE 830](docs/13-especificacao-requisitos/ers-ieee830.md) · [matriz vertical](docs/14-rastreabilidade/matriz-vertical.md) e [horizontal](docs/14-rastreabilidade/matriz-horizontal.md) · [revisão cruzada](docs/09-revisao/revisao-cruzada-marco4.md)
+- **1ª etapa:** [versão entregue em 21/10](docs/impressao/entrega-etapa1.pdf)
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
 - [Matriz de rastreabilidade](docs/08-requisitos/matriz-rastreabilidade.md)
 - [Síntese das entrevistas](docs/04-entrevistas/sintese.md) · [Síntese dos questionários](docs/05-questionarios/sintese.md) · [Síntese do sistema análogo](docs/06-sistema-analogo/sintese.md)
