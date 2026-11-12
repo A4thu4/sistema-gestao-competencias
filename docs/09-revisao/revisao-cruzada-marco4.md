@@ -4,19 +4,19 @@ Revisão dos artefatos do Marco 4 antes da entrega de 19/11, conforme a etapa de
 
 Revisor: Arthur Mamedes Borges (issue #35) · Data: 12/11/2026
 
-O Arthur revisou os artefatos escritos pelos outros integrantes. Os artefatos escritos por ele foram conferidos com o mesmo checklist e aguardam a confirmação do revisor indicado.
+O Arthur revisou os artefatos escritos pelos outros integrantes. Os artefatos escritos por ele foram revisados pelo revisor indicado na tabela, com o mesmo checklist.
 
 ## 1. Artefatos revisados
 
 | Artefato | Autor | Revisor | Resultado | Data |
 |----------|-------|---------|-----------|------|
-| [Documento Visão](../10-documento-visao/documento-visao.md) e [diagrama de casos de uso](../11-casos-de-uso/diagrama-casos-de-uso.png) | Arthur Mamedes Borges | Lorenzo Oliveira Maciel | Conferido pelo autor; aguarda confirmação do revisor | 12/11/2026 |
+| [Documento Visão](../10-documento-visao/documento-visao.md) e [diagrama de casos de uso](../11-casos-de-uso/diagrama-casos-de-uso.png) | Arthur Mamedes Borges | Lorenzo Oliveira Maciel | Aprovado | 12/11/2026 |
 | [UC-01](../11-casos-de-uso/UC-01-gerenciar-competencias-questionarios.md) e [UC-02](../11-casos-de-uso/UC-02-criar-ciclo-avaliacao.md) | José Eduardo | Arthur Mamedes Borges | Aprovado, com pendências P-07 e P-08 | 12/11/2026 |
 | [UC-03](../11-casos-de-uso/UC-03-responder-avaliacao.md) e [casos resumidos UC-06 a UC-10](../11-casos-de-uso/README.md#casos-de-uso-resumidos) | Gabriel Araújo Caetano | Arthur Mamedes Borges | Aprovado, com pendência P-08 | 12/11/2026 |
 | [UC-04](../11-casos-de-uso/UC-04-consultar-resultados.md) | Lorenzo Oliveira Maciel | Arthur Mamedes Borges | Aprovado, com pendência P-08 | 12/11/2026 |
-| [UC-05](../11-casos-de-uso/UC-05-gerenciar-consentimento.md) | Arthur Mamedes Borges | José Eduardo | Conferido pelo autor; aguarda confirmação do revisor | 12/11/2026 |
+| [UC-05](../11-casos-de-uso/UC-05-gerenciar-consentimento.md) | Arthur Mamedes Borges | José Eduardo | Aprovado | 12/11/2026 |
 | [ERS (IEEE 830)](../13-especificacao-requisitos/ers-ieee830.md) | José Eduardo | Arthur Mamedes Borges | Aprovado, com pendência `Q-19` da ERS | 12/11/2026 |
-| [Matriz vertical](../14-rastreabilidade/matriz-vertical.md) e [horizontal](../14-rastreabilidade/matriz-horizontal.md) | Arthur Mamedes Borges | Rikelmy Andrade | Conferido pelo autor; aguarda confirmação do revisor | 12/11/2026 |
+| [Matriz vertical](../14-rastreabilidade/matriz-vertical.md) e [horizontal](../14-rastreabilidade/matriz-horizontal.md) | Arthur Mamedes Borges | Rikelmy Andrade | Aprovado | 12/11/2026 |
 | [Protótipos das telas](../12-prototipos) | Rikelmy Andrade | Arthur Mamedes Borges | Aprovado, com pendências P-11 a P-14 (levadas à 2ª etapa) | 12/11/2026 |
 
 Resultados possíveis: **Aprovado**, **Aprovado com pendência** (registrada em P-NN) ou **Ajustar** (ajuste registrado em A-NN depois de feito).
@@ -68,7 +68,7 @@ Identificadas na revisão dos PRs e na revisão cruzada. As justificadas seguem 
 
 | ID | Pendência | Artefato | Ação sugerida | Situação |
 |----|-----------|----------|---------------|----------|
-| P-06 | O enunciado pede ao menos 1 caso de uso completo por integrante; o Rikelmy Andrade não tem caso completo (José Eduardo escreveu o UC-01 e o UC-02). | Casos de uso | Rikelmy transformar um caso resumido (ex.: UC-07 ou UC-09) em completo, ou registrar a justificativa da divisão. | Aberta: decisão do grupo antes de 19/11. |
+| P-06 | O enunciado pede ao menos 1 caso de uso completo por integrante; o Rikelmy Andrade não tem caso completo (José Eduardo escreveu o UC-01 e o UC-02). | Casos de uso | Rikelmy transformar um caso resumido (ex.: UC-07 ou UC-09) em completo, ou registrar a justificativa da divisão. | Justificada: o grupo manteve a divisão; o José Eduardo ficou com o UC-01 e o UC-02, e o Rikelmy Andrade com os protótipos das telas. |
 | P-07 | O `RF-10` diz "RH ou gestor" definem os avaliadores, e o UC-02 adota só o RH (`Q-02` da ERS). | UC-02, `RF-10` | Decidir: incluir o gestor no UC-02 e no diagrama, ou ajustar o texto do `RF-10`. | Justificada: adotado só o RH no UC-02; ajuste do `RF-10` levado à 2ª etapa (`Q-02` da ERS). |
 | P-08 | A relação "externo" aparece no UC-02, UC-03 e UC-04, mas não no `RF-11`, `RF-19` e `RF-20`; o passo 10 do UC-01 não deixa o RH aplicar perguntas a externos; o externo não aceita o termo (`RF-29`) (`Q-03` da ERS). | UC-01 a UC-05, ERS | Decidir a regra do externo e ajustar os requisitos e o passo 10 do UC-01. | Justificada: regra adotada nos casos de uso (grupo próprio, mínimo de 3 respostas); ajuste dos requisitos levado à 2ª etapa (`Q-03` da ERS). |
 | P-10 | O diagrama de casos de uso não mostra o `<<extend>>` do UC-05 sobre o UC-10, registrado na matriz horizontal. | Diagrama | Opcional; decidir se entra no diagrama. | Justificada: não entra no diagrama; a relação fica registrada na matriz horizontal, como recomenda o Larman. |
