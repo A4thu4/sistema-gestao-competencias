@@ -1,6 +1,6 @@
 # Planejamento
 
-Planejamento das atividades da 1ª etapa em formato Kanban, mantido no GitHub Projects.
+Planejamento das atividades da 1ª etapa e do Marco 4 em formato Kanban, mantido no GitHub Projects.
 
 **Kanban:** [GitHub Project](https://github.com/users/A4thu4/projects/6)
 
@@ -35,4 +35,4 @@ Ordem de dependência: Visão → atores e diagrama → casos de uso → protót
 
 Responsáveis por issue: ver a tabela de artefatos no [README principal](../../README.md#artefatos-de-entrega).
 
-A captura do quadro do Marco 4 (`kanban-marco-4.png`) é feita depois do merge da organização final, com todas as issues #23 a #36 na coluna Concluído.
+O andamento das issues #23 a #36 pode ser conferido no [quadro do GitHub Project](https://github.com/users/A4thu4/projects/6).
