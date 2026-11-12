@@ -9,7 +9,7 @@
 | **Nível** | Objetivo do usuário |
 | **Ator principal** | Usuário (RH, Gestor ou Colaborador) |
 | **Requisitos cobertos** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` |
-| **Telas relacionadas** | A definir na issue #32 (ver [protótipos](../12-prototipos)) |
+| **Telas relacionadas** | [TL-05](../12-prototipos/telas/TL-05-gerenciar-consentimento.png) (ver [protótipos](../12-prototipos/README.md#telas)) |
 
 ## Interessados e interesses
 

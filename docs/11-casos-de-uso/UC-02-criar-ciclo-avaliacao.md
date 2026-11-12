@@ -10,7 +10,7 @@
 | **Ator principal** | RH |
 | **Atores de apoio** | Serviço de e-mail (sistema) |
 | **Requisitos cobertos** | `RF-08`, `RF-09`, `RF-10`, `RF-12` (convite na abertura), `RF-34`, `RNF-02` |
-| **Telas relacionadas** | A definir na issue #32 (ver [protótipos](../12-prototipos)) |
+| **Telas relacionadas** | [TL-02](../12-prototipos/telas/TL-02-criar-ciclo.png) (ver [protótipos](../12-prototipos/README.md#telas)) |
 
 ## Interessados e interesses
 

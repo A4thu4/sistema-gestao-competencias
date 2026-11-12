@@ -482,6 +482,7 @@ Reúne as questões em aberto dos casos de uso e as lacunas encontradas ao escre
 | Q-17 | Pendências da 1ª etapa: `P-03` (visão do colaborador sem cargo de gestão só vem do `QUE-1`) e `P-05` (14 requisitos com fonte única, entre eles `RF-34`, que vem só do escopo). | `RF-34` e outros | Revisão cruzada | Em aberto; **validar com usuários na 2ª etapa**. | — |
 | Q-18 | Protótipos das telas (issue #32) ainda não feitos; a seção 3.1.1 listava só as áreas previstas. | Seção 3.1.1 | Issue #32 | Resolvido: `TL-01` a `TL-05` na tabela 3.1.1-a. | Protótipos dos casos resumidos ficam para a próxima etapa. |
 | Q-19 | Confirmar se a IEEE 830 basta ou se a professora quer também a EOR. | Todo o documento | README da pasta 13 | **Depende da professora.** | Se necessário, criar `eor.md` nesta pasta. |
+| Q-20 | Ajustes dos protótipos apontados na revisão do Marco 4: `TL-04` sem as colunas de pares, subordinados e externos e com nota de "Adaptabilidade" inconsistente (`P-11`); `TL-05` sem os direitos do titular, o canal do encarregado e a área "Meus dados" (`P-12`); telas só na versão para computador (`P-13`); `TL-03` com o usuário do RH no cabeçalho (`P-14`). | `RF-20`, `RF-29`, `RF-30`, `RNF-02`, `RNF-07` | Revisão cruzada do Marco 4 | Em aberto, para a 2ª etapa. | Ajustar as telas no Figma e prototipar a versão para celular e tablet. |
 
 ---
 

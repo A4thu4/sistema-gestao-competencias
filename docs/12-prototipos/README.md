@@ -22,7 +22,7 @@ Protótipos das telas feitos no Figma, organizados por caso de uso.
 | TL-04 | Consultar resultados | [UC-04](../11-casos-de-uso/UC-04-consultar-resultados.md) | Colaborador, gestor, RH | `RF-20`, `RF-23`, `RNF-01`, `RNF-02` | Rikelmy Andrade |
 | TL-05 | Gerenciar consentimento | [UC-05](../11-casos-de-uso/UC-05-gerenciar-consentimento.md) | Todos os perfis | `RF-29`, `RNF-09` | Rikelmy Andrade |
 
-Os casos de uso resumidos (UC-06 a UC-10) não têm protótipo nesta etapa. A ligação completa entre requisitos, casos de uso e telas está na [matriz vertical](../14-rastreabilidade/matriz-vertical.md).
+Os casos de uso resumidos (UC-06 a UC-10) não têm protótipo nesta etapa. Os ajustes apontados na [revisão cruzada do Marco 4](../09-revisao/revisao-cruzada-marco4.md#4-pendências) (`P-11` a `P-14`, incluindo a versão para celular e tablet) ficam para a 2ª etapa (`Q-20` da [ERS](../13-especificacao-requisitos/ers-ieee830.md#apêndice-b--questões-em-aberto-e-alterações-propostas)). A ligação completa entre requisitos, casos de uso e telas está na [matriz vertical](../14-rastreabilidade/matriz-vertical.md).
 
 ## Convenções
 

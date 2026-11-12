@@ -7,7 +7,7 @@
 | **Nível** | Objetivo do usuário |
 | **Ator principal** | Colaborador, Gestor ou RH |
 | **Requisitos cobertos** | `RF-19` a `RF-24`, `RF-26`, `RNF-01` a `RNF-03`, `RNF-05`, `RNF-12` |
-| **Telas relacionadas** | A definir na issue #32 (ver [protótipos](../12-prototipos)) |
+| **Telas relacionadas** | [TL-04](../12-prototipos/telas/TL-04-consultar-resultados.png) (ver [protótipos](../12-prototipos/README.md#telas)) |
 
 ## Interessados e interesses
 
@@ -89,7 +89,7 @@ O usuário pode voltar ao passo 3 para consultar outra pessoa ou outro ciclo.
 - Navegador em computador, tablet ou celular.
 - Exportação em PDF ou em Excel (`RF-23`).
 - Escala de 1 a 5 ou de 1 a 10, conforme o questionário (`RF-04`).
-- Tipo de gráfico (barras, radar ou linhas de evolução) a definir nos protótipos (issue #32).
+- Gráfico radar do mapa de competências e tabela de notas por competência, conforme o protótipo `TL-04`; o gráfico de evolução entre ciclos (`RF-26`) ainda não foi prototipado.
 
 ## Frequência de ocorrência
 

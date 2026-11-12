@@ -1,6 +1,6 @@
 # Planejamento
 
-Planejamento das atividades da 1ª etapa em formato Kanban, mantido no GitHub Projects.
+Planejamento das atividades da 1ª etapa e do Marco 4 em formato Kanban, mantido no GitHub Projects.
 
 **Kanban:** [GitHub Project](https://github.com/users/A4thu4/projects/6)
 
@@ -33,4 +33,6 @@ Mesmo quadro e mesmas colunas. As issues #23 a #36 estão divididas em quatro mi
 
 Ordem de dependência: Visão → atores e diagrama → casos de uso → protótipos → ERS e matriz → revisão.
 
-Responsáveis: Arthur Mamedes Borges no Documento Visão (#24) e no diagrama de casos de uso (#25); demais atividades a definir.
+Responsáveis por issue: ver a tabela de artefatos no [README principal](../../README.md#artefatos-de-entrega).
+
+O andamento das issues #23 a #36 pode ser conferido no [quadro do GitHub Project](https://github.com/users/A4thu4/projects/6).
