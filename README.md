@@ -13,11 +13,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 | Nome                    | Papel                  | Contribuições (issues)                                                                                   |
 |-------------------------|------------------------|----------------------------------------------------------------------------------------------------------|
-| Arthur Mamedes Borges   | Gerente de Projeto     | Estrutura do repositório (#1), Kanban (#2), roteiro e questionário (#6), revisão cruzada (#16), documentação final (#17) |
-| Gabriel Araújo Caetano  | Analista de Requisitos | Processo de requisitos (#3), entrevistas (#7), aplicação dos questionários (#9), sínteses das entrevistas e dos questionários (#11, #12) |
-| Lorenzo Oliveira Maciel | Analista de Requisitos | Pesquisa documental LGPD e ISO/IEC 25010 (#4), funcionalidades do SurveyMonkey (#10), síntese do sistema análogo (#13) |
-| Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14)                                             |
-| José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15)                                             |
+| Arthur Mamedes Borges   | Gerente de Projeto     | Estrutura do repositório (#1), Kanban (#2), roteiro e questionário (#6), revisão cruzada (#16), documentação final (#17); Marco 4: Documento Visão (#24), diagrama de casos de uso (#25), UC-05 (#30), matrizes de rastreabilidade (#34), revisão cruzada (#35), organização final (#36) |
+| Gabriel Araújo Caetano  | Analista de Requisitos | Processo de requisitos (#3), entrevistas (#7), aplicação dos questionários (#9), sínteses das entrevistas e dos questionários (#11, #12); Marco 4: UC-03 (#28), casos de uso resumidos (#31) |
+| Lorenzo Oliveira Maciel | Analista de Requisitos | Pesquisa documental LGPD e ISO/IEC 25010 (#4), funcionalidades do SurveyMonkey (#10), síntese do sistema análogo (#13); Marco 4: UC-04 (#29) |
+| Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14); Marco 4: protótipos das telas (#32) |
+| José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15); Marco 4: UC-01 e UC-02 (#26, #27), ERS IEEE 830 (#33) |
 
 ## Artefatos de entrega
 
@@ -41,16 +41,18 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Protótipos das telas (Figma) | [docs/12-prototipos](docs/12-prototipos) | Rikelmy Andrade | #32 |
 | Especificação de Requisitos (IEEE 830) | [docs/13-especificacao-requisitos](docs/13-especificacao-requisitos) | José Eduardo | #33 |
 | Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | Arthur Mamedes Borges | #34 |
-| Revisão cruzada do Marco 4 | [docs/09-revisao](docs/09-revisao) | Todos (ver [distribuição](docs/09-revisao/revisao-cruzada-marco4.md#1-distribuição-das-revisões)) | #35 |
+| Revisão cruzada do Marco 4 | [docs/09-revisao](docs/09-revisao) | Arthur Mamedes Borges | #35 |
+| Versão para impressão do Marco 4 | [docs/impressao](docs/impressao) | Arthur Mamedes Borges | #36 |
 
 ### Atalhos para impressão
 
-- [Versão para impressão em PDF](docs/impressao/entrega-etapa1.pdf) (todos os artefatos em um arquivo só)
+- **Marco 4:** [versão para impressão em PDF](docs/impressao/entrega-marco4.pdf) · [Documento Visão](docs/10-documento-visao/documento-visao.md) · [casos de uso](docs/11-casos-de-uso/README.md) · [protótipos](docs/12-prototipos/README.md) · [ERS IEEE 830](docs/13-especificacao-requisitos/ers-ieee830.md) · [matriz vertical](docs/14-rastreabilidade/matriz-vertical.md) e [horizontal](docs/14-rastreabilidade/matriz-horizontal.md) · [revisão cruzada](docs/09-revisao/revisao-cruzada-marco4.md)
+- **1ª etapa:** [versão para impressão em PDF](docs/impressao/entrega-etapa1.pdf) (todos os artefatos em um arquivo só)
 - [Lista geral de requisitos](docs/08-requisitos/lista-requisitos.md)
 - [Matriz de rastreabilidade](docs/08-requisitos/matriz-rastreabilidade.md)
 - [Síntese das entrevistas](docs/04-entrevistas/sintese.md) · [Síntese dos questionários](docs/05-questionarios/sintese.md) · [Síntese do sistema análogo](docs/06-sistema-analogo/sintese.md)
 - [BPMN do processo atual](docs/07-bpmn/processo-atual.png) e [dores](docs/07-bpmn/dores.md)
-- [Revisão cruzada e pendências](docs/09-revisao/revisao-cruzada.md) · [Revisão cruzada do Marco 4](docs/09-revisao/revisao-cruzada-marco4.md)
+- [Revisão cruzada e pendências](docs/09-revisao/revisao-cruzada.md)
 
 ## Cronograma
 
@@ -63,7 +65,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 4.1     | 29/10 | Documento Visão e diagrama de casos de uso                                    | Concluído |
 | Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | Concluído |
 | Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | Concluído |
-| Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | A fazer   |
+| Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | Concluído; envio do link até 19/11 |
 
 ## Convenções
 

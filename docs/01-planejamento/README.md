@@ -33,4 +33,6 @@ Mesmo quadro e mesmas colunas. As issues #23 a #36 estão divididas em quatro mi
 
 Ordem de dependência: Visão → atores e diagrama → casos de uso → protótipos → ERS e matriz → revisão.
 
-Responsáveis: Arthur Mamedes Borges no Documento Visão (#24) e no diagrama de casos de uso (#25); demais atividades a definir.
+Responsáveis por issue: ver a tabela de artefatos no [README principal](../../README.md#artefatos-de-entrega).
+
+A captura do quadro do Marco 4 (`kanban-marco-4.png`) é feita depois do merge da organização final, com todas as issues #23 a #36 na coluna Concluído.
