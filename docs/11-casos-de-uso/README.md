@@ -7,7 +7,7 @@ Atores, diagrama e descrição dos casos de uso essenciais, no modelo do capítu
 | modelo-caso-de-uso.md | Modelo do formato completo (*fully dressed*) | Concluído |
 | diagrama-casos-de-uso.puml | Fonte do diagrama (PlantUML) | Concluído |
 | diagrama-casos-de-uso.png | Diagrama exportado | Concluído |
-| UC-NN-*.md | Um arquivo por caso de uso completo | Em andamento (UC-01, UC-03, UC-04 e UC-05 concluídos) |
+| UC-NN-*.md | Um arquivo por caso de uso completo | Concluído (UC-01 a UC-05) |
 
 ## Atores
 
@@ -30,7 +30,7 @@ Derivados dos objetivos no nível do usuário (seção 3.5 do Documento Visão),
 | ID | Caso de uso | Ator principal | Formato | Requisitos | Responsável |
 |----|-------------|----------------|---------|------------|-------------|
 | UC-01 | [Gerenciar competências e questionários](UC-01-gerenciar-competencias-questionarios.md) | RH | **Completo** | `RF-01` a `RF-07`, `RNF-13` | José Eduardo |
-| UC-02 | Criar ciclo de avaliação | RH | **Completo** | `RF-08` a `RF-10`, `RF-12`, `RF-34` | Rikelmy Andrade |
+| UC-02 | [Criar ciclo de avaliação](UC-02-criar-ciclo-avaliacao.md) | RH | **Completo** | `RF-08` a `RF-10`, `RF-12`, `RF-34` | José Eduardo |
 | UC-03 | [Responder avaliação](UC-03-responder-avaliacao.md) | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | Gabriel Araújo Caetano |
 | UC-04 | [Consultar resultados da avaliação](UC-04-consultar-resultados.md) | Colaborador, Gestor, RH | **Completo** | `RF-19` a `RF-24`, `RF-26`, `RNF-01` a `RNF-03`, `RNF-05`, `RNF-12` | Lorenzo Oliveira Maciel |
 | UC-05 | [Gerenciar consentimento e dados pessoais](UC-05-gerenciar-consentimento.md) | Usuário | **Completo** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` | Arthur Mamedes Borges |
