@@ -1,0 +1,17 @@
+# Banco de dados do protótipo. Subir com: docker compose up -d
+# Apagar os dados e recomeçar do zero: docker compose down -v
+services:
+  postgres:
+    image: postgres:16
+    container_name: sgc-postgres
+    environment:
+      POSTGRES_DB: sgc
+      POSTGRES_USER: sgc
+      POSTGRES_PASSWORD: sgc
+    ports:
+      - "5432:5432"
+    volumes:
+      - sgc-dados:/var/lib/postgresql/data
+
+volumes:
+  sgc-dados:

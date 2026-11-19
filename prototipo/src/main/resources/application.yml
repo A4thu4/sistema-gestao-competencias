@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: sgc
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sgc
+    username: sgc
+    password: sgc
+  jpa:
+    # O esquema é criado só pelas migrações Flyway; o JPA apenas confere.
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    # Cada pacote tem sua faixa de versões (V1_x identidade … V6_x privacidade).
+    # out-of-order permite aplicar uma V2_2 criada depois de uma V4_1 já aplicada.
+    out-of-order: true
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8080

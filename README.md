@@ -4,7 +4,8 @@ Sistema web para avaliação de competências (chefe–colaborador, por pares e 
 
 Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
-- **Etapa atual:** Marco 4, Modelagem e especificação (22/10 a 19/11)
+- **Etapa atual:** Marco 5, Arquitetura, banco de dados e protótipo (16/11 a 07/12)
+- **Marco 4:** Modelagem e especificação, concluído; envio do link até 19/11
 - **1ª etapa:** Levantamento de Requisitos, entregue em 21/10 com 47 requisitos rastreados
 - **Sistema análogo escolhido:** SurveyMonkey
 - **Kanban:** [GitHub Project](https://github.com/users/A4thu4/projects/6)
@@ -13,11 +14,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 | Nome                    | Papel                  | Contribuições (issues)                                                                                   |
 |-------------------------|------------------------|----------------------------------------------------------------------------------------------------------|
-| Arthur Mamedes Borges   | Gerente de Projeto     | Estrutura do repositório (#1), Kanban (#2), roteiro e questionário (#6), revisão cruzada (#16), documentação final (#17); Marco 4: Documento Visão (#24), diagrama de casos de uso (#25), UC-05 (#30), matrizes de rastreabilidade (#34), revisão cruzada (#35), organização final (#36) |
-| Gabriel Araújo Caetano  | Analista de Requisitos | Processo de requisitos (#3), entrevistas (#7), aplicação dos questionários (#9), sínteses das entrevistas e dos questionários (#11, #12); Marco 4: UC-03 (#28), casos de uso resumidos (#31) |
-| Lorenzo Oliveira Maciel | Analista de Requisitos | Pesquisa documental LGPD e ISO/IEC 25010 (#4), funcionalidades do SurveyMonkey (#10), síntese do sistema análogo (#13); Marco 4: UC-04 (#29) |
-| Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14); Marco 4: protótipos das telas (#32) |
-| José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15); Marco 4: UC-01 e UC-02 (#26, #27), ERS IEEE 830 (#33) |
+| Arthur Mamedes Borges   | Gerente de Projeto     | Estrutura do repositório (#1), Kanban (#2), roteiro e questionário (#6), revisão cruzada (#16), documentação final (#17); Marco 4: Documento Visão (#24), diagrama de casos de uso (#25), UC-05 (#30), matrizes de rastreabilidade (#34), revisão cruzada (#35), organização final (#36); Marco 5: estrutura (#50), C1 e C2 (#53), pacote privacidade (#60), revisão cruzada (#64), organização final (#65) |
+| Gabriel Araújo Caetano  | Analista de Requisitos | Processo de requisitos (#3), entrevistas (#7), aplicação dos questionários (#9), sínteses das entrevistas e dos questionários (#11, #12); Marco 4: UC-03 (#28), casos de uso resumidos (#31); Marco 5: introdução e stakeholders (#51), pacote avaliacoes (#58), coesão, acoplamento e padrões (#61) |
+| Lorenzo Oliveira Maciel | Analista de Requisitos | Pesquisa documental LGPD e ISO/IEC 25010 (#4), funcionalidades do SurveyMonkey (#10), síntese do sistema análogo (#13); Marco 4: UC-04 (#29); Marco 5: requisitos não funcionais (#52), pacote resultados (#59), teste ponta a ponta (#63) |
+| Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14); Marco 4: protótipos das telas (#32); Marco 5: pacote identidade e layout (#55), dicionário de dados (#62) |
+| José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15); Marco 4: UC-01 e UC-02 (#26, #27), ERS IEEE 830 (#33); Marco 5: modelo relacional (#54), pacotes competencias e ciclos (#56, #57) |
 
 ## Artefatos de entrega
 
@@ -43,6 +44,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | Arthur Mamedes Borges | #34 |
 | Revisão cruzada do Marco 4 | [docs/09-revisao](docs/09-revisao) | Arthur Mamedes Borges | #35 |
 | Versão para impressão do Marco 4 | [docs/impressao](docs/impressao) | Arthur Mamedes Borges | #36 |
+| Documento de Arquitetura (ISO/IEC/IEEE 42010 simplificada e C4) | [docs/15-documento-arquitetura](docs/15-documento-arquitetura) | Gabriel Araújo Caetano, Lorenzo Oliveira Maciel, Arthur Mamedes Borges e responsáveis dos pacotes | #51 a #53, #55 a #61 |
+| Projeto do Banco de Dados e dicionário de dados | [docs/16-projeto-banco-dados](docs/16-projeto-banco-dados) | José Eduardo, Rikelmy Andrade | #54, #62 |
+| Protótipo do sistema (código) | [prototipo](prototipo) | Todos, um pacote por integrante | #55 a #60 |
+| Telas e roteiro de demonstração do protótipo | [docs/17-prototipo](docs/17-prototipo) | Lorenzo Oliveira Maciel | #63 |
+| Revisão cruzada e impressão do Marco 5 | [docs/09-revisao](docs/09-revisao), [docs/impressao](docs/impressao) | Arthur Mamedes Borges | #64, #65 |
 
 ### Atalhos para impressão
 
@@ -67,10 +73,13 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | Concluído |
 | Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | Concluído |
 | Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | Concluído; envio do link até 19/11 |
+| Marco 5.1     | 23/11 | Estrutura; introdução, stakeholders, RNF, C1 e C2; modelo relacional; pacote identidade | Em andamento |
+| Marco 5.2     | 30/11 | Pacotes UC-01 a UC-05 com C3 e C4; coesão, acoplamento e padrões; dicionário de dados | A fazer   |
+| Marco 5.3     | 07/12 | Teste ponta a ponta, revisão cruzada, impressão e entrega do Marco 5          | A fazer   |
 
 ## Convenções
 
-**Commits:** `tipo: descrição`, por exemplo `docs: adiciona transcrição da entrevista 1`. Referencie a issue quando houver (`closes #7`).
+**Commits:** `tipo: descrição`, por exemplo `docs: adiciona transcrição da entrevista 1` ou `feat: cadastro de competências`. Referencie a issue quando houver (`closes #7`).
 
 **Identificadores:**
 
@@ -87,5 +96,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Característica (Visão)  | `CAR-NN` | `CAR-01` |
 | Caso de uso             | `UC-NN`  | `UC-03`  |
 | Tela do protótipo       | `TL-NN`  | `TL-08`  |
+| Preocupação de stakeholder (Arquitetura) | `PRE-NN` | `PRE-03` |
+| Decisão de arquitetura  | `DA-NN`  | `DA-01`  |
 
 **Dados pessoais:** nome, função e telefone de entrevistados e respondentes ficam apenas nos arquivos de transcrição e de respostas, nunca em READMEs, issues ou mensagens de commit.

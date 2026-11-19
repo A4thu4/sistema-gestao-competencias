@@ -36,3 +36,25 @@ Ordem de dependência: Visão → atores e diagrama → casos de uso → protót
 Responsáveis por issue: ver a tabela de artefatos no [README principal](../../README.md#artefatos-de-entrega).
 
 O andamento das issues #23 a #36 pode ser conferido no [quadro do GitHub Project](https://github.com/users/A4thu4/projects/6).
+
+## Marco 5 (16/11 a 07/12)
+
+Terceira parte do trabalho: Documento de Arquitetura (ISO/IEC/IEEE 42010 simplificada e C4), Projeto do Banco de Dados e protótipo do sistema. Mesmo quadro e mesmas colunas. As issues #50 a #65 estão em três milestones semanais.
+
+| Milestone | Prazo | Issues | Entrega |
+|-----------|-------|--------|---------|
+| Marco 5.1 | 23/11 | #50 a #55 | Estrutura; introdução, stakeholders, RNF, C1 e C2; modelo relacional; pacote identidade (login e layout) |
+| Marco 5.2 | 30/11 | #56 a #62 | Pacotes UC-01 a UC-05 com C3 e C4; coesão, acoplamento e padrões; dicionário de dados |
+| Marco 5.3 | 07/12 | #63, #64, #65 | Teste ponta a ponta, revisão cruzada, impressão e entrega |
+
+**Divisão:** cada integrante implementa o caso de uso que escreveu no Marco 4 e documenta o C3 e o C4 do pacote correspondente.
+
+| Integrante | Documentação | Protótipo |
+|------------|--------------|-----------|
+| Arthur Mamedes Borges | C1 e C2, estilo e decisões (#53); revisão e impressão (#64, #65) | `privacidade` e auditoria, UC-05 (#60) |
+| Gabriel Araújo Caetano | Introdução e stakeholders (#51); coesão, acoplamento e padrões (#61) | `avaliacoes`, UC-03 (#58) |
+| Lorenzo Oliveira Maciel | Requisitos não funcionais (#52); roteiro de demonstração (#63) | `resultados`, UC-04 (#59) |
+| Rikelmy Andrade | Dicionário de dados (#62) | `identidade`: login, perfis e layout a partir do Figma (#55) |
+| José Eduardo | Projeto do Banco de Dados: modelo relacional (#54) | `competencias` e `ciclos`, UC-01 e UC-02 (#56, #57) |
+
+Ordem de dependência: modelo relacional (#54) e pacote identidade (#55) → competencias → ciclos → avaliacoes → resultados; privacidade em paralelo depois do login. A documentação de C3 e C4 acompanha o código de cada pacote.
