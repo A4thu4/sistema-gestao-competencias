@@ -1,8 +1,8 @@
 # Protótipo do sistema
 
-Protótipo funcional com as telas dos casos de uso completos (UC-01 a UC-05). O código fica em [`prototipo/`](../../prototipo), e as instruções para rodar estão no [README do protótipo](../../prototipo/README.md). Quem implementar o protótipo fica dispensado da última prova.
+Protótipo funcional com as telas dos casos de uso completos (UC-01 a UC-05). O código fica em [`prototipo/`](../../prototipo), e as instruções para rodar estão no [README do protótipo](../../prototipo/README.md). Quem implementar o protótipo fica dispensado da última prova. O protótipo não faz parte do enunciado da Parte III (entrega do documento em 03/12); está no milestone **Protótipo**, com prazo a confirmar com a docente.
 
-**Stack:** Java 21, Spring Boot 3, Thymeleaf, Bootstrap 5, Chart.js, PostgreSQL 16 (Docker Compose) e Flyway. Os motivos estão nas decisões `DA-NN` do [Documento de Arquitetura](../15-documento-arquitetura/documento-arquitetura.md#439-decisões-tomadas).
+**Stack:** Java 21, Spring Boot 3, Thymeleaf, Bootstrap 5, Chart.js, PostgreSQL 16 (Docker Compose) e Flyway. Os motivos estão nas decisões `DA-NN` do [Documento de Arquitetura](../15-documento-arquitetura/secoes/03-requisitos-nao-funcionais.md#32-racional-dos-mecanismos-arquiteturais-adotados).
 
 ## Pacotes e telas
 
@@ -19,7 +19,7 @@ Ajustes das telas apontados na revisão do Marco 4 que entram no protótipo: `P-
 
 ## Demonstração
 
-> Issue #63. Responsável: Lorenzo Oliveira Maciel. Preencher no Marco 5.3.
+> Issue #63. Responsável: Lorenzo Oliveira Maciel. Milestone Protótipo.
 
 ### Usuários de exemplo
 
