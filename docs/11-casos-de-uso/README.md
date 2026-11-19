@@ -1,13 +1,13 @@
 # Casos de uso
 
-Atores, diagrama e descrição dos casos de uso essenciais, no modelo do capítulo 6 do Larman. Regra do enunciado: **pelo menos 1 caso de uso completo por integrante**.
+Atores, diagrama e descrição dos casos de uso essenciais, no modelo do capítulo 6 do Larman. Marco 4: pelo menos 1 caso de uso completo por integrante (UC-01 a UC-05). **Parte III:** o enunciado pede a descrição completa e o protótipo de **cada** caso de uso do diagrama, então os UC-06 a UC-10 também passam a ser completos, um por integrante (issues novas no milestone Marco 5.1).
 
 | Arquivo | Descrição | Status |
 |---------|-----------|--------|
 | modelo-caso-de-uso.md | Modelo do formato completo (*fully dressed*) | Concluído |
 | diagrama-casos-de-uso.puml | Fonte do diagrama (PlantUML) | Concluído |
 | diagrama-casos-de-uso.png | Diagrama exportado | Concluído |
-| UC-NN-*.md | Um arquivo por caso de uso completo | Concluído (UC-01 a UC-05) |
+| UC-NN-*.md | Um arquivo por caso de uso completo | Concluído (UC-01 a UC-05); a fazer (UC-06 a UC-10, Parte III) |
 
 ## Atores
 
@@ -34,13 +34,13 @@ Derivados dos objetivos no nível do usuário (seção 3.5 do Documento Visão),
 | UC-03 | [Responder avaliação](UC-03-responder-avaliacao.md) | Gestor, Colaborador, Avaliador externo | **Completo** | `RF-06`, `RF-11`, `RF-14` a `RF-18`, `RF-25`, `RNF-01`, `RNF-08` | Gabriel Araújo Caetano |
 | UC-04 | [Consultar resultados da avaliação](UC-04-consultar-resultados.md) | Colaborador, Gestor, RH | **Completo** | `RF-19` a `RF-24`, `RF-26`, `RNF-01` a `RNF-03`, `RNF-05`, `RNF-12` | Lorenzo Oliveira Maciel |
 | UC-05 | [Gerenciar consentimento e dados pessoais](UC-05-gerenciar-consentimento.md) | Usuário | **Completo** | `RF-29`, `RF-30`, `RNF-06`, `RNF-09` | Arthur Mamedes Borges |
-| UC-06 | Gerenciar plano de desenvolvimento | Gestor, Colaborador | Resumido | `RF-27`, `RF-28` | A definir |
-| UC-07 | Acompanhar andamento do ciclo | RH, Gestor | Resumido | `RF-12`, `RF-13` | A definir |
-| UC-08 | Registrar observações sobre a equipe | Gestor | Resumido | `RF-17` | A definir |
-| UC-09 | Reabrir avaliação e moderar comentários | RH | Resumido | `RF-16`, `RF-22`, `RNF-05` | A definir |
-| UC-10 | Autenticar-se | Usuário | Resumido | `RF-31` a `RF-33` | A definir |
+| UC-06 | [Gerenciar plano de desenvolvimento](UC-06-gerenciar-plano-desenvolvimento.md) | Gestor, Colaborador | Completo (Parte III, a fazer) | `RF-27`, `RF-28` | Lorenzo Oliveira Maciel |
+| UC-07 | [Acompanhar andamento do ciclo](UC-07-acompanhar-andamento-ciclo.md) | RH, Gestor | Completo (Parte III, a fazer) | `RF-12`, `RF-13` | José Eduardo |
+| UC-08 | [Registrar observações sobre a equipe](UC-08-registrar-observacoes.md) | Gestor | Completo (Parte III, a fazer) | `RF-17` | Gabriel Araújo Caetano |
+| UC-09 | [Reabrir avaliação e moderar comentários](UC-09-reabrir-avaliacao-moderar-comentarios.md) | RH | Completo (Parte III, a fazer) | `RF-16`, `RF-22`, `RNF-05` | Arthur Mamedes Borges |
+| UC-10 | [Autenticar-se](UC-10-autenticar-se.md) | Usuário | Completo (Parte III, a fazer) | `RF-31` a `RF-33` | Rikelmy Andrade |
 
-Os cinco casos completos (UC-01 a UC-05) cobrem as funcionalidades centrais do escopo; os resumidos (UC-06 a UC-10) completam a cobertura dos requisitos. Cada integrante escreve um caso completo: UC-01 na issue #26, UC-02 na #27, UC-03 na #28, UC-04 na #29 e UC-05 na #30.
+Os cinco casos completos do Marco 4 (UC-01 a UC-05) cobrem as funcionalidades centrais do escopo; os UC-06 a UC-10 completam a cobertura dos requisitos e, na Parte III, ganham descrição completa a partir dos resumos abaixo. Os revisores estão na [tabela de autoria e revisão](../15-documento-arquitetura/README.md#autoria-e-revisão-dos-itens-de-informação). Cada integrante escreve um caso completo: UC-01 na issue #26, UC-02 na #27, UC-03 na #28, UC-04 na #29 e UC-05 na #30.
 
 ### Cobertura dos requisitos funcionais
 
@@ -65,7 +65,7 @@ Fonte em [diagrama-casos-de-uso.puml](diagrama-casos-de-uso.puml). Para regenera
 
 ## Casos de uso resumidos
 
-Formato resumido (*brief*, Larman cap. 6): um parágrafo com o cenário principal de sucesso. Os casos completos (UC-01 a UC-05) ficam em arquivos próprios.
+Formato resumido (*brief*, Larman cap. 6) do Marco 4: um parágrafo com o cenário principal de sucesso. Ficam aqui como registro e ponto de partida dos casos completos da Parte III.
 
 ### UC-06 Gerenciar plano de desenvolvimento
 

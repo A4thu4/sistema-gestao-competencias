@@ -4,7 +4,7 @@ Sistema web para avaliação de competências (chefe–colaborador, por pares e 
 
 Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
-- **Etapa atual:** Marco 5, Arquitetura, banco de dados e protótipo (16/11 a 07/12)
+- **Etapa atual:** Parte III, Arquitetura e Desenho Detalhado (16/11 a 03/12; entrega do PDF e apresentação em 03 e 04/12). [Resumo do enunciado](docs/15-documento-arquitetura/enunciado-parte-iii.md)
 - **Marco 4:** Modelagem e especificação, concluído; envio do link até 19/11
 - **1ª etapa:** Levantamento de Requisitos, entregue em 21/10 com 47 requisitos rastreados
 - **Sistema análogo escolhido:** SurveyMonkey
@@ -14,11 +14,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 
 | Nome                    | Papel                  | Contribuições (issues)                                                                                   |
 |-------------------------|------------------------|----------------------------------------------------------------------------------------------------------|
-| Arthur Mamedes Borges   | Gerente de Projeto     | Estrutura do repositório (#1), Kanban (#2), roteiro e questionário (#6), revisão cruzada (#16), documentação final (#17); Marco 4: Documento Visão (#24), diagrama de casos de uso (#25), UC-05 (#30), matrizes de rastreabilidade (#34), revisão cruzada (#35), organização final (#36); Marco 5: estrutura (#50), C1 e C2 (#53), pacote privacidade (#60), revisão cruzada (#64), organização final (#65) |
-| Gabriel Araújo Caetano  | Analista de Requisitos | Processo de requisitos (#3), entrevistas (#7), aplicação dos questionários (#9), sínteses das entrevistas e dos questionários (#11, #12); Marco 4: UC-03 (#28), casos de uso resumidos (#31); Marco 5: introdução e stakeholders (#51), pacote avaliacoes (#58), coesão, acoplamento e padrões (#61) |
-| Lorenzo Oliveira Maciel | Analista de Requisitos | Pesquisa documental LGPD e ISO/IEC 25010 (#4), funcionalidades do SurveyMonkey (#10), síntese do sistema análogo (#13); Marco 4: UC-04 (#29); Marco 5: requisitos não funcionais (#52), pacote resultados (#59), teste ponta a ponta (#63) |
-| Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14); Marco 4: protótipos das telas (#32); Marco 5: pacote identidade e layout (#55), dicionário de dados (#62) |
-| José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15); Marco 4: UC-01 e UC-02 (#26, #27), ERS IEEE 830 (#33); Marco 5: modelo relacional (#54), pacotes competencias e ciclos (#56, #57) |
+| Arthur Mamedes Borges   | Gerente de Projeto     | Estrutura do repositório (#1), Kanban (#2), roteiro e questionário (#6), revisão cruzada (#16), documentação final (#17); Marco 4: Documento Visão (#24), diagrama de casos de uso (#25), UC-05 (#30), matrizes de rastreabilidade (#34), revisão cruzada (#35), organização final (#36); Parte III: estrutura (#50), DImp, DCdu e DPac (#53), pacotes privacidade e compartilhado (#60), UC-09 e TL-09 (#72), revisão cruzada e Apêndice C (#64), cabeçalho, referências, apêndices e PDF (#65) |
+| Gabriel Araújo Caetano  | Analista de Requisitos | Processo de requisitos (#3), entrevistas (#7), aplicação dos questionários (#9), sínteses das entrevistas e dos questionários (#11, #12); Marco 4: UC-03 (#28), casos de uso resumidos (#31); Parte III: introdução e stakeholders (#51), ambiente Web 4.1 a 4.3 (#61), UC-08 e TL-08 (#71), pacote avaliacoes e CO-02 (#58) |
+| Lorenzo Oliveira Maciel | Analista de Requisitos | Pesquisa documental LGPD e ISO/IEC 25010 (#4), funcionalidades do SurveyMonkey (#10), síntese do sistema análogo (#13); Marco 4: UC-04 (#29); Parte III: requisitos não funcionais (#52), ambiente Web 4.4 e 4.5 (#67), UC-06 e TL-06 (#69), pacote resultados e CO-03 (#59), teste do protótipo (#63) |
+| Rikelmy Andrade         | Analista de Requisitos | Modelagem BPMN e dores (#8), lista geral de requisitos (#14); Marco 4: protótipos das telas (#32); Parte III: BPMN proposto (#68), UC-10 e TL-10 (#73), ajustes das telas (#74), pacote identidade (#55), DDC e EOBD (#62) |
+| José Eduardo            | Analista de Requisitos | Termo de consentimento (#5), matriz de rastreabilidade (#15); Marco 4: UC-01 e UC-02 (#26, #27), ERS IEEE 830 (#33); Parte III: DCD (#54), UC-07 e TL-07 (#70), pacotes competencias e ciclos, CO-01 (#56, #57) |
 
 ## Artefatos de entrega
 
@@ -44,11 +44,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Matriz de rastreabilidade vertical e horizontal | [docs/14-rastreabilidade](docs/14-rastreabilidade) | Arthur Mamedes Borges | #34 |
 | Revisão cruzada do Marco 4 | [docs/09-revisao](docs/09-revisao) | Arthur Mamedes Borges | #35 |
 | Versão para impressão do Marco 4 | [docs/impressao](docs/impressao) | Arthur Mamedes Borges | #36 |
-| Documento de Arquitetura (ISO/IEC/IEEE 42010 simplificada e C4) | [docs/15-documento-arquitetura](docs/15-documento-arquitetura) | Gabriel Araújo Caetano, Lorenzo Oliveira Maciel, Arthur Mamedes Borges e responsáveis dos pacotes | #51 a #53, #55 a #61 |
-| Projeto do Banco de Dados e dicionário de dados | [docs/16-projeto-banco-dados](docs/16-projeto-banco-dados) | José Eduardo, Rikelmy Andrade | #54, #62 |
-| Protótipo do sistema (código) | [prototipo](prototipo) | Todos, um pacote por integrante | #55 a #60 |
-| Telas e roteiro de demonstração do protótipo | [docs/17-prototipo](docs/17-prototipo) | Lorenzo Oliveira Maciel | #63 |
-| Revisão cruzada e impressão do Marco 5 | [docs/09-revisao](docs/09-revisao), [docs/impressao](docs/impressao) | Arthur Mamedes Borges | #64, #65 |
+| Documento de Arquitetura e Desenho Detalhado (Parte III, seções 1 a 5 e C4 adaptado) | [docs/15-documento-arquitetura](docs/15-documento-arquitetura) | Autor e revisor por item, na [tabela de autoria](docs/15-documento-arquitetura/README.md#autoria-e-revisão-dos-itens-de-informação) | #50 a #62, #64, #65, #67, #68 |
+| Casos de uso completos UC-06 a UC-10 e telas TL-06 a TL-10 | [docs/11-casos-de-uso](docs/11-casos-de-uso), [docs/12-prototipos](docs/12-prototipos) | Lorenzo Oliveira Maciel, José Eduardo, Gabriel Araújo Caetano, Arthur Mamedes Borges, Rikelmy Andrade | #69 a #74 |
+| ECBD (DCD e DDC) e EOBD | [seções 5.3.2 e 5.4.1](docs/16-projeto-banco-dados) | José Eduardo, Rikelmy Andrade | #54, #62 |
+| PDF único da Parte III | [docs/impressao](docs/impressao) | Arthur Mamedes Borges | #65 |
+| Protótipo do sistema (código, fora do PDF) | [prototipo](prototipo), [docs/17-prototipo](docs/17-prototipo) | Todos, um pacote por integrante | #55 a #60, #63 |
 
 ### Atalhos para impressão
 
@@ -73,9 +73,11 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Marco 4.2     | 05/11 | Casos de uso completos (1 por integrante) e resumidos                         | Concluído |
 | Marco 4.3     | 12/11 | Protótipos no Figma, ERS IEEE 830 e matriz vertical/horizontal                | Concluído |
 | Marco 4.4     | 19/11 | Revisão cruzada, versão para impressão e entrega do Marco 4                   | Concluído; envio do link até 19/11 |
-| Marco 5.1     | 23/11 | Estrutura; introdução, stakeholders, RNF, C1 e C2; modelo relacional; pacote identidade | Em andamento |
-| Marco 5.2     | 30/11 | Pacotes UC-01 a UC-05 com C3 e C4; coesão, acoplamento e padrões; dicionário de dados | A fazer   |
-| Marco 5.3     | 07/12 | Teste ponta a ponta, revisão cruzada, impressão e entrega do Marco 5          | A fazer   |
+| Marco 5.1     | 23/11 | Seções 1 a 4; DImp, BPMN proposto, DCdu, DPac; UC-06 a UC-10 com telas; DCD | Em andamento |
+| Marco 5.2     | 29/11 | DCmp, DSeq e DCla por pacote; DDC e EOBD; DSeq de operação e contratos CO-01 a CO-03 | A fazer   |
+| Marco 5.3     | 02/12 | Revisão cruzada (30/11 e 01/12), Apêndice C, referências, apêndices e PDF | A fazer   |
+| Parte III     | 03/12 | Entrega do PDF impresso; apresentação em 03 e 04/12                            | A fazer   |
+| Protótipo     | a confirmar | Implementação em Spring Boot e roteiro de demonstração                   | A fazer   |
 
 ## Convenções
 
@@ -98,5 +100,7 @@ Projeto da disciplina Arquitetura e Desenho de Software, PUC Goiás, 2026/2.
 | Tela do protótipo       | `TL-NN`  | `TL-08`  |
 | Preocupação de stakeholder (Arquitetura) | `PRE-NN` | `PRE-03` |
 | Decisão de arquitetura  | `DA-NN`  | `DA-01`  |
+| Item de informação (Parte III) | `IT-NN` | `IT-06` |
+| Contrato de operação    | `CO-NN`  | `CO-01`  |
 
 **Dados pessoais:** nome, função e telefone de entrevistados e respondentes ficam apenas nos arquivos de transcrição e de respostas, nunca em READMEs, issues ou mensagens de commit.

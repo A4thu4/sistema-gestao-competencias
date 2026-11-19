@@ -37,24 +37,25 @@ Responsáveis por issue: ver a tabela de artefatos no [README principal](../../R
 
 O andamento das issues #23 a #36 pode ser conferido no [quadro do GitHub Project](https://github.com/users/A4thu4/projects/6).
 
-## Marco 5 (16/11 a 07/12)
+## Marco 5 — Parte III (16/11 a 03/12)
 
-Terceira parte do trabalho: Documento de Arquitetura (ISO/IEC/IEEE 42010 simplificada e C4), Projeto do Banco de Dados e protótipo do sistema. Mesmo quadro e mesmas colunas. As issues #50 a #65 estão em três milestones semanais.
+Terceira parte do trabalho: documento único de Arquitetura e Desenho Detalhado, na estrutura do [enunciado da Parte III](../15-documento-arquitetura/enunciado-parte-iii.md) (seções 1 a 5, com o modelo C4 adaptado em quatro níveis). **Entrega do PDF e apresentação: 03 e 04/12.** Mesmo quadro e mesmas colunas. A estrutura combinada em 16/11 foi realinhada ao enunciado em 19/11: entraram a seção 4 (ambiente Web), o DImp, o BPMN proposto, os UC-06 a UC-10 completos com telas, o DDC, o EOBD e os contratos de operação; saíram o Projeto do Banco de Dados separado e a seção de coesão e padrões (que virou mecanismo na seção 3.2).
 
 | Milestone | Prazo | Issues | Entrega |
 |-----------|-------|--------|---------|
-| Marco 5.1 | 23/11 | #50 a #55 | Estrutura; introdução, stakeholders, RNF, C1 e C2; modelo relacional; pacote identidade (login e layout) |
-| Marco 5.2 | 30/11 | #56 a #62 | Pacotes UC-01 a UC-05 com C3 e C4; coesão, acoplamento e padrões; dicionário de dados |
-| Marco 5.3 | 07/12 | #63, #64, #65 | Teste ponta a ponta, revisão cruzada, impressão e entrega |
+| Marco 5.1 | 23/11 | #50 a #54, #61, #67 a #74 | Seções 1 a 4; DImp, DPN, DCdu, DPac; UC-06 a UC-10 com telas; ajustes das telas; DCD |
+| Marco 5.2 | 29/11 | #55 a #60, #62 | DCmp, DSeq e DCla de cada pacote; DDC e EOBD; 3 DSeq de operação e contratos CO-01 a CO-03 |
+| Marco 5.3 | 02/12 | #64, #65 | Revisão cruzada (30/11 e 01/12), Apêndice C, referências, apêndices e PDF; entrega em 03/12 |
+| Protótipo | a confirmar | #63 e a parte de implementação de #55 a #60 | Código em Spring Boot; fora do PDF da Parte III |
 
-**Divisão:** cada integrante implementa o caso de uso que escreveu no Marco 4 e documenta o C3 e o C4 do pacote correspondente.
+**Divisão:** cada item do documento tem um autor e um revisor diferentes; a tabela completa (IT-01 a IT-36) está no [README do Documento de Arquitetura](../15-documento-arquitetura/README.md#autoria-e-revisão-dos-itens-de-informação).
 
-| Integrante | Documentação | Protótipo |
-|------------|--------------|-----------|
-| Arthur Mamedes Borges | C1 e C2, estilo e decisões (#53); revisão e impressão (#64, #65) | `privacidade` e auditoria, UC-05 (#60) |
-| Gabriel Araújo Caetano | Introdução e stakeholders (#51); coesão, acoplamento e padrões (#61) | `avaliacoes`, UC-03 (#58) |
-| Lorenzo Oliveira Maciel | Requisitos não funcionais (#52); roteiro de demonstração (#63) | `resultados`, UC-04 (#59) |
-| Rikelmy Andrade | Dicionário de dados (#62) | `identidade`: login, perfis e layout a partir do Figma (#55) |
-| José Eduardo | Projeto do Banco de Dados: modelo relacional (#54) | `competencias` e `ciclos`, UC-01 e UC-02 (#56, #57) |
+| Integrante | Autor de | Revisor de |
+|------------|----------|------------|
+| Arthur Mamedes Borges | Cabeçalho e tabela de autoria, DImp, DCdu, DPac (#53); UC-05; UC-09 e TL-09 (#72); `privacidade` e `compartilhado` (#60); referências, apêndices e PDF (#64, #65) | Introdução; racional 3.2; UC-04; UC-08; TL-01 a TL-05; `resultados` |
+| Gabriel Araújo Caetano | Seções 1 e 2 (#51); seções 4.1 a 4.3 (#61); UC-03; UC-08 e TL-08 (#71); `avaliacoes` e CO-02 (#58) | Cabeçalho; RNF 3.1; DImp; UC-01 e UC-02; UC-10; `ciclos`; CO-03; apêndices A e B |
+| Lorenzo Oliveira Maciel | Seção 3 (#52); seções 4.4 e 4.5 (#67); UC-04; UC-06 e TL-06 (#69); `resultados` e CO-03 (#59) | Seção 2; DCdu; UC-05; UC-07; `identidade`; CO-01; referências |
+| Rikelmy Andrade | DPN proposto (#68); UC-10 e TL-10 (#73); ajustes TL-01 a TL-05 (#74); `identidade` (#55); DDC e EOBD (#62) | Seção 4; UC-06; `competencias`; `privacidade`; DCD; CO-02; Apêndice C |
+| José Eduardo | UC-01 e UC-02; UC-07 e TL-07 (#70); DCD (#54); `competencias` (#56); `ciclos` e CO-01 (#57) | DPN; DPac; UC-03; UC-09; `avaliacoes`; DDC; EOBD |
 
-Ordem de dependência: modelo relacional (#54) e pacote identidade (#55) → competencias → ciclos → avaliacoes → resultados; privacidade em paralelo depois do login. A documentação de C3 e C4 acompanha o código de cada pacote.
+Ordem de dependência: seções 1 a 4 e níveis 1 e 2 (Marco 5.1) → níveis 3 e 4 (Marco 5.2) → revisão cruzada e PDF (Marco 5.3). Os nomes de pacotes, componentes, classes e tabelas dos diagramas são os mesmos do código do protótipo.

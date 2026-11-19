@@ -29,7 +29,7 @@ Para apagar o banco e recriar tudo a partir das migrações: `docker compose dow
 
 ## Organização do código
 
-Um pacote por módulo de negócio (o diagrama C2 do Documento de Arquitetura mostra estes mesmos pacotes). Dentro de cada um, quatro camadas:
+Um pacote por módulo de negócio (o Diagrama de Pacotes, seção 5.2.1 do Documento de Arquitetura, mostra estes mesmos pacotes). Dentro de cada um, quatro camadas:
 
 ```
 br.edu.pucgoias.sgc
@@ -72,7 +72,7 @@ Cada pacote tem a sua faixa de versões, para duas pessoas nunca criarem a mesma
 | resultados | `V5_x` | `V5_1__cria_resultado_consolidado.sql` |
 | privacidade | `V6_x` | `V6_1__cria_termo_aceite_auditoria.sql` |
 
-- As tabelas seguem o [modelo relacional](../docs/16-projeto-banco-dados/projeto-banco-dados.md) (#54). Mudou a tabela? Atualize o modelo e o [dicionário](../docs/16-projeto-banco-dados/dicionario-dados.md).
+- As tabelas seguem o [Esquema Operacional de Banco de Dados (EOBD)](../docs/15-documento-arquitetura/secoes/05-4-nivel-codigo.md#541-esquema-operacional-de-banco-de-dados-eobd) (#62). Mudou a tabela? Atualize o EOBD, o [DCD e o DDC](../docs/15-documento-arquitetura/secoes/05-3-nivel-componentes.md#532-esquema-conceitual-de-banco-de-dados-ecbd).
 - Nunca edite uma migração que já está na `main`; crie a próxima da sua faixa.
 - O JPA não cria tabelas (`ddl-auto: validate`): se a entidade não bater com a migração, a aplicação não sobe.
 
