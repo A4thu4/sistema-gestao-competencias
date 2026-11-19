@@ -1,2 +1,7 @@
 .idea
 .vscode
+# Protótipo (Java/Maven)
+target/
+*.class
+*.log
+.env
