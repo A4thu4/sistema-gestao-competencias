@@ -155,6 +155,20 @@ class ObservacoesTest extends TesteIntegracao {
     }
 
     @Test
+    void observacaoUsadaNumCicloEncerradoFicaTravada() throws Exception {
+        // A Carla foi avaliada no Ciclo 2026.1, encerrado em 31/05/2026: a observação de 10/05/2026 entrou nele.
+        Long carla = id(CARLA);
+        Observacao antiga = repositorio.save(new Observacao(id(BRUNO), carla, TipoObservacao.MELHORIA,
+                "Fato do primeiro semestre.", LocalDate.of(2026, 5, 10), OffsetDateTime.now().minusMonths(6)));
+
+        mvc.perform(get("/observacoes/" + carla).with(como(BRUNO)))
+                .andExpect(content().string(containsString("Usada no")));
+        mvc.perform(post("/observacoes/" + carla + "/" + antiga.getId() + "/excluir").with(como(BRUNO)).with(csrf()))
+                .andExpect(status().isConflict());
+        assertThat(repositorio.findById(antiga.getId())).isPresent();
+    }
+
+    @Test
     void colaboradorNaoAcessaAsObservacoes() throws Exception {
         mvc.perform(get("/observacoes").with(como(CARLA))).andExpect(status().isForbidden());
         mvc.perform(get("/observacoes/" + id(CARLA)).with(como(CARLA))).andExpect(status().isForbidden());

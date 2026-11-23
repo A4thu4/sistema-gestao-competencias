@@ -50,3 +50,64 @@
 .obs-meta { font-size: .78rem; color: #667085; }
 @media (min-width: 992px) { .formulario-fixo { position: sticky; top: 80px; } }
 .min-w-0 { min-width: 0; }
+
+/* UC-03 Responder avaliação (TL-03). */
+.rotulo-discreto { font-size: .7rem; letter-spacing: .05em; color: #667085; }
+.selo-relacao { background: #e8ecfb; color: #2f4bcc; }
+.grupo-cabeca { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--sgc-borda); }
+.lista-avaliacoes { list-style: none; margin: 0; padding: 0; }
+.lista-avaliacoes li { display: flex; align-items: center; gap: .75rem; padding: .8rem 1.25rem;
+    border-bottom: 1px solid var(--sgc-borda); flex-wrap: wrap; }
+.lista-avaliacoes li:last-child { border-bottom: 0; }
+@media (max-width: 575.98px) { .lista-avaliacoes .btn { width: 100%; } }
+
+.progresso-avaliacao { min-width: 190px; }
+.progresso-avaliacao .progress { height: 6px; margin-top: .35rem; }
+.aviso-anonimato { display: flex; gap: .65rem; align-items: flex-start; border-radius: 8px; padding: .7rem .9rem;
+    font-size: .88rem; }
+.aviso-anonimato i { font-size: 1.15rem; line-height: 1.2; }
+.aviso-anonimato.anonima { background: #eef1fd; color: #2f4bcc; }
+.aviso-anonimato.identificada { background: #f2f4f7; color: #344054; }
+.escala-legenda summary { cursor: pointer; font-weight: 500; }
+.escala-legenda dt { font-size: .88rem; margin-top: .4rem; }
+.competencia .pergunta { padding: 1rem 0 .25rem; border-top: 1px solid var(--sgc-borda); margin-top: 1rem; }
+.pergunta-texto { font-weight: 500; margin-bottom: .6rem; }
+.pergunta.pendente { border-left: 3px solid #f04438; padding-left: .75rem; }
+.aviso-pendente { display: none; color: #b42318; margin-top: .4rem; }
+.pergunta.pendente .aviso-pendente { display: block; }
+.nivel-descricao { min-height: 1.2em; margin-top: .4rem; }
+.escala label small { line-height: 1.2; }
+.barra-avaliacao { position: sticky; bottom: 0; z-index: 5; display: flex; align-items: center; gap: .75rem;
+    flex-wrap: wrap; background: rgba(255,255,255,.97); border: 1px solid var(--sgc-borda); border-radius: 10px;
+    padding: .7rem 1rem; margin-top: 1rem; box-shadow: 0 -4px 14px rgba(16,24,40,.06); }
+.salvo-status.erro { color: #b42318; }
+@media (max-width: 575.98px) { .barra-avaliacao .ms-auto { width: 100%; } .barra-avaliacao .btn { flex: 1; } }
+.contexto-gestor { display: flex; flex-direction: column; gap: 1rem; }
+.contexto-gestor .cartao + .cartao { margin-top: 0; }
+@media (min-width: 1200px) { .contexto-gestor { position: sticky; top: 80px; max-height: calc(100vh - 100px); overflow-y: auto; } }
+.lista-observacoes { list-style: none; padding: 0; margin: 0; max-height: 45vh; overflow-y: auto; }
+.lista-observacoes li { border-left: 3px solid; padding: .4rem .65rem; margin-bottom: .55rem; background: #fcfcfd;
+    border-radius: 0 6px 6px 0; }
+.lista-observacoes li.obs-positivo { border-color: #32a467; }
+.lista-observacoes li.obs-positivo i { color: #18794e; }
+.lista-observacoes li.obs-melhoria { border-color: #f79009; }
+.lista-observacoes li.obs-melhoria i { color: #b54708; }
+.media-competencia { margin-bottom: .55rem; }
+
+/* Avaliador externo: sem menu lateral. */
+.externo-topo { display: flex; align-items: center; gap: .6rem; background: var(--sgc-lateral); color: #fff;
+    padding: .8rem 1.25rem; }
+.externo-topo small { display: block; font-size: .6rem; letter-spacing: .06em; color: #9aa6c1; }
+.externo-topo strong { display: block; font-weight: 600; }
+.externo-conteudo { max-width: 860px; margin: 0 auto; padding: 1.75rem 1rem 3rem; }
+
+/* UC-09 Reabrir avaliação e moderar comentários. */
+.comentario { border: 1px solid var(--sgc-borda); border-radius: 10px; padding: .85rem 1rem; background: #fff;
+    margin-bottom: .75rem; }
+.comentario.oculto { background: #f9fafb; }
+.comentario.oculto .comentario-texto { color: #98a2b3; text-decoration: line-through; }
+.comentario-texto { white-space: pre-line; margin: .4rem 0; }
+.abas-moderacao { border-bottom: 1px solid var(--sgc-borda); margin-bottom: 1.25rem; }
+.abas-moderacao .nav-link { color: #667085; padding: .6rem .2rem; margin-right: 1.5rem; }
+.abas-moderacao .nav-link.active { color: var(--sgc-azul); font-weight: 600; }
