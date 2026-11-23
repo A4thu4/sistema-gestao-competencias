@@ -27,6 +27,29 @@ No IntelliJ: abra a pasta `prototipo` como projeto Maven e rode `SgcApplication`
 
 Para apagar o banco e recriar tudo a partir das migrações: `docker compose down -v` e depois `docker compose up -d`.
 
+Os testes (`mvn verify`) sobem a aplicação inteira contra o mesmo PostgreSQL, então o `docker compose up -d` precisa
+estar rodando. Cada teste desfaz o que gravou.
+
+## Empresa de exemplo
+
+Com o banco vazio, a aplicação carrega uma empresa fictícia (`sgc.demo.carregar: true` no `application.yml`):
+pessoas, competências, questionários publicados, um ciclo encerrado com resultados (2026.1), um ciclo aberto
+(2026.2) e um rascunho (2027.1). **Senha de todos: `senha123`.**
+
+| Usuário | Pessoa | Perfil | Para demonstrar |
+|---------|--------|--------|-----------------|
+| `rh@exemplo.com` | Ana Souza | RH | competências, ciclos, andamento, moderação, liberação de resultados, LGPD, auditoria, e-mails |
+| `gestor@exemplo.com` | Bruno Lima | Gestor (Suporte) | avaliar a equipe com as observações, andamento da equipe, resultados e plano da equipe |
+| `colaborador@exemplo.com` | Carla Dias | Colaborador | autoavaliação, avaliar pares e o líder (anônimo), resultado e plano |
+| `katia@exemplo.com` | Kátia Freitas | Colaborador | primeiro acesso: o termo de consentimento aparece antes de tudo |
+| `helena@exemplo.com`, `gustavo@exemplo.com` | Helena Prado, Gustavo Reis | Gestores | gerente de operações e coordenador de desenvolvimento |
+| `diego@`, `elisa@`, `fabio@`, `igor@`, `julia@` | equipe | Colaborador | demais avaliadores |
+
+O avaliador externo (Marcos Tavares, cliente que avalia a Carla) não tem conta: o link individual dele aparece no log
+ao subir a aplicação (`Link do avaliador externo ...`) e na tela "E-mails enviados" do RH.
+
+Os e-mails não são enviados de verdade: convites, lembretes e avisos ficam na tela **E-mails enviados** (menu do RH).
+
 ## Organização do código
 
 Um pacote por módulo de negócio (o diagrama C2 do Documento de Arquitetura mostra estes mesmos pacotes). Dentro de cada um, quatro camadas:
