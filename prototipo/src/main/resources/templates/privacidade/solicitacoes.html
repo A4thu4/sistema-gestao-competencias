@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Solicitações LGPD')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/privacidade.css}">
+<!-- UC-05, 10a: o RH/encarregado atende os pedidos dos titulares. -->
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('solicitacoes')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Solicitações LGPD')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <div class="d-flex flex-wrap align-items-start gap-2">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Solicitações LGPD</h1>
+                    <p class="subtitulo-pagina">Pedidos de acesso, correção e exclusão feitos pelos titulares em "Meus dados".
+                        <span th:text="${emAnalise}">0</span> em análise.</p>
+                </div>
+                <a th:href="@{/privacidade/termos}" class="btn btn-outline-secondary">
+                    <i class="bi bi-file-text"></i> Termo de consentimento</a>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-3" role="group" aria-label="Filtrar por situação">
+                <a th:href="@{/privacidade/solicitacoes}" class="btn btn-sm"
+                   th:classappend="${situacao == null} ? 'btn-primary' : 'btn-outline-secondary'">Todas</a>
+                <a th:each="sit : ${situacoes}" th:href="@{/privacidade/solicitacoes(situacao=${sit})}" class="btn btn-sm"
+                   th:classappend="${situacao == sit} ? 'btn-primary' : 'btn-outline-secondary'" th:text="${sit.rotulo}">Situação</a>
+            </div>
+
+            <div class="cartao p-0">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead><tr><th>Protocolo</th><th>Titular</th><th>Tipo</th><th>Registrada em</th><th>Situação</th><th></th></tr></thead>
+                        <tbody>
+                        <tr th:each="s : ${lista}">
+                            <td class="text-nowrap" th:text="${s.protocolo}">LGPD</td>
+                            <td><span th:text="${pessoas[s.usuarioId]?.nome}">Nome</span>
+                                <div class="small text-secondary" th:text="${pessoas[s.usuarioId]?.email}">email</div></td>
+                            <td th:text="${s.tipo.rotulo}">Tipo</td>
+                            <td class="small text-nowrap" th:text="${s.criadaEmTexto()}">data</td>
+                            <td><span class="selo" th:classappend="${s.seloCss()}" th:text="${s.situacao.rotulo}">situação</span></td>
+                            <td class="text-end">
+                                <a th:href="@{/privacidade/solicitacoes/{id}(id=${s.id})}" class="btn btn-sm"
+                                   th:classappend="${s.emAnalise()} ? 'btn-primary' : 'btn-outline-secondary'"
+                                   th:text="${s.emAnalise()} ? 'Atender' : 'Ver'">Atender</a></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(lista)}"><td colspan="6" class="text-secondary p-3">Nenhuma solicitação nesta situação.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
