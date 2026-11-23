@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="pergunta" th:each="p : ${c.perguntas}" th:id="'p-' + ${p.id}"
-                     th:classappend="${f.pendente(p.id)} ? 'pendente'"
+                     th:classappend="${erroEnvio != null and f.pendente(p.id)} ? 'pendente'"
                      th:attr="data-pergunta=${p.id},data-obrigatoria=${p.obrigatoria},data-tipo=${p.tipo}">
                     <div class="pergunta-texto" th:id="'t-' + ${p.id}">
                         <span th:text="${p.texto}">Pergunta</span>
