@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Campos comuns do formulário de observação (UC-08): tipo, descrição e data do fato. Usa ${form} e ${hoje}. -->
+<th:block th:fragment="campos">
+    <fieldset class="mb-3">
+        <legend class="form-label fs-6">Tipo</legend>
+        <div class="row g-2">
+            <div class="col-6">
+                <label class="tipo-obs positivo">
+                    <input type="radio" name="tipo" value="POSITIVO" th:checked="${form.tipo == 'POSITIVO'}" required>
+                    <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i>
+                    <span><strong class="d-block small">Ponto positivo</strong>
+                        <span class="small text-secondary">algo que deu certo</span></span>
+                </label>
+            </div>
+            <div class="col-6">
+                <label class="tipo-obs melhoria">
+                    <input type="radio" name="tipo" value="MELHORIA" th:checked="${form.tipo == 'MELHORIA'}">
+                    <i class="bi bi-lightbulb-fill" aria-hidden="true"></i>
+                    <span><strong class="d-block small">Ponto de melhoria</strong>
+                        <span class="small text-secondary">algo a desenvolver</span></span>
+                </label>
+            </div>
+        </div>
+    </fieldset>
+    <div class="mb-3">
+        <label class="form-label" for="descricao">O que aconteceu?</label>
+        <textarea class="form-control" id="descricao" name="descricao" rows="4" maxlength="1000" required
+                  th:text="${form.descricao}"
+                  placeholder="Descreva o fato, não a pessoa: o que aconteceu, onde e qual foi o resultado."></textarea>
+        <div class="form-text">Até 1000 caracteres. Fatos concretos ajudam na avaliação e no feedback.</div>
+    </div>
+    <div class="mb-4">
+        <label class="form-label" for="dataFato">Data do fato</label>
+        <input class="form-control" type="date" id="dataFato" name="dataFato" required
+               th:value="${form.dataFato}" th:max="${hoje}">
+        <div class="form-text">Não pode ser depois de hoje.</div>
+    </div>
+</th:block>
+</body>
+</html>

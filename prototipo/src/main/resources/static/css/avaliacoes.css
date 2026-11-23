@@ -1,0 +1,52 @@
+/* Telas do pacote avaliacoes. UC-08 (observações): não há tela no Figma; segue o estilo das TL-01 a TL-05. */
+.selo-positivo { background: #e7f6ec; color: #18794e; }
+.selo-melhoria { background: #fff4e5; color: #b54708; }
+.selo-alerta { background: #fff4e5; color: #b54708; }
+
+.aviso-discreto { background: #f2f4f7; border-radius: 8px; padding: .7rem .9rem; font-size: .85rem; color: #475467;
+    display: flex; gap: .6rem; align-items: flex-start; margin-bottom: 1.25rem; }
+
+/* Cartões da equipe. */
+.membro { height: 100%; display: flex; flex-direction: column; }
+.membro.sem-recente { border-color: #fedf9b; }
+.membro-nome { font-weight: 600; line-height: 1.2; }
+.membro-contagem { display: flex; gap: .5rem; margin: 1rem 0 .75rem; }
+.membro-contagem > div { flex: 1; border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .45rem .5rem;
+    text-align: center; }
+.membro-contagem strong { display: block; font-size: 1.2rem; line-height: 1.2; }
+.membro-contagem span { font-size: .72rem; color: #667085; }
+.membro-contagem .positivo strong { color: #18794e; }
+.membro-contagem .melhoria strong { color: #b54708; }
+.membro-rodape { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+    font-size: .82rem; color: #667085; }
+.avatar-grande { width: 52px; height: 52px; font-size: 1.05rem; }
+
+/* Escolha do tipo como cartões. */
+.tipo-obs { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .65rem .75rem; height: 100%;
+    cursor: pointer; display: flex; gap: .55rem; align-items: center; background: #fff; margin: 0; }
+.tipo-obs input { position: absolute; opacity: 0; }
+.tipo-obs i { font-size: 1.15rem; }
+.tipo-obs.positivo i { color: #18794e; }
+.tipo-obs.melhoria i { color: #b54708; }
+.tipo-obs.positivo:has(input:checked) { border-color: #18794e; background: #effaf3; box-shadow: 0 0 0 1px #18794e; }
+.tipo-obs.melhoria:has(input:checked) { border-color: #b54708; background: #fff8ee; box-shadow: 0 0 0 1px #b54708; }
+.tipo-obs:has(input:focus-visible) { outline: 2px solid var(--sgc-azul); outline-offset: 2px; }
+
+/* Lista cronológica. */
+.linha-tempo { position: relative; }
+.obs-item { position: relative; display: flex; gap: .9rem; padding-bottom: 1.25rem; }
+.obs-item:not(:last-child)::before { content: ""; position: absolute; left: 17px; top: 38px; bottom: 4px;
+    width: 2px; background: var(--sgc-borda); }
+.obs-icone { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0;
+    font-size: 1rem; }
+.obs-positivo .obs-icone { background: #e7f6ec; color: #18794e; }
+.obs-melhoria .obs-icone { background: #fff4e5; color: #b54708; }
+.obs-corpo { flex: 1; min-width: 0; border: 1px solid var(--sgc-borda); border-radius: 10px; padding: .8rem 1rem;
+    background: #fff; }
+.obs-positivo .obs-corpo { border-left: 3px solid #32a467; }
+.obs-melhoria .obs-corpo { border-left: 3px solid #f79009; }
+.obs-corpo.editando { box-shadow: 0 0 0 2px var(--sgc-azul); }
+.obs-texto { white-space: pre-line; margin: .45rem 0 .5rem; }
+.obs-meta { font-size: .78rem; color: #667085; }
+@media (min-width: 992px) { .formulario-fixo { position: sticky; top: 80px; } }
+.min-w-0 { min-width: 0; }
