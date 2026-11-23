@@ -88,3 +88,13 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 
 .login-fundo { min-height: 100vh; display: grid; place-items: center; background: var(--sgc-lateral); padding: 1rem; }
 .login-caixa { background: #fff; border-radius: 14px; padding: 2.2rem; width: 100%; max-width: 410px; }
+
+/* Tabela que vira lista de cartões no celular (RNF-07). Cada <td data-rotulo="..."> mostra o rótulo em cima. */
+@media (max-width: 575.98px) {
+    .tabela-empilhada thead { display: none; }
+    .tabela-empilhada, .tabela-empilhada tbody, .tabela-empilhada tr, .tabela-empilhada td { display: block; width: 100%; }
+    .tabela-empilhada tr { border-bottom: 1px solid var(--sgc-borda); padding: .5rem 0; }
+    .tabela-empilhada td { border: 0; padding: .35rem 1rem; }
+    .tabela-empilhada td[data-rotulo]::before { content: attr(data-rotulo); display: block; font-size: .68rem;
+        letter-spacing: .04em; text-transform: uppercase; color: #667085; margin-bottom: .2rem; }
+}
