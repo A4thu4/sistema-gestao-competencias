@@ -1,0 +1,62 @@
+/* Telas dos ciclos de avaliação (UC-02 e UC-07), no estilo da TL-02. */
+.etapas { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.25rem; padding: 0; list-style: none; }
+.etapas li { flex: 1 1 180px; }
+.etapas a, .etapas span { display: flex; align-items: center; gap: .6rem; padding: .65rem .85rem; border-radius: 10px;
+    border: 1px solid var(--sgc-borda); background: #fff; color: #475467; text-decoration: none; font-size: .88rem;
+    height: 100%; }
+.etapas .numero { width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center;
+    background: #f2f4f7; font-weight: 600; font-size: .8rem; flex-shrink: 0; }
+.etapas .atual a, .etapas .atual span { border-color: var(--sgc-azul); color: #1d2433; box-shadow: 0 0 0 1px var(--sgc-azul); }
+.etapas .atual .numero { background: var(--sgc-azul); color: #fff; }
+.etapas .desligada span { opacity: .55; }
+.etapas a:hover { background: #f9fafb; }
+
+.cartao-cabecalho { border-bottom: 1px solid var(--sgc-borda); margin: -1.25rem -1.4rem 1.25rem; padding: 1.1rem 1.4rem; }
+.cartao-cabecalho h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+.cartao-cabecalho p { color: #667085; font-size: .85rem; margin: .2rem 0 0; }
+.cartao-rodape { border-top: 1px solid var(--sgc-borda); margin: 1.25rem -1.4rem -1.25rem; padding: 1rem 1.4rem;
+    display: flex; gap: .5rem; justify-content: flex-end; flex-wrap: wrap; }
+.info-suave { background: #f6f7f9; border-radius: 8px; padding: .65rem .85rem; font-size: .85rem; color: #475467; }
+
+.tipo-opcao { position: relative; }
+.tipo-opcao input { position: absolute; opacity: 0; }
+.tipo-opcao label { display: block; border: 1px solid var(--sgc-borda); border-radius: 10px; padding: .75rem .9rem;
+    cursor: pointer; height: 100%; background: #fff; }
+.tipo-opcao label strong { display: block; font-size: .92rem; }
+.tipo-opcao label small { color: #667085; }
+.tipo-opcao input:checked + label { border-color: var(--sgc-azul); background: #eef1fd; box-shadow: 0 0 0 1px var(--sgc-azul); }
+.tipo-opcao input:focus-visible + label { outline: 2px solid var(--sgc-azul); outline-offset: 2px; }
+.tipos-invalidos .tipo-opcao label { border-color: #f04438; }
+
+.pessoa-escolha { display: flex; align-items: center; gap: .6rem; padding: .45rem .6rem; border-radius: 8px;
+    border: 1px solid transparent; cursor: pointer; }
+.pessoa-escolha:hover { background: #f9fafb; }
+.pessoa-escolha input { flex-shrink: 0; }
+.pessoa-escolha small { display: block; color: #667085; font-size: .75rem; }
+.atalhos .form-check { margin-right: 1rem; }
+
+.avaliado { scroll-margin-top: 80px; }
+.avaliado-topo { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.linha-tipo { display: grid; grid-template-columns: 150px 1fr; gap: .5rem 1rem; padding: .55rem 0;
+    border-top: 1px dashed var(--sgc-borda); align-items: start; }
+.linha-tipo .rotulo { font-size: .82rem; color: #475467; font-weight: 500; padding-top: .3rem; }
+@media (max-width: 575.98px) { .linha-tipo { grid-template-columns: 1fr; } }
+.chip { display: inline-flex; align-items: center; gap: .35rem; background: #eef1fd; color: #2f4bcc;
+    border-radius: 99px; padding: .2rem .35rem .2rem .7rem; font-size: .82rem; margin: 0 .3rem .3rem 0; }
+.chip.externo { background: #fff4e5; color: #b54708; }
+.chip form { display: inline; }
+.chip button { border: 0; background: transparent; color: inherit; padding: 0 .25rem; line-height: 1; }
+.chip button:hover { color: #b42318; }
+.chip-vazio { font-size: .82rem; color: #b42318; }
+.form-incluir { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .25rem; }
+.form-incluir select, .form-incluir input { max-width: 260px; }
+
+.numero-grande { font-size: 1.9rem; font-weight: 700; line-height: 1.1; }
+.rotulo-pequeno { font-size: .78rem; color: #667085; text-transform: uppercase; letter-spacing: .04em; }
+.barra-progresso { height: 8px; border-radius: 99px; background: #f2f4f7; overflow: hidden; }
+.barra-progresso span { display: block; height: 100%; background: var(--sgc-azul); }
+.grafico-andamento { max-width: 220px; margin: 0 auto; }
+.lista-itens { list-style: none; padding: 0; margin: 0; }
+.lista-itens li { display: flex; align-items: center; gap: .5rem; justify-content: space-between; padding: .2rem 0;
+    font-size: .85rem; border-bottom: 1px dashed #eef0f3; }
+.lista-itens li:last-child { border-bottom: 0; }

@@ -182,7 +182,8 @@ class PrivacidadeTest extends TesteIntegracao {
     @Test
     void rhConcluiExclusaoEAPessoaFicaAnonimizadaEInativa() throws Exception {
         mvc.perform(post("/privacidade/meus-dados/solicitacoes").with(como("fabio@exemplo.com")).with(csrf())
-                        .param("tipo", "EXCLUSAO").param("descricao", "Saí da empresa."))
+                        .param("tipo", "EXCLUSAO").param("descricao", "Saí da empresa.")
+                        .param("confirmado", "true")) // Fábio está no ciclo aberto de exemplo (7c)
                 .andExpect(redirectedUrl("/privacidade/meus-dados"));
         PessoaResumo fabio = usuarios.buscarPorEmail("fabio@exemplo.com");
         SolicitacaoResumo s = solicitacoesDe(fabio.id()).get(0);

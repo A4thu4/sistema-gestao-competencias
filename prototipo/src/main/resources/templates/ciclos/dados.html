@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${ciclo == null ? 'Novo ciclo' : 'Dados do ciclo'})}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/ciclos.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('ciclos')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo(${ciclo == null ? 'Ciclos de avaliação › Criar novo ciclo' : 'Ciclos de avaliação › ' + ciclo.nome})}"></header>
+        <main class="app-content" th:with="aberto=${ciclo != null and ciclo.aberto()}, travado=${ciclo != null and !ciclo.editavel()}">
+            <div th:replace="~{ciclos/etapas :: cabecalho(${ciclo}, ${ciclo == null ? 'Criar novo ciclo de avaliação' : ciclo.nome},
+                 ${aberto ? 'O ciclo está aberto: só a data de encerramento pode mudar.' : 'Defina o nome, os tipos de avaliação e o período.'})}"></div>
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <th:block th:unless="${travado}"><ol th:replace="~{ciclos/etapas :: etapas(${ciclo}, 1)}"></ol></th:block>
+
+            <div th:if="${ciclo != null and ciclo.encerrado()}" class="alert alert-secondary">
+                <i class="bi bi-lock"></i> Ciclo encerrado: disponível só para consulta.
+            </div>
+
+            <form class="cartao" method="post" novalidate
+                  th:action="${ciclo == null} ? @{/ciclos/novo} : @{/ciclos/{id}/dados(id=${ciclo.id})}">
+                <div class="cartao-cabecalho d-flex flex-wrap gap-2">
+                    <div class="me-auto">
+                        <h2>Informações do ciclo</h2>
+                        <p>Preencha os dados básicos para organizar a avaliação.</p>
+                    </div>
+                    <small class="text-secondary">* Campos obrigatórios</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-medium" for="nome">Nome do ciclo *</label>
+                    <input class="form-control" id="nome" name="nome" maxlength="120" th:value="${form.nome}"
+                           th:classappend="${erros.containsKey('nome')} ? 'is-invalid'" th:disabled="${travado}"
+                           placeholder="Ex.: Ciclo de avaliação — 2027.1">
+                    <div class="invalid-feedback" th:text="${erros['nome']}">erro</div>
+                    <div class="form-text">Use um nome que facilite identificar o período de avaliação.</div>
+                </div>
+
+                <fieldset class="mb-3" th:classappend="${erros.containsKey('tipos')} ? 'tipos-invalidos'">
+                    <legend class="form-label fw-medium fs-6">Tipos de avaliação *</legend>
+                    <div class="row g-2">
+                        <div class="col-12 col-sm-6 col-xl-3 tipo-opcao" th:each="t : ${tiposDisponiveis}">
+                            <input type="checkbox" name="tipos" th:id="'tipo-' + ${t}" th:value="${t}"
+                                   th:checked="${form.tipos.contains(t)}" th:disabled="${travado}">
+                            <label th:for="'tipo-' + ${t}">
+                                <strong th:text="${t.name() == 'CHEFE'} ? 'Chefe–colaborador' : (${t.name() == 'SUBORDINADO'} ? 'Subordinados (360º)' : (${t.name() == 'PAR'} ? 'Pares' : 'Autoavaliação'))">Tipo</strong>
+                                <small th:switch="${t.name()}">
+                                    <span th:case="'CHEFE'">O gestor direto avalia cada pessoa.</span>
+                                    <span th:case="'AUTO'">Cada pessoa avalia a si mesma.</span>
+                                    <span th:case="'PAR'">Colegas com o mesmo gestor avaliam.</span>
+                                    <span th:case="*">A equipe avalia o seu líder.</span>
+                                </small>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-danger small mt-1" th:if="${erros.containsKey('tipos')}" th:text="${erros['tipos']}">erro</div>
+                    <div class="form-text">Avaliadores externos (clientes, fornecedores) podem ser incluídos para cada pessoa na etapa de avaliadores.</div>
+                </fieldset>
+
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-medium" for="abertura">Data de abertura *</label>
+                        <input class="form-control" type="date" id="abertura" name="abertura" th:value="${form.abertura}"
+                               th:min="${travado} ? null : ${hoje}" th:disabled="${travado}"
+                               th:classappend="${erros.containsKey('abertura')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:text="${erros['abertura']}">erro</div>
+                        <div class="form-text">Hoje ou depois. Se for hoje, o ciclo abre assim que for agendado.</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-medium" for="encerramento">Data de encerramento *</label>
+                        <input class="form-control" type="date" id="encerramento" name="encerramento" th:value="${form.encerramento}"
+                               th:disabled="${ciclo != null and ciclo.encerrado()}"
+                               th:classappend="${erros.containsKey('encerramento')} ? 'is-invalid'">
+                        <div class="invalid-feedback" th:text="${erros['encerramento']}">erro</div>
+                        <div class="form-text">Depois da data de abertura. Passado o encerramento, novas respostas são bloqueadas.</div>
+                    </div>
+                </div>
+
+                <div class="info-suave mt-3" th:unless="${aberto}">
+                    <i class="bi bi-info-circle"></i> Ao salvar, o ciclo fica como rascunho. O agendamento e os convites são definidos no resumo, depois de escolher avaliados e avaliadores.
+                </div>
+                <div class="info-suave mt-3" th:if="${aberto}">
+                    <i class="bi bi-lock"></i> Tipos, questionários e abertura ficam travados com o ciclo aberto, para não invalidar respostas já enviadas.
+                </div>
+
+                <div class="cartao-rodape" th:unless="${ciclo != null and ciclo.encerrado()}">
+                    <a class="btn btn-outline-secondary" th:href="${ciclo == null} ? @{/ciclos} : @{/ciclos/{id}(id=${ciclo.id})}">Cancelar</a>
+                    <button class="btn btn-primary" type="submit"
+                            th:text="${aberto} ? 'Salvar encerramento' : 'Salvar e continuar'">Salvar e continuar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

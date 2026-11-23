@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Avaliadores do ciclo')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/ciclos.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('ciclos')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Ciclos de avaliação › ' + ${m.ciclo.nome})}"></header>
+        <main class="app-content" th:with="editavel=${m.ciclo.editavel()}, aberto=${m.ciclo.aberto()}">
+            <div th:replace="~{ciclos/etapas :: cabecalho(${m.ciclo}, ${m.ciclo.nome}, 'Revise quem avalia cada pessoa. As sugestões vêm da estrutura das equipes; ajuste o que precisar.')}"></div>
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <th:block th:if="${editavel}"><ol th:replace="~{ciclos/etapas :: etapas(${m.ciclo}, 3)}"></ol></th:block>
+
+            <div class="alert alert-info" th:if="${aberto}">
+                <i class="bi bi-envelope"></i> Ciclo aberto: você pode incluir avaliadores, que recebem o convite na hora.
+                Remover não é permitido, para não perder avaliações já iniciadas.
+            </div>
+
+            <div class="cartao d-flex flex-wrap align-items-center gap-3">
+                <div class="me-auto">
+                    <div class="rotulo-pequeno">Resumo</div>
+                    <span th:text="${#lists.size(m.avaliados)} + ' pessoa(s) avaliada(s) · ' + ${m.totalDesignacoes} + ' avaliações previstas'">9 pessoas</span>
+                    <span th:if="${!m.verificacao.podeAgendar()}" class="text-danger ms-2"><i class="bi bi-exclamation-circle"></i>
+                        <span th:text="${#lists.size(m.verificacao.pendencias)} + ' pendência(s)'">2 pendências</span></span>
+                </div>
+                <form th:if="${editavel}" method="post" th:action="@{/ciclos/{id}/avaliadores/sugerir(id=${m.ciclo.id})}"
+                      onsubmit="return confirm('Refazer a sugestão de todas as pessoas? Os ajustes manuais (menos os externos) serão descartados.')">
+                    <button class="btn btn-outline-secondary btn-sm" type="submit"><i class="bi bi-magic"></i> Refazer sugestão para todos</button>
+                </form>
+                <a class="btn btn-primary btn-sm" th:href="@{/ciclos/{id}(id=${m.ciclo.id})}">Ir para o resumo <i class="bi bi-arrow-right"></i></a>
+            </div>
+
+            <div th:if="${#lists.isEmpty(m.avaliados)}" class="cartao text-secondary">
+                Ninguém foi escolhido para ser avaliado ainda. <a th:href="@{/ciclos/{id}/avaliados(id=${m.ciclo.id})}">Escolher avaliados</a>.
+            </div>
+
+            <div class="cartao avaliado" th:each="a : ${m.avaliados}" th:id="'avaliado-' + ${a.id}"
+                 th:classappend="${a.pendente()} ? 'pendente'">
+                <div class="avaliado-topo">
+                    <span class="app-avatar" th:text="${a.iniciais()}">CD</span>
+                    <div class="me-auto">
+                        <strong th:text="${a.nome}">Nome</strong>
+                        <span th:if="${a.pendente()}" class="selo selo-negada ms-1">Pendente de avaliadores</span>
+                        <div class="small text-secondary">
+                            <span th:text="${a.cargoNome}">Cargo</span> ·
+                            <span th:text="${a.questionarioNome} ?: 'sem questionário'">Questionário</span>
+                        </div>
+                    </div>
+                    <form th:if="${editavel}" method="post" th:action="@{/ciclos/{id}/avaliadores/sugerir(id=${m.ciclo.id})}">
+                        <input type="hidden" name="avaliadoId" th:value="${a.id}">
+                        <button class="btn btn-link btn-sm text-decoration-none" type="submit"><i class="bi bi-arrow-counterclockwise"></i> Refazer sugestão</button>
+                    </form>
+                </div>
+
+                <div class="linha-tipo" th:each="t : ${m.tipos}">
+                    <div class="rotulo" th:text="${t.name() == 'SUBORDINADO'} ? 'Subordinados' : (${t.name() == 'PAR'} ? 'Pares' : ${t.rotulo})">Tipo</div>
+                    <div>
+                        <span class="chip" th:each="av : ${a.avaliadores(t)}">
+                            <span th:text="${t.name() == 'AUTO'} ? 'A própria pessoa' : ${av.nome}">Nome</span>
+                            <form th:if="${editavel}" method="post"
+                                  th:action="@{/ciclos/{id}/avaliadores/{d}/remover(id=${m.ciclo.id}, d=${av.designacaoId})}">
+                                <input type="hidden" name="avaliadoId" th:value="${a.id}">
+                                <button type="submit" th:attr="aria-label='Remover ' + ${av.nome}" title="Remover"><i class="bi bi-x"></i></button>
+                            </form>
+                        </span>
+                        <th:block th:if="${#lists.isEmpty(a.avaliadores(t))}">
+                            <span th:if="${t.name() == 'SUBORDINADO' and !a.temEquipe}" class="small text-secondary">Não se aplica: a pessoa não tem equipe direta.</span>
+                            <span th:unless="${t.name() == 'SUBORDINADO' and !a.temEquipe}" class="chip-vazio"><i class="bi bi-exclamation-circle"></i> Sem avaliador</span>
+                        </th:block>
+
+                        <form class="form-incluir" method="post" th:action="@{/ciclos/{id}/avaliadores/incluir(id=${m.ciclo.id})}"
+                              th:if="${t.name() != 'AUTO'}">
+                            <input type="hidden" name="avaliadoId" th:value="${a.id}">
+                            <input type="hidden" name="tipo" th:value="${t}">
+                            <select class="form-select form-select-sm" name="avaliadorId" required
+                                    th:attr="aria-label='Incluir avaliador do tipo ' + ${t.rotulo} + ' para ' + ${a.nome}">
+                                <option value="">Incluir pessoa…</option>
+                                <option th:each="p : ${pessoas}" th:if="${p.id != a.id}" th:value="${p.id}" th:text="${p.nome}">Pessoa</option>
+                            </select>
+                            <button class="btn btn-sm btn-outline-primary" type="submit"><i class="bi bi-plus"></i> Incluir</button>
+                        </form>
+                        <form class="form-incluir" method="post" th:action="@{/ciclos/{id}/avaliadores/incluir(id=${m.ciclo.id})}"
+                              th:if="${t.name() == 'AUTO' and #lists.isEmpty(a.avaliadores(t))}">
+                            <input type="hidden" name="avaliadoId" th:value="${a.id}">
+                            <input type="hidden" name="tipo" value="AUTO">
+                            <input type="hidden" name="avaliadorId" th:value="${a.id}">
+                            <button class="btn btn-sm btn-outline-primary" type="submit"><i class="bi bi-plus"></i> Incluir autoavaliação</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="linha-tipo">
+                    <div class="rotulo">Externos <i class="bi bi-question-circle text-secondary" title="Clientes, fornecedores ou parceiros. Recebem um link individual, sem precisar de conta."></i></div>
+                    <div>
+                        <span class="chip externo" th:each="av : ${a.externos()}"
+                              th:title="${av.email}">
+                            <span th:text="${av.nome} + ' · ' + ${av.email}">Nome</span>
+                            <form th:if="${editavel}" method="post"
+                                  th:action="@{/ciclos/{id}/avaliadores/{d}/remover(id=${m.ciclo.id}, d=${av.designacaoId})}">
+                                <input type="hidden" name="avaliadoId" th:value="${a.id}">
+                                <button type="submit" th:attr="aria-label='Remover ' + ${av.nome}" title="Remover"><i class="bi bi-x"></i></button>
+                            </form>
+                        </span>
+                        <form class="form-incluir" method="post" th:action="@{/ciclos/{id}/avaliadores/externo(id=${m.ciclo.id})}">
+                            <input type="hidden" name="avaliadoId" th:value="${a.id}">
+                            <input class="form-control form-control-sm" name="nome" placeholder="Nome" maxlength="120" required
+                                   th:attr="aria-label='Nome do avaliador externo de ' + ${a.nome}">
+                            <input class="form-control form-control-sm" name="email" type="email" placeholder="E-mail" maxlength="160" required
+                                   th:attr="aria-label='E-mail do avaliador externo de ' + ${a.nome}">
+                            <button class="btn btn-sm btn-outline-primary" type="submit"><i class="bi bi-person-plus"></i> Convidar externo</button>
+                        </form>
+                    </div>
+                </div>
+
+                <ul class="small text-danger mt-2 mb-0" th:unless="${#lists.isEmpty(a.pendencias)}">
+                    <li th:each="p : ${a.pendencias}" th:text="${p}">pendência</li>
+                </ul>
+                <ul class="small text-warning-emphasis mt-1 mb-0" th:unless="${#lists.isEmpty(a.alertas)}">
+                    <li th:each="p : ${a.alertas}" th:text="${p}">alerta</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
