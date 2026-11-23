@@ -3,6 +3,8 @@ package br.edu.pucgoias.sgc.avaliacoes.servico;
 import br.edu.pucgoias.sgc.avaliacoes.dominio.Observacao;
 import br.edu.pucgoias.sgc.avaliacoes.dominio.TipoObservacao;
 import br.edu.pucgoias.sgc.avaliacoes.repositorio.ObservacaoRepository;
+import br.edu.pucgoias.sgc.ciclos.servico.CicloResumo;
+import br.edu.pucgoias.sgc.ciclos.servico.CicloService;
 import br.edu.pucgoias.sgc.compartilhado.dominio.EventoAuditoria;
 import br.edu.pucgoias.sgc.compartilhado.dominio.NaoEncontradoException;
 import br.edu.pucgoias.sgc.compartilhado.dominio.RegraDeNegocioException;
@@ -28,7 +30,7 @@ import java.util.stream.Collectors;
  * ({@link #observacoesDoPeriodo}).
  *
  * <p>Acesso (RNF-03): só a equipe direta do gestor logado; fora dela, {@link AccessDeniedException} (página 403).
- * Só quem registrou pode editar ou excluir. O colaborador não vê estas anotações na tela; elas entram na cópia dos
+ * Só quem registrou pode editar ou excluir, e só até a observação entrar numa avaliação de ciclo encerrado. O colaborador não vê estas anotações na tela; elas entram na cópia dos
  * dados pessoais dele (LGPD, {@link FonteObservacoes}).
  */
 @Service
@@ -44,12 +46,14 @@ public class ObservacaoService {
     private final ObservacaoRepository observacoes;
     private final UsuarioService usuarios;
     private final ApplicationEventPublisher eventos;
+    private final CicloService ciclos;
 
     public ObservacaoService(ObservacaoRepository observacoes, UsuarioService usuarios,
-                             ApplicationEventPublisher eventos) {
+                             ApplicationEventPublisher eventos, CicloService ciclos) {
         this.observacoes = observacoes;
         this.usuarios = usuarios;
         this.eventos = eventos;
+        this.ciclos = ciclos;
     }
 
     // ---------------------------------------------------------------- consultas do gestor (telas do UC-08)
@@ -90,11 +94,13 @@ public class ObservacaoService {
         List<Observacao> lista = observacoes.findByColaboradorIdOrderByDataFatoDescCriadaEmDesc(colaboradorId);
         Map<Long, PessoaResumo> autores = usuarios.buscarPorIds(
                 lista.stream().map(Observacao::getGestorId).collect(Collectors.toSet()));
+        List<CicloResumo> avaliacoesEncerradas = ciclosEncerradosEmQueFoiAvaliado(colaboradorId);
         return lista.stream().map(o -> {
             PessoaResumo autor = autores.get(o.getGestorId());
             boolean minha = o.registradaPor(eu.id());
+            String travadaPor = cicloQueTrava(o, avaliacoesEncerradas);
             return new ObservacaoNaLista(ObservacaoResumo.de(o), autor == null ? "—" : autor.nome(), minha,
-                    podeAlterar(o, eu));
+                    minha && travadaPor == null, travadaPor);
         }).toList();
     }
 
@@ -165,18 +171,33 @@ public class ObservacaoService {
         Observacao o = observacoes.findById(observacaoId)
                 .orElseThrow(() -> new NaoEncontradoException("Observação não encontrada."));
         exigirEquipe(eu.id(), o.getColaboradorId());
-        if (!podeAlterar(o, eu)) {
+        if (!o.registradaPor(eu.id())) {
             throw new AccessDeniedException("Só quem registrou a observação pode alterá-la.");
+        }
+        String travadaPor = cicloQueTrava(o, ciclosEncerradosEmQueFoiAvaliado(o.getColaboradorId()));
+        if (travadaPor != null) {
+            throw new RegraDeNegocioException("Esta observação já fez parte da avaliação do ciclo “" + travadaPor
+                    + "” e não pode mais ser alterada nem excluída.");
         }
         return o;
     }
 
     /**
-     * Decisão de projeto: só o autor edita ou exclui. A segunda parte da regra (bloquear depois que o colaborador foi
-     * avaliado num ciclo encerrado após a data do fato) depende do pacote ciclos e entra junto com o UC-03.
+     * Decisão de projeto: só o autor edita ou exclui, e só enquanto a observação não entrou numa avaliação. Ela fica
+     * travada quando o colaborador foi avaliado num ciclo que já encerrou e cujo encerramento é igual ou posterior à
+     * data do fato (a observação estava no período mostrado ao gestor, RF-17).
      */
-    private boolean podeAlterar(Observacao o, UsuarioAutenticado eu) {
-        return o.registradaPor(eu.id());
+    private static String cicloQueTrava(Observacao o, List<CicloResumo> encerradosDoColaborador) {
+        return encerradosDoColaborador.stream()
+                .filter(c -> !c.dataEncerramento().isBefore(o.getDataFato()))
+                .map(CicloResumo::nome)
+                .findFirst().orElse(null);
+    }
+
+    private List<CicloResumo> ciclosEncerradosEmQueFoiAvaliado(Long colaboradorId) {
+        return ciclos.encerrados().stream()
+                .filter(c -> ciclos.avaliadosDoCiclo(c.id()).contains(colaboradorId))
+                .toList();
     }
 
     private record Validado(TipoObservacao tipo, String descricao) {
