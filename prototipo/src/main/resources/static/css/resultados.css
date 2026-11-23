@@ -7,7 +7,7 @@
 .nota-menor { color: #e07b1a !important; font-weight: 700; }
 .nota-normal { color: var(--sgc-azul) !important; font-weight: 700; }
 .nota-oculta { color: #98a2b3; cursor: help; }
-.grafico-caixa { position: relative; min-height: 300px; }
+.grafico-caixa { position: relative; min-height: 300px; max-width: 520px; margin: 0 auto; }
 .cartao-titulo-linha { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap;
     border-bottom: 1px solid var(--sgc-borda); margin: -1.25rem -1.4rem 1rem; padding: 1rem 1.4rem; }
 .cartao-titulo-linha h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
