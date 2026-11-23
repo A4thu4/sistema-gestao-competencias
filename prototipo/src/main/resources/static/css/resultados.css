@@ -1,0 +1,30 @@
+/* Telas de resultados (UC-04, TL-04) e plano de desenvolvimento (UC-06). */
+.resumo-rotulo { font-size: .85rem; color: #667085; margin-bottom: .35rem; }
+.resumo-valor { font-size: 1.9rem; font-weight: 700; line-height: 1.1; color: var(--sgc-azul); }
+.resumo-valor small { font-size: .85rem; font-weight: 400; color: #98a2b3; }
+.resumo-texto { font-size: 1.15rem; font-weight: 700; line-height: 1.25; }
+.nota-maior { color: #1f9d55 !important; font-weight: 700; }
+.nota-menor { color: #e07b1a !important; font-weight: 700; }
+.nota-normal { color: var(--sgc-azul) !important; font-weight: 700; }
+.nota-oculta { color: #98a2b3; cursor: help; }
+.grafico-caixa { position: relative; min-height: 300px; }
+.cartao-titulo-linha { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap;
+    border-bottom: 1px solid var(--sgc-borda); margin: -1.25rem -1.4rem 1rem; padding: 1rem 1.4rem; }
+.cartao-titulo-linha h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+.ajuda { font-size: .8rem; color: #667085; }
+.comentario { border-left: 3px solid var(--sgc-borda); padding: .35rem 0 .35rem .85rem; margin-bottom: .85rem; }
+.comentario small { color: #667085; display: block; font-size: .75rem; }
+.ciclo-item { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; padding: .8rem 0;
+    border-bottom: 1px solid var(--sgc-borda); }
+.ciclo-item:last-child { border-bottom: 0; }
+.ciclo-item.escolhido { background: #f5f7ff; margin: 0 -1.4rem; padding-left: 1.4rem; padding-right: 1.4rem; }
+.linha-tempo { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--sgc-borda); }
+.linha-tempo li { position: relative; padding: 0 0 .9rem 1rem; }
+.linha-tempo li::before { content: ""; position: absolute; left: -6px; top: .35rem; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--sgc-azul); }
+.linha-tempo small { color: #667085; }
+.meta-cartao { scroll-margin-top: 80px; }
+.sugestao { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid #f7c98b; background: #fff8ef;
+    color: #9a4d00; border-radius: 99px; padding: .25rem .7rem; font-size: .85rem; margin: 0 .35rem .35rem 0; }
+.tabela-notas td, .tabela-notas th { white-space: nowrap; }
+.tabela-notas td:first-child { white-space: normal; min-width: 160px; }
