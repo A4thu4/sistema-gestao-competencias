@@ -18,7 +18,9 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 .app-sidebar { width: 248px; flex-shrink: 0; background: var(--sgc-lateral); color: #c9d1e3;
     display: flex; flex-direction: column; }
 @media (min-width: 992px) {
-    .app-sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+    /* O Bootstrap deixa o .offcanvas-lg transparente em tela grande; a barra lateral precisa do fundo escuro. */
+    .app-sidebar, .app-sidebar.offcanvas-lg { position: sticky; top: 0; height: 100vh; overflow-y: auto;
+        background-color: var(--sgc-lateral) !important; }
 }
 .app-sidebar.offcanvas-lg { --bs-offcanvas-bg: var(--sgc-lateral); --bs-offcanvas-width: 260px; }
 .app-marca { display: flex; align-items: center; gap: .6rem; padding: 1.25rem 1.1rem; color: #fff; }
