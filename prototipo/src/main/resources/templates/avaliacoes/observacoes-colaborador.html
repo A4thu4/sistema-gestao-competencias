@@ -69,6 +69,9 @@
                                     <span class="selo" th:classappend="${o.positivo()} ? 'selo-positivo' : 'selo-melhoria'"
                                           th:text="${o.tipoRotulo()}">Ponto positivo</span>
                                     <span class="small">Fato em <strong th:text="${o.dataFatoTexto()}">01/01/2026</strong></span>
+                                    <span class="ms-auto small text-secondary" th:if="${item.minha and item.travadaPor != null}"
+                                          title="Já fez parte de uma avaliação encerrada; não pode mais ser alterada.">
+                                        <i class="bi bi-lock"></i> Usada no <span th:text="${item.travadaPor}">ciclo</span></span>
                                     <div class="ms-auto d-flex gap-1" th:if="${item.podeAlterar}">
                                         <a class="btn btn-sm btn-light" title="Editar"
                                            th:href="@{/observacoes/{c}/{id}/editar(c=${colaborador.id},id=${o.id})} + '#formulario'">

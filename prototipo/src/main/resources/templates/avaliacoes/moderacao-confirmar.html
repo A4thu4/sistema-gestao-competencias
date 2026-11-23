@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Reabrir avaliação')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<!-- UC-09: confirmação da reabertura, com motivo obrigatório. -->
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('moderacao')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Reabertura e moderação › Reabrir avaliação')}"></header>
+        <main class="app-content" style="max-width: 760px">
+            <a class="small text-decoration-none" th:href="@{/moderacao(ciclo=${e.designacao.cicloId})}"><i class="bi bi-arrow-left"></i> Reabertura e moderação</a>
+            <h1 class="titulo-pagina mt-2">Reabrir avaliação</h1>
+            <p class="subtitulo-pagina">A avaliação volta para preenchimento, com as respostas que já estavam lá. O avaliador
+                recebe um e-mail e precisa enviar de novo.</p>
+
+            <div th:if="${erro}" class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> <span th:text="${erro}">erro</span>
+            </div>
+
+            <form class="cartao" method="post" th:action="@{/moderacao/reabrir/{id}(id=${e.designacao.id})}">
+                <dl class="row mb-3">
+                    <dt class="col-sm-4 fw-normal text-secondary">Ciclo</dt><dd class="col-sm-8" th:text="${e.designacao.cicloNome}">Ciclo</dd>
+                    <dt class="col-sm-4 fw-normal text-secondary">Avaliador</dt><dd class="col-sm-8" th:text="${e.avaliadorNome}">Avaliador</dd>
+                    <dt class="col-sm-4 fw-normal text-secondary">Avaliado</dt><dd class="col-sm-8" th:text="${e.avaliadoNome}">Avaliado</dd>
+                    <dt class="col-sm-4 fw-normal text-secondary">Relação</dt><dd class="col-sm-8 mb-0" th:text="${e.relacaoRotulo()}">Relação</dd>
+                </dl>
+                <div class="mb-3">
+                    <label class="form-label" for="motivo">Motivo da reabertura</label>
+                    <textarea class="form-control" id="motivo" name="motivo" rows="3" maxlength="300" required
+                              th:text="${motivo}"
+                              placeholder="Ex.: o avaliador pediu por e-mail para corrigir uma nota marcada por engano."></textarea>
+                    <div class="form-text">Obrigatório. Fica no log de auditoria e vai no e-mail para o avaliador.</div>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-arrow-counterclockwise"></i> Confirmar reabertura</button>
+                    <a class="btn btn-outline-secondary" th:href="@{/moderacao(ciclo=${e.designacao.cicloId})}">Cancelar</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

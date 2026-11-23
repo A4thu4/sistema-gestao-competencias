@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.PostLoad;
+import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import org.springframework.data.domain.Persistable;
 
 import java.util.UUID;
 
@@ -17,7 +21,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "avaliacao_enviada")
-public class AvaliacaoEnviada {
+public class AvaliacaoEnviada implements Persistable<UUID> {
 
     @Id
     private UUID id;
@@ -29,6 +33,10 @@ public class AvaliacaoEnviada {
 
     private Long questionarioId;
     private String verificador;
+
+    /** O id é gerado aqui (UUID aleatório); isto evita a consulta extra do Spring Data antes de inserir. */
+    @Transient
+    private boolean nova = true;
 
     protected AvaliacaoEnviada() {
     }
@@ -43,6 +51,16 @@ public class AvaliacaoEnviada {
         this.verificador = verificador;
     }
 
+    @PostLoad
+    @PostPersist
+    void marcarGravada() {
+        this.nova = false;
+    }
+
+    @Override
+    public boolean isNew() { return nova; }
+
+    @Override
     public UUID getId() { return id; }
     public Long getCicloId() { return cicloId; }
     public Long getAvaliadoId() { return avaliadoId; }
