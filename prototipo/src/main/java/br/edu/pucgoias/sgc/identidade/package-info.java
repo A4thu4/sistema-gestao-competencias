@@ -1,14 +1,9 @@
 /**
- * Login, perfis (RH, GESTOR, COLABORADOR), usuários, cargos e equipes.
+ * UC-10 Autenticar-se: login, perfis (RH, gestor e colaborador), pessoas, cargos e estrutura das equipes,
+ * página inicial e layout. Interface para os outros pacotes: {@code servico.UsuarioService} (devolve
+ * {@code PessoaResumo}), {@code servico.UsuarioAutenticado} (usuário da sessão) e o ponto de extensão
+ * {@code servico.ContribuicaoPainel} (cartões da página inicial).
  *
- * <p>Camadas dentro do pacote:
- * <ul>
- *   <li>{@code web}: controllers (rotas e telas Thymeleaf);</li>
- *   <li>{@code servico}: regras do caso de uso;</li>
- *   <li>{@code dominio}: entidades JPA e objetos de valor;</li>
- *   <li>{@code repositorio}: interfaces Spring Data.</li>
- * </ul>
- * <p>Migrações: V1_x em {@code src/main/resources/db/migration}.
- * <p>Responsável: Rikelmy Andrade (#55).
+ * <p>Depende só de {@code compartilhado}. Migrações: V1_x.
  */
 package br.edu.pucgoias.sgc.identidade;

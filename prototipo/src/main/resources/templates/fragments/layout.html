@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--
+  Layout base, a partir das telas do Figma (TL-01 a TL-05). Cada página usa:
+    <head th:replace="~{fragments/layout :: head('Título')}"></head>
+    <aside th:replace="~{fragments/layout :: menu('chave-do-item-ativo')}"></aside>
+    <header th:replace="~{fragments/layout :: topo('Trilha › Página')}"></header>
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+  Responsivo (RNF-07): em telas pequenas o menu vira um painel lateral aberto pelo botão do topo.
+-->
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' · Competências'">Competências</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<aside th:fragment="menu(ativo)" class="app-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuLateral">
+    <div class="app-marca">
+        <span class="app-marca-icone"><i class="bi bi-stack"></i></span>
+        <span><strong>Competências</strong><small>GESTÃO DE PESSOAS</small></span>
+        <button type="button" class="btn-close btn-close-white ms-auto d-lg-none" data-bs-dismiss="offcanvas"
+                data-bs-target="#menuLateral" aria-label="Fechar menu"></button>
+    </div>
+    <nav class="app-menu">
+        <div class="app-menu-secao">PRINCIPAL</div>
+        <a th:href="@{/}" th:classappend="${ativo == 'inicio'} ? 'ativo'"><i class="bi bi-grid"></i> Visão geral</a>
+        <a th:href="@{/avaliacoes}" th:classappend="${ativo == 'avaliacoes'} ? 'ativo'"><i class="bi bi-ui-checks"></i> Minhas avaliações</a>
+        <a th:href="@{/resultados}" th:classappend="${ativo == 'resultados'} ? 'ativo'"><i class="bi bi-bar-chart"></i> Resultados</a>
+        <a th:href="@{/planos}" th:classappend="${ativo == 'planos'} ? 'ativo'"><i class="bi bi-flag"></i> Plano de desenvolvimento</a>
+        <a sec:authorize="hasRole('GESTOR')" th:href="@{/observacoes}" th:classappend="${ativo == 'observacoes'} ? 'ativo'"><i class="bi bi-journal-text"></i> Observações da equipe</a>
+        <a sec:authorize="hasAnyRole('RH','GESTOR')" th:href="@{/ciclos/andamento}" th:classappend="${ativo == 'andamento'} ? 'ativo'"><i class="bi bi-hourglass-split"></i> Andamento do ciclo</a>
+
+        <th:block sec:authorize="hasRole('RH')">
+            <div class="app-menu-secao">GESTÃO DO RH</div>
+            <a th:href="@{/competencias}" th:classappend="${ativo == 'competencias'} ? 'ativo'"><i class="bi bi-layers"></i> Competências</a>
+            <a th:href="@{/ciclos}" th:classappend="${ativo == 'ciclos'} ? 'ativo'"><i class="bi bi-arrow-repeat"></i> Ciclos de avaliação</a>
+            <a th:href="@{/moderacao}" th:classappend="${ativo == 'moderacao'} ? 'ativo'"><i class="bi bi-shield-check"></i> Reabertura e moderação</a>
+            <a th:href="@{/pessoas}" th:classappend="${ativo == 'pessoas'} ? 'ativo'"><i class="bi bi-people"></i> Cargos e equipes</a>
+            <a th:href="@{/privacidade/solicitacoes}" th:classappend="${ativo == 'solicitacoes'} ? 'ativo'"><i class="bi bi-inbox"></i> Solicitações LGPD</a>
+            <a th:href="@{/auditoria}" th:classappend="${ativo == 'auditoria'} ? 'ativo'"><i class="bi bi-clock-history"></i> Log de auditoria</a>
+            <a th:href="@{/emails}" th:classappend="${ativo == 'emails'} ? 'ativo'"><i class="bi bi-envelope"></i> E-mails enviados</a>
+        </th:block>
+    </nav>
+    <div class="app-menu-rodape">
+        <a th:href="@{/privacidade/meus-dados}" th:classappend="${ativo == 'meus-dados'} ? 'ativo'"><i class="bi bi-person-lock"></i> Meus dados</a>
+        <div class="app-ambiente" sec:authorize="isAuthenticated()"
+             th:text="'Ambiente de ' + ${#authentication.principal.perfilRotulo}">Ambiente</div>
+    </div>
+</aside>
+
+<header th:fragment="topo(trilha)" class="app-topo">
+    <button class="btn btn-light d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
+            aria-controls="menuLateral" aria-label="Abrir menu"><i class="bi bi-list"></i></button>
+    <nav class="app-trilha text-truncate"><span>Gestão de pessoas</span> <i class="bi bi-chevron-right"></i>
+        <strong th:text="${trilha}">Página</strong></nav>
+    <div class="dropdown ms-auto" sec:authorize="isAuthenticated()">
+        <button class="btn app-usuario dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="app-avatar" th:text="${#authentication.principal.iniciais}">AB</span>
+            <span class="d-none d-sm-inline text-start">
+                <strong th:text="${#authentication.principal.nome}">Nome</strong>
+                <small th:text="${#authentication.principal.perfilRotulo}">Perfil</small>
+            </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" th:href="@{/privacidade/meus-dados}"><i class="bi bi-person-lock"></i> Meus dados</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <form th:action="@{/sair}" method="post">
+                    <button class="dropdown-item" type="submit"><i class="bi bi-box-arrow-right"></i> Sair</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<div th:fragment="alertas">
+    <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle"></i> <span th:text="${sucesso}">ok</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+    <div th:if="${erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> <span th:text="${erro}">erro</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+    <div th:if="${aviso}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <i class="bi bi-info-circle"></i> <span th:text="${aviso}">aviso</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+</div>
+
+<th:block th:fragment="scripts">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</th:block>
+
+</body>
+</html>

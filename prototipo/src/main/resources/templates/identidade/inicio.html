@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Visão geral')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('inicio')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Visão geral')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <h1 class="titulo-pagina">Olá, <span th:text="${#strings.arraySplit(#authentication.principal.nome, ' ')[0]}">Nome</span></h1>
+            <p class="subtitulo-pagina">
+                <span th:text="${#authentication.principal.perfilRotulo}">Perfil</span> ·
+                <span th:text="${#authentication.principal.cargo}">Cargo</span>
+            </p>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-xl-4" th:each="c : ${cartoes}">
+                    <a class="cartao cartao-link" th:href="@{${c.link}}">
+                        <div class="text-secondary small mb-1" th:text="${c.titulo}">Título</div>
+                        <div class="cartao-numero" th:classappend="'text-' + ${c.cor}" th:text="${c.destaque}">0</div>
+                        <div class="small text-secondary mt-1" th:text="${c.descricao}">Descrição</div>
+                    </a>
+                </div>
+                <div class="col-12" th:if="${#lists.isEmpty(cartoes)}">
+                    <div class="cartao text-secondary">Nada pendente por aqui.</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

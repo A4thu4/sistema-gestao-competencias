@@ -1,13 +1,7 @@
 /**
- * Itens usados por todos os pacotes: configuração, tratamento de erros e log de auditoria (RNF-05). Não depende de nenhum pacote de negócio.
+ * Infraestrutura comum: log de auditoria por eventos (DA-08, RNF-05), caixa de saída de e-mails, exceções e
+ * tratamento de erros. Não depende de nenhum pacote de negócio.
  *
- * <p>Camadas dentro do pacote:
- * <ul>
- *   <li>{@code web}: controllers (rotas e telas Thymeleaf);</li>
- *   <li>{@code servico}: regras do caso de uso;</li>
- *   <li>{@code dominio}: entidades JPA e objetos de valor;</li>
- *   <li>{@code repositorio}: interfaces Spring Data.</li>
- * </ul>
- * <p>Responsável: Arthur Mamedes Borges (#60).
+ * <p>Migrações: V6_x (junto com privacidade).
  */
 package br.edu.pucgoias.sgc.compartilhado;

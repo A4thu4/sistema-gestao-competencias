@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Entrar')}"></head>
+<body>
+<!-- TL-10 / UC-10 Autenticar-se -->
+<div class="login-fundo">
+    <div class="login-caixa shadow">
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <span class="app-marca-icone text-white"><i class="bi bi-stack"></i></span>
+            <div><strong>Competências</strong><div class="small text-secondary">Gestão de pessoas</div></div>
+        </div>
+        <h1 class="h4 mb-1">Entrar</h1>
+        <p class="text-secondary small mb-4">Use o e-mail e a senha da sua conta.</p>
+
+        <div th:if="${param.erro}" class="alert alert-danger py-2 small" role="alert">
+            E-mail ou senha incorretos. Confira e tente de novo.
+        </div>
+        <div th:if="${param.saiu}" class="alert alert-success py-2 small" role="status">Você saiu do sistema.</div>
+        <div th:if="${param.expirou}" class="alert alert-warning py-2 small" role="status">Sua sessão terminou. Entre de novo.</div>
+
+        <form th:action="@{/login}" method="post" novalidate>
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" autocomplete="username" required autofocus>
+            </div>
+            <div class="mb-4">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+        </form>
+        <button type="button" class="btn btn-outline-secondary w-100 mt-2" disabled
+                title="O login com a conta corporativa (SSO, RF-32) está fora do escopo do protótipo">
+            <i class="bi bi-building"></i> Entrar com a conta da empresa
+        </button>
+        <p class="small text-secondary mt-3 mb-0">Avaliador externo? Use o link individual que você recebeu por e-mail.</p>
+    </div>
+</div>
+</body>
+</html>
