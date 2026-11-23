@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--
+  Linha de pergunta do editor. i = posição no formulário; p = pergunta (PerguntaResumo) ou null para uma nova;
+  cid = id da competência. O modelo das linhas novas usa i = XINDICEX e cid = XCOMPX, trocados pelo JavaScript.
+-->
+<div th:fragment="linhaPergunta(i, p, cid)" class="pergunta-linha">
+    <input type="hidden" th:name="|perguntas[${i}].id|" th:value="${p?.id}">
+    <input type="hidden" th:name="|perguntas[${i}].competenciaId|" th:value="${cid}">
+    <div class="row g-2 align-items-end">
+        <div class="col-12 col-lg-7">
+            <label class="form-label small text-secondary mb-1" th:for="|p-${i}-texto|">Pergunta</label>
+            <textarea class="form-control" rows="2" maxlength="500" th:id="|p-${i}-texto|" th:name="|perguntas[${i}].texto|"
+                      th:text="${p?.texto}" placeholder="Ex.: Expressa as ideias com clareza."></textarea>
+        </div>
+        <div class="col-7 col-lg-3">
+            <label class="form-label small text-secondary mb-1" th:for="|p-${i}-tipo|">Resposta</label>
+            <select class="form-select" th:id="|p-${i}-tipo|" th:name="|perguntas[${i}].tipo|">
+                <option value="ESCALA" th:selected="${p == null or p.escala()}">Nota na escala</option>
+                <option value="ABERTA" th:selected="${p != null and p.aberta()}">Aberta (texto livre)</option>
+            </select>
+        </div>
+        <div class="col-5 col-lg-2">
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" value="true" th:id="|p-${i}-obr|"
+                       th:name="|perguntas[${i}].obrigatoria|" th:checked="${p == null or p.obrigatoria()}">
+                <label class="form-check-label small" th:for="|p-${i}-obr|">Obrigatória</label>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-wrap align-items-center column-gap-3 row-gap-1 mt-2">
+        <span class="small text-secondary">Aparece para:</span>
+        <div class="form-check form-check-inline m-0" th:each="t : ${tipos}">
+            <input class="form-check-input" type="checkbox" value="true" th:id="|p-${i}-${t.name()}|"
+                   th:name="|perguntas[${i}].${#strings.toLowerCase(t.name())}|" th:checked="${p == null or p.seAplicaA(t)}">
+            <label class="form-check-label small" th:for="|p-${i}-${t.name()}|" th:text="${t.rotulo}">Chefe</label>
+        </div>
+        <button type="button" class="btn btn-sm btn-link text-danger ms-auto px-0 remover-pergunta">
+            <i class="bi bi-trash"></i> Remover pergunta</button>
+    </div>
+</div>
+
+<!-- Item de competência para marcar no editor. -->
+<div th:fragment="itemCompetencia(c)" class="form-check">
+    <input class="form-check-input" type="checkbox" name="competencias" th:value="${c.id}" th:id="|comp-${c.id}|"
+           th:checked="${selecionadas.contains(c.id)}">
+    <label class="form-check-label d-block" th:for="|comp-${c.id}|">
+        <strong class="fw-medium" th:text="${c.nome}">Comunicação</strong>
+        <span th:unless="${c.ativa}" class="selo selo-negada ms-1">desativada</span>
+        <span class="badge text-bg-light border ms-1" th:classappend="${padrao.contains(c.id)} ? '' : 'd-none'"
+              th:attr="data-padrao-de=${c.id}">padrão do cargo</span>
+        <span class="d-block small text-secondary" th:text="${c.descricao}">Descrição</span>
+    </label>
+</div>
+</body>
+</html>
