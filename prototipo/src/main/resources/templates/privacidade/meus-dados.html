@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Meus dados')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/privacidade.css}">
+<!-- UC-05 passos 5 a 10: consentimento, dados mantidos e solicitações do titular (RF-30). -->
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('meus-dados')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Meus dados')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <h1 class="titulo-pagina">Meus dados</h1>
+            <p class="subtitulo-pagina">O termo que você aceitou, os dados pessoais que o sistema guarda sobre você e os
+                seus pedidos de acesso, correção ou exclusão.</p>
+
+            <div class="row g-3">
+                <div class="col-12 col-lg-5">
+                    <div class="cartao">
+                        <div class="cartao-titulo"><i class="bi bi-shield-check text-primary"></i> Termo de consentimento</div>
+                        <th:block th:if="${aceite != null}">
+                            <div class="dado-rotulo">Versão aceita</div>
+                            <div class="dado-valor mb-2" th:text="${aceite.versao}">1.0</div>
+                            <div class="dado-rotulo">Aceito em</div>
+                            <div class="dado-valor mb-3" th:text="${aceite.dataHora()}">data</div>
+                        </th:block>
+                        <p th:if="${aceite == null}" class="text-secondary">Nenhum aceite registrado.</p>
+                        <a th:href="@{/privacidade/termo}" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-file-text"></i> Ler o termo vigente
+                            <span th:if="${termo != null}" th:text="'(versão ' + ${termo.versao} + ')'"></span></a>
+                    </div>
+
+                    <div class="cartao">
+                        <div class="cartao-titulo"><i class="bi bi-person-vcard text-primary"></i> Dados pessoais mantidos</div>
+                        <div class="row g-2">
+                            <div class="col-12 col-sm-6 col-lg-12 col-xl-6" th:each="d : ${dados}">
+                                <div class="dado-rotulo" th:text="${d.rotulo}">Rótulo</div>
+                                <div class="dado-valor text-break" th:text="${d.valor}">Valor</div>
+                            </div>
+                        </div>
+                        <p class="small text-secondary mt-3 mb-3">Guardamos só o necessário para a avaliação. Além desses
+                            dados, o sistema guarda as avaliações em que você participa, as observações do seu gestor e o
+                            seu plano de desenvolvimento.</p>
+                        <a th:href="@{/privacidade/meus-dados/copia}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i> Ver a cópia completa</a>
+                        <a th:href="@{/privacidade/meus-dados/copia.pdf}" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-file-earmark-pdf"></i> Baixar em PDF</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <!-- 7c: exclusão durante um ciclo em andamento pede confirmação. -->
+                    <div th:if="${pedirConfirmacao}" class="cartao border-warning">
+                        <div class="cartao-titulo text-warning-emphasis"><i class="bi bi-exclamation-triangle"></i>
+                            Você está participando de um ciclo de avaliação</div>
+                        <p>Se os seus dados forem excluídos agora, você pode deixar de participar do ciclo em andamento:
+                            avaliações pendentes não poderão ser respondidas e o seu resultado pode não ser gerado.
+                            Quer mesmo pedir a exclusão?</p>
+                        <form th:action="@{/privacidade/meus-dados/solicitacoes}" method="post" class="d-flex flex-wrap gap-2">
+                            <input type="hidden" name="tipo" value="EXCLUSAO">
+                            <input type="hidden" name="descricao" th:value="${form.descricao}">
+                            <input type="hidden" name="confirmado" value="true">
+                            <button type="submit" class="btn btn-danger">Sim, pedir a exclusão</button>
+                            <a th:href="@{/privacidade/meus-dados}" class="btn btn-outline-secondary">Não, voltar</a>
+                        </form>
+                    </div>
+
+                    <div class="cartao" th:unless="${pedirConfirmacao}">
+                        <div class="cartao-titulo"><i class="bi bi-send text-primary"></i> Nova solicitação</div>
+                        <form th:action="@{/privacidade/meus-dados/solicitacoes}" th:object="${form}" method="post" novalidate>
+                            <div class="row g-2 mb-3">
+                                <div class="col-12 col-md-4" th:each="t : ${tipos}">
+                                    <label class="tipo-opcao">
+                                        <input class="form-check-input me-1" type="radio" th:field="*{tipo}" th:value="${t}">
+                                        <strong th:text="${t.rotulo}">Tipo</strong>
+                                        <span class="d-block small text-secondary mt-1" th:text="${t.explicacao}">Explicação</span>
+                                    </label>
+                                </div>
+                                <div class="col-12 small text-danger" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}">erro</div>
+                            </div>
+
+                            <div id="camposCorrecao" class="row g-2 mb-3" th:classappend="*{tipo?.name() == 'CORRECAO'} ? '' : 'd-none'">
+                                <div class="col-12 col-sm-5">
+                                    <label for="dadoIncorreto" class="form-label">Qual dado está errado?</label>
+                                    <select class="form-select" th:field="*{dadoIncorreto}" th:errorclass="is-invalid">
+                                        <option value="">Escolha…</option>
+                                        <option th:each="d : ${dadosCorrigiveis}" th:value="${d}" th:text="${d}">Nome</option>
+                                    </select>
+                                    <div class="invalid-feedback" th:errors="*{dadoIncorreto}">erro</div>
+                                </div>
+                                <div class="col-12 col-sm-7">
+                                    <label for="valorCorreto" class="form-label">Qual é o valor correto?</label>
+                                    <input type="text" class="form-control" th:field="*{valorCorreto}" maxlength="200"
+                                           th:errorclass="is-invalid">
+                                    <div class="invalid-feedback" th:errors="*{valorCorreto}">erro</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="descricao" class="form-label">Descreva o pedido</label>
+                                <textarea class="form-control" th:field="*{descricao}" rows="3" maxlength="1000"
+                                          th:errorclass="is-invalid"
+                                          placeholder="Ex.: meu nome está escrito errado."></textarea>
+                                <div class="invalid-feedback" th:errors="*{descricao}">erro</div>
+                                <div class="form-text">No pedido de acesso, a cópia dos dados sai na hora.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar solicitação</button>
+                        </form>
+                        <p class="small text-secondary mt-3 mb-0">Outros pedidos ou dúvidas: fale com o encarregado de dados
+                            em <a th:href="'mailto:' + ${canal}" th:text="${canal}">encarregado@exemplo.com</a>.</p>
+                    </div>
+
+                    <div class="cartao p-0">
+                        <div class="cartao-titulo px-4 pt-3 mb-2">Minhas solicitações</div>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead><tr><th>Protocolo</th><th>Tipo</th><th>Data</th><th>Situação</th></tr></thead>
+                                <tbody>
+                                <tr th:each="s : ${solicitacoes}">
+                                    <td><a th:href="@{/privacidade/meus-dados/solicitacoes/{id}(id=${s.id})}" th:text="${s.protocolo}">LGPD</a></td>
+                                    <td th:text="${s.tipo.rotulo}">Tipo</td>
+                                    <td class="text-nowrap small" th:text="${s.criadaEmTexto()}">data</td>
+                                    <td><span class="selo" th:classappend="${s.seloCss()}" th:text="${s.situacao.rotulo}">situação</span></td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(solicitacoes)}">
+                                    <td colspan="4" class="text-secondary p-3">Você ainda não fez nenhuma solicitação.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script>
+    document.querySelectorAll('input[name="tipo"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+            document.getElementById('camposCorrecao').classList.toggle('d-none', r.value !== 'CORRECAO' || !r.checked);
+        });
+    });
+</script>
+</body>
+</html>

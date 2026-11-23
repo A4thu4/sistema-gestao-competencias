@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Solicitação ' + ${s.protocolo})}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/privacidade.css}">
+<!-- UC-05: detalhe de uma solicitação do titular; no modo do RH, com o atendimento (10a e 10b). -->
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu(${modoRh} ? 'solicitacoes' : 'meus-dados')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo(${modoRh} ? 'Solicitações LGPD › ' + ${s.protocolo} : 'Meus dados › ' + ${s.protocolo})}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                <h1 class="titulo-pagina mb-0" th:text="${s.protocolo}">LGPD-2026-000001</h1>
+                <span class="selo" th:classappend="${s.seloCss()}" th:text="${s.situacao.rotulo}">situação</span>
+            </div>
+            <p class="subtitulo-pagina"><span th:text="${s.tipo.rotulo}">Tipo</span> · registrada em
+                <span th:text="${s.criadaEmTexto()}">data</span></p>
+
+            <div class="row g-3">
+                <div class="col-12" th:classappend="${modoRh and s.emAnalise()} ? 'col-lg-6' : 'col-lg-8'">
+                    <div class="cartao">
+                        <div class="cartao-titulo">Pedido</div>
+                        <th:block th:if="${modoRh}">
+                            <div class="dado-rotulo">Titular</div>
+                            <div class="dado-valor mb-2">
+                                <span th:text="${pessoas[s.usuarioId]?.nome}">Nome</span>
+                                <span class="small text-secondary" th:text="${pessoas[s.usuarioId]?.email}">email</span>
+                            </div>
+                        </th:block>
+                        <div class="dado-rotulo">Descrição</div>
+                        <p class="dado-valor" style="white-space: pre-line" th:text="${s.descricao}">descrição</p>
+                        <th:block th:if="${s.dadoIncorreto != null}">
+                            <div class="row g-2 mb-2">
+                                <div class="col-sm-5"><div class="dado-rotulo">Dado errado</div>
+                                    <div class="dado-valor" th:text="${s.dadoIncorreto}">Nome</div></div>
+                                <div class="col-sm-7"><div class="dado-rotulo">Valor correto</div>
+                                    <div class="dado-valor" th:text="${s.valorCorreto}">valor</div></div>
+                            </div>
+                        </th:block>
+                    </div>
+                    <div class="cartao" th:unless="${s.emAnalise()}">
+                        <div class="cartao-titulo">Resposta</div>
+                        <div class="dado-rotulo">Concluída em</div>
+                        <div class="dado-valor mb-2" th:text="${s.concluidaEmTexto()}">data</div>
+                        <th:block th:if="${modoRh and s.concluidaPor != null}">
+                            <div class="dado-rotulo">Atendida por</div>
+                            <div class="dado-valor mb-2" th:text="${pessoas[s.concluidaPor]?.nome}">Nome</div>
+                        </th:block>
+                        <div class="dado-rotulo">Justificativa</div>
+                        <p class="dado-valor mb-0" style="white-space: pre-line" th:text="${s.justificativa}">texto</p>
+                        <a th:if="${!modoRh and s.tipo.name() == 'ACESSO'}" th:href="@{/privacidade/meus-dados/copia}"
+                           class="btn btn-sm btn-outline-primary mt-3"><i class="bi bi-eye"></i> Ver a cópia dos dados</a>
+                    </div>
+                    <div class="cartao text-secondary" th:if="${!modoRh and s.emAnalise()}">
+                        <i class="bi bi-hourglass-split"></i> Em análise pelo RH e pelo encarregado de dados. Você recebe
+                        a resposta por e-mail.
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6" th:if="${modoRh and s.emAnalise()}">
+                    <div class="cartao">
+                        <div class="cartao-titulo">Concluir o atendimento</div>
+                        <div class="alert alert-warning small" th:if="${s.tipo.name() == 'EXCLUSAO'}">
+                            <i class="bi bi-exclamation-triangle"></i> Ao concluir como atendida (no todo ou em parte), o nome
+                            e o e-mail da pessoa são substituídos e o acesso dela é bloqueado. Isso não pode ser desfeito.
+                            Na justificativa, diga o que foi excluído e o que foi mantido, e por quê.
+                        </div>
+                        <div class="alert alert-info small" th:if="${s.tipo.name() == 'CORRECAO' and s.dadoIncorreto == 'Nome'}">
+                            <i class="bi bi-info-circle"></i> Ao concluir como atendida, o nome no cadastro passa a ser
+                            "<span th:text="${s.valorCorreto}">valor</span>".
+                        </div>
+                        <form th:action="@{/privacidade/solicitacoes/{id}/concluir(id=${s.id})}" method="post">
+                            <div class="mb-3">
+                                <div class="form-label">Decisão</div>
+                                <div class="form-check" th:each="d, st : ${decisoes}">
+                                    <input class="form-check-input" type="radio" name="decisao" th:value="${d}"
+                                           th:id="'decisao' + ${st.index}" th:checked="${st.first}">
+                                    <label class="form-check-label" th:for="'decisao' + ${st.index}" th:text="${d.rotulo}">Atendida</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="justificativa" class="form-label">Justificativa (vai para o titular)</label>
+                                <textarea class="form-control" id="justificativa" name="justificativa" rows="5"
+                                          maxlength="1000" required th:text="${justificativa}"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Concluir e avisar o titular</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a th:href="${modoRh} ? @{/privacidade/solicitacoes} : @{/privacidade/meus-dados}"
+               class="btn btn-outline-secondary mt-3">Voltar</a>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

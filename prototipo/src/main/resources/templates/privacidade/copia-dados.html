@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Cópia dos meus dados')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/privacidade.css}">
+<!-- UC-05, 7a: cópia dos dados pessoais, sem a autoria de respostas de pares e subordinados (RNF-01). -->
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('meus-dados')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Meus dados › Cópia dos dados')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <div class="d-flex flex-wrap align-items-start gap-2 mb-3">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Cópia dos seus dados</h1>
+                    <p class="subtitulo-pagina mb-0">Gerada em <span th:text="${copia.geradaEmTexto()}">data</span>.</p>
+                </div>
+                <a th:href="@{/privacidade/meus-dados/copia.pdf}" class="btn btn-primary">
+                    <i class="bi bi-file-earmark-pdf"></i> Baixar em PDF</a>
+                <a th:href="@{/privacidade/meus-dados}" class="btn btn-outline-secondary">Voltar</a>
+            </div>
+
+            <div class="cartao">
+                <div class="cartao-titulo">Dados cadastrais</div>
+                <div class="row g-3">
+                    <div class="col-12 col-sm-6 col-lg-4" th:each="d : ${copia.dadosCadastrais}">
+                        <div class="dado-rotulo" th:text="${d.rotulo}">Rótulo</div>
+                        <div class="dado-valor text-break" th:text="${d.valor}">Valor</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-0">
+                <div class="col-12 col-lg-5">
+                    <div class="cartao h-100">
+                        <div class="cartao-titulo">Termo de consentimento</div>
+                        <ul class="list-unstyled mb-0">
+                            <li th:each="a : ${copia.aceites}" class="mb-1">
+                                <i class="bi bi-check2-circle text-success"></i>
+                                Versão <strong th:text="${a.versao}">1.0</strong> aceita em <span th:text="${a.dataHora()}">data</span>
+                            </li>
+                            <li th:if="${#lists.isEmpty(copia.aceites)}" class="text-secondary">Nenhum aceite registrado.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="cartao h-100 p-0">
+                        <div class="cartao-titulo px-4 pt-3 mb-2">Solicitações sobre os seus dados</div>
+                        <div class="table-responsive">
+                            <table class="table table-sm align-middle mb-0">
+                                <thead><tr><th class="ps-4">Protocolo</th><th>Tipo</th><th>Data</th><th>Situação</th></tr></thead>
+                                <tbody>
+                                <tr th:each="s : ${copia.solicitacoes}">
+                                    <td class="ps-4" th:text="${s.protocolo}">LGPD</td>
+                                    <td th:text="${s.tipo.rotulo}">Tipo</td>
+                                    <td class="small text-nowrap" th:text="${s.criadaEmTexto()}">data</td>
+                                    <td><span class="selo" th:classappend="${s.seloCss()}" th:text="${s.situacao.rotulo}">situação</span></td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(copia.solicitacoes)}"><td colspan="4" class="text-secondary ps-4">Nenhuma solicitação.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cartao mt-3" th:each="sec : ${copia.outrasSecoes}">
+                <div class="cartao-titulo" th:text="${sec.titulo}">Seção</div>
+                <ul class="mb-0" th:unless="${#lists.isEmpty(sec.itens)}">
+                    <li th:each="i : ${sec.itens}" th:text="${i}">item</li>
+                </ul>
+                <p class="text-secondary mb-0" th:if="${#lists.isEmpty(sec.itens)}">Nada registrado.</p>
+            </div>
+
+            <div class="alert alert-light border mt-3 small" role="note">
+                <i class="bi bi-incognito"></i> <span th:text="${notaAnonimato}">nota</span>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
