@@ -19,6 +19,8 @@ body { background: var(--sgc-fundo); color: #1d2433; }
     display: flex; flex-direction: column; }
 @media (min-width: 992px) {
     /* O Bootstrap deixa o .offcanvas-lg transparente em tela grande; a barra lateral precisa do fundo escuro. */
+    /* Fundo da coluna do menu até o fim da página, mesmo em páginas longas. */
+    .app { background: linear-gradient(to right, var(--sgc-lateral) 248px, transparent 248px); }
     .app-sidebar, .app-sidebar.offcanvas-lg { position: sticky; top: 0; height: 100vh; overflow-y: auto;
         background-color: var(--sgc-lateral) !important; }
 }
