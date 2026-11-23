@@ -4,6 +4,7 @@ import br.edu.pucgoias.sgc.compartilhado.dominio.RegraDeNegocioException;
 import br.edu.pucgoias.sgc.identidade.servico.UsuarioAutenticado;
 import br.edu.pucgoias.sgc.resultados.servico.ArquivoExportado;
 import br.edu.pucgoias.sgc.resultados.servico.CicloDisponivel;
+import br.edu.pucgoias.sgc.resultados.servico.ConsolidacaoService;
 import br.edu.pucgoias.sgc.resultados.servico.RegrasDeExibicao;
 import br.edu.pucgoias.sgc.resultados.servico.RelatorioEquipe;
 import br.edu.pucgoias.sgc.resultados.servico.ResultadoIndisponivelException;
@@ -37,6 +38,7 @@ import java.util.List;
  *   <li>{@code GET /resultados/{ciclo}/pessoas/{pessoa}}: painel individual (TL-04), {@code .../pdf} e
  *       {@code .../excel};</li>
  *   <li>{@code POST /resultados/{ciclo}/liberar}: liberação pelo RH (2a);</li>
+ *   <li>{@code POST /resultados/{ciclo}/recalcular}: o RH refaz a consolidação (RNF-12);</li>
  *   <li>{@code GET /resultados/{ciclo}/equipe?gestor=} ou {@code ?area=}: relatório (3a), com PDF e Excel.</li>
  * </ul>
  */
@@ -45,9 +47,11 @@ import java.util.List;
 public class ResultadosController {
 
     private final ResultadoService resultados;
+    private final ConsolidacaoService consolidacao;
 
-    public ResultadosController(ResultadoService resultados) {
+    public ResultadosController(ResultadoService resultados, ConsolidacaoService consolidacao) {
         this.resultados = resultados;
+        this.consolidacao = consolidacao;
     }
 
     @GetMapping
@@ -96,6 +100,21 @@ public class ResultadosController {
             int avisados = resultados.liberar(eu, cicloId);
             ra.addFlashAttribute("sucesso", "Resultado liberado. " + avisados
                     + (avisados == 1 ? " pessoa foi avisada" : " pessoas foram avisadas") + " por e-mail.");
+        } catch (RegraDeNegocioException e) {
+            ra.addFlashAttribute("erro", e.getMessage());
+        }
+        return "redirect:/resultados?ciclo=" + cicloId;
+    }
+
+    /** RNF-12: refaz o consolidado do ciclo encerrado a partir das respostas armazenadas. */
+    @PostMapping("/{cicloId}/recalcular")
+    @PreAuthorize("hasRole('RH')")
+    public String recalcular(@AuthenticationPrincipal UsuarioAutenticado eu, @PathVariable Long cicloId,
+                             RedirectAttributes ra) {
+        try {
+            int medias = consolidacao.recalcular(eu, cicloId);
+            ra.addFlashAttribute("sucesso", "Resultado recalculado a partir das respostas armazenadas: " + medias
+                    + " médias. O mesmo conjunto de respostas gera sempre o mesmo resultado.");
         } catch (RegraDeNegocioException e) {
             ra.addFlashAttribute("erro", e.getMessage());
         }

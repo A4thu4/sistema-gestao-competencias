@@ -1,5 +1,6 @@
 package br.edu.pucgoias.sgc.resultados.servico;
 
+import br.edu.pucgoias.sgc.avaliacoes.servico.ConsultaRespostasService;
 import br.edu.pucgoias.sgc.ciclos.servico.CicloResumo;
 import br.edu.pucgoias.sgc.ciclos.servico.CicloService;
 import br.edu.pucgoias.sgc.compartilhado.dominio.EventoAuditoria;
@@ -55,18 +56,21 @@ public class ResultadoService {
     private final CompetenciaService competencias;
     private final EmailService emails;
     private final ExportacaoResultados exportacao;
+    private final ConsultaRespostasService respostas;
     private final ApplicationEventPublisher eventos;
     private final String urlBase;
 
     public ResultadoService(ResultadoConsolidadoRepository resultados, CicloService ciclos, UsuarioService usuarios,
                             CompetenciaService competencias, EmailService emails, ExportacaoResultados exportacao,
-                            ApplicationEventPublisher eventos, @Value("${sgc.url-base:http://localhost:8080}") String urlBase) {
+                            ConsultaRespostasService respostas, ApplicationEventPublisher eventos,
+                            @Value("${sgc.url-base:http://localhost:8080}") String urlBase) {
         this.resultados = resultados;
         this.ciclos = ciclos;
         this.usuarios = usuarios;
         this.competencias = competencias;
         this.emails = emails;
         this.exportacao = exportacao;
+        this.respostas = respostas;
         this.eventos = eventos;
         this.urlBase = urlBase;
     }
@@ -131,6 +135,13 @@ public class ResultadoService {
         if (!c.encerrado()) {
             throw new RegraDeNegocioException("O resultado só pode ser liberado depois que o ciclo for encerrado.");
         }
+        return liberarCiclo(cicloId);
+    }
+
+    /** Liberação sem conferir o usuário (a carga de exemplo usa direto; a tela passa por {@link #liberar}). */
+    @Transactional
+    public int liberarCiclo(Long cicloId) {
+        CicloResumo c = ciclos.ciclo(cicloId);
         if (!resultados.existsByCicloId(cicloId)) {
             throw new RegraDeNegocioException("Ainda não há resultado calculado para este ciclo.");
         }
@@ -207,12 +218,10 @@ public class ResultadoService {
                 evolucao(eu, pessoaId, c));
     }
 
-    /**
-     * Comentários das perguntas abertas, sem autor (RF-22). Serão lidos de {@code avaliacoes.comentariosVisiveis}
-     * quando o pacote avaliacoes oferecer as respostas (UC-03); até lá não há comentários.
-     */
-    List<ComentarioPainel> comentarios(Long cicloId, Long pessoaId) {
-        return List.of();
+    /** Comentários das perguntas abertas, sem autor e sem os ocultados na moderação (RF-22, 5a). */
+    private List<ComentarioPainel> comentarios(Long cicloId, Long pessoaId) {
+        return respostas.comentariosVisiveis(cicloId, pessoaId).stream()
+                .map(c -> new ComentarioPainel(c.competenciaNome(), c.perguntaTexto(), c.texto())).toList();
     }
 
     /** RF-26: nota final por competência nos ciclos encerrados da pessoa que o usuário pode ver, até o atual. */
@@ -342,6 +351,12 @@ public class ResultadoService {
     public List<CicloResumo> ciclosLiberadosDe(Long pessoaId) {
         Set<Long> dela = new HashSet<>(resultados.ciclosDoAvaliado(pessoaId));
         return ciclos.encerrados().stream().filter(c -> c.resultadoLiberado() && dela.contains(c.id())).toList();
+    }
+
+    /** Ciclos encerrados em que a pessoa tem resultado, do mais recente para o mais antigo (liberados ou não). */
+    public List<CicloResumo> ciclosEncerradosComResultado(Long pessoaId) {
+        Set<Long> dela = new HashSet<>(resultados.ciclosDoAvaliado(pessoaId));
+        return ciclos.encerrados().stream().filter(c -> dela.contains(c.id())).toList();
     }
 
     /** Último ciclo liberado em que a pessoa tem resultado (base do plano de desenvolvimento). */

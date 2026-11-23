@@ -169,8 +169,7 @@ class AndamentoCicloTest extends TesteIntegracao {
         assertThat(ciclos.designacao(auto.id()).situacao()).isEqualTo("EM_PREENCHIMENTO");
         assertThatThrownBy(() -> ciclos.reabrir(auto.id())).isInstanceOf(RegraDeNegocioException.class);
 
-        // Liberação do resultado (RF-24): só encerrado, uma vez.
-        ciclos.liberarResultado(encerrado.id());
+        // Liberação do resultado (RF-24): só encerrado, uma vez. A carga de exemplo do resultados já libera o 2026.1.
         assertThat(ciclos.ciclo(encerrado.id()).resultadoLiberado()).isTrue();
         assertThatThrownBy(() -> ciclos.liberarResultado(encerrado.id())).isInstanceOf(RegraDeNegocioException.class);
         assertThatThrownBy(() -> ciclos.liberarResultado(aberto.id())).isInstanceOf(RegraDeNegocioException.class);

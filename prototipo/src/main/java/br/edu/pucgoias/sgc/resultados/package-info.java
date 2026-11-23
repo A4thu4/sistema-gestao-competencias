@@ -8,7 +8,8 @@
  *       respostas de escala do ciclo, calcula com {@code servico.CalculoConsolidacao} (lógica pura: média por pessoa ×
  *       competência × grupo, sem "não tenho como avaliar", 2 casas HALF_UP, número de avaliações por grupo) e
  *       substitui as linhas de {@code resultado_consolidado} do ciclo. O mesmo conjunto de respostas gera sempre o
- *       mesmo resultado (RNF-12);</li>
+ *       mesmo resultado (RNF-12). Roda no encerramento ({@code @EventListener} de {@code CicloEncerradoEvento}, na
+ *       mesma transação) e pelo botão "Recalcular" do RH;</li>
  *   <li><b>Consulta (UC-04):</b> lista de ciclos por perfil, liberação pelo RH com e-mail a cada avaliado (2a), painel
  *       individual da TL-04 (média geral, ponto forte, foco, radar, tabela por grupo, nota final, comentários sem
  *       autor e evolução entre ciclos, normalizada em % quando as escalas diferem), relatório por equipe ou área (3a)
@@ -36,12 +37,15 @@
  *
  * <p><b>Interface oferecida aos outros pacotes</b> ({@code servico}):
  * <ul>
- *   <li>{@code ConsolidacaoService.consolidarResultados(Long cicloId)}: recalcula o consolidado do ciclo (CO-03);</li>
+ *   <li>{@code ConsolidacaoService.consolidarResultados(Long cicloId)}: recalcula o consolidado do ciclo (CO-03);
+ *       {@code recalcular(UsuarioAutenticado, Long cicloId)}: o mesmo, só RH e auditado;</li>
  *   <li>{@code ResultadoService.ultimoLiberado(Long pessoaId)}: {@code Optional<CicloResumo>} do último ciclo
  *       liberado com resultado da pessoa.</li>
  * </ul>
  *
  * <p><b>Implementa pontos de extensão de outros pacotes</b> (inversão de dependência):
+ * {@code avaliacoes.servico.ResultadoAnterior} ({@code ResultadoAnteriorDoAvaliado}: nota final por competência e
+ * média geral do último ciclo encerrado antes do atual, com o mínimo de 3; RF-18),
  * {@code identidade.servico.ContribuicaoPainel} ({@code PainelResultados}: resultado liberado, metas do próprio plano,
  * metas da equipe em andamento, ciclos para liberar) e {@code privacidade.servico.FonteDadosPessoais}
  * ({@code FonteResultados}: notas finais e médias exibíveis dos ciclos liberados; {@code FontePlano}: metas e
@@ -49,8 +53,14 @@
  *
  * <p><b>Depende de:</b> identidade ({@code UsuarioService}, {@code UsuarioAutenticado}, {@code ContribuicaoPainel}),
  * ciclos ({@code CicloService}: {@code ciclo}, {@code abertos}, {@code encerrados}, {@code avaliadosDoCiclo},
- * {@code questionarioDoAvaliado}, {@code liberarResultado}), competencias ({@code CompetenciaService.competenciasPorIds},
+ * {@code questionarioDoAvaliado}, {@code liberarResultado}; evento {@code CicloEncerradoEvento}), avaliacoes
+ * ({@code ConsultaRespostasService.respostasDoCiclo}, {@code comentariosVisiveis}, {@code avaliacoesEnviadas};
+ * interface {@code ResultadoAnterior}), competencias ({@code CompetenciaService.competenciasPorIds},
  * {@code QuestionarioService.resumo}, enum {@code TipoAvaliador}), privacidade (interface {@code FonteDadosPessoais})
  * e compartilhado ({@code EmailService}, {@code EventoAuditoria}, exceções).
+ *
+ * <p><b>Dados de exemplo:</b> {@code servico.DadosExemploResultados} ({@code @Order(50)}): consolida e libera o
+ * "Ciclo 2026.1" (com os avisos por e-mail) e cria os planos da Carla (uma meta em andamento com duas atualizações e
+ * uma não iniciada) e do Diego. O "Ciclo 2026.2" fica aberto, para ser encerrado ao vivo.
  */
 package br.edu.pucgoias.sgc.resultados;

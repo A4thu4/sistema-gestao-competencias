@@ -129,6 +129,13 @@
                     <div class="cartao" th:if="${escolhido.ciclo.encerrado() and !escolhido.consolidado}">
                         <p class="mb-0"><i class="bi bi-info-circle"></i> Este ciclo foi encerrado, mas ainda não tem resultado calculado.</p>
                     </div>
+                    <div class="cartao" sec:authorize="hasRole('RH')" th:if="${escolhido.ciclo.encerrado()}">
+                        <form class="d-flex flex-wrap align-items-center gap-3" th:action="@{/resultados/{id}/recalcular(id=${escolhido.ciclo.id})}" method="post">
+                            <div class="me-auto small text-secondary">As médias são calculadas das respostas armazenadas no encerramento do ciclo.
+                                Recalcular refaz a conta e chega sempre ao mesmo resultado.</div>
+                            <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-arrow-repeat"></i> Recalcular</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <p class="small text-secondary mt-3"><i class="bi bi-shield-lock"></i> As respostas de pares, subordinados e externos aparecem só agrupadas, e só quando o grupo tem pelo menos <span th:text="${minimo}">3</span> respostas. Ninguém, nem o RH, vê quem respondeu.</p>

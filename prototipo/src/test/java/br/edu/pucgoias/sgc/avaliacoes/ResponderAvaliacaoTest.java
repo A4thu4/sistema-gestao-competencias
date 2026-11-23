@@ -249,7 +249,10 @@ class ResponderAvaliacaoTest extends TesteIntegracao {
                 .andExpect(content().string(containsString(soDoChefe)))
                 .andExpect(content().string(containsString("Suas observações do período")))
                 .andExpect(content().string(containsString("Resolveu sozinha a queda")))
-                .andExpect(content().string(containsString("Sem resultado anterior")));
+                // RF-18: o resultado do ciclo anterior vem do pacote resultados (ResultadoAnterior)
+                .andExpect(content().string(containsString("Resultado do ciclo anterior")))
+                .andExpect(content().string(containsString("Ciclo 2026.1")))
+                .andExpect(content().string(not(containsString("Sem resultado anterior"))));
     }
 
     @Test

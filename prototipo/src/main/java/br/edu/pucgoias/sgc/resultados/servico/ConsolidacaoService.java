@@ -1,10 +1,21 @@
 package br.edu.pucgoias.sgc.resultados.servico;
 
+import br.edu.pucgoias.sgc.avaliacoes.servico.ConsultaRespostasService;
+import br.edu.pucgoias.sgc.ciclos.servico.CicloEncerradoEvento;
+import br.edu.pucgoias.sgc.ciclos.servico.CicloResumo;
 import br.edu.pucgoias.sgc.ciclos.servico.CicloService;
+import br.edu.pucgoias.sgc.compartilhado.dominio.EventoAuditoria;
 import br.edu.pucgoias.sgc.compartilhado.dominio.NaoEncontradoException;
+import br.edu.pucgoias.sgc.compartilhado.dominio.RegraDeNegocioException;
+import br.edu.pucgoias.sgc.identidade.servico.UsuarioAutenticado;
 import br.edu.pucgoias.sgc.competencias.servico.QuestionarioService;
 import br.edu.pucgoias.sgc.resultados.dominio.ResultadoConsolidado;
 import br.edu.pucgoias.sgc.resultados.repositorio.ResultadoConsolidadoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,21 +27,57 @@ import java.util.Map;
  * Consolidação dos resultados de um ciclo (RF-19, contrato CO-03 {@code consolidarResultados(Long cicloId)}).
  * Ponto único: lê as respostas, calcula com {@link CalculoConsolidacao}, apaga o consolidado do ciclo e grava de
  * novo. O mesmo conjunto de respostas gera sempre o mesmo resultado (RNF-12).
+ *
+ * <p>Roda sozinha no encerramento do ciclo ({@link CicloEncerradoEvento}, na mesma transação) e pelo botão
+ * "Recalcular" do RH.
  */
 @Service
 public class ConsolidacaoService {
 
     private static final int ESCALA_PADRAO = 5;
+    private static final Logger log = LoggerFactory.getLogger(ConsolidacaoService.class);
 
     private final ResultadoConsolidadoRepository resultados;
     private final CicloService ciclos;
     private final QuestionarioService questionarios;
+    private final ConsultaRespostasService respostas;
+    private final ApplicationEventPublisher eventos;
 
     public ConsolidacaoService(ResultadoConsolidadoRepository resultados, CicloService ciclos,
-                               QuestionarioService questionarios) {
+                               QuestionarioService questionarios, ConsultaRespostasService respostas,
+                               ApplicationEventPublisher eventos) {
         this.resultados = resultados;
         this.ciclos = ciclos;
         this.questionarios = questionarios;
+        this.respostas = respostas;
+        this.eventos = eventos;
+    }
+
+    /** RF-19: consolida assim que o ciclo é encerrado (pela rotina ou por "Encerrar agora"). */
+    @EventListener
+    @Transactional
+    public void aoEncerrar(CicloEncerradoEvento evento) {
+        int linhas = consolidarResultados(evento.cicloId());
+        CicloResumo c = ciclos.ciclo(evento.cicloId());
+        eventos.publishEvent(EventoAuditoria.de("RESULTADO_CONSOLIDADO", ResultadoService.descricao(c) + ": "
+                + linhas + " médias calculadas no encerramento"));
+        log.info("Ciclo {} consolidado no encerramento: {} médias", evento.cicloId(), linhas);
+    }
+
+    /** Botão "Recalcular" do RH (RNF-12): refaz o consolidado do ciclo encerrado a partir das respostas. */
+    @Transactional
+    public int recalcular(UsuarioAutenticado eu, Long cicloId) {
+        if (!eu.ehRh()) {
+            throw new AccessDeniedException("Só o RH recalcula resultados.");
+        }
+        CicloResumo c = ciclos.ciclo(cicloId);
+        if (!c.encerrado()) {
+            throw new RegraDeNegocioException("Só um ciclo encerrado tem resultado para recalcular.");
+        }
+        int linhas = consolidarResultados(cicloId);
+        eventos.publishEvent(EventoAuditoria.de("RESULTADO_RECALCULADO", ResultadoService.descricao(c) + ": "
+                + linhas + " médias recalculadas a partir das respostas armazenadas"));
+        return linhas;
     }
 
     /** Recalcula o consolidado do ciclo a partir das respostas armazenadas. Devolve quantas linhas gravou. */
@@ -51,12 +98,12 @@ public class ConsolidacaoService {
         return linhas.size();
     }
 
-    /**
-     * Respostas de escala do ciclo, sem autor. Será ligada a {@code avaliacoes.respostasDoCiclo} quando o pacote
-     * avaliacoes oferecer as respostas (UC-03); até lá o ciclo não tem respostas para consolidar.
-     */
+    /** Respostas de escala das avaliações enviadas do ciclo, sem autor (pacote avaliacoes). */
     List<NotaParaConsolidar> respostasDoCiclo(Long cicloId) {
-        return List.of();
+        return respostas.respostasDoCiclo(cicloId).stream()
+                .map(r -> new NotaParaConsolidar(r.avaliacaoId(), r.avaliadoId(), r.relacao(), r.competenciaId(),
+                        r.nota(), r.naoAvalia()))
+                .toList();
     }
 
     /** Nota máxima do questionário usado para cada pessoa avaliada no ciclo. */
