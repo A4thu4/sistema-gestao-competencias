@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Resultado da avaliação')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/resultados.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('resultados')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Resultados › Resultado da avaliação')}"></header>
+        <main class="app-content" th:with="p=${painel}">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <a class="small text-decoration-none" th:href="@{/resultados(ciclo=${p.ciclo.id})}"><i class="bi bi-arrow-left"></i> Resultados</a>
+            <div class="d-flex flex-wrap align-items-start gap-3 mb-3 mt-1">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Resultado da Avaliação</h1>
+                    <p class="subtitulo-pagina mb-0">Colaborador: <strong th:text="${p.pessoa.nome}">Carla Dias</strong>
+                        <span class="text-secondary" th:text="'(' + ${p.pessoa.cargoNome} + ')'">(cargo)</span>
+                        | Ciclo: <span th:text="${p.ciclo.nome}">2026.1</span></p>
+                </div>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-secondary" th:href="@{/resultados/{c}/pessoas/{p}/pdf(c=${p.ciclo.id},p=${p.pessoa.id})}">
+                        <i class="bi bi-file-earmark-pdf"></i> Exportar PDF</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/resultados/{c}/pessoas/{p}/excel(c=${p.ciclo.id},p=${p.pessoa.id})}">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> Exportar Excel</a>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <div class="cartao h-100">
+                        <div class="resumo-rotulo">Média Geral</div>
+                        <div class="resumo-valor"><span th:text="${p.mediaGeralTexto()}">4,2</span> <small th:text="'/ ' + ${p.escalaTexto()}">/ 5,0</small></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cartao h-100">
+                        <div class="resumo-rotulo">Principal Ponto Forte</div>
+                        <div class="resumo-texto nota-maior" th:text="${p.pontoForte} ?: '—'">Atendimento ao cliente</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cartao h-100">
+                        <div class="resumo-rotulo">Foco de Desenvolvimento</div>
+                        <div class="resumo-texto nota-menor" th:text="${p.foco} ?: '—'">Pensamento analítico</div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${p.avisoInsuficientes() != null}" class="alert alert-warning">
+                <i class="bi bi-shield-lock"></i> <span th:text="${p.avisoInsuficientes()}">Pares: respostas insuficientes</span>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-lg-5">
+                    <div class="cartao h-100">
+                        <div class="cartao-titulo-linha"><h2>Mapa de Competências</h2></div>
+                        <div class="grafico-caixa"><canvas id="graficoRadar" aria-label="Gráfico radar das médias por competência e grupo" role="img"></canvas></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="cartao p-0 h-100">
+                        <div class="px-4 pt-3 pb-2"><h2 class="cartao-titulo mb-0">Detalhamento das Notas</h2></div>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0 tabela-notas">
+                                <thead><tr><th>Competência</th>
+                                    <th th:each="g : ${p.grupos}" class="text-center" th:text="${p.rotulo(g)}">Autoavaliação</th>
+                                    <th class="text-center">Nota final</th></tr></thead>
+                                <tbody>
+                                <tr th:each="l : ${p.linhas}">
+                                    <td th:text="${l.competencia}">Comunicação</td>
+                                    <td th:each="g : ${p.grupos}" class="text-center" th:with="n=${l.grupo(g)}">
+                                        <span th:if="${n.media != null}" th:text="${n.texto()}">4,0</span>
+                                        <span th:if="${n.media == null}" class="nota-oculta" th:title="${n.dica()}">—</span>
+                                    </td>
+                                    <td class="text-center" th:classappend="${l.corNotaFinal()}" th:text="${l.notaFinalTexto()}">4,3</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="ajuda px-4 py-3 mb-0"><i class="bi bi-info-circle"></i> <span th:text="${p.ajudaNotaFinal()}">ajuda</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-0">
+                <div class="col-lg-5">
+                    <div class="cartao h-100">
+                        <div class="cartao-titulo-linha"><h2>Comentários</h2></div>
+                        <p class="ajuda">Respostas das perguntas abertas, sem identificar quem escreveu.</p>
+                        <div th:each="c : ${p.comentarios}" class="comentario">
+                            <small th:text="${c.competencia} + ' · ' + ${c.pergunta}">Comunicação · pergunta</small>
+                            <span th:text="'“' + ${c.texto} + '”'">texto</span>
+                        </div>
+                        <p th:if="${#lists.isEmpty(p.comentarios)}" class="text-secondary mb-0">Nenhum comentário neste ciclo.</p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="cartao h-100" th:with="ev=${p.evolucao}">
+                        <div class="cartao-titulo-linha"><h2>Evolução entre ciclos</h2></div>
+                        <th:block th:if="${ev.temHistorico()}">
+                            <div class="grafico-caixa"><canvas id="graficoEvolucao" aria-label="Gráfico da evolução da nota final por competência" role="img"></canvas></div>
+                            <p class="ajuda mt-2" th:text="${ev.legenda()}">legenda</p>
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead><tr><th>Competência</th><th th:each="c : ${ev.ciclos}" class="text-center" th:text="${c}">2026.1</th></tr></thead>
+                                    <tbody>
+                                    <tr th:each="s : ${ev.series}">
+                                        <td th:text="${s.rotulo}">Comunicação</td>
+                                        <td th:each="v : ${s.valores}" class="text-center" th:text="${ev.texto(v)}">4,0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </th:block>
+                        <p th:unless="${ev.temHistorico()}" class="text-secondary mb-0"><i class="bi bi-clock-history"></i>
+                            Ainda não há histórico para comparar: este é o primeiro ciclo encerrado com resultado desta pessoa.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script th:inline="javascript">
+    (function () {
+        const radar = /*[[${painel.radar}]]*/ {competencias: [], series: [], escalaMax: 5};
+        const evolucao = /*[[${painel.evolucao}]]*/ {ciclos: [], series: [], normalizada: false};
+        const cores = ['#3d5ce6', '#1f9d55', '#e07b1a', '#8e44ad', '#d63384', '#0dcaf0', '#6c757d'];
+        const transparente = (hex) => hex + '33';
+
+        const caixaRadar = document.getElementById('graficoRadar');
+        if (caixaRadar && window.Chart) {
+            new Chart(caixaRadar, {
+                type: 'radar',
+                data: {
+                    labels: radar.competencias,
+                    datasets: radar.series.map((s, i) => ({
+                        label: s.rotulo, data: s.valores, spanGaps: true,
+                        borderColor: cores[i % cores.length], backgroundColor: transparente(cores[i % cores.length]),
+                        pointBackgroundColor: cores[i % cores.length], borderWidth: 2
+                    }))
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {r: {min: 0, max: radar.escalaMax, ticks: {stepSize: 1}}},
+                    plugins: {legend: {position: 'bottom'}}
+                }
+            });
+        }
+
+        const caixaEvolucao = document.getElementById('graficoEvolucao');
+        if (caixaEvolucao && window.Chart) {
+            new Chart(caixaEvolucao, {
+                type: 'line',
+                data: {
+                    labels: evolucao.ciclos,
+                    datasets: evolucao.series.map((s, i) => ({
+                        label: s.rotulo, data: s.valores, spanGaps: true, tension: .2,
+                        borderColor: cores[i % cores.length], backgroundColor: cores[i % cores.length]
+                    }))
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {y: evolucao.normalizada ? {min: 0, max: 100, title: {display: true, text: '% da escala'}}
+                            : {min: 0, max: radar.escalaMax, title: {display: true, text: 'Nota final'}}},
+                    plugins: {legend: {position: 'bottom'}}
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>

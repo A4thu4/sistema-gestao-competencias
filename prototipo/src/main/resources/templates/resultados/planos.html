@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Plano de desenvolvimento')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/resultados.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('planos')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Plano de desenvolvimento')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <div class="d-flex flex-wrap align-items-start gap-3 mb-3">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Plano de desenvolvimento</h1>
+                    <p class="subtitulo-pagina mb-0" sec:authorize="hasRole('GESTOR')">Escolha uma pessoa da sua equipe. O plano é montado depois que o resultado do ciclo dela é liberado, a partir das competências de menor nota.</p>
+                    <p class="subtitulo-pagina mb-0" sec:authorize="hasRole('RH')">Planos de todas as pessoas, só para consulta. Quem registra as metas é o gestor direto, junto com a pessoa.</p>
+                </div>
+                <a class="btn btn-outline-secondary" th:href="@{/planos/{id}(id=${#authentication.principal.id()})}">
+                    <i class="bi bi-person"></i> Meu plano
+                    <span th:if="${meuPlanoAbertas > 0}" class="badge text-bg-primary" th:text="${meuPlanoAbertas}">2</span></a>
+            </div>
+            <div class="cartao p-0">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead><tr><th>Pessoa</th><th>Último resultado liberado</th><th class="text-center">Metas abertas</th>
+                            <th class="text-center">Concluídas</th><th class="text-end"></th></tr></thead>
+                        <tbody>
+                        <tr th:each="m : ${pessoas}">
+                            <td><span class="app-avatar me-2" th:text="${m.pessoa.iniciais()}">AB</span>
+                                <span th:text="${m.pessoa.nome}">Nome</span>
+                                <div class="small text-secondary ms-5" th:text="${m.pessoa.cargoNome} + ' · ' + ${m.pessoa.area}">cargo</div></td>
+                            <td th:text="${m.podeTerPlano()} ? ${m.ultimoLiberado.nome} : 'Aguardando resultado liberado'"
+                                th:classappend="${m.podeTerPlano()} ? '' : 'text-secondary small'">2026.1</td>
+                            <td class="text-center" th:text="${m.metasAbertas}">1</td>
+                            <td class="text-center" th:text="${m.metasConcluidas}">0</td>
+                            <td class="text-end"><a class="btn btn-sm btn-outline-primary" th:href="@{/planos/{id}(id=${m.pessoa.id})}">
+                                <i class="bi bi-flag"></i> Abrir plano</a></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(pessoas)}"><td colspan="5" class="text-center text-secondary py-4">Nenhuma pessoa na sua equipe direta.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

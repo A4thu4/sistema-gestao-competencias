@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Plano de desenvolvimento')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/resultados.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('planos')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Plano de desenvolvimento')}"></header>
+        <main class="app-content" th:with="pl=${plano}">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <a th:unless="${pl.proprio}" class="small text-decoration-none" th:href="@{/planos}"><i class="bi bi-arrow-left"></i> Planos</a>
+            <div class="d-flex flex-wrap align-items-start gap-3 mb-3 mt-1">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina" th:text="${pl.proprio} ? 'Meu plano de desenvolvimento' : 'Plano de ' + ${pl.colaborador.nome}">Plano</h1>
+                    <p class="subtitulo-pagina mb-0">
+                        <span th:text="${pl.colaborador.nome} + ' · ' + ${pl.colaborador.cargoNome}">Carla · Analista</span>
+                        <th:block th:if="${pl.cicloBase != null}"> | Base: resultado do <a th:href="@{/resultados/{c}/pessoas/{p}(c=${pl.cicloBase.id},p=${pl.colaborador.id})}" th:text="${pl.cicloBase.nome}">2026.1</a></th:block>
+                    </p>
+                </div>
+                <div class="d-flex gap-2 flex-wrap">
+                    <form th:if="${pl.podeAtualizar and !pl.proprio and pl.abertas() > 0}" th:action="@{/planos/{id}/lembrete(id=${pl.colaborador.id})}" method="post">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-bell"></i> Enviar lembrete de revisão agora</button>
+                    </form>
+                    <button th:if="${pl.podeCriar}" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#novaMeta"
+                            aria-controls="novaMeta"><i class="bi bi-plus-lg"></i> Nova meta</button>
+                </div>
+            </div>
+
+            <div th:if="${pl.somenteLeitura()}" class="alert alert-secondary"><i class="bi bi-eye"></i> Consulta do RH: o plano é registrado e atualizado pelo gestor direto e pela pessoa.</div>
+            <div th:if="${pl.cicloBase == null}" class="alert alert-info"><i class="bi bi-info-circle"></i>
+                O plano é montado depois que o resultado do ciclo é liberado pelo RH. Ainda não há resultado liberado para esta pessoa.</div>
+
+            <div class="cartao mb-3" th:if="${!#lists.isEmpty(pl.sugestoes)}">
+                <div class="cartao-titulo-linha"><h2>Competências sugeridas</h2></div>
+                <p class="ajuda">Menores notas finais no resultado do <span th:text="${pl.cicloBase.nome}">ciclo</span>. Boas candidatas para as metas.</p>
+                <span th:each="s : ${pl.sugestoes}" class="sugestao"><i class="bi bi-arrow-down-right"></i>
+                    <span th:text="${s.competencia}">Pensamento analítico</span> <strong th:text="${s.notaTexto()}">3,0</strong></span>
+            </div>
+
+            <div th:if="${pl.podeCriar}" class="collapse mb-3" th:classappend="${abrirFormulario} ? 'show'" id="novaMeta">
+                <form class="cartao" th:action="@{/planos/{id}/metas(id=${pl.colaborador.id})}" th:object="${form}" method="post">
+                    <div class="cartao-titulo-linha"><h2>Nova meta</h2></div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="competenciaId">Competência</label>
+                            <select class="form-select" id="competenciaId" th:field="*{competenciaId}" required>
+                                <option value="">Escolha…</option>
+                                <option th:each="c : ${pl.competencias}" th:value="${c.key}" th:text="${c.value}">Comunicação</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label" for="prazo">Prazo</label>
+                            <input class="form-control" type="date" id="prazo" th:field="*{prazo}" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label" for="situacao">Situação</label>
+                            <select class="form-select" id="situacao" th:field="*{situacao}">
+                                <option th:each="s : ${situacoes}" th:value="${s.key}" th:text="${s.value}">Não iniciada</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="descricao">Meta</label>
+                            <input class="form-control" id="descricao" th:field="*{descricao}" maxlength="300" required
+                                   placeholder="Ex.: Usar dados para explicar a causa dos chamados recorrentes">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="acoes">Ações previstas</label>
+                            <textarea class="form-control" id="acoes" rows="3" th:field="*{acoes}" maxlength="1000" required
+                                      placeholder="Ex.: Curso de análise de dados (20 h); apresentar uma análise mensal à equipe"></textarea>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-3">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#novaMeta">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Registrar meta</button>
+                    </div>
+                </form>
+            </div>
+
+            <div th:each="m : ${pl.metas}" class="cartao meta-cartao" th:id="'meta-' + ${m.id}">
+                <div class="d-flex flex-wrap align-items-start gap-2">
+                    <div class="me-auto">
+                        <div class="small text-secondary" th:text="${m.competencia}">Pensamento analítico</div>
+                        <h2 class="h6 fw-semibold mb-1" th:text="${m.descricao}">Meta</h2>
+                        <div class="small"><strong>Ações:</strong> <span th:text="${m.acoes}">curso</span></div>
+                        <div class="small text-secondary mt-1">
+                            Prazo: <span th:text="${m.prazoTexto()}" th:classappend="${m.atrasada()} ? 'text-danger fw-semibold'">30/06/2027</span>
+                            <span th:if="${m.atrasada()}" class="text-danger">(atrasada)</span>
+                            · Última atividade: <span th:text="${m.ultimaAtividadeTexto()}">hoje</span>
+                        </div>
+                    </div>
+                    <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(m.situacao)}" th:text="${m.situacaoRotulo}">Em andamento</span>
+                </div>
+
+                <div class="row g-3 mt-1">
+                    <div class="col-md-6">
+                        <div class="small fw-semibold mb-2">Linha do tempo</div>
+                        <ul class="linha-tempo">
+                            <li th:each="a : ${m.historico}">
+                                <small th:text="${a.quando()} + ' · ' + ${a.autor} + ' · ' + ${a.situacaoRotulo}">data · autor · situação</small>
+                                <div th:text="${a.progresso}">progresso</div>
+                            </li>
+                            <li><small th:text="${m.criadaEmTexto()} + ' · meta registrada'">criada</small></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6" th:if="${pl.podeAtualizar}">
+                        <form th:action="@{/planos/metas/{id}/atualizacoes(id=${m.id})}" method="post" class="border rounded p-3 bg-light">
+                            <input type="hidden" name="colaboradorId" th:value="${pl.colaborador.id}">
+                            <div class="small fw-semibold mb-2">Registrar progresso</div>
+                            <label class="form-label small" th:for="'sit-' + ${m.id}">Situação</label>
+                            <select class="form-select form-select-sm mb-2" name="situacao" th:id="'sit-' + ${m.id}">
+                                <option th:each="s : ${situacoes}" th:value="${s.key}" th:text="${s.value}" th:selected="${s.key == m.situacao}">Em andamento</option>
+                            </select>
+                            <label class="form-label small" th:for="'prog-' + ${m.id}">O que foi feito</label>
+                            <textarea class="form-control form-control-sm mb-2" name="progresso" rows="2" maxlength="1000" required th:id="'prog-' + ${m.id}"
+                                      placeholder="Ex.: Concluí o módulo 2 do curso"></textarea>
+                            <button class="btn btn-sm btn-primary" type="submit">Salvar atualização</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="cartao text-center text-secondary py-4" th:if="${#lists.isEmpty(pl.metas)}">
+                <i class="bi bi-flag display-6"></i>
+                <p class="mt-2 mb-0">Nenhuma meta registrada ainda.</p>
+            </div>
+            <p class="small text-secondary mt-3"><i class="bi bi-bell"></i> A cada trimestre, o sistema lembra por e-mail a pessoa e o gestor das metas abertas sem atualização há <span th:text="${diasLembrete}">90</span> dias.</p>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
