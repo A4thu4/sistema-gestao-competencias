@@ -70,6 +70,15 @@ class PlanoDesenvolvimentoTest extends CenarioResultados {
     }
 
     @Test
+    void planoDeExemploDaCarlaTemMetasDaCompetencia() throws Exception {
+        mvc.perform(get("/planos/" + carla.id()).with(como("gestor@exemplo.com")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Dominar o módulo fiscal do produto")))
+                .andExpect(content().string(containsString("Conhecimento do produto")))
+                .andExpect(content().string(not(containsString("Participar mais das decisões"))));
+    }
+
+    @Test
     void metaInvalidaVoltaAoFormularioComAMensagem() throws Exception {
         mvc.perform(post("/planos/" + carla.id() + "/metas").with(csrf()).with(como("gestor@exemplo.com"))
                         .param("competenciaId", trabalho.toString())

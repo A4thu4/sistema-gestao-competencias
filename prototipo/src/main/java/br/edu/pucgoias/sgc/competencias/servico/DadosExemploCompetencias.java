@@ -1,5 +1,6 @@
 package br.edu.pucgoias.sgc.competencias.servico;
 
+import br.edu.pucgoias.sgc.compartilhado.servico.RegistrosDaCarga;
 import br.edu.pucgoias.sgc.identidade.servico.CargoResumo;
 import br.edu.pucgoias.sgc.identidade.servico.UsuarioService;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.LinkedHashMap;
@@ -90,12 +93,14 @@ public class DadosExemploCompetencias implements ApplicationRunner {
     private final CompetenciaService catalogo;
     private final QuestionarioService questionarios;
     private final UsuarioService usuarios;
+    private final RegistrosDaCarga registros;
 
     public DadosExemploCompetencias(CompetenciaService catalogo, QuestionarioService questionarios,
-                                    UsuarioService usuarios) {
+                                    UsuarioService usuarios, RegistrosDaCarga registros) {
         this.catalogo = catalogo;
         this.questionarios = questionarios;
         this.usuarios = usuarios;
+        this.registros = registros;
     }
 
     @Override
@@ -133,6 +138,7 @@ public class DadosExemploCompetencias implements ApplicationRunner {
 
         Long questionarioSuporte = null;
         int publicados = 0;
+        RegistrosDaCarga.Marca antesDaPublicacao = registros.marcar();
         for (var e : porCargo.entrySet()) {
             Long cargoId = cargos.get(e.getKey());
             if (cargoId == null) {
@@ -152,6 +158,9 @@ public class DadosExemploCompetencias implements ApplicationRunner {
                 questionarioSuporte = id;
             }
         }
+
+        registros.datar(antesDaPublicacao, LocalDate.of(2026, 4, 22).atTime(15, 40)
+                .atZone(ZoneId.of("America/Sao_Paulo")).toOffsetDateTime());
 
         questionarios.criarModelo("Modelo chefe–colaborador", dados("Modelo chefe–colaborador", null,
                 List.of("Comunicação", "Trabalho em equipe", "Orientação a resultados", "Adaptabilidade"), c,

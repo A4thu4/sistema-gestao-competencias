@@ -14,6 +14,7 @@ import br.edu.pucgoias.sgc.privacidade.servico.ParticipacaoEmCiclo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -134,7 +135,19 @@ class AndamentoCicloTest extends TesteIntegracao {
         assertThat(externa.avaliadoId()).isEqualTo(pessoa("colaborador").id());
         assertThat(externa.naoIniciada()).isTrue();
         assertThat(emails.enviadosPara("marcos.cliente@exemplo.com")).isNotEmpty();
-        assertThat(ciclos.avaliadosDoCiclo(aberto.id())).hasSize(9);
+        assertThat(ciclos.avaliadosDoCiclo(aberto.id())).hasSize(8);
+
+        // Kátia (contratação recente) fica fora dos dois ciclos; Ana (RH) não avalia ninguém como par.
+        Long katia = pessoa("katia").id();
+        Long ana = pessoa("rh").id();
+        for (CicloResumo c : List.of(encerrado, aberto)) {
+            assertThat(ciclos.designacoesDoCiclo(c.id()))
+                    .noneMatch(d -> katia.equals(d.avaliadoId()) || katia.equals(d.avaliadorId()))
+                    .noneMatch(d -> ana.equals(d.avaliadorId()) && d.relacao() == TipoAvaliador.PAR);
+        }
+        // Convites com a data da abertura do ciclo, não a da carga.
+        assertThat(emails.enviadosPara("marcos.cliente@exemplo.com"))
+                .allMatch(e -> e.getCriadoEm().isBefore(OffsetDateTime.now().minusDays(5)));
 
         // Questionário usado aparece como "em uso" no UC-01 (ConsultaUsoQuestionario).
         Long q = ciclos.questionarioDoAvaliado(aberto.id(), pessoa("colaborador").id());
@@ -176,7 +189,8 @@ class AndamentoCicloTest extends TesteIntegracao {
 
         // Participação em ciclo aberto (UC-05, 7c).
         assertThat(participacao.participaDeCicloAberto(carla.id())).isTrue();
-        assertThat(participacao.participaDeCicloAberto(pessoa("rh").id())).isTrue(); // par de Bruno e Gustavo
+        assertThat(participacao.participaDeCicloAberto(pessoa("rh").id())).isFalse();
+        assertThat(participacao.participaDeCicloAberto(pessoa("katia").id())).isFalse();
     }
 
     @Test

@@ -154,8 +154,7 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
                     "Orientação a resultados", 3.9),
             "igor@exemplo.com", Map.of("Qualidade do código", 3.0, "Resolução de problemas técnicos", 4.6,
                     "Comunicação", 3.3),
-            "julia@exemplo.com", Map.of("Comunicação", 4.6, "Qualidade do código", 4.1, "Trabalho em equipe", 4.3),
-            "katia@exemplo.com", Map.of("Adaptabilidade", 4.3, "Comunicação", 3.0, "Qualidade do código", 3.7));
+            "julia@exemplo.com", Map.of("Comunicação", 4.6, "Qualidade do código", 4.1, "Trabalho em equipe", 4.3));
 
     /** Comentários plausíveis sobre cada pessoa (perguntas abertas). */
     private static final Map<String, List<String>> COMENTARIOS = Map.of(
@@ -191,10 +190,7 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
             "julia@exemplo.com", List.of(
                     "A documentação que ela escreve é referência para o time.",
                     "Conversa muito bem com as outras áreas.",
-                    "Tem potencial para assumir tarefas maiores."),
-            "katia@exemplo.com", List.of(
-                    "Adaptou-se rápido à troca da ferramenta de testes.",
-                    "Ainda fala pouco nas reuniões, mas quando fala as ideias são boas."));
+                    "Tem potencial para assumir tarefas maiores."));
 
     private static final List<String> AUTOAVALIACAO = List.of(
             "Quero organizar melhor as prioridades da semana.",

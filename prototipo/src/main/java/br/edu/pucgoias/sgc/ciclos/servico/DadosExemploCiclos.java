@@ -6,6 +6,7 @@ import br.edu.pucgoias.sgc.ciclos.dominio.SituacaoCiclo;
 import br.edu.pucgoias.sgc.ciclos.dominio.SituacaoDesignacao;
 import br.edu.pucgoias.sgc.ciclos.repositorio.CicloRepository;
 import br.edu.pucgoias.sgc.ciclos.repositorio.DesignacaoRepository;
+import br.edu.pucgoias.sgc.compartilhado.servico.RegistrosDaCarga;
 import br.edu.pucgoias.sgc.competencias.servico.TipoAvaliador;
 import br.edu.pucgoias.sgc.identidade.servico.PessoaResumo;
 import br.edu.pucgoias.sgc.identidade.servico.UsuarioService;
@@ -32,10 +33,13 @@ import java.util.Set;
  *   <li>"Ciclo 2026.1", encerrado (maio de 2026), com todas as avaliações enviadas (as respostas vêm do
  *       pacote avaliacoes);</li>
  *   <li>"Ciclo 2026.2", aberto (abriu há 10 dias, encerra em 12), com um avaliador externo para a Carla e
- *       situações variadas. Ficam não iniciadas as avaliações em que Carla, Bruno e Diego avaliam, e a do externo;</li>
+ *       situações variadas. Ficam não iniciadas as avaliações em que Carla, Bruno e Diego avaliam, e a do externo;
+ *       os convites ficam com a data da abertura;</li>
  *   <li>"Ciclo 2027.1", em rascunho, para mostrar a edição.</li>
  * </ol>
  * Os ciclos no passado são gravados direto pelo repositório, sem a validação "abertura não anterior a hoje".
+ * A Kátia foi contratada depois do 2026.2 abrir: não avalia nem é avaliada nos dois ciclos. A Ana (RH) responde à
+ * Helena, mas não avalia Bruno e Gustavo como par.
  */
 @Component
 @Order(30)
@@ -46,21 +50,23 @@ public class DadosExemploCiclos implements ApplicationRunner {
     private static final Set<TipoAvaliador> QUATRO_TIPOS =
             EnumSet.of(TipoAvaliador.CHEFE, TipoAvaliador.AUTO, TipoAvaliador.PAR, TipoAvaliador.SUBORDINADO);
     private static final List<String> AVALIADOS = List.of("gestor", "colaborador", "diego", "elisa", "fabio",
-            "gustavo", "igor", "julia", "katia");
+            "gustavo", "igor", "julia");
 
     private final CicloRepository ciclos;
     private final DesignacaoRepository designacoes;
     private final MontagemCicloService montagem;
     private final ConviteService convites;
     private final UsuarioService usuarios;
+    private final RegistrosDaCarga registros;
 
     public DadosExemploCiclos(CicloRepository ciclos, DesignacaoRepository designacoes, MontagemCicloService montagem,
-                              ConviteService convites, UsuarioService usuarios) {
+                              ConviteService convites, UsuarioService usuarios, RegistrosDaCarga registros) {
         this.ciclos = ciclos;
         this.designacoes = designacoes;
         this.montagem = montagem;
         this.convites = convites;
         this.usuarios = usuarios;
+        this.registros = registros;
     }
 
     @Override
@@ -80,6 +86,7 @@ public class DadosExemploCiclos implements ApplicationRunner {
         Ciclo encerrado = ciclos.save(new Ciclo("Ciclo 2026.1", QUATRO_TIPOS,
                 LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31)));
         montagem.salvarAvaliados(encerrado.getId(), avaliados, null, null, Map.of());
+        ajustarDesignacoes(encerrado);
         OffsetDateTime abertura1 = LocalDate.of(2026, 5, 1).atTime(8, 0).atZone(Datas.ZONA).toOffsetDateTime();
         encerrado.forcarSituacao(SituacaoCiclo.ENCERRADO, abertura1,
                 LocalDate.of(2026, 6, 1).atTime(0, 5).atZone(Datas.ZONA).toOffsetDateTime());
@@ -92,9 +99,10 @@ public class DadosExemploCiclos implements ApplicationRunner {
         Ciclo aberto = ciclos.save(new Ciclo("Ciclo 2026.2", QUATRO_TIPOS, hoje.minusDays(10), hoje.plusDays(12)));
         montagem.salvarAvaliados(aberto.getId(), avaliados, null, null, Map.of());
         Long carla = pessoa("colaborador").id();
+        ajustarDesignacoes(aberto);
         montagem.incluirExterno(aberto.getId(), carla, "Marcos Tavares", "marcos.cliente@exemplo.com");
-        aberto.forcarSituacao(SituacaoCiclo.ABERTO,
-                hoje.minusDays(10).atTime(8, 0).atZone(Datas.ZONA).toOffsetDateTime(), null);
+        OffsetDateTime abertura2 = hoje.minusDays(10).atTime(8, 0).atZone(Datas.ZONA).toOffsetDateTime();
+        aberto.forcarSituacao(SituacaoCiclo.ABERTO, abertura2, null);
         Set<Long> ficamParaDemonstracao = Set.of(carla, pessoa("gestor").id(), pessoa("diego").id());
         int i = 0;
         for (Designacao d : designacoes.findByCicloIdOrderById(aberto.getId())) {
@@ -108,7 +116,10 @@ public class DadosExemploCiclos implements ApplicationRunner {
             }
             i++;
         }
+        RegistrosDaCarga.Marca antesDosConvites = registros.marcar();
         ConviteService.ResultadoEnvio envio = convites.enviarConvitesPendentes(aberto);
+        registros.datar(antesDosConvites, abertura2);
+        designacoes.findByCicloIdOrderById(aberto.getId()).forEach(d -> d.registrarConvite(abertura2));
 
         // 3. Rascunho para a edição.
         LocalDate inicio = LocalDate.of(2027, 1, 4);
@@ -125,6 +136,16 @@ public class DadosExemploCiclos implements ApplicationRunner {
         designacoes.findByCicloIdOrderById(aberto.getId()).stream().filter(Designacao::isExterna).findFirst()
                 .ifPresent(d -> log.info("Link do avaliador externo (Marcos Tavares, avalia a Carla): {}",
                         convites.linkExterno(d.getToken())));
+    }
+
+    private void ajustarDesignacoes(Ciclo ciclo) {
+        Long katia = pessoa("katia").id();
+        Long ana = pessoa("rh").id();
+        designacoes.deleteAll(designacoes.findByCicloIdOrderById(ciclo.getId()).stream()
+                .filter(d -> katia.equals(d.getAvaliadorId())
+                        || (ana.equals(d.getAvaliadorId()) && d.getRelacao() == TipoAvaliador.PAR))
+                .toList());
+        designacoes.flush();
     }
 
     private PessoaResumo pessoa(String usuario) {
