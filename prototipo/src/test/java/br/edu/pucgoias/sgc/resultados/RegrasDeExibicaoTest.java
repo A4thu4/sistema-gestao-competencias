@@ -5,6 +5,7 @@ import br.edu.pucgoias.sgc.resultados.servico.Formatos;
 import br.edu.pucgoias.sgc.resultados.servico.LinhaCompetencia;
 import br.edu.pucgoias.sgc.resultados.servico.LinhaConsolidada;
 import br.edu.pucgoias.sgc.resultados.servico.MontagemPainel;
+import br.edu.pucgoias.sgc.resultados.servico.PainelIndividual;
 import br.edu.pucgoias.sgc.resultados.servico.RegrasDeExibicao;
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +53,22 @@ class RegrasDeExibicaoTest {
         // sem autoavaliação e sem pares: (4,00 + 4,50) / 2
         assertThat(l.notaFinal()).isEqualByComparingTo("4.25");
         assertThat(m.gruposInsuficientes()).containsExactly(PAR);
+    }
+
+    @Test
+    void avisoDeAnonimatoListaAsCompetenciasDeCadaGrupo() {
+        MontagemPainel.Montagem m = MontagemPainel.montar(List.of(
+                linha(1L, CHEFE, "4.00", 1), linha(1L, PAR, "1.37", 2), linha(1L, SUBORDINADO, "4.00", 1),
+                linha(2L, CHEFE, "3.00", 1), linha(2L, PAR, "4.00", 3), linha(2L, SUBORDINADO, "3.00", 2),
+                linha(3L, CHEFE, "5.00", 1), linha(3L, PAR, "2.00", 1), linha(3L, SUBORDINADO, "5.00", 2)),
+                Map.of(1L, "Comunicação", 2L, "Liderança", 3L, "Trabalho em equipe"));
+        PainelIndividual p = new PainelIndividual(null, null, 5, List.of(CHEFE, PAR, SUBORDINADO), m.linhas(),
+                m.mediaGeral(), m.pontoForte(), m.foco(), List.of(PAR, SUBORDINADO), null, List.of(), null);
+
+        assertThat(p.avisoInsuficientes()).startsWith(
+                "Pares em Comunicação e Trabalho em equipe; Subordinados em todas as competências: "
+                        + "respostas insuficientes para preservar o anonimato");
+        assertThat(m.linhas().get(1).grupo(PAR).texto()).isEqualTo("4,0");
     }
 
     @Test

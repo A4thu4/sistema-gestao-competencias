@@ -56,7 +56,9 @@ class ResultadosTest extends CenarioResultados {
                 .andExpect(content().string(containsString("nota-maior")))
                 .andExpect(content().string(containsString("nota-menor")))
                 .andExpect(content().string(containsString("sem a autoavaliação")))
-                .andExpect(content().string(containsString("respostas insuficientes para preservar o anonimato")))
+                // UC-04 4a: o aviso diz em quais competências o grupo ficou de fora
+                .andExpect(content().string(containsString(
+                        "Pares em Comunicação: respostas insuficientes para preservar o anonimato")))
                 .andExpect(content().string(containsString("graficoRadar")))
                 // 6a: só um ciclo com resultado
                 .andExpect(content().string(containsString("Ainda não há histórico para comparar")))
