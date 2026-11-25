@@ -128,6 +128,7 @@
         const evolucao = /*[[${painel.evolucao}]]*/ {ciclos: [], series: [], normalizada: false};
         const cores = ['#0f766e', '#1f9d55', '#e07b1a', '#8e44ad', '#d63384', '#0dcaf0', '#6c757d'];
         const transparente = (hex) => hex + '33';
+        const celular = window.matchMedia('(max-width: 575.98px)').matches;
 
         const caixaRadar = document.getElementById('graficoRadar');
         if (caixaRadar && window.Chart) {
@@ -143,7 +144,8 @@
                 },
                 options: {
                     maintainAspectRatio: false,
-                    scales: {r: {min: 0, max: radar.escalaMax, ticks: {stepSize: 1}}},
+                    scales: {r: {min: 0, max: radar.escalaMax, ticks: {stepSize: 1}, pointLabels: celular
+                            ? {font: {size: 10}, callback: (t) => t.length > 14 ? t.slice(0, 13) + '…' : t} : {}}},
                     plugins: {legend: {position: 'bottom'}}
                 }
             });
