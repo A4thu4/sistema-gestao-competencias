@@ -48,12 +48,12 @@
                             <th:block th:if="${f.resultadoAnterior != null}" th:with="r=${f.resultadoAnterior}">
                                 <div class="small text-secondary mb-2" th:text="${r.cicloNome}">Ciclo</div>
                                 <div class="d-flex align-items-baseline gap-2 mb-2" th:if="${r.mediaGeral != null}">
-                                    <span class="cartao-numero" th:text="${#numbers.formatDecimal(r.mediaGeral, 1, 1, 'COMMA')}">3,8</span>
+                                    <span class="cartao-numero" th:text="${r.mediaGeralTexto}">3,8</span>
                                     <span class="small text-secondary" th:text="'média geral (1 a ' + ${r.escalaMax} + ')'">média</span>
                                 </div>
                                 <div class="media-competencia" th:each="m : ${r.competencias}">
                                     <div class="d-flex small"><span th:text="${m.nome}">Comp.</span>
-                                        <strong class="ms-auto" th:text="${m.media == null} ? '—' : ${#numbers.formatDecimal(m.media, 1, 1, 'COMMA')}">3,5</strong></div>
+                                        <strong class="ms-auto" th:text="${m.mediaTexto}">3,5</strong></div>
                                     <div class="progress" style="height: 6px" th:if="${m.media != null}">
                                         <div class="progress-bar" th:style="'width:' + ${m.media * 100 / r.escalaMax} + '%'"></div>
                                     </div>

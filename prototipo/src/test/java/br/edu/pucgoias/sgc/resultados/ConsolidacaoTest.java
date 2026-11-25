@@ -173,10 +173,14 @@ class ConsolidacaoTest extends TesteIntegracao {
         Long competencia = consolidado.findByCicloIdAndAvaliadoId(c.id(), carla.id()).get(0).getCompetenciaId();
         consolidado.apagarDoCiclo(c.id());
         consolidado.saveAll(List.of(
-                new ResultadoConsolidado(c.id(), carla.id(), competencia, TipoAvaliador.CHEFE, new BigDecimal("4.00"), 1, 5),
+                new ResultadoConsolidado(c.id(), carla.id(), competencia, TipoAvaliador.CHEFE, new BigDecimal("4.25"), 1, 5),
                 new ResultadoConsolidado(c.id(), carla.id(), competencia, TipoAvaliador.PAR, new BigDecimal("1.00"), 2, 5)));
         ResumoResultadoAnterior r = resultadoAnterior.doAvaliado(carla.id(), ciclos.abertos().get(0).id()).orElseThrow();
-        assertThat(r.competencias()).singleElement().satisfies(m -> assertThat(m.media()).isEqualTo(4.0));
+        assertThat(r.competencias()).singleElement().satisfies(m -> {
+            assertThat(m.media()).isEqualTo(4.25);
+            assertThat(m.mediaTexto()).isEqualTo("4,3"); // RNF-12: mesmo arredondamento da tela de resultado
+        });
+        assertThat(r.mediaGeralTexto()).isEqualTo("4,3");
         assertThat(RegrasDeExibicao.MINIMO_RESPOSTAS).isEqualTo(3);
     }
 

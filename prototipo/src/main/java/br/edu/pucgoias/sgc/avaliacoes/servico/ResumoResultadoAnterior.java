@@ -4,12 +4,13 @@ import java.util.List;
 
 /**
  * Resultado do ciclo anterior mostrado ao gestor durante a avaliação (RF-18). {@code mediaGeral} e as médias das
- * competências vão de 1 até {@code escalaMax}; {@code null} quando não há nota.
+ * competências vão de 1 até {@code escalaMax}; {@code null} quando não há nota. Os textos vêm formatados por quem
+ * calcula o resultado, com o mesmo arredondamento da tela de resultado.
  */
 public record ResumoResultadoAnterior(Long cicloId, String cicloNome, int escalaMax, Double mediaGeral,
-                                      List<MediaCompetencia> competencias) {
+                                      String mediaGeralTexto, List<MediaCompetencia> competencias) {
 
     /** Média de uma competência no ciclo anterior. */
-    public record MediaCompetencia(Long competenciaId, String nome, Double media) {
+    public record MediaCompetencia(Long competenciaId, String nome, Double media, String mediaTexto) {
     }
 }
