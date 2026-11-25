@@ -76,6 +76,8 @@ public class ModeracaoController {
         model.addAttribute("ciclo", escolhido);
         model.addAttribute("comentarios", lista);
         model.addAttribute("ocultos", lista.stream().filter(c -> c.oculto()).count());
+        model.addAttribute("aguardando", escolhido == null ? List.<String>of()
+                : moderacao.aguardandoAvaliacoes(escolhido.id()));
         model.addAttribute("aba", "comentarios");
         return "avaliacoes/moderacao-comentarios";
     }

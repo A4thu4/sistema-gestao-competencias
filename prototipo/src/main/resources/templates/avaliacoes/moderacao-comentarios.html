@@ -25,6 +25,11 @@
                         <strong th:text="${comentarios.size()} + ' comentários · ' + ${ocultos} + ' ocultos'">0</strong></span>
                 </div>
 
+                <p class="small text-secondary" th:unless="${#lists.isEmpty(aguardando)}">
+                    <i class="bi bi-hourglass-split"></i>
+                    <span th:text="'Comentários sobre ' + ${#strings.listJoin(aguardando, ', ')}
+                        + ' aparecem quando houver 3 avaliações enviadas.'">Comentários sobre Bruno Lima aparecem quando houver 3 avaliações enviadas.</span>
+                </p>
                 <div class="cartao text-center text-secondary py-4" th:if="${#lists.isEmpty(comentarios)}">
                     Nenhum comentário neste ciclo.
                 </div>
