@@ -30,7 +30,7 @@
 .tipo-obs.melhoria i { color: #b54708; }
 .tipo-obs.positivo:has(input:checked) { border-color: #18794e; background: #effaf3; box-shadow: 0 0 0 1px #18794e; }
 .tipo-obs.melhoria:has(input:checked) { border-color: #b54708; background: #fff8ee; box-shadow: 0 0 0 1px #b54708; }
-.tipo-obs:has(input:focus-visible) { outline: 2px solid var(--sgc-azul); outline-offset: 2px; }
+.tipo-obs:has(input:focus-visible) { outline: 2px solid var(--sgc-primaria); outline-offset: 2px; }
 
 /* Lista cronológica. */
 .linha-tempo { position: relative; }
@@ -45,7 +45,7 @@
     background: #fff; }
 .obs-positivo .obs-corpo { border-left: 3px solid #32a467; }
 .obs-melhoria .obs-corpo { border-left: 3px solid #f79009; }
-.obs-corpo.editando { box-shadow: 0 0 0 2px var(--sgc-azul); }
+.obs-corpo.editando { box-shadow: 0 0 0 2px var(--sgc-primaria); }
 .obs-texto { white-space: pre-line; margin: .45rem 0 .5rem; }
 .obs-meta { font-size: .78rem; color: #667085; }
 @media (min-width: 992px) { .formulario-fixo { position: sticky; top: 80px; } }
@@ -53,7 +53,7 @@
 
 /* UC-03 Responder avaliação (TL-03). */
 .rotulo-discreto { font-size: .7rem; letter-spacing: .05em; color: #667085; }
-.selo-relacao { background: #e8ecfb; color: #2f4bcc; }
+.selo-relacao { background: var(--sgc-primaria-clara); color: var(--sgc-primaria-escura); }
 .grupo-cabeca { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.25rem;
     border-bottom: 1px solid var(--sgc-borda); }
 .lista-avaliacoes { list-style: none; margin: 0; padding: 0; }
@@ -67,7 +67,7 @@
 .aviso-anonimato { display: flex; gap: .65rem; align-items: flex-start; border-radius: 8px; padding: .7rem .9rem;
     font-size: .88rem; }
 .aviso-anonimato i { font-size: 1.15rem; line-height: 1.2; }
-.aviso-anonimato.anonima { background: #eef1fd; color: #2f4bcc; }
+.aviso-anonimato.anonima { background: var(--sgc-primaria-suave); color: var(--sgc-primaria-escura); }
 .aviso-anonimato.identificada { background: #f2f4f7; color: #344054; }
 .escala-legenda summary { cursor: pointer; font-weight: 500; }
 .escala-legenda dt { font-size: .88rem; margin-top: .4rem; }
@@ -98,8 +98,8 @@
 /* Avaliador externo: sem menu lateral. */
 .externo-topo { display: flex; align-items: center; gap: .6rem; background: var(--sgc-lateral); color: #fff;
     padding: .8rem 1.25rem; }
-.externo-topo small { display: block; font-size: .6rem; letter-spacing: .06em; color: #9aa6c1; }
-.externo-topo strong { display: block; font-weight: 600; }
+.externo-topo small { display: block; font-size: .72rem; color: #9aa6c1; }
+.externo-topo strong { display: block; font-weight: 700; letter-spacing: .04em; }
 .externo-conteudo { max-width: 860px; margin: 0 auto; padding: 1.75rem 1rem 3rem; }
 
 /* UC-09 Reabrir avaliação e moderar comentários. */
@@ -110,4 +110,4 @@
 .comentario-texto { white-space: pre-line; margin: .4rem 0; }
 .abas-moderacao { border-bottom: 1px solid var(--sgc-borda); margin-bottom: 1.25rem; }
 .abas-moderacao .nav-link { color: #667085; padding: .6rem .2rem; margin-right: 1.5rem; }
-.abas-moderacao .nav-link.active { color: var(--sgc-azul); font-weight: 600; }
+.abas-moderacao .nav-link.active { color: var(--sgc-primaria); font-weight: 600; }

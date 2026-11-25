@@ -1,15 +1,15 @@
 /* Telas do UC-01 (competências e questionários), a partir da TL-01. */
 .abas-uc01 { border-bottom: 1px solid var(--sgc-borda); margin-bottom: 1.25rem; }
 .abas-uc01 .nav-link { color: #667085; padding: .6rem .2rem; margin-right: 1.5rem; }
-.abas-uc01 .nav-link.active { color: var(--sgc-azul); font-weight: 600; }
-.abas-uc01 .contador { font-size: .7rem; background: #e8ecfb; color: var(--sgc-azul); border-radius: 6px;
+.abas-uc01 .nav-link.active { color: var(--sgc-primaria); font-weight: 600; }
+.abas-uc01 .contador { font-size: .7rem; background: var(--sgc-primaria-clara); color: var(--sgc-primaria); border-radius: 6px;
     padding: .1rem .4rem; margin-left: .35rem; }
 .inativa td { color: #98a2b3; }
 .secao-numero { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
-    background: #e8ecfb; color: var(--sgc-azul); font-size: .8rem; font-weight: 700; margin-right: .5rem; }
+    background: var(--sgc-primaria-clara); color: var(--sgc-primaria); font-size: .8rem; font-weight: 700; margin-right: .5rem; }
 .lista-competencias .form-check { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .55rem .75rem .55rem 2.2rem;
     margin-bottom: .45rem; background: #fff; }
-.lista-competencias .form-check-input:checked ~ label strong { color: var(--sgc-azul); }
+.lista-competencias .form-check-input:checked ~ label strong { color: var(--sgc-primaria); }
 .secao-competencia { border: 1px solid var(--sgc-borda); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; background: #fcfcfd; }
 .pergunta-linha { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .8rem; margin-bottom: .6rem; background: #fff; }
 .barra-acoes { position: sticky; bottom: 0; background: rgba(246,247,249,.96); border-top: 1px solid var(--sgc-borda);
@@ -18,5 +18,5 @@
 .previa-pergunta:first-of-type { border-top: 0; }
 .escala small { font-size: .72rem; color: #667085; }
 .ponto-partida { height: 100%; display: flex; flex-direction: column; }
-.ponto-partida .icone { width: 40px; height: 40px; border-radius: 10px; background: #e8ecfb; color: var(--sgc-azul);
+.ponto-partida .icone { width: 40px; height: 40px; border-radius: 10px; background: var(--sgc-primaria-clara); color: var(--sgc-primaria);
     display: grid; place-items: center; font-size: 1.2rem; margin-bottom: .75rem; }

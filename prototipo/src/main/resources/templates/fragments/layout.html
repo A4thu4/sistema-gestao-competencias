@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<!--
-  Layout base, a partir das telas do Figma (TL-01 a TL-05). Cada página usa:
-    <head th:replace="~{fragments/layout :: head('Título')}"></head>
-    <aside th:replace="~{fragments/layout :: menu('chave-do-item-ativo')}"></aside>
-    <header th:replace="~{fragments/layout :: topo('Trilha › Página')}"></header>
-    <div th:replace="~{fragments/layout :: alertas}"></div>
-    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
-  Responsivo (RNF-07): em telas pequenas o menu vira um painel lateral aberto pelo botão do topo.
--->
+<!--/* Layout base (Figma TL-01 a TL-05). Fragmentos: head, marca, menu, topo, alertas, scripts. */-->
 <head th:fragment="head(titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${titulo} + ' · Competências'">Competências</title>
+    <title th:text="${titulo} + ' · SGC'">SGC</title>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/logo.svg}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
 
+<span th:fragment="logo" class="app-logo"><svg viewBox="0 0 34 34" width="34" height="34" aria-hidden="true">
+    <rect width="34" height="34" rx="8" fill="var(--sgc-primaria)"/>
+    <path d="M9 24V15M15 24V11M21 24V18M27 24V8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+</svg></span>
+
+<div th:fragment="marca(claro)" class="app-marca" th:classappend="${claro} ? 'app-marca-clara'">
+    <span th:replace="~{fragments/layout :: logo}"></span>
+    <span><strong>SGC</strong><small>Vértice Software</small></span>
+</div>
+
 <aside th:fragment="menu(ativo)" class="app-sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="menuLateral">
     <div class="app-marca">
-        <span class="app-marca-icone"><i class="bi bi-stack"></i></span>
-        <span><strong>Competências</strong><small>GESTÃO DE PESSOAS</small></span>
+        <span th:replace="~{fragments/layout :: logo}"></span>
+        <span><strong>SGC</strong><small>Vértice Software</small></span>
         <button type="button" class="btn-close btn-close-white ms-auto d-lg-none" data-bs-dismiss="offcanvas"
                 data-bs-target="#menuLateral" aria-label="Fechar menu"></button>
     </div>
@@ -56,8 +59,10 @@
 <header th:fragment="topo(trilha)" class="app-topo">
     <button class="btn btn-light d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
             aria-controls="menuLateral" aria-label="Abrir menu"><i class="bi bi-list"></i></button>
-    <nav class="app-trilha text-truncate"><span>Gestão de pessoas</span> <i class="bi bi-chevron-right"></i>
-        <strong th:text="${trilha}">Página</strong></nav>
+    <nav class="app-trilha text-truncate" aria-label="Trilha"><span>Gestão de pessoas</span><th:block
+            th:each="parte, st : ${#strings.arraySplit(trilha, '›')}"><i class="bi bi-chevron-right"></i><strong
+            th:if="${st.last}" th:text="${#strings.trim(parte)}">Página</strong><span th:unless="${st.last}"
+            th:text="${#strings.trim(parte)}">Seção</span></th:block></nav>
     <div class="dropdown ms-auto" sec:authorize="isAuthenticated()">
         <button class="btn app-usuario dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <span class="app-avatar" th:text="${#authentication.principal.iniciais}">AB</span>

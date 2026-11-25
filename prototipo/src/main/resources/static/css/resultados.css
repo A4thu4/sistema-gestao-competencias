@@ -1,11 +1,11 @@
 /* Telas de resultados (UC-04, TL-04) e plano de desenvolvimento (UC-06). */
 .resumo-rotulo { font-size: .85rem; color: #667085; margin-bottom: .35rem; }
-.resumo-valor { font-size: 1.9rem; font-weight: 700; line-height: 1.1; color: var(--sgc-azul); }
+.resumo-valor { font-size: 1.9rem; font-weight: 700; line-height: 1.1; color: var(--sgc-primaria); }
 .resumo-valor small { font-size: .85rem; font-weight: 400; color: #98a2b3; }
 .resumo-texto { font-size: 1.15rem; font-weight: 700; line-height: 1.25; }
 .nota-maior { color: #1f9d55 !important; font-weight: 700; }
 .nota-menor { color: #e07b1a !important; font-weight: 700; }
-.nota-normal { color: var(--sgc-azul) !important; font-weight: 700; }
+.nota-normal { color: var(--sgc-primaria) !important; font-weight: 700; }
 .nota-oculta { color: #98a2b3; cursor: help; }
 .grafico-caixa { position: relative; min-height: 300px; max-width: 520px; margin: 0 auto; }
 .cartao-titulo-linha { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap;
@@ -21,7 +21,7 @@
 .linha-tempo { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--sgc-borda); }
 .linha-tempo li { position: relative; padding: 0 0 .9rem 1rem; }
 .linha-tempo li::before { content: ""; position: absolute; left: -6px; top: .35rem; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--sgc-azul); }
+    border-radius: 50%; background: var(--sgc-primaria); }
 .linha-tempo small { color: #667085; }
 .meta-cartao { scroll-margin-top: 80px; }
 .sugestao { display: inline-flex; align-items: center; gap: .4rem; border: 1px solid #f7c98b; background: #fff8ef;
