@@ -92,6 +92,13 @@
                             <span th:text="'“' + ${c.texto} + '”'">texto</span>
                         </div>
                         <p th:if="${#lists.isEmpty(p.comentarios)}" class="text-secondary mb-0">Nenhum comentário neste ciclo.</p>
+                        <th:block th:unless="${#lists.isEmpty(p.autoavaliacao)}">
+                            <h3 class="h6 mt-3" th:text="${p.tituloAutoavaliacao()}">Autoavaliação</h3>
+                            <div th:each="c : ${p.autoavaliacao}" class="comentario">
+                                <small th:text="${c.competencia} + ' · ' + ${c.pergunta}">Comunicação · pergunta</small>
+                                <span th:text="'“' + ${c.texto} + '”'">texto</span>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
                 <div class="col-lg-7">

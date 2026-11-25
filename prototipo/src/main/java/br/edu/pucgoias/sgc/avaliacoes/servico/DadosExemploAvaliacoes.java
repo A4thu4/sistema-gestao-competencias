@@ -28,10 +28,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,8 +56,8 @@ import static br.edu.pucgoias.sgc.avaliacoes.dominio.TipoObservacao.POSITIVO;
  *       avaliador); nas EM_PREENCHIMENTO grava um rascunho parcial. As NAO_INICIADA ficam para a demonstração ao
  *       vivo. Notas com perfil por pessoa (Carla forte em atendimento e fraca em resolução de problemas técnicos,
  *       Diego o inverso, Bruno bem avaliado em comunicação e pior em liderança), um pouco menores no 2025.2, algum
- *       "não tenho como avaliar", comentários plausíveis e um comentário grosseiro sobre o Bruno no 2026.1, para a
- *       demonstração da moderação. {@link Random} com semente fixa: o exemplo é sempre o mesmo.</li>
+ *       "não tenho como avaliar", comentários na competência do assunto, sem frase repetida no resultado de um ciclo,
+ *       e um comentário grosseiro sobre o Bruno no 2026.1, para a demonstração da moderação. {@link Random} com semente fixa: o exemplo é sempre o mesmo.</li>
  * </ul>
  */
 @Component
@@ -156,46 +160,149 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
                     "Comunicação", 3.3),
             "julia@exemplo.com", Map.of("Comunicação", 4.6, "Qualidade do código", 4.1, "Trabalho em equipe", 4.3));
 
-    /** Comentários plausíveis sobre cada pessoa (perguntas abertas). */
-    private static final Map<String, List<String>> COMENTARIOS = Map.of(
-            "colaborador@exemplo.com", List.of(
-                    "Os clientes elogiam muito a paciência dela no atendimento.",
-                    "Às vezes resolve o chamado sem entender a causa e o problema volta. Vale olhar os dados antes.",
-                    "É a pessoa que a equipe procura quando o cliente está nervoso."),
-            "diego@exemplo.com", List.of(
-                    "Muito bom em achar a causa dos problemas; os relatórios dele ajudam a equipe toda.",
-                    "No telefone pode ter mais paciência com quem não entende de tecnologia.",
-                    "Organizado e cuidadoso com a documentação dos chamados."),
-            "elisa@exemplo.com", List.of(
-                    "Explica as coisas com muita clareza, até para quem não é da área.",
-                    "Ajuda a equipe a chegar a um acordo quando há divergência.",
-                    "Poderia registrar os atendimentos no sistema com mais regularidade."),
-            "fabio@exemplo.com", List.of(
-                    "Conhece o produto como ninguém e orienta bem os clientes.",
-                    "Precisa cumprir os prazos combinados e avisar quando vai atrasar.",
-                    "Tranquilo e prestativo com os colegas."),
-            "gestor@exemplo.com", List.of(
-                    "Comunica as mudanças com antecedência e explica o porquê.",
-                    "Gostaria de receber retorno sobre o meu trabalho com mais frequência, não só na avaliação.",
-                    "Às vezes decide sozinho coisas que afetam a equipe toda; seria bom ouvir mais antes.",
-                    "Muito bom com clientes difíceis; a equipe aprende vendo ele atender."),
-            "gustavo@exemplo.com", List.of(
-                    "Revisa o código com cuidado e as sugestões dele ensinam muito.",
-                    "As reuniões poderiam ser mais curtas e ter pauta.",
-                    "Protege a equipe das pressões de prazo e mantém o foco no que importa."),
-            "igor@exemplo.com", List.of(
-                    "Resolve problemas difíceis de desempenho muito rápido.",
-                    "Precisa respeitar a revisão de código antes de publicar.",
-                    "Sempre disposto a ajudar quando alguém trava."),
-            "julia@exemplo.com", List.of(
-                    "A documentação que ela escreve é referência para o time.",
-                    "Conversa muito bem com as outras áreas.",
-                    "Tem potencial para assumir tarefas maiores."));
+    private static final String ATENDIMENTO = "Atendimento ao cliente";
+    private static final String PRODUTO = "Conhecimento do produto";
+    private static final String PROBLEMAS = "Resolução de problemas técnicos";
+    private static final String EQUIPE = "Trabalho em equipe";
+    private static final String COMUNICACAO = "Comunicação";
+    private static final String LIDERANCA = "Liderança";
+    private static final String RESULTADOS = "Orientação a resultados";
+    private static final String CODIGO = "Qualidade do código";
+    private static final String ADAPTABILIDADE = "Adaptabilidade";
 
-    private static final List<String> AUTOAVALIACAO = List.of(
-            "Quero organizar melhor as prioridades da semana.",
-            "Acho que evoluí neste período, mas preciso estudar mais o produto.",
-            "Gostaria de participar de mais treinamentos técnicos.");
+    /** Comentários sobre cada pessoa, na competência do assunto de cada um. */
+    private static final Map<String, Map<String, List<String>>> COMENTARIOS = Map.of(
+            "colaborador@exemplo.com", Map.of(
+                    ATENDIMENTO, List.of(
+                            "Os clientes elogiam muito a paciência dela no atendimento.",
+                            "É a pessoa que a equipe procura quando o cliente está nervoso.",
+                            "Mesmo com a fila cheia, responde todo mundo com calma e educação."),
+                    PROBLEMAS, List.of(
+                            "Às vezes resolve o chamado sem entender a causa e o problema volta. Vale olhar os dados antes.",
+                            "Quando o problema é mais técnico, demora a pedir ajuda e o chamado fica parado.",
+                            "Poderia olhar os registros do sistema antes de reiniciar o computador do cliente."),
+                    PRODUTO, List.of(
+                            "Conhece bem os módulos de pedidos e faturamento e explica o passo a passo para o cliente.",
+                            "Ainda tem dúvidas nas funções novas do módulo financeiro."),
+                    EQUIPE, List.of(
+                            "Divide com a equipe o que aprende, sem ninguém precisar pedir.",
+                            "Cobre os colegas nas férias sem deixar chamado para trás."),
+                    COMUNICACAO, List.of(
+                            "Escreve respostas claras para os clientes, sem termos técnicos.",
+                            "Fala pouco nas reuniões; as ideias dela são boas e poderiam aparecer mais.")),
+            "diego@exemplo.com", Map.of(
+                    ATENDIMENTO, List.of(
+                            "No telefone pode ter mais paciência com quem não entende de tecnologia.",
+                            "Às vezes responde o cliente de forma seca, mesmo resolvendo rápido.",
+                            "Com os clientes antigos o atendimento é ótimo; com os novos, nem tanto."),
+                    PROBLEMAS, List.of(
+                            "Muito bom em achar a causa dos problemas; os relatórios dele ajudam a equipe toda.",
+                            "Quando um problema parece sem solução, é ele quem acha a saída.",
+                            "Organizado e cuidadoso com a documentação dos chamados."),
+                    PRODUTO, List.of(
+                            "Sabe responder dúvidas de configuração que nem o manual explica.",
+                            "Acompanha as notas de versão e avisa a equipe sobre as mudanças."),
+                    EQUIPE, List.of(
+                            "Ajudou muito o colega novo nas primeiras semanas.",
+                            "Às vezes prefere resolver tudo sozinho em vez de dividir as tarefas."),
+                    COMUNICACAO, List.of(
+                            "Explica bem a solução, mas usa termos que o cliente não entende.",
+                            "Nas reuniões, poderia ouvir mais antes de responder.")),
+            "elisa@exemplo.com", Map.of(
+                    COMUNICACAO, List.of(
+                            "Explica as coisas com muita clareza, até para quem não é da área.",
+                            "Às vezes interrompe os colegas nas reuniões, mas tem melhorado.",
+                            "Os e-mails dela para os clientes são curtos e resolvem a dúvida de primeira."),
+                    EQUIPE, List.of(
+                            "Ajuda a equipe a chegar a um acordo quando há divergência.",
+                            "Assume o plantão de um colega sem reclamar quando alguém precisa."),
+                    ATENDIMENTO, List.of(
+                            "Atende com educação e presta atenção no que o cliente pede.",
+                            "Poderia registrar os atendimentos no sistema com mais regularidade."),
+                    PRODUTO, List.of(
+                            "Conhece bem a configuração das impressoras e dos equipamentos da rede.",
+                            "Precisa se atualizar nas mudanças da última versão do sistema."),
+                    PROBLEMAS, List.of(
+                            "Resolve bem os chamados do dia a dia; nos mais complexos, ainda pede ajuda.",
+                            "Testa a solução com o cliente antes de fechar o chamado.")),
+            "fabio@exemplo.com", Map.of(
+                    PRODUTO, List.of(
+                            "Conhece o produto como ninguém e orienta bem os clientes.",
+                            "Sabe de cor onde fica cada configuração do sistema.",
+                            "É quem a equipe consulta quando sai uma versão nova."),
+                    PROBLEMAS, List.of(
+                            "Resolve os chamados, mas às vezes demora para começar os mais difíceis.",
+                            "Poderia registrar melhor a solução que aplicou em cada chamado."),
+                    EQUIPE, List.of(
+                            "Tranquilo e prestativo com os colegas.",
+                            "Precisa avisar a equipe quando vai se atrasar para o plantão."),
+                    ATENDIMENTO, List.of(
+                            "Educado com os clientes, mas às vezes demora a dar retorno.",
+                            "Os clientes gostam das explicações dele."),
+                    COMUNICACAO, List.of(
+                            "Fala pouco nas reuniões; poderia compartilhar mais o que sabe.",
+                            "Explica bem por telefone, mas os registros escritos ficam incompletos.")),
+            "gestor@exemplo.com", Map.of(
+                    COMUNICACAO, List.of(
+                            "Comunica as mudanças com antecedência e explica o porquê.",
+                            "As reuniões de segunda são objetivas e todo mundo sai sabendo o que fazer.",
+                            "Escreve muito bem; os comunicados dele não deixam dúvida."),
+                    LIDERANCA, List.of(
+                            "Gostaria de receber retorno sobre o meu trabalho com mais frequência, não só na avaliação.",
+                            "Às vezes decide sozinho coisas que afetam a equipe toda; seria bom ouvir mais antes.",
+                            "Poderia acompanhar mais de perto quem acabou de chegar.",
+                            "Quase não conversa com cada pessoa sobre o desenvolvimento dela."),
+                    ATENDIMENTO, List.of(
+                            "Muito bom com clientes difíceis; a equipe aprende vendo ele atender.",
+                            "Quando um cliente importante reclama, resolve pessoalmente e rápido."),
+                    RESULTADOS, List.of(
+                            "Acompanha as metas da equipe toda semana.",
+                            "Às vezes muda as prioridades no meio da semana e algumas entregas atrasam.")),
+            "gustavo@exemplo.com", Map.of(
+                    CODIGO, List.of(
+                            "Revisa o código com cuidado e as sugestões dele ensinam muito.",
+                            "Exige testes em tudo, e isso evitou vários erros em produção."),
+                    LIDERANCA, List.of(
+                            "Protege a equipe das pressões de prazo e mantém o foco no que importa.",
+                            "Dá liberdade para a equipe decidir, mas às vezes falta retorno sobre o que ficou bom.",
+                            "Conversa com cada um sobre o que quer aprender."),
+                    COMUNICACAO, List.of(
+                            "As reuniões poderiam ser mais curtas e ter pauta.",
+                            "Explica bem as decisões técnicas, mas demora a responder as mensagens."),
+                    RESULTADOS, List.of(
+                            "Planeja bem as entregas e raramente perde um prazo.",
+                            "Às vezes aceita mais demandas do que a equipe consegue entregar.")),
+            "igor@exemplo.com", Map.of(
+                    CODIGO, List.of(
+                            "Precisa respeitar a revisão de código antes de publicar.",
+                            "O código funciona, mas poderia ter mais testes."),
+                    PROBLEMAS, List.of(
+                            "Resolve problemas difíceis de desempenho muito rápido.",
+                            "Achou a causa da lentidão no relatório de vendas que ninguém tinha encontrado."),
+                    EQUIPE, List.of("Sempre disposto a ajudar quando alguém trava."),
+                    ADAPTABILIDADE, List.of("Aprendeu rápido a nova ferramenta de publicação."),
+                    COMUNICACAO, List.of("Poderia avisar a equipe antes de mudar algo que afeta os outros.")),
+            "julia@exemplo.com", Map.of(
+                    COMUNICACAO, List.of(
+                            "A documentação que ela escreve é referência para o time.",
+                            "Conversa muito bem com as outras áreas."),
+                    CODIGO, List.of(
+                            "O código dela é fácil de entender e sempre vem com testes.",
+                            "Tem potencial para assumir as partes mais críticas do sistema."),
+                    EQUIPE, List.of("Revisa o código dos colegas sem deixar ninguém esperando."),
+                    ADAPTABILIDADE, List.of("Se adaptou rápido quando o banco de dados mudou no meio do projeto."),
+                    PROBLEMAS, List.of("Investiga com calma e encontra a causa antes de mexer no código.")));
+
+    /** Comentário da autoavaliação, um por competência. */
+    private static final Map<String, String> AUTOAVALIACAO = Map.of(
+            ATENDIMENTO, "Quero ter mais calma no atendimento quando a fila está cheia.",
+            PRODUTO, "Acho que evoluí neste período, mas preciso estudar mais o produto.",
+            PROBLEMAS, "Gostaria de participar de mais treinamentos técnicos.",
+            EQUIPE, "Posso ajudar mais os colegas nos dias de muito chamado.",
+            COMUNICACAO, "Preciso registrar por escrito o que combino com as pessoas.",
+            RESULTADOS, "Quero organizar melhor as prioridades da semana.",
+            CODIGO, "Quero escrever mais testes antes de pedir a revisão.",
+            ADAPTABILIDADE, "Demorei a me acostumar com as ferramentas novas, mas já estou mais à vontade.");
 
     private void carregarRespostas() {
         if (avaliacoes.count() > 0 || rascunhos.count() > 0) {
@@ -210,6 +317,8 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
                 .collect(Collectors.toMap(PessoaResumo::id, p -> p));
         Random principal = new Random(20261);
         Random anterior = new Random(20252);
+        Random textos = new Random(2026);
+        SorteioComentarios sorteio = new SorteioComentarios();
         int enviadas = 0;
         int parciais = 0;
         boolean grosseiroGravado = false;
@@ -229,7 +338,8 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
                 boolean grosseiro = !grosseiroGravado && ciclo.nome().equals("Ciclo 2026.1")
                         && d.relacao() == TipoAvaliador.SUBORDINADO
                         && avaliado.email().equals("gestor@exemplo.com");
-                Map<Long, RespostaInformada> geradas = gerar(q, d, avaliado, evolucao, d.enviada(), grosseiro, aleatorio);
+                Map<Long, RespostaInformada> geradas = gerar(q, d, avaliado, evolucao, d.enviada(), grosseiro,
+                        aleatorio, sorteio.doResultado(ciclo.id(), avaliado.email()), textos);
                 if (d.enviada()) {
                     respostas.gravarEnviadaDoExemplo(d, geradas);
                     grosseiroGravado |= grosseiro;
@@ -248,7 +358,7 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
     /** Respostas de uma designação: completas (enviada) ou cerca de metade (rascunho). */
     private static Map<Long, RespostaInformada> gerar(QuestionarioCompleto q, DesignacaoResumo d, PessoaResumo avaliado,
                                                       double evolucao, boolean completa, boolean grosseiro,
-                                                      Random aleatorio) {
+                                                      Random aleatorio, Sorteio comentarios, Random textos) {
         Map<String, Double> perfil = PERFIS.getOrDefault(avaliado.email(), Map.of());
         double vies = switch (d.relacao()) {
             case AUTO -> 0.35;
@@ -257,27 +367,34 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
         };
         boolean podeNaoAvaliar = d.relacao() == TipoAvaliador.PAR || d.relacao() == TipoAvaliador.SUBORDINADO
                 || d.relacao() == TipoAvaliador.EXTERNO;
+        boolean auto = d.relacao() == TipoAvaliador.AUTO;
+        String daAutoavaliacao = auto && textos.nextDouble() < 0.85
+                ? comentarios.escolher(q.competencias().stream()
+                        .filter(c -> c.perguntas().stream().anyMatch(p -> !p.escala()))
+                        .map(c -> AUTOAVALIACAO.get(c.nome())).filter(Objects::nonNull).toList(), textos)
+                : null;
+        Map<String, List<String>> sobreAPessoa = COMENTARIOS.getOrDefault(avaliado.email(), Map.of());
         Map<Long, RespostaInformada> geradas = new LinkedHashMap<>();
         for (CompetenciaDoQuestionario c : q.competencias()) {
             double base = perfil.getOrDefault(c.nome(), 3.6) + vies + evolucao;
             for (PerguntaResumo p : c.perguntas()) {
+                if (!p.escala()) {
+                    String texto = textoAberto(c.nome(), auto, daAutoavaliacao, grosseiro, sobreAPessoa,
+                            comentarios, completa, textos);
+                    if (texto != null) {
+                        geradas.put(p.id(), new RespostaInformada(null, false, texto));
+                    }
+                    continue;
+                }
                 if (!completa && aleatorio.nextDouble() < 0.5) {
                     continue;
                 }
-                if (p.escala()) {
-                    if (podeNaoAvaliar && aleatorio.nextDouble() < 0.07) {
-                        geradas.put(p.id(), new RespostaInformada(null, true, null));
-                    } else {
-                        long nota = Math.round(base + aleatorio.nextGaussian() * 0.55);
-                        int limitada = (int) Math.max(1, Math.min(q.escalaMax(), nota));
-                        geradas.put(p.id(), new RespostaInformada(limitada, false, null));
-                    }
-                } else if (grosseiro) {
-                    geradas.put(p.id(), new RespostaInformada(null, false, COMENTARIO_GROSSEIRO));
-                } else if (aleatorio.nextDouble() < 0.6) {
-                    List<String> opcoes = d.relacao() == TipoAvaliador.AUTO ? AUTOAVALIACAO
-                            : COMENTARIOS.getOrDefault(avaliado.email(), AUTOAVALIACAO);
-                    geradas.put(p.id(), new RespostaInformada(null, false, opcoes.get(aleatorio.nextInt(opcoes.size()))));
+                if (podeNaoAvaliar && aleatorio.nextDouble() < 0.07) {
+                    geradas.put(p.id(), new RespostaInformada(null, true, null));
+                } else {
+                    long nota = Math.round(base + aleatorio.nextGaussian() * 0.55);
+                    int limitada = (int) Math.max(1, Math.min(q.escalaMax(), nota));
+                    geradas.put(p.id(), new RespostaInformada(limitada, false, null));
                 }
             }
         }
@@ -285,6 +402,64 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
             geradas.put(q.perguntas().get(0).id(), new RespostaInformada(3, false, null));
         }
         return geradas;
+    }
+
+    /**
+     * Texto da pergunta aberta da competência, ou {@code null} se o avaliador deixou em branco. A autoavaliação
+     * comenta uma competência só; o comentário grosseiro vai em Liderança.
+     */
+    private static String textoAberto(String competencia, boolean auto, String daAutoavaliacao, boolean grosseiro,
+                                      Map<String, List<String>> sobreAPessoa, Sorteio comentarios, boolean completa,
+                                      Random textos) {
+        if (auto) {
+            return daAutoavaliacao != null && daAutoavaliacao.equals(AUTOAVALIACAO.get(competencia))
+                    ? daAutoavaliacao : null;
+        }
+        if (grosseiro && competencia.equals(LIDERANCA)) {
+            return COMENTARIO_GROSSEIRO;
+        }
+        if (textos.nextDouble() >= (completa ? 0.35 : 0.2)) {
+            return null;
+        }
+        return comentarios.escolher(sobreAPessoa.getOrDefault(competencia, List.of()), textos);
+    }
+
+    /**
+     * Sorteio dos comentários sem repetir frase no resultado de uma pessoa num ciclo. Entre as frases livres, prefere
+     * as que a pessoa ainda não recebeu em outro ciclo.
+     */
+    private static final class SorteioComentarios {
+
+        private final Map<String, Set<String>> recebidasPorPessoa = new HashMap<>();
+        private final Map<String, Sorteio> porResultado = new HashMap<>();
+
+        Sorteio doResultado(Long cicloId, String avaliado) {
+            Set<String> recebidas = recebidasPorPessoa.computeIfAbsent(avaliado, k -> new HashSet<>());
+            return porResultado.computeIfAbsent(cicloId + "/" + avaliado, k -> new Sorteio(recebidas));
+        }
+    }
+
+    private static final class Sorteio {
+
+        private final Set<String> noResultado = new HashSet<>();
+        private final Set<String> recebidasAntes;
+
+        Sorteio(Set<String> recebidasAntes) {
+            this.recebidasAntes = recebidasAntes;
+        }
+
+        String escolher(List<String> opcoes, Random textos) {
+            List<String> livres = opcoes.stream().filter(o -> !noResultado.contains(o)).toList();
+            if (livres.isEmpty()) {
+                return null;
+            }
+            List<String> novas = livres.stream().filter(o -> !recebidasAntes.contains(o)).toList();
+            List<String> candidatas = novas.isEmpty() ? livres : novas;
+            String texto = candidatas.get(textos.nextInt(candidatas.size()));
+            noResultado.add(texto);
+            recebidasAntes.add(texto);
+            return texto;
+        }
     }
 
     private void observar(String gestorEmail, String colaboradorEmail, TipoObservacao tipo, int diasAtras,

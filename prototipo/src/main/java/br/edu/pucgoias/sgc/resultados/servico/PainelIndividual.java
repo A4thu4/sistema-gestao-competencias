@@ -15,11 +15,19 @@ import java.util.List;
  *
  * @param grupos colunas da tabela (grupos do ciclo, na ordem da TL-04)
  * @param gruposInsuficientes grupos que ficaram sem média em alguma competência (o aviso lista quais)
+ * @param comentarios comentários dos outros avaliadores, sem identificação
+ * @param autoavaliacao comentários da autoavaliação, mostrados à parte
+ * @param daPropriaPessoa se quem vê é a própria pessoa avaliada
  */
 public record PainelIndividual(PessoaResumo pessoa, CicloResumo ciclo, int escalaMax, List<TipoAvaliador> grupos,
                                List<LinhaCompetencia> linhas, BigDecimal mediaGeral, String pontoForte, String foco,
                                List<TipoAvaliador> gruposInsuficientes, DadosRadar radar,
-                               List<ComentarioPainel> comentarios, Evolucao evolucao) {
+                               List<ComentarioPainel> comentarios, List<ComentarioPainel> autoavaliacao,
+                               boolean daPropriaPessoa, Evolucao evolucao) {
+
+    public String tituloAutoavaliacao() {
+        return daPropriaPessoa ? "Seu comentário (autoavaliação)" : "Autoavaliação";
+    }
 
     public String mediaGeralTexto() {
         return Formatos.nota(mediaGeral);

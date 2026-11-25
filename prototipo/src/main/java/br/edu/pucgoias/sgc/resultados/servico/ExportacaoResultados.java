@@ -85,6 +85,14 @@ public class ExportacaoResultados {
                 doc.add(new Paragraph(c.competencia() + " · " + c.pergunta(), Fontes.DISCRETO));
                 doc.add(new Paragraph("“" + c.texto() + "”", Fontes.NORMAL));
             }
+            if (!p.autoavaliacao().isEmpty()) {
+                doc.add(new Paragraph(" "));
+                doc.add(new Paragraph(p.tituloAutoavaliacao(), Fontes.SECAO));
+                for (ComentarioPainel c : p.autoavaliacao()) {
+                    doc.add(new Paragraph(c.competencia() + " · " + c.pergunta(), Fontes.DISCRETO));
+                    doc.add(new Paragraph("“" + c.texto() + "”", Fontes.NORMAL));
+                }
+            }
 
             doc.add(new Paragraph(" "));
             doc.add(new Paragraph("Evolução entre ciclos", Fontes.SECAO));
@@ -184,7 +192,14 @@ public class ExportacaoResultados {
                 linha(comentarios, c++, null, com.competencia(), com.pergunta(), com.texto());
             }
             if (p.comentarios().isEmpty()) {
-                linha(comentarios, 1, null, "Nenhum comentário.");
+                linha(comentarios, c++, null, "Nenhum comentário.");
+            }
+            if (!p.autoavaliacao().isEmpty()) {
+                c++;
+                linha(comentarios, c++, e.cabecalho, "Competência", "Pergunta", p.tituloAutoavaliacao());
+                for (ComentarioPainel com : p.autoavaliacao()) {
+                    linha(comentarios, c++, null, com.competencia(), com.pergunta(), com.texto());
+                }
             }
             comentarios.setColumnWidth(0, 28 * 256);
             comentarios.setColumnWidth(1, 45 * 256);
