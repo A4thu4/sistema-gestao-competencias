@@ -29,7 +29,9 @@
                             <td>
                                 <a class="fw-medium text-decoration-none" th:href="@{/ciclos/{id}(id=${c.id})}" th:text="${c.nome}">Ciclo</a>
                                 <div class="small text-secondary">
-                                    <span th:each="t, s : ${c.tiposEmOrdem()}" th:text="${t.rotulo} + (${s.last} ? '' : ' · ')">Chefe</span>
+                                    <span th:each="t, s : ${c.tiposEmOrdem()}" th:if="${t.name() != 'EXTERNO'}"
+                                          th:text="(${s.first} ? '' : ' · ') + ${t.rotulo}">Chefe</span>
+                                    <div th:if="${l.externos > 0}" th:text="${l.externosTexto()}">+ 1 avaliador externo</div>
                                 </div>
                             </td>
                             <td class="text-nowrap" th:text="${c.periodo()}">01/05/2026 a 31/05/2026</td>

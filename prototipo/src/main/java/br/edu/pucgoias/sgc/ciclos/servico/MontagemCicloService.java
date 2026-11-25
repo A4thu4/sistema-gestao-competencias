@@ -87,7 +87,9 @@ public class MontagemCicloService {
         return ciclos.findAllByOrderByDataAberturaDescIdDesc().stream().map(c -> {
             List<Designacao> ds = designacoes.findByCicloIdOrderById(c.getId());
             int enviadas = (int) ds.stream().filter(d -> d.getSituacao() == SituacaoDesignacao.ENVIADA).count();
-            return new CicloNaLista(cicloService.resumo(c), c.getAvaliados().size(), ds.size(), enviadas);
+            int externos = (int) ds.stream().filter(Designacao::isExterna).map(Designacao::getAvaliadorExternoId)
+                    .distinct().count();
+            return new CicloNaLista(cicloService.resumo(c), c.getAvaliados().size(), ds.size(), enviadas, externos);
         }).toList();
     }
 
