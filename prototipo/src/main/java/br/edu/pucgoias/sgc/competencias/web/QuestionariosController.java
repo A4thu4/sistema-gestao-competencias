@@ -30,11 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * UC-01 Gerenciar competências e questionários: lista (passo 2), novo questionário (passos 3 a 6, extensões 5a e 5b),
- * editor (passos 7 a 11, extensões 9a e 9c), pré-visualização (passo 13) e publicação (passos 12, 14 e 15).
- * Só o RH acessa (extensão 1a), conferido no servidor.
- */
+/** Só o RH acessa, conferido no servidor. */
 @Controller
 @PreAuthorize("hasRole('RH')")
 @RequestMapping("/competencias")
@@ -117,7 +113,7 @@ public class QuestionariosController {
         QuestionarioCompleto q = questionarios.detalhar(id);
         UsoQuestionario uso = questionarios.uso(id);
         if (q.modelo() || uso.bloqueado()) {
-            // Modelo pronto e questionário em uso não são editados: a pré-visualização explica e oferece duplicar (2b).
+            // Modelo pronto e questionário em uso não são editados: a pré-visualização explica e oferece duplicar.
             return "redirect:/competencias/questionarios/" + id + "/previa";
         }
         Set<Long> selecionadas = new HashSet<>(q.competenciaIds());

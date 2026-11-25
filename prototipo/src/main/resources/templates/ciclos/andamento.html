@@ -12,7 +12,7 @@
                 <div class="me-auto">
                     <h1 class="titulo-pagina">Andamento do ciclo</h1>
                     <p class="subtitulo-pagina mb-0" th:if="${a != null}"
-                       th:text="${a.daEquipe} ? 'Avaliações em que alguém da sua equipe direta avalia ou é avaliado.' : 'Toda a organização: quem já enviou e quem ainda está pendente.'">Subtítulo</p>
+                       th:text="${a.daEquipe} ? 'Avaliações da sua equipe direta.' : 'Toda a empresa.'">Subtítulo</p>
                 </div>
                 <form th:if="${a != null and a.aceitaLembrete}" method="post"
                       th:action="@{/ciclos/andamento/{id}/lembrete(id=${a.ciclo.id})}"
@@ -33,7 +33,7 @@
                         <label class="form-label small mb-1" for="ciclo">Ciclo</label>
                         <select class="form-select" id="ciclo" name="ciclo" onchange="this.form.pessoa.value=''; this.form.submit()">
                             <option th:each="c : ${ciclos}" th:value="${c.id}" th:selected="${c.id == a.ciclo.id}"
-                                    th:text="${c.nome} + ' — ' + ${c.situacaoRotulo()} + ' (' + ${c.periodo()} + ')'">Ciclo</option>
+                                    th:text="${c.nome} + ' · ' + ${c.situacaoRotulo()} + ' (' + ${c.periodo()} + ')'">Ciclo</option>
                         </select>
                     </div>
                     <div class="flex-grow-1">
@@ -66,7 +66,7 @@
                             <div class="d-flex justify-content-between py-1 border-bottom"><span><span class="selo selo-nao_iniciada">Não iniciada</span></span><strong th:text="${a.naoIniciadas}">30</strong></div>
                             <div class="d-flex justify-content-between py-1 border-bottom"><span><span class="selo selo-em_preenchimento">Em preenchimento</span></span><strong th:text="${a.emPreenchimento}">8</strong></div>
                             <div class="d-flex justify-content-between py-1"><span><span class="selo selo-enviada">Enviada</span></span><strong th:text="${a.enviadas}">8</strong></div>
-                            <div class="small text-secondary mt-2" th:text="${a.avaliadoresPendentes()} + ' avaliador(es) com pendências'">5 avaliadores</div>
+                            <div class="small text-secondary mt-2" th:text="${a.avaliadoresPendentes() == 1} ? '1 avaliador com pendência' : ${a.avaliadoresPendentes()} + ' avaliadores com pendências'">5 avaliadores</div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-5 col-lg-4">
@@ -118,8 +118,7 @@
                         </table>
                     </div>
                 </div>
-                <p class="small text-secondary mt-3"><i class="bi bi-shield-lock"></i> O painel mostra só quem já enviou. O conteúdo das respostas não aparece aqui
-                    e as respostas de pares, subordinados e externos não são ligadas a quem respondeu.</p>
+                <p class="small text-secondary mt-3"><i class="bi bi-shield-lock"></i> Mostra só quem já enviou, sem o conteúdo das respostas.</p>
             </th:block>
         </main>
     </div>
@@ -135,7 +134,7 @@
             type: 'doughnut',
             data: {
                 labels: ['Não iniciada', 'Em preenchimento', 'Enviada'],
-                datasets: [{ data: valores, backgroundColor: ['#d0d5dd', '#3d5ce6', '#18794e'], borderWidth: 0 }]
+                datasets: [{ data: valores, backgroundColor: ['#d0d5dd', '#0f766e', '#18794e'], borderWidth: 0 }]
             },
             options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } }
         });

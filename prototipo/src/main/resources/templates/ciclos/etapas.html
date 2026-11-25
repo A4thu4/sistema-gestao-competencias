@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
-<!-- Etapas da montagem do ciclo (UC-02). ciclo = CicloResumo (ou null no ciclo novo); atual = 1 a 4. -->
 <ol th:fragment="etapas(ciclo, atual)" class="etapas" aria-label="Etapas do ciclo">
     <li th:classappend="${atual == 1} ? 'atual'">
         <a th:href="${ciclo == null} ? @{/ciclos/novo} : @{/ciclos/{id}/dados(id=${ciclo.id})}">
@@ -24,7 +23,6 @@
     </li>
 </ol>
 
-<!-- Cabeçalho comum: voltar, título com a situação do ciclo. -->
 <div th:fragment="cabecalho(ciclo, titulo, subtitulo)">
     <a class="small text-decoration-none" th:href="@{/ciclos}"><i class="bi bi-arrow-left"></i> Voltar para ciclos de avaliação</a>
     <div class="d-flex flex-wrap align-items-start gap-2 mt-2">

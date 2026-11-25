@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-/** UC-10 Autenticar-se: tela de login (TL-10). A conferência da senha é feita pelo Spring Security. */
+/** A conferência da senha é feita pelo Spring Security. */
 @Controller
 public class LoginController {
 

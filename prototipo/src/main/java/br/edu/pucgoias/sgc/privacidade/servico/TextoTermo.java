@@ -1,7 +1,7 @@
 package br.edu.pucgoias.sgc.privacidade.servico;
 
 /**
- * Texto da primeira versão do termo, em linguagem simples (RNF-09). Baseado no modelo do projeto
+ * Texto da primeira versão do termo, em linguagem simples. Baseado no modelo do projeto
  * ({@code docs/anexos/Termo_de_Consentimento_Coleta_e_Tratamento_de_Dados.pdf}), adaptado ao uso do sistema.
  */
 final class TextoTermo {

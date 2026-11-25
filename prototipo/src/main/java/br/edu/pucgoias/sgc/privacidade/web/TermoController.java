@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
-/** UC-05, passos 1 a 4 e extensões 1a, 2a e 3a: tela do termo de consentimento (TL-05). */
 @Controller
 public class TermoController {
 

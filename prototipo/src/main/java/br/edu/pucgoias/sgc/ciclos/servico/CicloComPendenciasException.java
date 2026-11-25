@@ -4,7 +4,7 @@ import br.edu.pucgoias.sgc.compartilhado.dominio.RegraDeNegocioException;
 
 import java.util.List;
 
-/** Extensão 10b (e 8a, 8b): o ciclo não pode ser agendado enquanto houver pendências. */
+/** O ciclo não pode ser agendado enquanto houver pendências. */
 public class CicloComPendenciasException extends RegraDeNegocioException {
 
     private final transient List<String> pendencias;

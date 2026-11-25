@@ -12,7 +12,7 @@
             <div class="d-flex flex-wrap align-items-start gap-3 mb-3">
                 <div class="me-auto">
                     <h1 class="titulo-pagina">Ciclos de avaliação</h1>
-                    <p class="subtitulo-pagina mb-0">Monte o ciclo, escolha quem avalia quem e deixe agendado: ele abre e encerra sozinho, com os convites por e-mail.</p>
+                    <p class="subtitulo-pagina mb-0">O ciclo abre e encerra nas datas agendadas.</p>
                 </div>
                 <a class="btn btn-primary" th:href="@{/ciclos/novo}"><i class="bi bi-plus-lg"></i> Novo ciclo</a>
             </div>
@@ -29,7 +29,9 @@
                             <td>
                                 <a class="fw-medium text-decoration-none" th:href="@{/ciclos/{id}(id=${c.id})}" th:text="${c.nome}">Ciclo</a>
                                 <div class="small text-secondary">
-                                    <span th:each="t, s : ${c.tiposEmOrdem()}" th:text="${t.rotulo} + (${s.last} ? '' : ' · ')">Chefe</span>
+                                    <span th:each="t, s : ${c.tiposEmOrdem()}" th:if="${t.name() != 'EXTERNO'}"
+                                          th:text="(${s.first} ? '' : ' · ') + ${t.rotulo}">Chefe</span>
+                                    <div th:if="${l.externos > 0}" th:text="${l.externosTexto()}">+ 1 avaliador externo</div>
                                 </div>
                             </td>
                             <td class="text-nowrap" th:text="${c.periodo()}">01/05/2026 a 31/05/2026</td>
@@ -59,8 +61,7 @@
                     </table>
                 </div>
             </div>
-            <p class="small text-secondary mt-3"><i class="bi bi-info-circle"></i> Rascunho e agendado podem ser alterados.
-                Com o ciclo aberto, só mudam a data de encerramento e a inclusão de avaliadores. Encerrado fica só para consulta.</p>
+            <p class="small text-secondary mt-3"><i class="bi bi-info-circle"></i> Com o ciclo aberto, só mudam o encerramento e os avaliadores. Encerrado fica só para consulta.</p>
         </main>
     </div>
 </div>

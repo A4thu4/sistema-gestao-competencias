@@ -53,12 +53,11 @@ public class Usuario {
         this.area = area;
     }
 
-    /** Correção de dado a pedido do titular (UC-05, 10a). */
     public void corrigirNome(String nome) {
         this.nome = nome;
     }
 
-    /** Exclusão a pedido do titular (UC-05): o acesso é bloqueado e os dados pessoais são substituídos. */
+    /** Exclusão a pedido do titular: o acesso é bloqueado e os dados pessoais são substituídos. */
     public void anonimizar() {
         this.nome = "Titular excluído #" + id;
         this.email = "excluido-" + id + "@anonimizado.invalid";

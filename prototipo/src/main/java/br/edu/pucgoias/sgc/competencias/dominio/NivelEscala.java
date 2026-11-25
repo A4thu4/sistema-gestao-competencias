@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-/** Descrição de um nível da escala (RF-04): por exemplo, 4 = "Frequentemente". */
+/** Descrição de um nível da escala: por exemplo, 4 = "Frequentemente". */
 @Entity
 @Table(name = "nivel_escala")
 public class NivelEscala {

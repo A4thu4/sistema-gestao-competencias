@@ -30,17 +30,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * UC-04 Consultar resultados. Todos os perfis entram; quem vê o quê é conferido no {@link ResultadoService}
- * (RNF-03). Liberação só RH; relatório de equipe só gestor e RH.
- *
- * <ul>
- *   <li>{@code GET /resultados}: ciclos com resultado para o perfil; com {@code ?ciclo=}, as pessoas do ciclo;</li>
- *   <li>{@code GET /resultados/{ciclo}/pessoas/{pessoa}}: painel individual (TL-04), {@code .../pdf} e
- *       {@code .../excel};</li>
- *   <li>{@code POST /resultados/{ciclo}/liberar}: liberação pelo RH (2a);</li>
- *   <li>{@code POST /resultados/{ciclo}/recalcular}: o RH refaz a consolidação (RNF-12);</li>
- *   <li>{@code GET /resultados/{ciclo}/equipe?gestor=} ou {@code ?area=}: relatório (3a), com PDF e Excel.</li>
- * </ul>
+ * Todos os perfis entram; quem vê o quê é conferido no {@link ResultadoService}. Liberação só RH; relatório de
+ * equipe só gestor e RH.
  */
 @Controller
 @RequestMapping("/resultados")
@@ -106,7 +97,6 @@ public class ResultadosController {
         return "redirect:/resultados?ciclo=" + cicloId;
     }
 
-    /** RNF-12: refaz o consolidado do ciclo encerrado a partir das respostas armazenadas. */
     @PostMapping("/{cicloId}/recalcular")
     @PreAuthorize("hasRole('RH')")
     public String recalcular(@AuthenticationPrincipal UsuarioAutenticado eu, @PathVariable Long cicloId,
@@ -151,7 +141,7 @@ public class ResultadosController {
                 porArea ? area : null, formato));
     }
 
-    /** 2b e 2c: mensagem sem nenhum dado do resultado. */
+    /** Mostra só a mensagem, sem nenhum dado do resultado. */
     @ExceptionHandler(ResultadoIndisponivelException.class)
     public ModelAndView indisponivel(ResultadoIndisponivelException e) {
         ModelAndView mv = new ModelAndView("resultados/indisponivel");

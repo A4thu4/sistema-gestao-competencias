@@ -13,8 +13,7 @@
             <th:block th:if="${editavel}"><ol th:replace="~{ciclos/etapas :: etapas(${m.ciclo}, 3)}"></ol></th:block>
 
             <div class="alert alert-info" th:if="${aberto}">
-                <i class="bi bi-envelope"></i> Ciclo aberto: você pode incluir avaliadores, que recebem o convite na hora.
-                Remover não é permitido, para não perder avaliações já iniciadas.
+                <i class="bi bi-envelope"></i> Ciclo aberto: dá para incluir avaliadores, que recebem o convite na hora, mas não remover.
             </div>
 
             <div class="cartao d-flex flex-wrap align-items-center gap-3">

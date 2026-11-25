@@ -13,7 +13,7 @@
             <div class="d-flex flex-wrap align-items-start gap-3 mb-3 mt-1">
                 <div class="me-auto">
                     <h1 class="titulo-pagina" th:text="'Relatório · ' + ${r.titulo}">Relatório · Equipe</h1>
-                    <p class="subtitulo-pagina mb-0"><span th:text="${r.descricao}">Equipe direta</span> | Ciclo: <span th:text="${r.ciclo.nome}">2026.1</span></p>
+                    <p class="subtitulo-pagina mb-0"><span th:text="${r.descricao}">Equipe direta</span> · <span th:text="${r.ciclo.nome}">Ciclo 2026.1</span></p>
                 </div>
                 <div class="d-flex gap-2" th:unless="${r.vazio()}">
                     <a class="btn btn-outline-secondary" th:href="@{/resultados/{c}/equipe/pdf(c=${r.ciclo.id},gestor=${gestor},area=${area})}">
@@ -93,7 +93,7 @@
         if (caixa && window.Chart) {
             new Chart(caixa, {
                 type: 'bar',
-                data: {labels: nomes, datasets: [{label: 'Média da equipe', data: medias, backgroundColor: '#3d5ce6'}]},
+                data: {labels: nomes, datasets: [{label: 'Média da equipe', data: medias, backgroundColor: '#0f766e'}]},
                 options: {maintainAspectRatio: false, scales: {y: {min: 0, max: escala}}, plugins: {legend: {display: false}}}
             });
         }

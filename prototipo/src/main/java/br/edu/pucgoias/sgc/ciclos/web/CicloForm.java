@@ -10,7 +10,6 @@ import java.util.EnumSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/** Formulário dos passos 4 e 5 do UC-02 (nome, tipos e período). */
 public class CicloForm {
 
     private String nome;

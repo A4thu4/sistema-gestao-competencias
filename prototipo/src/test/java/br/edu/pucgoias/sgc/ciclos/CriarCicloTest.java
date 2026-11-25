@@ -86,7 +86,7 @@ class CriarCicloTest extends TesteIntegracao {
         mvc.perform(get("/ciclos/" + id).with(como(RH)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Agendar ciclo")))
-                .andExpect(content().string(containsString("Tudo certo para agendar")));
+                .andExpect(content().string(containsString("Pronto para agendar")));
         int antes = emails.enviadosPara("elisa@exemplo.com").size();
         mvc.perform(post("/ciclos/" + id + "/agendar").with(como(RH)).with(csrf()))
                 .andExpect(redirectedUrl("/ciclos/" + id))
@@ -285,7 +285,7 @@ class CriarCicloTest extends TesteIntegracao {
         assertThat(ciclos.ciclo(id).situacao()).isEqualTo("ABERTO");
         assertThat(ciclos.aceitaRespostas(id)).isTrue();
         assertThat(emails.enviadosPara("fabio@exemplo.com"))
-                .anySatisfy(e -> assertThat(e.getAssunto()).isEqualTo("Convite para avaliação — Ciclo relâmpago"));
+                .anySatisfy(e -> assertThat(e.getAssunto()).isEqualTo("Convite para avaliação: Ciclo relâmpago"));
         assertThat(emails.enviadosPara("gestor@exemplo.com")).hasSize(convitesBruno + 1);
         assertThat(emails.enviadosPara("rui@fornecedor.com"))
                 .anySatisfy(e -> assertThat(e.getCorpo()).contains("/externo/"));
@@ -293,7 +293,7 @@ class CriarCicloTest extends TesteIntegracao {
                 .allMatch(AvaliadorNoCiclo::conviteEnviado);
         assertThat(montagem.montagem(id).convitesPendentes()).isZero();
         mvc.perform(get("/auditoria").with(como(RH)))
-                .andExpect(content().string(containsString("CICLO_ABERTO")));
+                .andExpect(content().string(containsString("Abriu ciclo")));
 
         // 2b: com o ciclo aberto, só se inclui avaliador (convite na hora) e se muda o encerramento.
         PessoaResumo elisa = pessoa("elisa");

@@ -2,7 +2,7 @@ package br.edu.pucgoias.sgc.avaliacoes.servico;
 
 import br.edu.pucgoias.sgc.compartilhado.dominio.RegraDeNegocioException;
 
-/** UC-03, extensão 1a.3: link inválido, avaliação já enviada ou ciclo encerrado. O questionário não é mostrado. */
+/** Link inválido, avaliação já enviada ou ciclo encerrado. O questionário não é mostrado. */
 public class LinkExternoIndisponivelException extends RegraDeNegocioException {
 
     private final String titulo;

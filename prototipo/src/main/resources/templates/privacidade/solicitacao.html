@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Solicitação ' + ${s.protocolo})}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/privacidade.css}">
-<!-- UC-05: detalhe de uma solicitação do titular; no modo do RH, com o atendimento (10a e 10b). -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu(${modoRh} ? 'solicitacoes' : 'meus-dados')}"></aside>
     <div class="app-main">
@@ -62,9 +61,7 @@
                     <div class="cartao">
                         <div class="cartao-titulo">Concluir o atendimento</div>
                         <div class="alert alert-warning small" th:if="${s.tipo.name() == 'EXCLUSAO'}">
-                            <i class="bi bi-exclamation-triangle"></i> Ao concluir como atendida (no todo ou em parte), o nome
-                            e o e-mail da pessoa são substituídos e o acesso dela é bloqueado. Isso não pode ser desfeito.
-                            Na justificativa, diga o que foi excluído e o que foi mantido, e por quê.
+                            <i class="bi bi-exclamation-triangle"></i> Ao concluir como atendida, o nome e o e-mail da pessoa são apagados e o acesso dela é bloqueado. Não dá para desfazer.
                         </div>
                         <div class="alert alert-info small" th:if="${s.tipo.name() == 'CORRECAO' and s.dadoIncorreto == 'Nome'}">
                             <i class="bi bi-info-circle"></i> Ao concluir como atendida, o nome no cadastro passa a ser

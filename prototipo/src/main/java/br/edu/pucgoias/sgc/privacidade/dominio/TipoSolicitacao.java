@@ -1,6 +1,5 @@
 package br.edu.pucgoias.sgc.privacidade.dominio;
 
-/** Direitos do titular cobertos pelo RF-30. */
 public enum TipoSolicitacao {
     ACESSO("Acesso aos dados", "Receber uma cópia dos dados que o sistema guarda sobre você."),
     CORRECAO("Correção", "Corrigir um dado pessoal que está errado ou desatualizado."),

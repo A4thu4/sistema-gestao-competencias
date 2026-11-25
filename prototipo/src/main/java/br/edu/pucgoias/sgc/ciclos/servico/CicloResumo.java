@@ -30,7 +30,7 @@ public record CicloResumo(Long id, String nome, String situacao, LocalDate dataA
         return "AGENDADO".equals(situacao);
     }
 
-    /** Rascunho e agendado podem ser alterados (UC-02, 2a). */
+    /** Rascunho e agendado podem ser alterados. */
     public boolean editavel() {
         return rascunho() || agendado();
     }

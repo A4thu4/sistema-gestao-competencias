@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Termo de consentimento')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/privacidade.css}">
-<!-- Pré-condição do UC-05 e extensão 2a: o RH publica as versões do termo. -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu('solicitacoes')}"></aside>
     <div class="app-main">
@@ -11,8 +10,7 @@
         <main class="app-content">
             <div th:replace="~{fragments/layout :: alertas}"></div>
             <h1 class="titulo-pagina">Termo de consentimento</h1>
-            <p class="subtitulo-pagina">Versões publicadas. Ao publicar uma nova, todas as pessoas veem o resumo das
-                mudanças e precisam aceitar de novo no próximo acesso.</p>
+            <p class="subtitulo-pagina">Uma nova versão pede novo aceite de todos no próximo acesso.</p>
 
             <div class="row g-3">
                 <div class="col-12 col-lg-5">

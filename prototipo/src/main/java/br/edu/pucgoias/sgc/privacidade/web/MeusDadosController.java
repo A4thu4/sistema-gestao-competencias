@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- * UC-05, passos 5 a 10 e extensões 6a, 7a, 7b e 7c: área "Meus dados", para todos os perfis. Tudo é da pessoa
- * logada; o id nunca vem da tela (RNF-03).
- */
+/** Área "Meus dados", para todos os perfis. Tudo é da pessoa logada; o id nunca vem da tela. */
 @Controller
 public class MeusDadosController {
 
@@ -69,7 +66,7 @@ public class MeusDadosController {
             preparar(eu, model);
             return "privacidade/meus-dados";
         }
-        // 7c: exclusão durante um ciclo em andamento pede confirmação antes de registrar.
+        // Exclusão durante um ciclo em andamento pede confirmação antes de registrar.
         if (form.getTipo() == TipoSolicitacao.EXCLUSAO && !form.isConfirmado()
                 && solicitacoes.exclusaoPrecisaDeConfirmacao(eu.id())) {
             model.addAttribute("pedirConfirmacao", true);
@@ -101,7 +98,6 @@ public class MeusDadosController {
         return "privacidade/solicitacao";
     }
 
-    /** 7a: cópia dos dados na tela. */
     @GetMapping("/privacidade/meus-dados/copia")
     public String copia(@AuthenticationPrincipal UsuarioAutenticado eu, Model model) {
         model.addAttribute("copia", dados.gerarCopia(eu));
@@ -109,7 +105,6 @@ public class MeusDadosController {
         return "privacidade/copia-dados";
     }
 
-    /** 7a: a mesma cópia em PDF. */
     @GetMapping("/privacidade/meus-dados/copia.pdf")
     public ResponseEntity<byte[]> copiaPdf(@AuthenticationPrincipal UsuarioAutenticado eu) {
         byte[] pdf = dados.gerarPdf(eu);

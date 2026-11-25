@@ -14,8 +14,7 @@
                 <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(q.situacao)}"
                       th:text="${q.publicado()} ? 'Publicado' : 'Rascunho'">Rascunho</span>
             </div>
-            <p class="subtitulo-pagina">Escolha as competências, escreva as perguntas e descreva a escala. Tudo fica salvo como
-                rascunho até você publicar.</p>
+            <p class="subtitulo-pagina">Fica como rascunho até você publicar.</p>
 
             <div th:replace="~{fragments/layout :: alertas}"></div>
             <div th:if="${pendencias}" class="alert alert-warning" role="alert">
@@ -23,14 +22,12 @@
                 <ul class="mb-0 mt-1"><li th:each="p : ${pendencias}" th:text="${p}">pendência</li></ul>
             </div>
             <div th:if="${q.publicado()}" class="alert alert-info" role="alert">
-                <i class="bi bi-info-circle"></i> Este questionário está publicado. Se você salvar alterações, ele volta a rascunho
-                até ser publicado de novo.
+                <i class="bi bi-info-circle"></i> Questionário publicado. Ao salvar, ele volta a rascunho até ser publicado de novo.
             </div>
 
             <form id="form-questionario" method="post" th:action="@{/competencias/questionarios/{id}(id=${q.id})}"
                   th:attr="data-proximo-indice=${proximoIndice}">
 
-                <!-- 1. Nome e cargo (passos 6 e 7) -->
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">1</span>Nome e cargo</h2>
                     <div class="row g-3">
@@ -49,15 +46,13 @@
                     </div>
                 </section>
 
-                <!-- 2. Competências (passos 8 e 9, extensões 9a e 9c) -->
                 <section class="cartao" id="competencias">
                     <div class="d-flex flex-wrap align-items-start gap-2">
                         <h2 class="cartao-titulo me-auto"><span class="secao-numero">2</span>Competências</h2>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="marcar-padrao">
-                            <i class="bi bi-check2-square"></i> Marcar as padrão do cargo</button>
+                            <i class="bi bi-check2-square"></i> Marcar padrão do cargo</button>
                     </div>
-                    <p class="small text-secondary">Marque as competências que serão avaliadas. As marcadas com “padrão do cargo” são o
-                        conjunto usual desse cargo.</p>
+                    <p class="small text-secondary">Marque as competências que serão avaliadas.</p>
                     <div class="row g-3 lista-competencias">
                         <div class="col-12 col-md-6">
                             <div class="small fw-semibold text-secondary mb-2">COMPORTAMENTAIS</div>
@@ -102,11 +97,9 @@
                     </details>
                 </section>
 
-                <!-- 3. Perguntas (passo 10) -->
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">3</span>Perguntas de cada competência</h2>
-                    <p class="small text-secondary">Cada competência precisa de ao menos uma pergunta. Marque para quem cada pergunta aparece:
-                        o avaliador só vê as perguntas da relação dele com o avaliado. Perguntas abertas recebem texto livre, sem nota.</p>
+                    <p class="small text-secondary">Cada competência precisa de ao menos uma pergunta. O avaliador só vê as perguntas marcadas para a relação dele. Perguntas abertas não têm nota.</p>
                     <p id="sem-competencias" class="text-secondary small" th:classappend="${#sets.isEmpty(selecionadas)} ? '' : 'd-none'">
                         Marque ao menos uma competência acima para escrever as perguntas.</p>
                     <div th:each="s : ${secoes}" class="secao-competencia" th:id="|secao-${s.competencia.id}|"
@@ -125,7 +118,6 @@
                     </div>
                 </section>
 
-                <!-- 4. Escala (passo 11) -->
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">4</span>Escala de notas</h2>
                     <div class="row g-3 align-items-end mb-3">
@@ -141,8 +133,7 @@
                                 <i class="bi bi-magic"></i> Preencher os níveis vazios com descrições sugeridas</button>
                         </div>
                     </div>
-                    <p class="small text-secondary">Descreva cada nível para que todos avaliem do mesmo jeito. Dica: comece pelo nome curto
-                        e use dois-pontos, como “Sempre: demonstra o comportamento em todas as situações”.</p>
+                    <p class="small text-secondary">Descreva cada nível, como “Sempre: demonstra o comportamento em todas as situações”.</p>
                     <div th:each="d, st : ${niveis}" class="row g-2 align-items-center mb-2 nivel-linha"
                          th:attr="data-valor=${st.count}" th:classappend="${st.count > q.escalaMax} ? 'd-none'">
                         <label class="col-2 col-sm-1 col-form-label fw-semibold text-center" th:for="|nivel-${st.count}|" th:text="${st.count}">1</label>

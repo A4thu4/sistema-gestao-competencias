@@ -274,7 +274,7 @@ class PrivacidadeTest extends TesteIntegracao {
     void paginaInicialMostraOsCartoesDePrivacidade() throws Exception {
         mvc.perform(get("/").with(como("rh@exemplo.com")))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Solicitações LGPD em análise")))
-                .andExpect(content().string(containsString("Termo v1.0")));
+                .andExpect(content().string(containsString("LGPD em análise")))
+                .andExpect(content().string(not(containsString("Termo v1.0"))));
     }
 }

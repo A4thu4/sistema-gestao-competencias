@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Reabrir avaliação')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
-<!-- UC-09: confirmação da reabertura, com motivo obrigatório. -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu('moderacao')}"></aside>
     <div class="app-main">
@@ -11,8 +10,7 @@
         <main class="app-content" style="max-width: 760px">
             <a class="small text-decoration-none" th:href="@{/moderacao(ciclo=${e.designacao.cicloId})}"><i class="bi bi-arrow-left"></i> Reabertura e moderação</a>
             <h1 class="titulo-pagina mt-2">Reabrir avaliação</h1>
-            <p class="subtitulo-pagina">A avaliação volta para preenchimento, com as respostas que já estavam lá. O avaliador
-                recebe um e-mail e precisa enviar de novo.</p>
+            <p class="subtitulo-pagina">A avaliação volta para preenchimento com as respostas atuais. O avaliador recebe um e-mail.</p>
 
             <div th:if="${erro}" class="alert alert-danger" role="alert">
                 <i class="bi bi-exclamation-triangle"></i> <span th:text="${erro}">erro</span>

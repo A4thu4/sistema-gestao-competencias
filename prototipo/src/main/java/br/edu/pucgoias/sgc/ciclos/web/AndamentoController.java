@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- * UC-07 Acompanhar andamento do ciclo (RF-12, RF-13): RH e gestor. O recorte por equipe é feito no
- * {@link AndamentoService}, conferindo o usuário logado.
- */
+/** Acesso do RH e do gestor. O recorte por equipe é feito no {@link AndamentoService}, conferindo o usuário logado. */
 @Controller
 @PreAuthorize("hasAnyRole('RH','GESTOR')")
 @RequestMapping("/ciclos/andamento")

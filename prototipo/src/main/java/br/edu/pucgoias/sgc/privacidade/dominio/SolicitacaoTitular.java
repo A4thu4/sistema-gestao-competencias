@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
- * Pedido do titular (RF-30): acesso, correção ou exclusão, com protocolo, data, hora e situação. O titular e quem
+ * Pedido do titular: acesso, correção ou exclusão, com protocolo, data, hora e situação. O titular e quem
  * concluiu ficam só como id de usuário.
  */
 @Entity
@@ -61,7 +61,7 @@ public class SolicitacaoTitular {
         this.protocolo = protocolo;
     }
 
-    /** Registra a decisão do RH/encarregado (UC-05, 10a). Só uma solicitação em análise pode ser concluída. */
+    /** Registra a decisão do RH ou do encarregado. Só uma solicitação em análise pode ser concluída. */
     public void concluir(SituacaoSolicitacao decisao, String justificativa, Long concluidaPor, OffsetDateTime quando) {
         if (situacao.concluida()) {
             throw new RegraDeNegocioException("Esta solicitação já foi concluída.");

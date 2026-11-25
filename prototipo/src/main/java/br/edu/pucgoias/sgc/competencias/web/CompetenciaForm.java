@@ -3,7 +3,6 @@ package br.edu.pucgoias.sgc.competencias.web;
 import br.edu.pucgoias.sgc.competencias.servico.CompetenciaResumo;
 import br.edu.pucgoias.sgc.competencias.servico.DadosCompetencia;
 
-/** Formulário de cadastro e edição de competência (RF-01). */
 public class CompetenciaForm {
 
     private String nome;

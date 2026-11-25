@@ -1,5 +1,4 @@
-/* Editor de questionário (UC-01): mostra as perguntas das competências marcadas, adiciona e remove perguntas,
-   troca a escala e marca as competências padrão do cargo. Sem dependências. */
+/* Editor de questionário. */
 (function () {
     'use strict';
     var form = document.getElementById('form-questionario');
@@ -78,7 +77,6 @@
         });
     }
 
-    // Competências padrão do cargo (RF-02).
     var padroes = window.padroesPorCargo || {};
     var cargo = document.getElementById('cargoId');
     function padraoDoCargo() {

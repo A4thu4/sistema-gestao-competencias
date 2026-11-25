@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 
 /**
  * Versão do termo de consentimento publicada pelo RH. A vigente é a mais recente: quando o RH publica uma nova,
- * todos precisam aceitar de novo (UC-05, 2a).
+ * todos precisam aceitar de novo.
  */
 @Entity
 @Table(name = "termo_consentimento")

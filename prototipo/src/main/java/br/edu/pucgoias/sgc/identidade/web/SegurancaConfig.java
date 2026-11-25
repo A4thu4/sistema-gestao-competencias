@@ -9,9 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * Controle de acesso no servidor (DA-05, RNF-03). As regras por URL barram o perfil errado antes do controller;
- * as regras por pessoa e equipe (por exemplo, "o gestor só vê a própria equipe") ficam nos serviços, que conferem
- * o usuário logado em toda consulta. Senhas guardadas com BCrypt.
+ * Controle de acesso no servidor. As regras por URL barram o perfil errado antes do controller; as regras por pessoa
+ * e equipe (por exemplo, "o gestor só vê a própria equipe") ficam nos serviços, que conferem o usuário logado em toda
+ * consulta. Senhas guardadas com BCrypt.
  */
 @Configuration
 @EnableMethodSecurity
@@ -22,7 +22,7 @@ public class SegurancaConfig {
         http
             .authorizeHttpRequests(a -> a
                 .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/error").permitAll()
-                // Avaliador externo: link individual, sem conta (RF-34).
+                // Avaliador externo: link individual, sem conta.
                 .requestMatchers("/externo/**").permitAll()
                 .requestMatchers("/competencias/**", "/ciclos/novo", "/auditoria", "/emails", "/pessoas",
                         "/moderacao/**", "/privacidade/solicitacoes/**").hasRole("RH")

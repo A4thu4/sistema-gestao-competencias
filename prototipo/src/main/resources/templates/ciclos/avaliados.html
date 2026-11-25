@@ -12,7 +12,6 @@
             <div th:replace="~{fragments/layout :: alertas}"></div>
             <ol th:replace="~{ciclos/etapas :: etapas(${m.ciclo}, 2)}"></ol>
 
-            <!-- Extensões 8a e 8b -->
             <div class="cartao border-danger-subtle" th:if="${!#lists.isEmpty(m.verificacao.semQuestionario) or !#lists.isEmpty(m.verificacao.semPerguntas)}">
                 <h2 class="cartao-titulo text-danger"><i class="bi bi-exclamation-triangle"></i> Questionários a resolver</h2>
                 <div class="d-flex flex-wrap align-items-center gap-2 py-2 border-top" th:each="s : ${m.verificacao.semQuestionario}">
@@ -76,7 +75,7 @@
                 <div class="cartao">
                     <div class="cartao-cabecalho">
                         <h2>Questionário de cada cargo</h2>
-                        <p>Só questionários publicados aparecem. Ao incluir um cargo novo, o sistema escolhe o publicado dele; troque aqui se houver mais de um.</p>
+                        <p>Só aparecem questionários publicados.</p>
                     </div>
                     <div th:if="${#lists.isEmpty(m.questionarios)}" class="text-secondary small">Escolha as pessoas e salve para ver os cargos.</div>
                     <div class="row g-2 align-items-center py-2 border-bottom" th:each="q : ${m.questionarios}">

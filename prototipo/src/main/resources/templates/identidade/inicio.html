@@ -8,13 +8,9 @@
         <header th:replace="~{fragments/layout :: topo('Visão geral')}"></header>
         <main class="app-content">
             <div th:replace="~{fragments/layout :: alertas}"></div>
-            <h1 class="titulo-pagina">Olá, <span th:text="${#strings.arraySplit(#authentication.principal.nome, ' ')[0]}">Nome</span></h1>
-            <p class="subtitulo-pagina">
-                <span th:text="${#authentication.principal.perfilRotulo}">Perfil</span> ·
-                <span th:text="${#authentication.principal.cargo}">Cargo</span>
-            </p>
+            <h1 class="titulo-pagina mb-4">Visão geral</h1>
             <div class="row g-3">
-                <div class="col-12 col-sm-6 col-xl-4" th:each="c : ${cartoes}">
+                <div class="col-12 col-sm-6 col-xl-3" th:each="c : ${cartoes}">
                     <a class="cartao cartao-link" th:href="@{${c.link}}">
                         <div class="text-secondary small mb-1" th:text="${c.titulo}">Título</div>
                         <div class="cartao-numero" th:classappend="'text-' + ${c.cor}" th:text="${c.destaque}">0</div>
@@ -22,7 +18,7 @@
                     </a>
                 </div>
                 <div class="col-12" th:if="${#lists.isEmpty(cartoes)}">
-                    <div class="cartao text-secondary">Nada pendente por aqui.</div>
+                    <div class="cartao text-secondary">Nenhuma pendência.</div>
                 </div>
             </div>
         </main>

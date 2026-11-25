@@ -19,7 +19,6 @@ public record NotaGrupo(TipoAvaliador grupo, BigDecimal media, boolean insuficie
         return Formatos.nota(media);
     }
 
-    /** Dica da célula vazia. */
     public String dica() {
         if (insuficiente) {
             return "Menos de " + RegrasDeExibicao.MINIMO_RESPOSTAS + " respostas: " + RegrasDeExibicao.AVISO_ANONIMATO;

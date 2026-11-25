@@ -1,10 +1,10 @@
-/* Telas do UC-05 (privacidade). Termo no estilo da TL-05: caixa central sobre fundo escurecido. */
+/* Privacidade e termo de consentimento. */
 .termo-fundo { min-height: 100vh; background: #747884; display: flex; align-items: flex-start; justify-content: center;
     padding: 2.5rem 1rem; }
 .termo-caixa { background: #fff; border-radius: 12px; width: 100%; max-width: 680px;
     box-shadow: 0 18px 50px rgba(16,24,40,.25); overflow: hidden; }
 .termo-cabeca { background: #f8f9fb; padding: 1.6rem 1.75rem 1.25rem; border-bottom: 1px solid var(--sgc-borda); }
-.termo-icone { width: 40px; height: 40px; border-radius: 50%; background: #e3e9fd; color: var(--sgc-azul);
+.termo-icone { width: 40px; height: 40px; border-radius: 50%; background: var(--sgc-primaria-clara); color: var(--sgc-primaria);
     display: grid; place-items: center; font-size: 1.15rem; margin-bottom: .9rem; }
 .termo-cabeca h1 { font-size: 1.35rem; font-weight: 700; margin: 0; }
 .termo-corpo { padding: 1.4rem 1.75rem; color: #475467; font-size: .94rem; line-height: 1.6;
@@ -25,5 +25,5 @@
 .dado-valor { font-weight: 500; }
 .tipo-opcao { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .7rem .85rem; height: 100%; cursor: pointer;
     display: block; }
-.tipo-opcao:has(input:checked) { border-color: var(--sgc-azul); background: #eef1fd; box-shadow: 0 0 0 1px var(--sgc-azul); }
+.tipo-opcao:has(input:checked) { border-color: var(--sgc-primaria); background: var(--sgc-primaria-suave); box-shadow: 0 0 0 1px var(--sgc-primaria); }
 .termo-texto-rh { font-family: var(--bs-font-monospace); font-size: .85rem; }

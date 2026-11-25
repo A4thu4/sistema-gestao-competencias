@@ -4,7 +4,6 @@ import br.edu.pucgoias.sgc.privacidade.dominio.Aceite;
 
 import java.time.OffsetDateTime;
 
-/** Aceite de uma versão do termo: versão, data e hora (RF-29). */
 public record AceiteResumo(Long termoId, String versao, OffsetDateTime aceitoEm) {
 
     static AceiteResumo de(Aceite a) {

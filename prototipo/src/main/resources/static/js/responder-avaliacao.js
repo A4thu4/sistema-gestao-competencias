@@ -1,8 +1,4 @@
-/*
- * UC-03: salvamento automático de cada resposta (RF-14), progresso, descrição do nível escolhido (RF-25) e
- * conferência das obrigatórias antes do envio (RF-15). Sem JavaScript, os botões "Salvar rascunho" e "Enviar"
- * continuam funcionando pelo formulário.
- */
+/* Salvamento automático, progresso e conferência das obrigatórias. Sem JavaScript o formulário continua funcionando. */
 (function () {
     'use strict';
     const form = document.getElementById('formAvaliacao');

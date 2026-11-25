@@ -10,7 +10,6 @@ import java.util.List;
 public record ResumoResultadoAnterior(Long cicloId, String cicloNome, int escalaMax, Double mediaGeral,
                                       String mediaGeralTexto, List<MediaCompetencia> competencias) {
 
-    /** Média de uma competência no ciclo anterior. */
     public record MediaCompetencia(Long competenciaId, String nome, Double media, String mediaTexto) {
     }
 }

@@ -3,10 +3,9 @@
 <head th:replace="~{fragments/layout :: head(${titulo} ?: 'Avaliação externa')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
-<!-- UC-03, 1a.3: link inválido, avaliação já enviada ou ciclo encerrado. Não mostra o questionário. -->
 <header th:fragment="topoExterno" class="externo-topo">
-    <span class="app-marca-icone"><i class="bi bi-stack"></i></span>
-    <span><strong>Competências</strong><small>AVALIAÇÃO EXTERNA</small></span>
+    <span th:replace="~{fragments/layout :: logo}"></span>
+    <span><strong>SGC</strong><small>Vértice Software</small></span>
 </header>
 <main class="externo-conteudo">
     <div class="cartao text-center py-5 mt-4">

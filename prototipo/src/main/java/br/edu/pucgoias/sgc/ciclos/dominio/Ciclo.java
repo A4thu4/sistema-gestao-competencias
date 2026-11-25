@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Ciclo de avaliação (RF-08, RF-09): nome, tipos de avaliação combinados, período e situação. Guarda também quem é
- * avaliado (com o cargo da pessoa no momento da escolha) e o questionário publicado usado para cada cargo.
+ * Ciclo de avaliação. Guarda também quem é avaliado, com o cargo da pessoa no momento da escolha, e o questionário
+ * publicado usado para cada cargo.
  *
- * <p>Transições: rascunho ⇄ agendado → aberto → encerrado. As datas não mudam ao abrir ou encerrar antes da hora
- * (há um {@code check} no banco); só a situação e {@code abertoEm}/{@code encerradoEm}.
+ * <p>Transições: rascunho ⇄ agendado → aberto → encerrado. Abrir ou encerrar antes da hora não muda as datas (há um
+ * {@code check} no banco), só a situação e {@code abertoEm}/{@code encerradoEm}.
  */
 @Entity
 @Table(name = "ciclo")
@@ -112,7 +112,7 @@ public class Ciclo {
         definir(nome, s, dataAbertura, dataEncerramento);
     }
 
-    /** Rascunho e agendado podem ser alterados à vontade (extensão 2a). */
+    /** Rascunho e agendado podem ser alterados à vontade. */
     public boolean isEditavel() {
         return situacao == SituacaoCiclo.RASCUNHO || situacao == SituacaoCiclo.AGENDADO;
     }
@@ -163,7 +163,7 @@ public class Ciclo {
         encerradoEm = OffsetDateTime.now();
     }
 
-    /** Extensão 2b: em ciclo aberto, só o encerramento muda. */
+    /** Em ciclo aberto, só o encerramento pode mudar. */
     public void alterarEncerramento(LocalDate novaData) {
         if (situacao != SituacaoCiclo.ABERTO) {
             throw new RegraDeNegocioException("A data de encerramento só é ajustada assim em ciclo aberto.");
@@ -225,7 +225,6 @@ public class Ciclo {
         return cargo == null ? null : questionarioPorCargo.get(cargo);
     }
 
-    /** Tira os questionários de cargos que não têm mais ninguém avaliado. */
     public void limparQuestionariosSemAvaliados() {
         questionarioPorCargo.keySet().retainAll(avaliados.values());
     }

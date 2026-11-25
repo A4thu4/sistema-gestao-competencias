@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/** Cartões da página inicial do RH: questionários publicados e rascunhos (UC-01). */
+/** Cartão do RH na página inicial: questionários em rascunho. */
 @Component
 public class PainelCompetencias implements ContribuicaoPainel {
 
@@ -22,13 +22,11 @@ public class PainelCompetencias implements ContribuicaoPainel {
         if (!usuario.ehRh()) {
             return List.of();
         }
-        long publicados = questionarios.contarPublicados();
         long rascunhos = questionarios.contarRascunhos();
-        return List.of(
-                new CartaoPainel(40, "Questionários publicados", String.valueOf(publicados),
-                        "prontos para usar nos ciclos de avaliação", "/competencias", "primary"),
-                new CartaoPainel(41, "Questionários em rascunho", String.valueOf(rascunhos),
-                        rascunhos == 0 ? "nenhum aguardando publicação" : "aguardando revisão e publicação",
-                        "/competencias", rascunhos == 0 ? "secondary" : "warning"));
+        if (rascunhos == 0) {
+            return List.of();
+        }
+        return List.of(new CartaoPainel(41, "Questionários em rascunho", String.valueOf(rascunhos),
+                rascunhos == 1 ? "falta publicar" : "faltam publicar", "/competencias", "warning"));
     }
 }

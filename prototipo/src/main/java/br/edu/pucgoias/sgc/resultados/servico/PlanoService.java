@@ -38,16 +38,14 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
- * UC-06 Gerenciar plano de desenvolvimento (RF-27, RF-28).
- *
  * <ul>
  *   <li>O gestor escolhe uma pessoa da equipe direta cujo resultado do último ciclo já foi liberado, vê as
- *       competências de menor nota final sugeridas e cria metas (competência, descrição, ações, prazo, situação);</li>
+ *       competências de menor nota final sugeridas e cria metas;</li>
  *   <li>a pessoa e o gestor direto registram o progresso e mudam a situação; cada atualização guarda data, autor e
  *       texto (linha do tempo);</li>
  *   <li>lembrete trimestral: meta aberta sem atualização há {@value #DIAS_LEMBRETE} dias gera e-mail ao gestor e à
  *       pessoa, no máximo uma vez a cada {@value #DIAS_LEMBRETE} dias; o gestor também pode mandar na hora;</li>
- *   <li>RNF-03: a pessoa vê só o próprio plano; o gestor, os da equipe direta; o RH consulta todos sem alterar.</li>
+ *   <li>a pessoa vê só o próprio plano; o gestor, os da equipe direta; o RH consulta todos sem alterar.</li>
  * </ul>
  */
 @Service
@@ -200,12 +198,12 @@ public class PlanoService {
                         + " registrou uma meta no seu plano de desenvolvimento:\n\n" + competencia + ": " + descricao
                         + "\nAções: " + acoes + "\nPrazo: " + Formatos.data(dados.prazo()) + "\n\nRegistre o seu "
                         + "progresso em " + urlBase + "/planos/" + colaboradorId + ".", "PLANO_META");
-        eventos.publishEvent(EventoAuditoria.de("META_CRIADA", "Meta nº " + meta.getId() + " (" + competencia
-                + ") no plano de " + colaborador.nome()));
+        eventos.publishEvent(EventoAuditoria.de("META_CRIADA", "Meta de " + competencia + " no plano de "
+                + colaborador.nome()));
         return meta.getId();
     }
 
-    /** A pessoa ou o gestor direto registra o progresso e a situação da meta (RF-28). Devolve o dono da meta. */
+    /** A pessoa ou o gestor direto registra o progresso e a situação da meta. Devolve o dono da meta. */
     @Transactional
     public Long atualizarMeta(UsuarioAutenticado eu, Long metaId, String situacao, String progresso) {
         MetaDesenvolvimento meta = metas.findById(metaId)
@@ -238,7 +236,7 @@ public class PlanoService {
         return abertas.size();
     }
 
-    /** Rotina diária (RF-28). */
+    /** Chamado pela rotina diária. */
     @Transactional
     public int enviarLembretesTrimestrais() {
         return enviarLembretesTrimestrais(OffsetDateTime.now());

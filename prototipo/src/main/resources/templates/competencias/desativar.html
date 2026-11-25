@@ -9,8 +9,7 @@
         <main class="app-content" style="max-width: 760px">
             <a class="small text-decoration-none" th:href="@{/competencias/catalogo}"><i class="bi bi-arrow-left"></i> Catálogo de competências</a>
             <h1 class="titulo-pagina mt-2" th:text="'Desativar “' + ${competencia.nome} + '”?'">Desativar?</h1>
-            <p class="subtitulo-pagina">A competência não será apagada. Ela deixa de aparecer para os novos questionários, e o que já foi
-                respondido continua guardado.</p>
+            <p class="subtitulo-pagina">Ela sai dos novos questionários. As respostas antigas continuam guardadas.</p>
             <div class="cartao">
                 <th:block th:unless="${#lists.isEmpty(afetados)}">
                     <p class="mb-2"><i class="bi bi-exclamation-triangle text-warning"></i>
@@ -18,8 +17,7 @@
                     <ul>
                         <li th:each="nome : ${afetados}" th:text="${nome}">Questionário</li>
                     </ul>
-                    <p class="small text-secondary">Esses questionários continuam como estão. Para tirar a competência de um deles, edite-o
-                        (se ainda não estiver em uso) ou duplique-o.</p>
+                    <p class="small text-secondary">Esses questionários não mudam. Para tirar a competência de um deles, edite ou duplique o questionário.</p>
                 </th:block>
                 <p th:if="${#lists.isEmpty(afetados)}">Nenhum questionário publicado usa esta competência.</p>
                 <form class="d-flex flex-wrap gap-2" method="post" th:action="@{/competencias/catalogo/{id}/desativar(id=${competencia.id})}">

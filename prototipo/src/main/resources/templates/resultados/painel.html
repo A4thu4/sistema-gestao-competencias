@@ -12,10 +12,10 @@
             <a class="small text-decoration-none" th:href="@{/resultados(ciclo=${p.ciclo.id})}"><i class="bi bi-arrow-left"></i> Resultados</a>
             <div class="d-flex flex-wrap align-items-start gap-3 mb-3 mt-1">
                 <div class="me-auto">
-                    <h1 class="titulo-pagina">Resultado da Avaliação</h1>
-                    <p class="subtitulo-pagina mb-0">Colaborador: <strong th:text="${p.pessoa.nome}">Carla Dias</strong>
-                        <span class="text-secondary" th:text="'(' + ${p.pessoa.cargoNome} + ')'">(cargo)</span>
-                        | Ciclo: <span th:text="${p.ciclo.nome}">2026.1</span></p>
+                    <h1 class="titulo-pagina">Resultado da avaliação</h1>
+                    <p class="subtitulo-pagina mb-0"><strong th:text="${p.pessoa.nome}">Carla Dias</strong>
+                        <span th:text="'(' + ${p.pessoa.cargoNome} + ')'">(cargo)</span>
+                        · <span th:text="${p.ciclo.nome}">Ciclo 2026.1</span></p>
                 </div>
                 <div class="d-flex gap-2">
                     <a class="btn btn-outline-secondary" th:href="@{/resultados/{c}/pessoas/{p}/pdf(c=${p.ciclo.id},p=${p.pessoa.id})}">
@@ -28,19 +28,19 @@
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
                     <div class="cartao h-100">
-                        <div class="resumo-rotulo">Média Geral</div>
+                        <div class="resumo-rotulo">Média geral</div>
                         <div class="resumo-valor"><span th:text="${p.mediaGeralTexto()}">4,2</span> <small th:text="'/ ' + ${p.escalaTexto()}">/ 5,0</small></div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="cartao h-100">
-                        <div class="resumo-rotulo">Principal Ponto Forte</div>
+                        <div class="resumo-rotulo">Ponto forte</div>
                         <div class="resumo-texto nota-maior" th:text="${p.pontoForte} ?: '—'">Atendimento ao cliente</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="cartao h-100">
-                        <div class="resumo-rotulo">Foco de Desenvolvimento</div>
+                        <div class="resumo-rotulo">Foco de desenvolvimento</div>
                         <div class="resumo-texto nota-menor" th:text="${p.foco} ?: '—'">Pensamento analítico</div>
                     </div>
                 </div>
@@ -53,13 +53,13 @@
             <div class="row g-3">
                 <div class="col-xxl-5">
                     <div class="cartao h-100">
-                        <div class="cartao-titulo-linha"><h2>Mapa de Competências</h2></div>
+                        <div class="cartao-titulo-linha"><h2>Mapa de competências</h2></div>
                         <div class="grafico-caixa"><canvas id="graficoRadar" aria-label="Gráfico radar das médias por competência e grupo" role="img"></canvas></div>
                     </div>
                 </div>
                 <div class="col-xxl-7">
                     <div class="cartao p-0 h-100">
-                        <div class="px-4 pt-3 pb-2"><h2 class="cartao-titulo mb-0">Detalhamento das Notas</h2></div>
+                        <div class="px-4 pt-3 pb-2"><h2 class="cartao-titulo mb-0">Notas por competência</h2></div>
                         <div class="table-responsive">
                             <table class="table align-middle mb-0 tabela-notas">
                                 <thead><tr><th>Competência</th>
@@ -86,7 +86,7 @@
                 <div class="col-lg-5">
                     <div class="cartao h-100">
                         <div class="cartao-titulo-linha"><h2>Comentários</h2></div>
-                        <p class="ajuda">Respostas das perguntas abertas, sem identificar quem escreveu.</p>
+                        <p class="ajuda">Sem identificação de quem escreveu.</p>
                         <div th:each="c : ${p.comentarios}" class="comentario">
                             <small th:text="${c.competencia} + ' · ' + ${c.pergunta}">Comunicação · pergunta</small>
                             <span th:text="'“' + ${c.texto} + '”'">texto</span>
@@ -126,8 +126,9 @@
     (function () {
         const radar = /*[[${painel.radar}]]*/ {competencias: [], series: [], escalaMax: 5};
         const evolucao = /*[[${painel.evolucao}]]*/ {ciclos: [], series: [], normalizada: false};
-        const cores = ['#3d5ce6', '#1f9d55', '#e07b1a', '#8e44ad', '#d63384', '#0dcaf0', '#6c757d'];
+        const cores = ['#0f766e', '#1f9d55', '#e07b1a', '#8e44ad', '#d63384', '#0dcaf0', '#6c757d'];
         const transparente = (hex) => hex + '33';
+        const celular = window.matchMedia('(max-width: 575.98px)').matches;
 
         const caixaRadar = document.getElementById('graficoRadar');
         if (caixaRadar && window.Chart) {
@@ -143,7 +144,8 @@
                 },
                 options: {
                     maintainAspectRatio: false,
-                    scales: {r: {min: 0, max: radar.escalaMax, ticks: {stepSize: 1}}},
+                    scales: {r: {min: 0, max: radar.escalaMax, ticks: {stepSize: 1}, pointLabels: celular
+                            ? {font: {size: 10}, callback: (t) => t.length > 14 ? t.slice(0, 13) + '…' : t} : {}}},
                     plugins: {legend: {position: 'bottom'}}
                 }
             });

@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/** Avaliador externo (cliente, fornecedor ou parceiro) convidado para o ciclo: só nome e e-mail (RNF-06, RF-34). */
+/** Avaliador externo (cliente, fornecedor ou parceiro) convidado para o ciclo. Guarda só nome e e-mail. */
 @Entity
 @Table(name = "avaliador_externo")
 public class AvaliadorExterno {

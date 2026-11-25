@@ -16,11 +16,9 @@ public record Verificacao(List<String> pendencias, List<String> alertas, List<Ca
         return pendencias.isEmpty();
     }
 
-    /** Extensão 8a. */
     public record CargoSemQuestionario(Long cargoId, String cargoNome) {
     }
 
-    /** Extensão 8b. */
     public record TipoSemPerguntas(Long cargoId, String cargoNome, Long questionarioId, String questionarioNome,
                                    TipoAvaliador tipo) {
     }

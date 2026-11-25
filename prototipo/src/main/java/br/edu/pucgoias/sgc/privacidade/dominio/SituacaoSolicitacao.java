@@ -1,6 +1,5 @@
 package br.edu.pucgoias.sgc.privacidade.dominio;
 
-/** Situação de uma solicitação do titular (UC-05, passo 10 e 10a). */
 public enum SituacaoSolicitacao {
     EM_ANALISE("Em análise"),
     ATENDIDA("Atendida"),

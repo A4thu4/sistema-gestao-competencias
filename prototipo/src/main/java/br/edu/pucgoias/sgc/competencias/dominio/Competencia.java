@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/** Competência do catálogo (RF-01). É desativada, nunca apagada, para preservar o histórico (ERS 3.4, regra 1). */
+/** Competência do catálogo. É desativada, nunca apagada, para preservar o histórico. */
 @Entity
 @Table(name = "competencia")
 public class Competencia {

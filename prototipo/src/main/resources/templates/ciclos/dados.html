@@ -31,7 +31,7 @@
                     <label class="form-label fw-medium" for="nome">Nome do ciclo *</label>
                     <input class="form-control" id="nome" name="nome" maxlength="120" th:value="${form.nome}"
                            th:classappend="${erros.containsKey('nome')} ? 'is-invalid'" th:disabled="${travado}"
-                           placeholder="Ex.: Ciclo de avaliação — 2027.1">
+                           placeholder="Ex.: Ciclo 2027.1">
                     <div class="invalid-feedback" th:text="${erros['nome']}">erro</div>
                     <div class="form-text">Use um nome que facilite identificar o período de avaliação.</div>
                 </div>
@@ -43,7 +43,7 @@
                             <input type="checkbox" name="tipos" th:id="'tipo-' + ${t}" th:value="${t}"
                                    th:checked="${form.tipos.contains(t)}" th:disabled="${travado}">
                             <label th:for="'tipo-' + ${t}">
-                                <strong th:text="${t.name() == 'CHEFE'} ? 'Chefe–colaborador' : (${t.name() == 'SUBORDINADO'} ? 'Subordinados (360º)' : (${t.name() == 'PAR'} ? 'Pares' : 'Autoavaliação'))">Tipo</strong>
+                                <strong th:text="${t.name() == 'CHEFE'} ? 'Chefe e colaborador' : (${t.name() == 'SUBORDINADO'} ? 'Subordinados (360º)' : (${t.name() == 'PAR'} ? 'Pares' : 'Autoavaliação'))">Tipo</strong>
                                 <small th:switch="${t.name()}">
                                     <span th:case="'CHEFE'">O gestor direto avalia cada pessoa.</span>
                                     <span th:case="'AUTO'">Cada pessoa avalia a si mesma.</span>
@@ -77,10 +77,10 @@
                 </div>
 
                 <div class="info-suave mt-3" th:unless="${aberto}">
-                    <i class="bi bi-info-circle"></i> Ao salvar, o ciclo fica como rascunho. O agendamento e os convites são definidos no resumo, depois de escolher avaliados e avaliadores.
+                    <i class="bi bi-info-circle"></i> Ao salvar, o ciclo fica como rascunho. O agendamento e os convites são definidos depois.
                 </div>
                 <div class="info-suave mt-3" th:if="${aberto}">
-                    <i class="bi bi-lock"></i> Tipos, questionários e abertura ficam travados com o ciclo aberto, para não invalidar respostas já enviadas.
+                    <i class="bi bi-lock"></i> Com o ciclo aberto, tipos, questionários e abertura não mudam.
                 </div>
 
                 <div class="cartao-rodape" th:unless="${ciclo != null and ciclo.encerrado()}">

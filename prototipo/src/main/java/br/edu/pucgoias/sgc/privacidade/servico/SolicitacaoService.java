@@ -25,14 +25,14 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * UC-05, passos 5 a 10: solicitações do titular (RF-30) — acesso, correção e exclusão — e o atendimento pelo RH
- * (10a e 10b). O titular só vê as próprias solicitações; a conferência é feita aqui, no servidor (RNF-03).
+ * Solicitações do titular (acesso, correção e exclusão) e o atendimento pelo RH. O titular só vê as próprias
+ * solicitações; a conferência é feita aqui, no servidor.
  */
 @Service
 @Transactional(readOnly = true)
 public class SolicitacaoService {
 
-    /** Campos que o titular pode apontar como incorretos (os dados pessoais mantidos, RNF-06). */
+    /** Campos que o titular pode apontar como incorretos (os dados pessoais mantidos). */
     public static final List<String> DADOS_CORRIGIVEIS = List.of("Nome", "E-mail", "Cargo", "Área", "Gestor direto");
     public static final String CANAL_ENCARREGADO = "encarregado@exemplo.com";
 
@@ -51,14 +51,14 @@ public class SolicitacaoService {
         this.participacao = participacao;
     }
 
-    /** UC-05, 7c: a exclusão pede confirmação quando a pessoa participa de um ciclo em andamento. */
+    /** A exclusão pede confirmação quando a pessoa participa de um ciclo em andamento. */
     public boolean exclusaoPrecisaDeConfirmacao(Long usuarioId) {
         return participacao.orderedStream().anyMatch(p -> p.participaDeCicloAberto(usuarioId));
     }
 
     /**
-     * UC-05, passos 7 a 10: registra a solicitação com protocolo, envia a confirmação por e-mail e encaminha ao RH.
-     * O pedido de acesso (7a) já sai atendido: a cópia dos dados é gerada na hora.
+     * Registra a solicitação com protocolo, envia a confirmação por e-mail e encaminha ao RH. O pedido de acesso já sai
+     * atendido: a cópia dos dados é gerada na hora.
      */
     @Transactional
     public SolicitacaoResumo registrar(UsuarioAutenticado eu, NovaSolicitacao pedido) {
@@ -110,7 +110,7 @@ public class SolicitacaoService {
 
         PessoaResumo titular = usuarios.buscar(usuarioId);
         eventos.publishEvent(EventoAuditoria.de("SOLICITACAO_TITULAR",
-                s.getProtocolo() + ": " + pedido.tipo().getRotulo(), "RF-30"));
+                s.getProtocolo() + ": " + pedido.tipo().getRotulo()));
         email.enviar(titular.email(), "Recebemos a sua solicitação " + s.getProtocolo(), corpoConfirmacao(titular, s),
                 "LGPD");
         return SolicitacaoResumo.de(s);
@@ -127,7 +127,7 @@ public class SolicitacaoService {
                 + situacao + "\n\nDúvidas: " + CANAL_ENCARREGADO + ".";
     }
 
-    /** Solicitações do próprio titular, da mais recente à mais antiga (passo 6). */
+    /** Solicitações do próprio titular, da mais recente à mais antiga. */
     public List<SolicitacaoResumo> doTitular(UsuarioAutenticado eu) {
         return solicitacoes.findByUsuarioIdOrderByCriadaEmDescIdDesc(eu.id()).stream()
                 .map(SolicitacaoResumo::de).toList();
@@ -138,7 +138,7 @@ public class SolicitacaoService {
                 .map(SolicitacaoResumo::de).toList();
     }
 
-    /** Uma solicitação do titular. Se for de outra pessoa, o acesso é negado (RNF-03). */
+    /** Se a solicitação for de outra pessoa, o acesso é negado. */
     public SolicitacaoResumo buscarDoTitular(UsuarioAutenticado eu, Long id) {
         SolicitacaoTitular s = carregar(id);
         if (!Objects.equals(s.getUsuarioId(), eu.id())) {
@@ -171,7 +171,7 @@ public class SolicitacaoService {
         return solicitacoes.countBySituacao(SituacaoSolicitacao.EM_ANALISE);
     }
 
-    /** Texto sugerido para a justificativa de uma exclusão (10b): o que sai e o que fica, e por quê. */
+    /** Texto sugerido para a justificativa de uma exclusão: o que sai e o que fica, e por quê. */
     public static String justificativaPadraoExclusao() {
         return "Excluímos o seu nome, o seu e-mail e o seu acesso ao sistema. "
                 + "Mantivemos as respostas que já fazem parte dos resultados dos ciclos, porque estão agregadas "
@@ -180,9 +180,8 @@ public class SolicitacaoService {
     }
 
     /**
-     * UC-05, 10a e 10b: o RH registra a decisão com justificativa. Correção de nome atendida altera o cadastro;
-     * exclusão atendida (no todo ou em parte) anonimiza a pessoa e bloqueia o acesso. O titular é avisado por
-     * e-mail antes da anonimização.
+     * O RH registra a decisão com justificativa. Correção de nome atendida altera o cadastro; exclusão atendida (no todo
+     * ou em parte) anonimiza a pessoa e bloqueia o acesso. O titular é avisado por e-mail antes da anonimização.
      */
     @Transactional
     public SolicitacaoResumo concluir(UsuarioAutenticado eu, Long id, SituacaoSolicitacao decisao, String justificativa) {

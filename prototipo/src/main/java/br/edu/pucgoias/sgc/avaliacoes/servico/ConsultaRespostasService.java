@@ -80,7 +80,6 @@ public class ConsultaRespostasService {
                 .toList();
     }
 
-    /** Quantas avaliações foram enviadas sobre a pessoa no ciclo, nessa relação. */
     public int avaliacoesEnviadas(Long cicloId, Long avaliadoId, TipoAvaliador relacao) {
         return (int) avaliacoes.countByCicloIdAndAvaliadoIdAndRelacao(cicloId, avaliadoId, relacao);
     }

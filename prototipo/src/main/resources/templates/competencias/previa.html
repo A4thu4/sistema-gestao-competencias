@@ -37,7 +37,6 @@
                 <a class="alert-link" th:href="@{/competencias/questionarios/{id}(id=${q.id})}">Voltar a editar</a>
             </div>
 
-            <!-- Ver como cada tipo de avaliador (RF-11) -->
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
                 <span class="small text-secondary">Ver como:</span>
                 <a class="btn btn-sm" th:classappend="${como == null} ? 'btn-primary' : 'btn-outline-secondary'"

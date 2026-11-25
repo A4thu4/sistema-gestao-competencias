@@ -25,14 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * UC-05, passo 6 e extensão 7a: os dados pessoais que o sistema mantém sobre o titular e a cópia desses dados, na
- * tela ou em PDF. Só o necessário à avaliação (RNF-06) e sem autoria de respostas de pares e subordinados (RNF-01).
+ * Os dados pessoais que o sistema mantém sobre o titular e a cópia desses dados, na tela ou em PDF. Só o necessário à
+ * avaliação e sem autoria de respostas de pares e subordinados.
  */
 @Service
 @Transactional(readOnly = true)
 public class DadosPessoaisService {
 
-    /** Explicação mostrada na cópia e no PDF sobre o anonimato das avaliações (RNF-01). */
+    /** Explicação mostrada na cópia e no PDF sobre o anonimato das avaliações. */
     public static final String NOTA_ANONIMATO = "As respostas que colegas, subordinados e avaliadores externos deram "
             + "sobre você aparecem só somadas nos resultados, sem dizer quem respondeu. As respostas que você deu "
             + "como avaliador de outras pessoas também são anônimas e, por isso, não estão ligadas ao seu nome.";
@@ -50,7 +50,7 @@ public class DadosPessoaisService {
         this.fontes = fontes;
     }
 
-    /** Dados cadastrais mantidos sobre a pessoa logada (RNF-06: só o necessário). */
+    /** Dados cadastrais mantidos sobre a pessoa logada (só o necessário). */
     public List<ItemDado> dadosCadastrais(UsuarioAutenticado eu) {
         return dadosCadastrais(eu.id());
     }
@@ -67,7 +67,6 @@ public class DadosPessoaisService {
                 new ItemDado("Gestor direto", gestor));
     }
 
-    /** UC-05, 7a: cópia de todos os dados pessoais da pessoa logada. */
     public CopiaDados gerarCopia(UsuarioAutenticado eu) {
         List<SecaoDados> secoes = new ArrayList<>();
         fontes.orderedStream().forEach(f -> secoes.add(new SecaoDados(f.titulo(), List.copyOf(f.itens(eu.id())))));

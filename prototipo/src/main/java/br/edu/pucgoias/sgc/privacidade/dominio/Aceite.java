@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 import java.time.OffsetDateTime;
 
-/** Aceite de uma versão do termo, com data e hora (RF-29, ERS 3.4 regra 7). O usuário fica só como id. */
+/** Aceite de uma versão do termo, com data e hora. O usuário fica só como id. */
 @Entity
 @Table(name = "aceite")
 public class Aceite {

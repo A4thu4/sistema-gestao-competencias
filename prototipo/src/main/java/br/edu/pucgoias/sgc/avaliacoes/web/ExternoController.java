@@ -22,9 +22,8 @@ import java.time.OffsetDateTime;
 import java.util.Map;
 
 /**
- * UC-03, extensão 1a (RF-34): avaliador externo pelo link individual, sem login ({@code /externo/**} é público no
- * filtro; o CSRF continua valendo). Mesmas regras de salvamento e envio, só com as perguntas da relação EXTERNO.
- * Link inválido, avaliação já enviada ou ciclo encerrado: mostra o motivo e não mostra o questionário.
+ * Avaliador externo pelo link individual, sem login ({@code /externo/**} é público no filtro; o CSRF continua
+ * valendo). Mesmas regras de salvamento e envio, só com as perguntas da relação EXTERNO.
  */
 @Controller
 @RequestMapping("/externo/{token}")
@@ -92,7 +91,7 @@ public class ExternoController {
         }
     }
 
-    /** Link inválido, já enviado ou ciclo encerrado: só o motivo, sem o questionário (1a.3). */
+    /** Link inválido, já enviado ou ciclo encerrado: mostra só o motivo, sem o questionário. */
     @ExceptionHandler(LinkExternoIndisponivelException.class)
     public String indisponivel(LinkExternoIndisponivelException e, Model model) {
         model.addAttribute("titulo", e.titulo());

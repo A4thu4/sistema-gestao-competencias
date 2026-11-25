@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * UC-05, passos 1 a 4: termo de consentimento vigente, aceite (RF-29) e publicação de nova versão pelo RH (2a).
+ * Termo de consentimento vigente, aceite e publicação de nova versão pelo RH.
  *
  * <p>O id do termo vigente fica guardado em memória para a barreira do termo não ir ao banco a cada requisição;
  * a publicação de uma nova versão apaga essa memória ao terminar a transação (com sucesso ou não).
@@ -75,7 +75,6 @@ public class ConsentimentoService {
         return idTermoVigente().map(id -> aceitou(usuarioId, id)).orElse(true);
     }
 
-    /** Aceite mais recente da pessoa (versão, data e hora). */
     public Optional<AceiteResumo> ultimoAceite(Long usuarioId) {
         return aceites.findFirstByUsuarioIdOrderByAceitoEmDescIdDesc(usuarioId).map(AceiteResumo::de);
     }
@@ -85,7 +84,7 @@ public class ConsentimentoService {
         return aceites.findByUsuarioIdOrderByAceitoEmDescIdDesc(usuarioId).stream().map(AceiteResumo::de).toList();
     }
 
-    /** UC-05, passos 3 e 4: registra o aceite com versão, data e hora e libera o sistema. */
+    /** Registra o aceite com versão, data e hora e libera o sistema. */
     @Transactional
     public void aceitar(UsuarioAutenticado eu, Long termoId) {
         TermoConsentimento vigente = termos.findFirstByOrderByVigenteDesdeDescIdDesc()
@@ -98,15 +97,15 @@ public class ConsentimentoService {
         }
         aceites.save(new Aceite(eu.id(), vigente, OffsetDateTime.now()));
         eventos.publishEvent(EventoAuditoria.de("ACEITE_TERMO",
-                "Aceitou o termo de consentimento versão " + vigente.getVersao(), "RF-29"));
+                "Versão " + vigente.getVersao()));
     }
 
-    /** UC-05, 3a: a recusa não libera nada; fica só o registro no log. */
+    /** A recusa não libera nada; fica só o registro no log. */
     @Transactional
     public void registrarRecusa(UsuarioAutenticado eu) {
         String versao = termoVigente().map(TermoResumo::versao).orElse("—");
         eventos.publishEvent(EventoAuditoria.de("RECUSA_TERMO",
-                "Não aceitou o termo de consentimento versão " + versao, "RF-29: acesso continua bloqueado"));
+                "Versão " + versao, "Acesso continua bloqueado"));
     }
 
     public List<TermoResumo> versoes() {
@@ -128,10 +127,7 @@ public class ConsentimentoService {
         return usuarios.listarAtivos().size();
     }
 
-    /**
-     * Pré-condição do UC-05 e extensão 2a: o RH publica uma nova versão; no próximo acesso todos precisam aceitar
-     * de novo, vendo o resumo do que mudou.
-     */
+    /** No próximo acesso, todos precisam aceitar a nova versão, vendo o resumo do que mudou. */
     @Transactional
     public TermoResumo publicar(UsuarioAutenticado eu, String versao, String texto, String resumoMudancas) {
         if (!eu.ehRh()) {

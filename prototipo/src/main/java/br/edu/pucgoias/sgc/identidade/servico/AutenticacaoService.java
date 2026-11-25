@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/** UC-10: carrega o usuário pelo e-mail para o Spring Security conferir a senha (RF-31). */
+/** Carrega o usuário pelo e-mail para o Spring Security conferir a senha. */
 @Service
 public class AutenticacaoService implements UserDetailsService {
 

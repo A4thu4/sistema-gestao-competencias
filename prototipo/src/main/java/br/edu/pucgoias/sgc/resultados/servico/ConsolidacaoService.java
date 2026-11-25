@@ -24,9 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Consolidação dos resultados de um ciclo (RF-19, contrato CO-03 {@code consolidarResultados(Long cicloId)}).
- * Ponto único: lê as respostas, calcula com {@link CalculoConsolidacao}, apaga o consolidado do ciclo e grava de
- * novo. O mesmo conjunto de respostas gera sempre o mesmo resultado (RNF-12).
+ * Ponto único da consolidação: lê as respostas, calcula com {@link CalculoConsolidacao}, apaga o consolidado do ciclo
+ * e grava de novo. O mesmo conjunto de respostas gera sempre o mesmo resultado.
  *
  * <p>Roda sozinha no encerramento do ciclo ({@link CicloEncerradoEvento}, na mesma transação) e pelo botão
  * "Recalcular" do RH.
@@ -53,7 +52,7 @@ public class ConsolidacaoService {
         this.eventos = eventos;
     }
 
-    /** RF-19: consolida assim que o ciclo é encerrado (pela rotina ou por "Encerrar agora"). */
+    /** Consolida assim que o ciclo é encerrado (pela rotina ou por "Encerrar agora"). */
     @EventListener
     @Transactional
     public void aoEncerrar(CicloEncerradoEvento evento) {
@@ -64,7 +63,7 @@ public class ConsolidacaoService {
         log.info("Ciclo {} consolidado no encerramento: {} médias", evento.cicloId(), linhas);
     }
 
-    /** Botão "Recalcular" do RH (RNF-12): refaz o consolidado do ciclo encerrado a partir das respostas. */
+    /** Botão "Recalcular" do RH: refaz o consolidado do ciclo encerrado a partir das respostas. */
     @Transactional
     public int recalcular(UsuarioAutenticado eu, Long cicloId) {
         if (!eu.ehRh()) {

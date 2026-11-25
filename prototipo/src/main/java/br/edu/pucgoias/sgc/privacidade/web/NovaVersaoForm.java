@@ -3,7 +3,6 @@ package br.edu.pucgoias.sgc.privacidade.web;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-/** Formulário do RH para publicar uma nova versão do termo. */
 public class NovaVersaoForm {
 
     @NotBlank(message = "Informe o número da versão, por exemplo 1.1.")

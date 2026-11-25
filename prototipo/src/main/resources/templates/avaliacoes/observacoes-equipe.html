@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Observações da equipe')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
-<!-- UC-08 Registrar observações sobre a equipe (RF-17): a equipe direta do gestor e o resumo das observações. -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu('observacoes')}"></aside>
     <div class="app-main">
@@ -13,8 +12,7 @@
             <div class="d-flex flex-wrap align-items-start gap-3">
                 <div class="me-auto">
                     <h1 class="titulo-pagina">Observações da equipe</h1>
-                    <p class="subtitulo-pagina mb-3">Anote fatos do dia a dia, bons ou a melhorar, para que a avaliação
-                        não dependa só da memória dos últimos meses.</p>
+                    <p class="subtitulo-pagina mb-3">Fatos do dia a dia para consultar na hora de avaliar.</p>
                 </div>
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#novaObservacao"
                         th:disabled="${#lists.isEmpty(equipe)}">
@@ -23,9 +21,7 @@
 
             <div class="aviso-discreto">
                 <i class="bi bi-lock"></i>
-                <span>As observações são anotações suas para a avaliação: aparecem para você quando avaliar a pessoa no
-                    ciclo. O colaborador não as vê nesta área, mas elas entram na cópia dos dados pessoais que ele pode
-                    pedir (LGPD).</span>
+                <span>Só você vê estas anotações.</span>
             </div>
 
             <div class="cartao text-center text-secondary py-5" th:if="${#lists.isEmpty(equipe)}">
@@ -44,9 +40,9 @@
                             </div>
                         </div>
                         <div class="membro-contagem">
-                            <div><strong th:text="${m.total}">0</strong><span>observações</span></div>
-                            <div class="positivo"><strong th:text="${m.positivos}">0</strong><span>positivos</span></div>
-                            <div class="melhoria"><strong th:text="${m.melhorias}">0</strong><span>melhoria</span></div>
+                            <div><strong th:text="${m.total}">0</strong><span th:text="${m.total == 1} ? 'observação' : 'observações'">observações</span></div>
+                            <div class="positivo"><strong th:text="${m.positivos}">0</strong><span th:text="${m.positivos == 1} ? 'positiva' : 'positivas'">positivas</span></div>
+                            <div class="melhoria"><strong th:text="${m.melhorias}">0</strong><span>a melhorar</span></div>
                         </div>
                         <div class="membro-rodape">
                             <span th:if="${m.ultima != null}">Última: <strong class="text-body" th:text="${m.ultimaTexto()}">data</strong></span>
@@ -65,7 +61,6 @@
     </div>
 </div>
 
-<!-- Registro rápido: escolhe a pessoa da equipe e volta para a lista dela. -->
 <div class="modal fade" id="novaObservacao" tabindex="-1" aria-labelledby="novaObservacaoTitulo" aria-hidden="true"
      th:if="${not #lists.isEmpty(equipe)}">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">

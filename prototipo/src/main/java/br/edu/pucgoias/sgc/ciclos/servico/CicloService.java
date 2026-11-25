@@ -25,9 +25,9 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Interface do pacote ciclos para os outros (avaliacoes, resultados) e o ciclo de vida do ciclo: abertura com os
- * convites (UC-02, passos 13 e 14), encerramento (RF-09) com o {@link CicloEncerradoEvento}, liberação do resultado
- * (RF-24) e o andamento de cada designação (NAO_INICIADA → EM_PREENCHIMENTO → ENVIADA).
+ * Interface do pacote ciclos para avaliacoes e resultados, e ciclo de vida do ciclo: abertura com os convites,
+ * encerramento com o {@link CicloEncerradoEvento}, liberação do resultado e andamento de cada designação
+ * (NAO_INICIADA → EM_PREENCHIMENTO → ENVIADA).
  */
 @Service
 @Transactional(readOnly = true)
@@ -83,7 +83,6 @@ public class CicloService {
         return resumos(List.of(designacaoEntidade(id))).get(0);
     }
 
-    /** Designação do avaliador externo pelo token do link individual (RF-34). */
     public Optional<DesignacaoResumo> designacaoPorToken(String token) {
         if (token == null || token.isBlank()) {
             return Optional.empty();
@@ -118,7 +117,6 @@ public class CicloService {
         return resumos(designacoes.findByCicloIdOrderById(cicloId));
     }
 
-    /** Pessoas avaliadas no ciclo (ids de usuário). */
     public List<Long> avaliadosDoCiclo(Long cicloId) {
         return entidade(cicloId).getAvaliados().keySet().stream().sorted().toList();
     }
@@ -162,7 +160,7 @@ public class CicloService {
         eventos.publishEvent(new CicloEncerradoEvento(c.getId()));
     }
 
-    /** Extensão 14a: reenvia os convites que ficaram sem envio. */
+    /** Reenvia só os convites que falharam. */
     @Transactional
     public ConviteService.ResultadoEnvio reenviarConvites(Long cicloId) {
         Ciclo c = entidade(cicloId);
@@ -212,7 +210,7 @@ public class CicloService {
     }
 
     static String descricao(Ciclo c) {
-        return "Ciclo “" + c.getNome() + "” (nº " + c.getId() + ")";
+        return c.getNome();
     }
 
     CicloResumo resumo(Ciclo c) {

@@ -29,9 +29,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * UC-01: questionários por cargo (RF-03), escala com níveis descritos (RF-04), perguntas abertas (RF-05), modelos
- * prontos e cópia de questionário anterior (RF-07), validação antes de publicar (passo 12) e bloqueio de questionário
- * já usado (extensão 2b).
+ * Questionários por cargo, modelos prontos, cópia, validação antes de publicar e bloqueio de questionário já usado.
  *
  * <p>Também é a interface do pacote para ciclos, avaliacoes e resultados: {@link #publicadosDoCargo},
  * {@link #publicados}, {@link #resumo}, {@link #detalhar}, {@link #detalharPara} e {@link #temPerguntasPara}.
@@ -64,7 +62,7 @@ public class QuestionarioService {
 
     // ==== Interface para os outros pacotes ====
 
-    /** Questionários publicados de um cargo, para a criação de ciclos (UC-02). */
+    /** Questionários publicados de um cargo, para a criação de ciclos. */
     public List<QuestionarioResumo> publicadosDoCargo(Long cargoId) {
         return questionarios.findByModeloFalseAndSituacaoAndCargoIdOrderByNome(SituacaoQuestionario.PUBLICADO, cargoId)
                 .stream().map(QuestionarioService::resumo).toList();
@@ -86,8 +84,8 @@ public class QuestionarioService {
     }
 
     /**
-     * Só as perguntas que se aplicam a este tipo de avaliador (RF-11), sem as competências que ficariam vazias.
-     * É o formulário que o avaliador recebe no UC-03.
+     * Só as perguntas que se aplicam a este tipo de avaliador, sem as competências que ficariam vazias. É o formulário
+     * que o avaliador recebe.
      */
     public QuestionarioCompleto detalharPara(Long questionarioId, TipoAvaliador tipo) {
         return completo(entidade(questionarioId), Objects.requireNonNull(tipo));
@@ -100,7 +98,6 @@ public class QuestionarioService {
 
     // ==== Caso de uso (telas do RH) ====
 
-    /** Lista do passo 2: nome, cargo, situação e ciclos em que foi usado. */
     public List<QuestionarioNaLista> listar() {
         Map<Long, String> cargos = usuarios.cargos().stream()
                 .collect(Collectors.toMap(CargoResumo::id, CargoResumo::nome));
@@ -114,12 +111,12 @@ public class QuestionarioService {
         }).toList();
     }
 
-    /** Modelos prontos (RF-07): chefe–colaborador, pares e 360º. */
+    /** Modelos prontos: chefe e colaborador, pares e 360º. */
     public List<QuestionarioCompleto> modelos() {
         return questionarios.findByModeloTrueOrderByNome().stream().map(q -> completo(q, null)).toList();
     }
 
-    /** Questionários que podem ser copiados (extensão 5b). */
+    /** Questionários que podem ser copiados. */
     public List<QuestionarioResumo> anteriores() {
         return questionarios.findByModeloFalseOrderByNome().stream().map(QuestionarioService::resumo).toList();
     }
@@ -132,7 +129,7 @@ public class QuestionarioService {
         return questionarios.countByModeloFalseAndSituacao(SituacaoQuestionario.RASCUNHO);
     }
 
-    /** Se o questionário já tem respostas ou está em algum ciclo (extensão 2b), pelas implementações de {@link ConsultaUsoQuestionario}. */
+    /** Se o questionário já tem respostas ou está em algum ciclo, pelas implementações de {@link ConsultaUsoQuestionario}. */
     public UsoQuestionario uso(Long questionarioId) {
         List<ConsultaUsoQuestionario> consultas = consultasDeUso.orderedStream().toList();
         boolean respostas = consultas.stream().anyMatch(c -> c.possuiRespostas(questionarioId));
@@ -141,7 +138,7 @@ public class QuestionarioService {
         return new UsoQuestionario(respostas, ciclos);
     }
 
-    /** Passos 5 a 8: rascunho em branco com as competências padrão do cargo já escolhidas (RF-02). */
+    /** Rascunho em branco com as competências padrão do cargo já escolhidas. */
     @Transactional
     public Long criarEmBranco(String nome, Long cargoId, int escalaMax) {
         if (nome == null || nome.isBlank()) {
@@ -156,7 +153,7 @@ public class QuestionarioService {
         return questionarios.save(q).getId();
     }
 
-    /** Extensão 5a: novo rascunho a partir de um modelo pronto. O RH escolhe o cargo no editor. */
+    /** Novo rascunho a partir de um modelo pronto. O RH escolhe o cargo no editor. */
     @Transactional
     public Long criarDeModelo(Long modeloId) {
         Questionario modelo = entidade(modeloId);
@@ -166,7 +163,7 @@ public class QuestionarioService {
         return questionarios.save(modelo.copiar(modelo.getNome())).getId();
     }
 
-    /** Extensão 5b e 2b: cópia com a estrutura completa do original, como rascunho e sem respostas (RF-07). */
+    /** Cópia com a estrutura completa do original, como rascunho e sem respostas. */
     @Transactional
     public Long duplicar(Long questionarioId) {
         Questionario original = entidade(questionarioId);
@@ -174,8 +171,8 @@ public class QuestionarioService {
     }
 
     /**
-     * Grava o que o RH informou no editor (passos 7 a 11). Sempre fica como rascunho: um questionário publicado que
-     * for alterado volta a rascunho até ser publicado de novo, para nunca haver publicado incompleto.
+     * Grava o que o RH informou no editor. Sempre fica como rascunho: um questionário publicado que for alterado volta a
+     * rascunho até ser publicado de novo, para nunca haver publicado incompleto.
      */
     @Transactional
     public void salvar(Long questionarioId, DadosQuestionario dados) {
@@ -224,7 +221,7 @@ public class QuestionarioService {
         }
     }
 
-    /** Inclui uma competência no questionário (depois de cadastrá-la sem sair do fluxo, extensão 9a). */
+    /** Inclui uma competência no questionário (depois de cadastrá-la sem sair do fluxo). */
     @Transactional
     public void incluirCompetencia(Long questionarioId, Long competenciaId) {
         Questionario q = editavel(questionarioId);
@@ -232,14 +229,12 @@ public class QuestionarioService {
         q.incluirCompetencia(competenciaId);
     }
 
-    /** Pendências que impedem a publicação (passo 12, extensão 12a). Vazio = pode publicar. */
+    /** Pendências que impedem a publicação. Vazio = pode publicar. */
     public List<String> pendencias(Long questionarioId) {
         return pendencias(entidade(questionarioId));
     }
 
-    /**
-     * Publica (passos 14 e 15). Se houver pendências, não publica, mantém o rascunho e devolve a lista delas.
-     */
+    /** Se houver pendências, não publica, mantém o rascunho e devolve a lista delas. */
     @Transactional
     public List<String> publicar(Long questionarioId) {
         Questionario q = entidade(questionarioId);
@@ -253,7 +248,7 @@ public class QuestionarioService {
         }
         q.publicar();
         eventos.publishEvent(EventoAuditoria.de("QUESTIONARIO_PUBLICADO",
-                "Questionário “" + q.getNome() + "” (nº " + q.getId() + ")"));
+                "Questionário “" + q.getNome() + "”"));
         return List.of();
     }
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Comparator;
 import java.util.List;
 
-/** Página inicial com as funcionalidades do perfil (UC-10, passo final). */
+/** Página inicial com as funcionalidades do perfil. */
 @Controller
 public class InicioController {
 

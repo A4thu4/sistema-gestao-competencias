@@ -3,8 +3,8 @@ package br.edu.pucgoias.sgc.competencias.servico;
 import java.util.List;
 
 /**
- * Se o questionário já foi usado (UC-01, extensão 2b). Bloqueado = tem respostas ou está em algum ciclo: aí as
- * competências, perguntas e escala não mudam mais, e o RH duplica para fazer outro.
+ * Se o questionário já foi usado. Bloqueado = tem respostas ou está em algum ciclo: aí as competências, perguntas e
+ * escala não mudam mais, e o RH duplica para fazer outro.
  */
 public record UsoQuestionario(boolean possuiRespostas, List<String> ciclos) {
 

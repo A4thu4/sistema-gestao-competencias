@@ -1,18 +1,35 @@
-/* Estilos do sistema, a partir das telas do Figma (TL-01 a TL-05). */
+/* Estilos gerais. */
 :root {
     --sgc-lateral: #16213a;
     --sgc-lateral-ativo: #24365c;
-    --sgc-azul: #3d5ce6;
+    --sgc-primaria: #0f766e;
+    --sgc-primaria-escura: #115e59;
+    --sgc-primaria-clara: #e1f3f0;
+    --sgc-primaria-suave: #eff8f6;
     --sgc-fundo: #f6f7f9;
     --sgc-borda: #e4e7ec;
-    --bs-primary: #3d5ce6;
-    --bs-primary-rgb: 61, 92, 230;
+    --bs-primary: #0f766e;
+    --bs-primary-rgb: 15, 118, 110;
+    --bs-link-color: #0f766e;
+    --bs-link-color-rgb: 15, 118, 110;
+    --bs-link-hover-color: #115e59;
+    --bs-link-hover-color-rgb: 17, 94, 89;
 }
 
 body { background: var(--sgc-fundo); color: #1d2433; }
-.btn-primary { --bs-btn-bg: var(--sgc-azul); --bs-btn-border-color: var(--sgc-azul);
-    --bs-btn-hover-bg: #2f4bcc; --bs-btn-hover-border-color: #2f4bcc; }
-.text-primary { color: var(--sgc-azul) !important; }
+.btn-primary { --bs-btn-bg: var(--sgc-primaria); --bs-btn-border-color: var(--sgc-primaria);
+    --bs-btn-hover-bg: var(--sgc-primaria-escura); --bs-btn-hover-border-color: var(--sgc-primaria-escura);
+    --bs-btn-active-bg: var(--sgc-primaria-escura); --bs-btn-active-border-color: var(--sgc-primaria-escura);
+    --bs-btn-disabled-bg: var(--sgc-primaria); --bs-btn-disabled-border-color: var(--sgc-primaria); }
+.btn-outline-primary { --bs-btn-color: var(--sgc-primaria); --bs-btn-border-color: var(--sgc-primaria);
+    --bs-btn-hover-bg: var(--sgc-primaria); --bs-btn-hover-border-color: var(--sgc-primaria);
+    --bs-btn-active-bg: var(--sgc-primaria-escura); --bs-btn-active-border-color: var(--sgc-primaria-escura); }
+.bg-primary { background-color: var(--sgc-primaria) !important; }
+.border-primary { border-color: var(--sgc-primaria) !important; }
+.form-control:focus, .form-select:focus { border-color: #7cc4ba; box-shadow: 0 0 0 .2rem rgba(15, 118, 110, .2); }
+.form-check-input:checked { background-color: var(--sgc-primaria); border-color: var(--sgc-primaria); }
+.nav-pills .nav-link.active { background-color: var(--sgc-primaria); }
+.text-primary { color: var(--sgc-primaria) !important; }
 
 .app { display: flex; min-height: 100vh; }
 .app-sidebar { width: 248px; flex-shrink: 0; background: var(--sgc-lateral); color: #c9d1e3;
@@ -26,17 +43,18 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 }
 .app-sidebar.offcanvas-lg { --bs-offcanvas-bg: var(--sgc-lateral); --bs-offcanvas-width: 260px; }
 .app-marca { display: flex; align-items: center; gap: .6rem; padding: 1.25rem 1.1rem; color: #fff; }
-.app-marca small { display: block; font-size: .6rem; letter-spacing: .06em; color: #9aa6c1; }
-.app-marca strong { display: block; font-weight: 600; }
-.app-marca-icone { width: 34px; height: 34px; border-radius: 8px; background: var(--sgc-azul);
-    display: grid; place-items: center; font-size: 1.1rem; }
+.app-marca small { display: block; font-size: .72rem; color: #9aa6c1; }
+.app-marca strong { display: block; font-weight: 700; letter-spacing: .04em; }
+.app-marca-clara { color: #1d2433; padding: 0; }
+.app-marca-clara small { color: #667085; }
+.app-logo { display: inline-flex; flex-shrink: 0; }
 .app-menu { padding: 0 .7rem; flex: 1; }
 .app-menu-secao { font-size: .68rem; letter-spacing: .06em; color: #8591ad; margin: 1rem .55rem .4rem; }
 .app-menu a, .app-menu-rodape a { display: flex; align-items: center; gap: .65rem; padding: .55rem .65rem;
     border-radius: 7px; color: #c9d1e3; text-decoration: none; font-size: .9rem; margin-bottom: 2px; }
 .app-menu a:hover, .app-menu-rodape a:hover { background: rgba(255,255,255,.06); color: #fff; }
 .app-menu a.ativo, .app-menu-rodape a.ativo { background: var(--sgc-lateral-ativo); color: #fff;
-    box-shadow: inset 3px 0 0 var(--sgc-azul); }
+    box-shadow: inset 3px 0 0 var(--sgc-primaria); }
 .app-menu-rodape { padding: .7rem; border-top: 1px solid rgba(255,255,255,.08); }
 .app-ambiente { font-size: .75rem; color: #8591ad; padding: .6rem .65rem 0; }
 
@@ -49,7 +67,7 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 .app-usuario { display: flex; align-items: center; gap: .6rem; border: 0; }
 .app-usuario small { display: block; font-size: .72rem; color: #667085; }
 .app-usuario strong { display: block; font-size: .85rem; font-weight: 600; }
-.app-avatar { width: 34px; height: 34px; border-radius: 50%; background: #e8ecfb; color: var(--sgc-azul);
+.app-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--sgc-primaria-clara); color: var(--sgc-primaria);
     display: inline-grid; place-items: center; font-weight: 600; font-size: .8rem; flex-shrink: 0; }
 .app-content { padding: 1.75rem 1.5rem 3rem; max-width: 1200px; width: 100%; }
 @media (max-width: 575.98px) { .app-content { padding: 1.1rem 1rem 2.5rem; } .app-topo { padding: .5rem 1rem; } }
@@ -67,21 +85,21 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 .selo { display: inline-block; font-size: .72rem; padding: .2rem .55rem; border-radius: 99px; font-weight: 500; }
 .selo-rascunho, .selo-nao_iniciada { background: #f2f4f7; color: #475467; }
 .selo-publicado, .selo-enviada, .selo-aberto, .selo-atendida, .selo-concluida { background: #e7f6ec; color: #18794e; }
-.selo-agendado, .selo-em_preenchimento, .selo-em_analise, .selo-em_andamento { background: #e8ecfb; color: #2f4bcc; }
+.selo-agendado, .selo-em_preenchimento, .selo-em_analise, .selo-em_andamento { background: var(--sgc-primaria-clara); color: var(--sgc-primaria-escura); }
 .selo-encerrado, .selo-cancelada { background: #f2f4f7; color: #344054; }
 .selo-negada { background: #fdecec; color: #b42318; }
 .selo-atendida_parcial { background: #fff4e5; color: #b54708; }
 
-/* Escala de notas como cartões clicáveis (TL-03). */
+/* Escala de notas. */
 .escala { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: .5rem; }
 .escala input { position: absolute; opacity: 0; }
 .escala label { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .65rem .4rem; text-align: center;
     cursor: pointer; font-size: .82rem; height: 100%; display: flex; flex-direction: column; gap: .2rem;
     justify-content: center; background: #fff; }
 .escala label strong { font-size: 1.05rem; }
-.escala input:checked + label { border-color: var(--sgc-azul); background: #eef1fd; color: #2f4bcc;
-    box-shadow: 0 0 0 1px var(--sgc-azul); }
-.escala input:focus-visible + label { outline: 2px solid var(--sgc-azul); outline-offset: 2px; }
+.escala input:checked + label { border-color: var(--sgc-primaria); background: var(--sgc-primaria-suave); color: var(--sgc-primaria-escura);
+    box-shadow: 0 0 0 1px var(--sgc-primaria); }
+.escala input:focus-visible + label { outline: 2px solid var(--sgc-primaria); outline-offset: 2px; }
 .escala .nao-avalia + label { border-style: dashed; }
 .pendente { border-left: 3px solid #f04438; padding-left: .75rem; }
 .salvo-status { font-size: .8rem; color: #667085; }
@@ -89,7 +107,7 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 .login-fundo { min-height: 100vh; display: grid; place-items: center; background: var(--sgc-lateral); padding: 1rem; }
 .login-caixa { background: #fff; border-radius: 14px; padding: 2.2rem; width: 100%; max-width: 410px; }
 
-/* Tabela que vira lista de cartões no celular (RNF-07). Cada <td data-rotulo="..."> mostra o rótulo em cima. */
+/* Tabela em cartões no celular: cada <td data-rotulo> mostra o rótulo em cima. */
 @media (max-width: 575.98px) {
     .tabela-empilhada thead { display: none; }
     .tabela-empilhada, .tabela-empilhada tbody, .tabela-empilhada tr, .tabela-empilhada td { display: block; width: 100%; }

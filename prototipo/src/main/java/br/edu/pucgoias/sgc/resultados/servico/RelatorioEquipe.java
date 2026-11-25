@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Relatório de uma equipe ou área num ciclo (UC-04, 3a; RF-21): nota final de cada pessoa em cada competência e a
- * média da equipe por competência. Só notas finais, que já seguem o mínimo de 3; nenhum respondente aparece.
+ * Relatório de uma equipe ou área num ciclo: nota final de cada pessoa em cada competência e a média da equipe por
+ * competência. Só notas finais, que já seguem o mínimo de 3; nenhum respondente aparece.
  *
  * @param competencias competências (id → nome) em ordem alfabética
  * @param mediaEquipe  média das notas finais das pessoas, por competência

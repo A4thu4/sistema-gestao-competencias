@@ -28,26 +28,24 @@ public class PainelResultados implements ContribuicaoPainel {
     public List<CartaoPainel> cartoes(UsuarioAutenticado eu) {
         List<CartaoPainel> cartoes = new ArrayList<>();
         resultados.ultimoLiberado(eu.id()).ifPresent(c -> cartoes.add(new CartaoPainel(40, "Seu resultado",
-                c.nome(), "Seu resultado do " + c.nome() + " foi liberado. Veja as médias e a sua evolução.",
+                "Liberado", c.nome(),
                 "/resultados/" + c.id() + "/pessoas/" + eu.id(), "success")));
         long minhasAbertas = planos.metasAbertasDe(eu.id());
         if (minhasAbertas > 0) {
             cartoes.add(new CartaoPainel(45, "Meu plano de desenvolvimento", String.valueOf(minhasAbertas),
-                    minhasAbertas == 1 ? "meta aberta no seu plano" : "metas abertas no seu plano",
+                    minhasAbertas == 1 ? "meta aberta" : "metas abertas",
                     "/planos/" + eu.id(), "primary"));
         }
         if (eu.ehGestor()) {
             long emAndamento = planos.metasDaEquipeEmAndamento(eu.id());
             cartoes.add(new CartaoPainel(46, "Metas da equipe", String.valueOf(emAndamento),
-                    emAndamento == 1 ? "meta em andamento nos planos da sua equipe"
-                            : "metas em andamento nos planos da sua equipe", "/planos", "primary"));
+                    "em andamento", "/planos", "primary"));
         }
         if (eu.ehRh()) {
             List<CicloResumo> aguardando = resultados.aguardandoLiberacao();
             cartoes.add(new CartaoPainel(41, "Resultados para liberar", String.valueOf(aguardando.size()),
-                    aguardando.isEmpty() ? "nenhum ciclo encerrado esperando liberação"
-                            : "ciclo(s) encerrado(s) sem liberação: " + String.join(", ",
-                            aguardando.stream().map(CicloResumo::nome).toList()),
+                    aguardando.isEmpty() ? "nenhum ciclo esperando"
+                            : String.join(", ", aguardando.stream().map(CicloResumo::nome).toList()),
                     "/resultados", aguardando.isEmpty() ? "secondary" : "warning"));
         }
         return cartoes;

@@ -101,14 +101,14 @@ public class UsuarioService {
                 .orElseThrow(() -> new NaoEncontradoException("Cargo não encontrado."));
     }
 
-    /** Correção de nome a pedido do titular, depois da análise do RH (UC-05, 10a). */
+    /** Correção de nome a pedido do titular, depois da análise do RH. */
     @Transactional
     public void corrigirNome(Long id, String novoNome) {
         usuarios.findById(id).orElseThrow(() -> new NaoEncontradoException("Pessoa não encontrada."))
                 .corrigirNome(novoNome);
     }
 
-    /** Exclusão a pedido do titular (UC-05): bloqueia o acesso e substitui nome e e-mail. */
+    /** Exclusão a pedido do titular: bloqueia o acesso e substitui nome e e-mail. */
     @Transactional
     public void anonimizar(Long id) {
         usuarios.findById(id).orElseThrow(() -> new NaoEncontradoException("Pessoa não encontrada."))

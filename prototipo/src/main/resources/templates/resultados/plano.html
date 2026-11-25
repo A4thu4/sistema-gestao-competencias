@@ -15,7 +15,7 @@
                     <h1 class="titulo-pagina" th:text="${pl.proprio} ? 'Meu plano de desenvolvimento' : 'Plano de ' + ${pl.colaborador.nome}">Plano</h1>
                     <p class="subtitulo-pagina mb-0">
                         <span th:text="${pl.colaborador.nome} + ' · ' + ${pl.colaborador.cargoNome}">Carla · Analista</span>
-                        <th:block th:if="${pl.cicloBase != null}"> | Base: resultado do <a th:href="@{/resultados/{c}/pessoas/{p}(c=${pl.cicloBase.id},p=${pl.colaborador.id})}" th:text="${pl.cicloBase.nome}">2026.1</a></th:block>
+                        <th:block th:if="${pl.cicloBase != null}"> · Base: <a th:href="@{/resultados/{c}/pessoas/{p}(c=${pl.cicloBase.id},p=${pl.colaborador.id})}" th:text="${pl.cicloBase.nome}">2026.1</a></th:block>
                     </p>
                 </div>
                 <div class="d-flex gap-2 flex-wrap">
@@ -29,7 +29,7 @@
 
             <div th:if="${pl.somenteLeitura()}" class="alert alert-secondary"><i class="bi bi-eye"></i> Consulta do RH: o plano é registrado e atualizado pelo gestor direto e pela pessoa.</div>
             <div th:if="${pl.cicloBase == null}" class="alert alert-info"><i class="bi bi-info-circle"></i>
-                O plano é montado depois que o resultado do ciclo é liberado pelo RH. Ainda não há resultado liberado para esta pessoa.</div>
+                Ainda não há resultado liberado para esta pessoa.</div>
 
             <div class="cartao mb-3" th:if="${!#lists.isEmpty(pl.sugestoes)}">
                 <div class="cartao-titulo-linha"><h2>Competências sugeridas</h2></div>

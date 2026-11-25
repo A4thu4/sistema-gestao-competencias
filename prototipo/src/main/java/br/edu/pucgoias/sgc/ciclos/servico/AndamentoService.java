@@ -33,9 +33,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * UC-07 Acompanhar andamento do ciclo (RF-12, RF-13). O RH vê a organização inteira; o gestor vê só as designações
- * em que o avaliado ou o avaliador é da sua equipe direta, conferido aqui no servidor (RNF-03). O painel mostra
- * quem já respondeu, nunca o conteúdo das respostas (RNF-01).
+ * O RH vê a organização inteira; o gestor vê só as designações em que o avaliado ou o avaliador é da sua equipe
+ * direta, conferido no servidor. O painel mostra quem já respondeu, nunca o conteúdo das respostas.
  */
 @Service
 @Transactional(readOnly = true)
