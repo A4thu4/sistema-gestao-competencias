@@ -79,7 +79,7 @@ class CriarCicloTest extends TesteIntegracao {
         for (AvaliadoNoCiclo a : m.avaliados()) {
             assertThat(a.avaliadores(TipoAvaliador.CHEFE)).extracting(AvaliadorNoCiclo::pessoaId).containsExactly(bruno.id());
             assertThat(a.avaliadores(TipoAvaliador.AUTO)).extracting(AvaliadorNoCiclo::pessoaId).containsExactly(a.id());
-            assertThat(a.questionarioNome()).isEqualTo("Questionário — Analista de Suporte");
+            assertThat(a.questionarioNome()).isEqualTo("Questionário Analista de Suporte");
         }
         assertThat(m.verificacao().podeAgendar()).isTrue();
 

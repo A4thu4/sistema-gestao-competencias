@@ -146,7 +146,7 @@ public class DadosExemploCompetencias implements ApplicationRunner {
             }
             List<Long> ids = e.getValue().stream().map(c::get).toList();
             catalogo.definirPadraoDoCargo(cargoId, ids);
-            String nome = "Questionário — " + e.getKey();
+            String nome = "Questionário " + e.getKey();
             Long id = questionarios.criarEmBranco(nome, cargoId, 5);
             questionarios.salvar(id, dados(nome, cargoId, e.getValue(), c, P::para, true));
             List<String> faltas = questionarios.publicar(id);
@@ -175,7 +175,7 @@ public class DadosExemploCompetencias implements ApplicationRunner {
         // sem perguntas (a validação aponta a pendência antes de publicar).
         if (questionarioSuporte != null) {
             Long rascunho = questionarios.duplicar(questionarioSuporte);
-            String nome = "Questionário 2027 — Analista de Suporte";
+            String nome = "Questionário Analista de Suporte 2027";
             List<String> comps = new ArrayList<>(porCargo.get("Analista de Suporte"));
             DadosQuestionario base = dados(nome, cargos.get("Analista de Suporte"), comps, c, P::para, true);
             List<Long> ids = new ArrayList<>(base.competenciaIds());
