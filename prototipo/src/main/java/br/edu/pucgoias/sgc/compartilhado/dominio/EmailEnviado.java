@@ -6,12 +6,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 /** Mensagem da caixa de saída. O protótipo não envia e-mail de verdade; o RH vê as mensagens na tela "E-mails". */
 @Entity
 @Table(name = "email_enviado")
 public class EmailEnviado {
+
+    private static final ZoneId BRASILIA = ZoneId.of("America/Sao_Paulo");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +43,5 @@ public class EmailEnviado {
     public String getCorpo() { return corpo; }
     public String getTipo() { return tipo; }
     public OffsetDateTime getCriadoEm() { return criadoEm; }
+    public LocalDateTime getCriadoEmBrasilia() { return criadoEm.atZoneSameInstant(BRASILIA).toLocalDateTime(); }
 }
