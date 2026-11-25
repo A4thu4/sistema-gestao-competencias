@@ -146,7 +146,7 @@ class ConsolidacaoTest extends TesteIntegracao {
                 .filter(t -> t.matches("[\\p{L} ]+")).findFirst().orElseThrow();
         mvc.perform(get("/resultados/" + ciclo + "/pessoas/" + bruno.id()).with(como("rh@exemplo.com")))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("sem identificar quem escreveu")))
+                .andExpect(content().string(containsString("Sem identificação de quem escreveu")))
                 .andExpect(content().string(containsString(trecho)));
     }
 
