@@ -1,5 +1,6 @@
 package br.edu.pucgoias.sgc.resultados.servico;
 
+import br.edu.pucgoias.sgc.avaliacoes.servico.ComentarioResumo;
 import br.edu.pucgoias.sgc.avaliacoes.servico.ConsultaRespostasService;
 import br.edu.pucgoias.sgc.ciclos.servico.CicloResumo;
 import br.edu.pucgoias.sgc.ciclos.servico.CicloService;
@@ -210,15 +211,21 @@ public class ResultadoService {
         }
         DadosRadar radar = new DadosRadar(m.linhas().stream().map(LinhaCompetencia::competencia).toList(), series,
                 m.escalaMax());
+        Map<Boolean, List<ComentarioPainel>> comentarios = comentarios(cicloId, pessoaId);
         return new PainelIndividual(pessoa, c, m.escalaMax(), colunas, m.linhas(), m.mediaGeral(), m.pontoForte(),
-                m.foco(), Grupos.emOrdem(m.gruposInsuficientes()), radar, comentarios(cicloId, pessoaId),
-                evolucao(eu, pessoaId, c));
+                m.foco(), Grupos.emOrdem(m.gruposInsuficientes()), radar, comentarios.get(false),
+                comentarios.get(true), eu.id().equals(pessoaId), evolucao(eu, pessoaId, c));
     }
 
-    /** Comentários das perguntas abertas, sem autor e sem os ocultados na moderação. */
-    private List<ComentarioPainel> comentarios(Long cicloId, Long pessoaId) {
+    /**
+     * Comentários das perguntas abertas, sem autor e sem os ocultados na moderação, separados em autoavaliação
+     * ({@code true}) e demais avaliadores ({@code false}).
+     */
+    private Map<Boolean, List<ComentarioPainel>> comentarios(Long cicloId, Long pessoaId) {
         return respostas.comentariosVisiveis(cicloId, pessoaId).stream()
-                .map(c -> new ComentarioPainel(c.competenciaNome(), c.perguntaTexto(), c.texto())).toList();
+                .collect(Collectors.partitioningBy(ComentarioResumo::autoavaliacao, Collectors.mapping(
+                        c -> new ComentarioPainel(c.competenciaNome(), c.perguntaTexto(), c.texto()),
+                        Collectors.toList())));
     }
 
     /** Nota final por competência nos ciclos encerrados da pessoa que o usuário pode ver, até o atual. */

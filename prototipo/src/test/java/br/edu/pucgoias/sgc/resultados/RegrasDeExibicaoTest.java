@@ -63,7 +63,7 @@ class RegrasDeExibicaoTest {
                 linha(3L, CHEFE, "5.00", 1), linha(3L, PAR, "2.00", 1), linha(3L, SUBORDINADO, "5.00", 2)),
                 Map.of(1L, "Comunicação", 2L, "Liderança", 3L, "Trabalho em equipe"));
         PainelIndividual p = new PainelIndividual(null, null, 5, List.of(CHEFE, PAR, SUBORDINADO), m.linhas(),
-                m.mediaGeral(), m.pontoForte(), m.foco(), List.of(PAR, SUBORDINADO), null, List.of(), null);
+                m.mediaGeral(), m.pontoForte(), m.foco(), List.of(PAR, SUBORDINADO), null, List.of(), List.of(), false, null);
 
         assertThat(p.avisoInsuficientes()).startsWith(
                 "Pares em Comunicação e Trabalho em equipe; Subordinados em todas as competências: "

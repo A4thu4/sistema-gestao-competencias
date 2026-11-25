@@ -23,8 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -148,6 +150,48 @@ class ConsolidacaoTest extends TesteIntegracao {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Sem identificação de quem escreveu")))
                 .andExpect(content().string(containsString(trecho)));
+    }
+
+    @Test
+    void comentariosDoExemploSemFraseRepetidaENaCompetenciaDoAssunto() {
+        Set<String> competencias = new HashSet<>();
+        for (CicloResumo c : ciclos.encerrados()) {
+            for (PessoaResumo p : usuarios.listarAtivos()) {
+                List<ComentarioResumo> doResultado = respostas.comentariosVisiveis(c.id(), p.id());
+                assertThat(doResultado).as(c.nome() + ", " + p.nome()).extracting(ComentarioResumo::texto)
+                        .doesNotHaveDuplicates();
+                doResultado.forEach(r -> competencias.add(r.competenciaNome()));
+            }
+        }
+        assertThat(competencias).contains("Atendimento ao cliente", "Conhecimento do produto", "Liderança",
+                "Qualidade do código", "Comunicação");
+    }
+
+    @Test
+    void comentarioDaAutoavaliacaoApareceAParte() throws Exception {
+        PessoaResumo carla = usuarios.buscarPorEmail("colaborador@exemplo.com");
+        CicloResumo c = ciclos.encerrados().stream()
+                .filter(ci -> respostas.comentariosVisiveis(ci.id(), carla.id()).stream()
+                        .anyMatch(ComentarioResumo::autoavaliacao))
+                .findFirst().orElseThrow();
+        String daCarla = respostas.comentariosVisiveis(c.id(), carla.id()).stream()
+                .filter(ComentarioResumo::autoavaliacao).findFirst().orElseThrow().texto();
+        String url = "/resultados/" + c.id() + "/pessoas/" + carla.id();
+
+        String html = mvc.perform(get(url).with(como("colaborador@exemplo.com"))).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        int titulo = html.indexOf(">Seu comentário (autoavaliação)<");
+        assertThat(titulo).isPositive();
+        assertThat(html.indexOf(daCarla)).isGreaterThan(titulo).isEqualTo(html.lastIndexOf(daCarla));
+
+        for (String quem : List.of("gestor@exemplo.com", "rh@exemplo.com")) {
+            String visto = mvc.perform(get(url).with(como(quem))).andExpect(status().isOk())
+                    .andReturn().getResponse().getContentAsString();
+            assertThat(visto).doesNotContain("Seu comentário");
+            int autoavaliacao = visto.indexOf(">Autoavaliação</h3>");
+            assertThat(autoavaliacao).isPositive();
+            assertThat(visto.indexOf(daCarla)).isGreaterThan(autoavaliacao);
+        }
     }
 
     @Test

@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -61,12 +62,14 @@ public class ConsultaRespostasService {
 
     /**
      * Comentários das perguntas abertas sobre a pessoa no ciclo, sem os ocultados na moderação. Sem autor e sem
-     * relação; em ordem de competência e pergunta e, dentro delas, por ordem alfabética do texto (a ordem de envio
-     * não aparece).
+     * relação, exceto a marca de autoavaliação (a autora é a própria pessoa avaliada); em ordem de competência e
+     * pergunta e, dentro delas, por ordem alfabética do texto (a ordem de envio não aparece).
      */
     public List<ComentarioResumo> comentariosVisiveis(Long cicloId, Long avaliadoId) {
         List<AvaliacaoEnviada> enviadas = avaliacoes.findByCicloIdAndAvaliadoId(cicloId, avaliadoId);
         Map<Long, Posicao> posicoes = posicoesDos(enviadas);
+        Set<UUID> autoavaliacoes = enviadas.stream().filter(a -> a.getRelacao() == TipoAvaliador.AUTO)
+                .map(AvaliacaoEnviada::getId).collect(Collectors.toSet());
         return respostas.findByAvaliacaoEnviadaIdIn(enviadas.stream().map(AvaliacaoEnviada::getId).toList())
                 .stream()
                 .filter(r -> r.temComentario() && !r.isComentarioOculto() && posicoes.containsKey(r.getPerguntaId()))
@@ -75,7 +78,8 @@ public class ConsultaRespostasService {
                 .map(r -> {
                     Posicao p = posicoes.get(r.getPerguntaId());
                     return new ComentarioResumo(r.getTexto().trim(), p.competencia().id(), p.competencia().nome(),
-                            p.pergunta().id(), p.pergunta().texto());
+                            p.pergunta().id(), p.pergunta().texto(),
+                            autoavaliacoes.contains(r.getAvaliacaoEnviadaId()));
                 })
                 .toList();
     }
