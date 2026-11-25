@@ -8,7 +8,7 @@
     <div class="app-main">
         <header th:replace="~{fragments/layout :: topo('Pré-visualização')}"></header>
         <main class="app-content" style="max-width: 980px">
-            <a class="small text-decoration-none" th:href="${q.modelo} ? @{/competencias/questionarios/novo} : @{/competencias}">
+            <a class="small text-decoration-none" th:href="${q.modelo} ? @{/competencias/questionarios/novo} : @{/competencias/questionarios}">
                 <i class="bi bi-arrow-left"></i> <span th:text="${q.modelo} ? 'Novo questionário' : 'Questionários'">Questionários</span></a>
             <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
                 <h1 class="titulo-pagina mb-0" th:text="${#strings.isEmpty(q.nome)} ? 'Questionário sem nome' : ${q.nome}">Questionário</h1>
@@ -107,7 +107,7 @@
                     </th:block>
                 </th:block>
                 <th:block th:if="${!q.modelo and uso.bloqueado()}">
-                    <a class="btn btn-outline-secondary" th:href="@{/competencias}">Voltar à lista</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/competencias/questionarios}">Voltar à lista</a>
                 </th:block>
             </div>
         </main>

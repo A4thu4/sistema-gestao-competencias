@@ -8,7 +8,7 @@
     <div class="app-main">
         <header th:replace="~{fragments/layout :: topo('Editar questionário')}"></header>
         <main class="app-content">
-            <a class="small text-decoration-none" th:href="@{/competencias}"><i class="bi bi-arrow-left"></i> Questionários</a>
+            <a class="small text-decoration-none" th:href="@{/competencias/questionarios}"><i class="bi bi-arrow-left"></i> Questionários</a>
             <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
                 <h1 class="titulo-pagina mb-0" th:text="${#strings.isEmpty(q.nome)} ? 'Questionário sem nome' : ${q.nome}">Questionário</h1>
                 <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(q.situacao)}"
@@ -156,7 +156,7 @@
                 <div class="barra-acoes d-flex flex-wrap gap-2">
                     <button class="btn btn-outline-primary" type="submit" name="acao" value="salvar"><i class="bi bi-save"></i> Salvar rascunho</button>
                     <button class="btn btn-primary" type="submit" name="acao" value="previa"><i class="bi bi-eye"></i> Pré-visualizar e publicar</button>
-                    <a class="btn btn-link text-secondary ms-auto" th:href="@{/competencias}">Voltar sem salvar</a>
+                    <a class="btn btn-link text-secondary ms-auto" th:href="@{/competencias/questionarios}">Voltar sem salvar</a>
                 </div>
             </form>
 

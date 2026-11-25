@@ -54,6 +54,11 @@ public class QuestionariosController {
     }
 
     @GetMapping
+    public String inicio() {
+        return "redirect:/competencias/catalogo";
+    }
+
+    @GetMapping("/questionarios")
     public String lista(Model model) {
         model.addAttribute("questionarios", questionarios.listar());
         model.addAttribute("totalCompetencias", catalogo.totalNoCatalogo());
@@ -195,14 +200,14 @@ public class QuestionariosController {
         }
         ra.addFlashAttribute("sucesso", "Questionário “" + questionarios.resumo(id).nome()
                 + "” publicado. Ele já pode ser escolhido na criação de ciclos.");
-        return "redirect:/competencias";
+        return "redirect:/competencias/questionarios";
     }
 
     @PostMapping("/questionarios/{id}/rascunho")
     public String manterRascunho(@PathVariable Long id, RedirectAttributes ra) {
         ra.addFlashAttribute("sucesso", "O questionário “" + questionarios.resumo(id).nome()
                 + "” ficou salvo como rascunho. Você pode publicá-lo depois.");
-        return "redirect:/competencias";
+        return "redirect:/competencias/questionarios";
     }
 
     // ---- apoio ----
