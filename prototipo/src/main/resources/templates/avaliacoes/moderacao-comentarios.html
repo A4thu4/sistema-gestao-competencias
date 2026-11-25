@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Moderar comentários')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('moderacao')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Reabertura e moderação')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <th:block th:replace="~{avaliacoes/moderacao :: cabecalho('/moderacao/comentarios')}"></th:block>
+
+            <div class="cartao text-center text-secondary py-5" th:if="${ciclo == null}">
+                <i class="bi bi-chat-square-text display-6"></i>
+                <p class="mt-2 mb-0">Ainda não há ciclo aberto ou encerrado com comentários.</p>
+            </div>
+
+            <th:block th:if="${ciclo != null}">
+                <div class="aviso-discreto">
+                    <i class="bi bi-incognito"></i>
+                    <span>Os comentários aparecem sem o autor e sem a relação com a pessoa avaliada. Oculte só o que for
+                        ofensivo ou expuser alguém; o comentário oculto continua guardado, mas não aparece nos resultados.
+                        <strong th:text="${comentarios.size()} + ' comentários · ' + ${ocultos} + ' ocultos'">0</strong></span>
+                </div>
+
+                <p class="small text-secondary" th:unless="${#lists.isEmpty(aguardando)}">
+                    <i class="bi bi-hourglass-split"></i>
+                    <span th:text="'Comentários sobre ' + ${#strings.listJoin(aguardando, ', ')}
+                        + ' aparecem quando houver 3 avaliações enviadas.'">Comentários sobre Bruno Lima aparecem quando houver 3 avaliações enviadas.</span>
+                </p>
+                <div class="cartao text-center text-secondary py-4" th:if="${#lists.isEmpty(comentarios)}">
+                    Nenhum comentário neste ciclo.
+                </div>
+
+                <div class="comentario" th:each="c : ${comentarios}" th:id="'r-' + ${c.respostaId}"
+                     th:classappend="${c.oculto} ? 'oculto'">
+                    <div class="d-flex flex-wrap gap-2 align-items-center small">
+                        <strong th:text="${c.avaliadoNome}">Avaliado</strong>
+                        <span class="text-secondary" th:text="'· ' + ${c.competenciaNome} + ' · ' + ${c.perguntaTexto}">Competência</span>
+                        <span class="selo selo-negada ms-auto" th:if="${c.oculto}">Oculto</span>
+                    </div>
+                    <p class="comentario-texto" th:text="${c.texto}">Texto</p>
+                    <div class="small text-secondary mb-2" th:if="${c.oculto}">
+                        <i class="bi bi-eye-slash"></i> Motivo: <span th:text="${c.motivoOcultacao}">motivo</span></div>
+
+                    <form th:if="${c.oculto}" method="post"
+                          th:action="@{/moderacao/comentarios/{id}/exibir(id=${c.respostaId})}">
+                        <input type="hidden" name="ciclo" th:value="${ciclo.id}">
+                        <button class="btn btn-sm btn-outline-secondary" type="submit"><i class="bi bi-eye"></i> Voltar a exibir</button>
+                    </form>
+
+                    <th:block th:unless="${c.oculto}">
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-bs-toggle="collapse"
+                                th:attr="data-bs-target='#ocultar-' + ${c.respostaId},aria-controls='ocultar-' + ${c.respostaId}"
+                                aria-expanded="false"><i class="bi bi-eye-slash"></i> Ocultar</button>
+                        <form class="collapse mt-2" th:id="'ocultar-' + ${c.respostaId}" method="post"
+                              th:action="@{/moderacao/comentarios/{id}/ocultar(id=${c.respostaId})}">
+                            <input type="hidden" name="ciclo" th:value="${ciclo.id}">
+                            <label class="form-label small" th:for="'motivo-' + ${c.respostaId}">Motivo (obrigatório)</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <input class="form-control form-control-sm flex-grow-1" style="max-width: 460px" maxlength="300"
+                                       required name="motivo" th:id="'motivo-' + ${c.respostaId}"
+                                       placeholder="Ex.: comentário ofensivo, sem relação com o trabalho">
+                                <button class="btn btn-sm btn-danger" type="submit">Confirmar</button>
+                            </div>
+                        </form>
+                    </th:block>
+                </div>
+            </th:block>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

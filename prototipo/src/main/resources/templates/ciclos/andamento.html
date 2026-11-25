@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Andamento do ciclo')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/ciclos.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('andamento')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Andamento do ciclo')}"></header>
+        <main class="app-content">
+            <div class="d-flex flex-wrap align-items-start gap-3 mb-3">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Andamento do ciclo</h1>
+                    <p class="subtitulo-pagina mb-0" th:if="${a != null}"
+                       th:text="${a.daEquipe} ? 'Avaliações da sua equipe direta.' : 'Toda a empresa.'">Subtítulo</p>
+                </div>
+                <form th:if="${a != null and a.aceitaLembrete}" method="post"
+                      th:action="@{/ciclos/andamento/{id}/lembrete(id=${a.ciclo.id})}"
+                      onsubmit="return confirm('Enviar um lembrete por e-mail a quem ainda tem avaliação pendente?')">
+                    <button class="btn btn-primary" type="submit" th:disabled="${a.pendentes() == 0}">
+                        <i class="bi bi-bell"></i> Enviar lembrete aos pendentes</button>
+                </form>
+            </div>
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+
+            <div class="cartao" th:if="${semCiclo}">
+                <i class="bi bi-info-circle"></i> <span th:text="${semCiclo}">Sem ciclo</span>
+            </div>
+
+            <th:block th:if="${a != null}">
+                <form class="cartao d-flex flex-wrap gap-2 align-items-end" method="get" th:action="@{/ciclos/andamento}">
+                    <div class="flex-grow-1">
+                        <label class="form-label small mb-1" for="ciclo">Ciclo</label>
+                        <select class="form-select" id="ciclo" name="ciclo" onchange="this.form.pessoa.value=''; this.form.submit()">
+                            <option th:each="c : ${ciclos}" th:value="${c.id}" th:selected="${c.id == a.ciclo.id}"
+                                    th:text="${c.nome} + ' · ' + ${c.situacaoRotulo()} + ' (' + ${c.periodo()} + ')'">Ciclo</option>
+                        </select>
+                    </div>
+                    <div class="flex-grow-1">
+                        <label class="form-label small mb-1" for="pessoa">Pessoa</label>
+                        <select class="form-select" id="pessoa" name="pessoa">
+                            <option value="">Todas</option>
+                            <option th:each="p : ${a.pessoas}" th:value="${p.id}" th:text="${p.nome}"
+                                    th:selected="${a.filtro != null and a.filtro.id == p.id}">Pessoa</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-funnel"></i> Filtrar</button>
+                </form>
+
+                <div class="row g-3 my-1">
+                    <div class="col-12 col-lg-4">
+                        <div class="cartao h-100">
+                            <div class="rotulo-pequeno">Respondido</div>
+                            <div class="numero-grande" th:text="${a.percentualRespondido()} + '%'">35%</div>
+                            <div class="barra-progresso my-2"><span th:style="'width:' + ${a.percentualRespondido()} + '%'"></span></div>
+                            <div class="small text-secondary">
+                                <span th:text="${a.enviadas} + ' de ' + ${a.total} + ' avaliações enviadas'">8 de 48</span><br>
+                                <span th:text="${a.ciclo.aberto()} ? 'Encerra em ' + ${#temporals.format(a.ciclo.dataEncerramento, 'dd/MM/yyyy')} : 'Encerrado em ' + ${#temporals.format(a.ciclo.dataEncerramento, 'dd/MM/yyyy')}">Encerra</span>
+                                <span class="selo ms-1" th:classappend="'selo-' + ${#strings.toLowerCase(a.ciclo.situacao)}" th:text="${a.ciclo.situacaoRotulo()}">Aberto</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-7 col-lg-4">
+                        <div class="cartao h-100">
+                            <div class="rotulo-pequeno mb-2">Por situação</div>
+                            <div class="d-flex justify-content-between py-1 border-bottom"><span><span class="selo selo-nao_iniciada">Não iniciada</span></span><strong th:text="${a.naoIniciadas}">30</strong></div>
+                            <div class="d-flex justify-content-between py-1 border-bottom"><span><span class="selo selo-em_preenchimento">Em preenchimento</span></span><strong th:text="${a.emPreenchimento}">8</strong></div>
+                            <div class="d-flex justify-content-between py-1"><span><span class="selo selo-enviada">Enviada</span></span><strong th:text="${a.enviadas}">8</strong></div>
+                            <div class="small text-secondary mt-2" th:text="${a.avaliadoresPendentes() == 1} ? '1 avaliador com pendência' : ${a.avaliadoresPendentes()} + ' avaliadores com pendências'">5 avaliadores</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-5 col-lg-4">
+                        <div class="cartao h-100 d-flex align-items-center">
+                            <div class="grafico-andamento w-100"><canvas id="graficoSituacao" aria-label="Gráfico das avaliações por situação" role="img"
+                                    th:attr="data-valores=${a.naoIniciadas} + ',' + ${a.emPreenchimento} + ',' + ${a.enviadas}"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cartao p-0">
+                    <div class="p-3 pb-2 d-flex flex-wrap gap-2 align-items-center">
+                        <h2 class="cartao-titulo mb-0 me-auto">Por avaliador</h2>
+                        <span class="small text-secondary" th:if="${a.filtro != null}" th:text="'Filtrado por ' + ${a.filtro.nome}">Filtro</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0 tabela-empilhada">
+                            <thead><tr><th>Avaliador</th><th style="min-width: 140px">Enviadas</th><th style="min-width: 280px">Avaliações</th><th>Último lembrete</th></tr></thead>
+                            <tbody>
+                            <tr th:each="l : ${a.avaliadores}">
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="app-avatar" th:text="${l.iniciais()}">CD</span>
+                                        <div>
+                                            <span th:text="${l.nome}">Nome</span>
+                                            <span th:if="${l.externo}" class="selo selo-atendida_parcial ms-1">Externo</span>
+                                            <div class="small text-secondary" th:text="${l.email}">email</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-rotulo="Enviadas">
+                                    <div class="small" th:text="${l.enviadas()} + ' de ' + ${#lists.size(l.itens)}">1 de 5</div>
+                                    <div class="barra-progresso"><span th:style="'width:' + ${100 * l.enviadas() / #lists.size(l.itens)} + '%'"></span></div>
+                                    <span th:if="${l.concluiu()}" class="small text-success"><i class="bi bi-check-circle"></i> concluiu</span>
+                                </td>
+                                <td data-rotulo="Avaliações">
+                                    <ul class="lista-itens">
+                                        <li th:each="i : ${l.itens}">
+                                            <span><span th:text="${i.avaliadoNome}">Avaliado</span>
+                                                <small class="text-secondary" th:unless="${i.relacao.name() == 'AUTO'}" th:text="'(' + ${#strings.toLowerCase(i.relacao.rotulo)} + ')'">(par)</small></span>
+                                            <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(i.situacao)}" th:text="${i.situacaoRotulo()}">Enviada</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td data-rotulo="Último lembrete" class="small text-secondary" th:text="${l.ultimoLembrete} ?: '—'">—</td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(a.avaliadores)}"><td colspan="4" class="text-center text-secondary py-4">Nenhuma avaliação para mostrar.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="small text-secondary mt-3"><i class="bi bi-shield-lock"></i> Mostra só quem já enviou, sem o conteúdo das respostas.</p>
+            </th:block>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+    (function () {
+        const canvas = document.getElementById('graficoSituacao');
+        if (!canvas || typeof Chart === 'undefined') return;
+        const valores = canvas.dataset.valores.split(',').map(Number);
+        new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels: ['Não iniciada', 'Em preenchimento', 'Enviada'],
+                datasets: [{ data: valores, backgroundColor: ['#d0d5dd', '#0f766e', '#18794e'], borderWidth: 0 }]
+            },
+            options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } }
+        });
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Reabertura e moderação')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('moderacao')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Reabertura e moderação')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <th:block th:replace="~{avaliacoes/moderacao :: cabecalho('/moderacao')}"></th:block>
+
+            <div class="cartao text-center text-secondary py-5" th:if="${ciclo == null}">
+                <i class="bi bi-arrow-repeat display-6"></i>
+                <p class="mt-2 mb-0">Não há ciclo aberto. Só dá para reabrir avaliações enquanto o ciclo está aberto.</p>
+            </div>
+
+            <th:block th:if="${ciclo != null}">
+                <div class="aviso-discreto">
+                    <i class="bi bi-shield-lock"></i>
+                    <span>A lista mostra só quem avaliou quem, como no andamento do ciclo. As respostas não aparecem
+                        aqui. Ao reabrir, elas voltam para o avaliador corrigir e enviar de novo até
+                        <strong th:text="${#temporals.format(ciclo.dataEncerramento, 'dd/MM/yyyy')}">data</strong>.</span>
+                </div>
+                <div class="cartao p-0">
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <thead><tr><th>Avaliador</th><th>Avaliado</th><th>Relação</th><th class="text-end">Ação</th></tr></thead>
+                            <tbody>
+                            <tr th:each="e : ${enviadas}">
+                                <td th:text="${e.avaliadorNome}">Avaliador</td>
+                                <td th:text="${e.avaliadoNome}">Avaliado</td>
+                                <td th:text="${e.relacaoRotulo()}">Relação</td>
+                                <td class="text-end"><a class="btn btn-sm btn-outline-primary"
+                                       th:href="@{/moderacao/reabrir/{id}(id=${e.designacao.id})}">
+                                    <i class="bi bi-arrow-counterclockwise"></i> Reabrir</a></td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(enviadas)}">
+                                <td colspan="4" class="text-center text-secondary py-4">Nenhuma avaliação enviada neste ciclo ainda.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </th:block>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

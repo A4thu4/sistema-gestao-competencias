@@ -1,14 +1,7 @@
 /**
- * UC-03 Responder avaliação. A resposta não guarda quem respondeu (RNF-01).
- *
- * <p>Camadas dentro do pacote:
- * <ul>
- *   <li>{@code web}: controllers (rotas e telas Thymeleaf);</li>
- *   <li>{@code servico}: regras do caso de uso;</li>
- *   <li>{@code dominio}: entidades JPA e objetos de valor;</li>
- *   <li>{@code repositorio}: interfaces Spring Data.</li>
- * </ul>
- * <p>Migrações: V4_x em {@code src/main/resources/db/migration}.
- * <p>Responsável: Gabriel Araújo Caetano (#58).
+ * Preenchimento e envio das avaliações (avaliador interno e externo), observações do gestor, reabertura e moderação
+ * de comentários. No envio, as respostas se desligam da designação e do avaliador (anonimato).
+ * Casos de uso: UC-03, UC-08 e UC-09. Declara {@code ResultadoAnterior}, implementada por resultados.
+ * Depende de: ciclos, competencias, identidade, privacidade (interface {@code FonteDadosPessoais}) e compartilhado.
  */
 package br.edu.pucgoias.sgc.avaliacoes;

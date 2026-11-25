@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Avaliados e questionários')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/ciclos.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('ciclos')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Ciclos de avaliação › ' + ${m.ciclo.nome})}"></header>
+        <main class="app-content">
+            <div th:replace="~{ciclos/etapas :: cabecalho(${m.ciclo}, ${m.ciclo.nome}, 'Escolha quem será avaliado e o questionário publicado de cada cargo.')}"></div>
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <ol th:replace="~{ciclos/etapas :: etapas(${m.ciclo}, 2)}"></ol>
+
+            <div class="cartao border-danger-subtle" th:if="${!#lists.isEmpty(m.verificacao.semQuestionario) or !#lists.isEmpty(m.verificacao.semPerguntas)}">
+                <h2 class="cartao-titulo text-danger"><i class="bi bi-exclamation-triangle"></i> Questionários a resolver</h2>
+                <div class="d-flex flex-wrap align-items-center gap-2 py-2 border-top" th:each="s : ${m.verificacao.semQuestionario}">
+                    <span class="me-auto">O cargo <strong th:text="${s.cargoNome}">Cargo</strong> não tem questionário publicado.</span>
+                    <form method="post" th:action="@{/ciclos/{id}/avaliados/remover-cargo(id=${m.ciclo.id})}">
+                        <input type="hidden" name="cargoId" th:value="${s.cargoId}">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Tirar essas pessoas do ciclo</button>
+                    </form>
+                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/competencias}">Publicar em Competências</a>
+                </div>
+                <div class="d-flex flex-wrap align-items-center gap-2 py-2 border-top" th:each="s : ${m.verificacao.semPerguntas}">
+                    <span class="me-auto">O questionário <strong th:text="${s.questionarioNome}">Q</strong> (<span th:text="${s.cargoNome}">cargo</span>)
+                        não tem perguntas para <strong th:text="${s.tipo.rotulo}">Pares</strong>.</span>
+                    <form method="post" th:action="@{/ciclos/{id}/tipos/retirar(id=${m.ciclo.id})}" th:if="${s.tipo.name() != 'EXTERNO'}">
+                        <input type="hidden" name="tipo" th:value="${s.tipo}">
+                        <button class="btn btn-sm btn-outline-danger" type="submit" th:text="'Retirar o tipo ' + ${s.tipo.rotulo} + ' do ciclo'">Retirar</button>
+                    </form>
+                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/competencias}">Ajustar em Competências</a>
+                </div>
+                <p class="small text-secondary mb-0 mt-2">O que você já informou continua salvo como rascunho.</p>
+            </div>
+
+            <form method="post" th:action="@{/ciclos/{id}/avaliados(id=${m.ciclo.id})}" id="formAvaliados">
+                <div class="cartao">
+                    <div class="cartao-cabecalho">
+                        <h2>Quem será avaliado</h2>
+                        <p>Marque por cargo, por área ou pessoa por pessoa. <span id="contador" th:text="${#sets.size(selecionados)} + ' pessoa(s) selecionada(s)'">0</span>.</p>
+                    </div>
+                    <div class="atalhos mb-3">
+                        <div class="rotulo-pequeno mb-1">Por cargo</div>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check" th:each="c : ${cargos}">
+                                <input class="form-check-input atalho" type="checkbox" name="cargos" th:id="'cargo-' + ${c.id}"
+                                       th:value="${c.id}" th:attr="data-alvo='cargo-' + ${c.id}">
+                                <label class="form-check-label small" th:for="'cargo-' + ${c.id}" th:text="${c.nome}">Cargo</label>
+                            </div>
+                        </div>
+                        <div class="rotulo-pequeno mt-2 mb-1">Por área</div>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check" th:each="area, s : ${porArea.keySet()}">
+                                <input class="form-check-input atalho" type="checkbox" name="areas" th:id="'area-' + ${s.index}"
+                                       th:value="${area}" th:attr="data-alvo='area-' + ${area}">
+                                <label class="form-check-label small" th:for="'area-' + ${s.index}" th:text="${area}">Área</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6 col-xl-4" th:each="g : ${porArea}">
+                            <div class="rotulo-pequeno mb-1" th:text="${g.key}">Área</div>
+                            <label class="pessoa-escolha" th:each="p : ${g.value}">
+                                <input class="form-check-input pessoa" type="checkbox" name="pessoas" th:value="${p.id}"
+                                       th:checked="${selecionados.contains(p.id)}"
+                                       th:attr="data-cargo='cargo-' + ${p.cargoId}, data-area='area-' + ${p.area}">
+                                <span class="app-avatar" th:text="${p.iniciais()}">AB</span>
+                                <span><span th:text="${p.nome}">Nome</span><small th:text="${p.cargoNome}">Cargo</small></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cartao">
+                    <div class="cartao-cabecalho">
+                        <h2>Questionário de cada cargo</h2>
+                        <p>Só aparecem questionários publicados.</p>
+                    </div>
+                    <div th:if="${#lists.isEmpty(m.questionarios)}" class="text-secondary small">Escolha as pessoas e salve para ver os cargos.</div>
+                    <div class="row g-2 align-items-center py-2 border-bottom" th:each="q : ${m.questionarios}">
+                        <div class="col-12 col-md-5">
+                            <strong th:text="${q.cargoNome}">Cargo</strong>
+                            <div class="small text-secondary" th:text="${q.avaliados} + ' pessoa(s)'">3 pessoas</div>
+                        </div>
+                        <div class="col-12 col-md-7">
+                            <select class="form-select" th:name="'questionario-' + ${q.cargoId}" th:unless="${#lists.isEmpty(q.opcoes)}"
+                                    th:attr="aria-label='Questionário do cargo ' + ${q.cargoNome}">
+                                <option th:each="o : ${q.opcoes}" th:value="${o.id}" th:text="${o.nome}"
+                                        th:selected="${o.id == q.questionarioId}">Questionário</option>
+                            </select>
+                            <span th:if="${#lists.isEmpty(q.opcoes)}" class="text-danger small"><i class="bi bi-exclamation-circle"></i> Nenhum questionário publicado para este cargo.</span>
+                        </div>
+                    </div>
+                    <div class="cartao-rodape">
+                        <a class="btn btn-outline-secondary" th:href="@{/ciclos/{id}/dados(id=${m.ciclo.id})}"><i class="bi bi-arrow-left"></i> Dados do ciclo</a>
+                        <button class="btn btn-outline-primary" type="submit" name="proximo" value="ficar">Salvar</button>
+                        <button class="btn btn-primary" type="submit" name="proximo" value="avaliadores">Salvar e ver avaliadores <i class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script>
+    // Atalhos: marcar um cargo ou uma área marca as pessoas dele (o servidor também entende os atalhos sem JavaScript).
+    (function () {
+        const pessoas = Array.from(document.querySelectorAll('input.pessoa'));
+        const contador = document.getElementById('contador');
+        const contar = () => contador.textContent = pessoas.filter(p => p.checked).length + ' pessoa(s) selecionada(s)';
+        document.querySelectorAll('input.atalho').forEach(a => a.addEventListener('change', () => {
+            const alvo = a.dataset.alvo;
+            pessoas.filter(p => p.dataset.cargo === alvo || p.dataset.area === alvo).forEach(p => p.checked = a.checked);
+            contar();
+        }));
+        pessoas.forEach(p => p.addEventListener('change', contar));
+        // Com JavaScript, vale a seleção pessoa por pessoa (os atalhos já marcaram as pessoas).
+        document.getElementById('formAvaliados').addEventListener('submit', () =>
+            document.querySelectorAll('input.atalho').forEach(a => a.disabled = true));
+    })();
+</script>
+</body>
+</html>

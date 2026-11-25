@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Responder avaliação')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('avaliacoes')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Minhas avaliações › Responder avaliação')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <a class="small text-decoration-none" th:href="@{/avaliacoes}"><i class="bi bi-arrow-left"></i> Minhas avaliações</a>
+            <div class="d-flex flex-wrap align-items-end gap-2 mt-2 mb-3">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Responder avaliação</h1>
+                    <p class="subtitulo-pagina mb-0">
+                        <span th:text="${f.designacao.cicloNome}">Ciclo</span> ·
+                        <span th:text="${f.designacao.cicloEncerrado()} ? 'encerrado em ' + ${f.encerramentoTexto()} : 'responda até ' + ${f.encerramentoTexto()}">prazo</span>
+                    </p>
+                </div>
+                <span class="selo selo-relacao" th:text="${f.relacaoTexto()}">Relação</span>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-12 col-xl-4 order-xl-2" th:if="${f.mostraContexto}">
+                    <div class="contexto-gestor">
+                        <div class="cartao">
+                            <div class="cartao-titulo mb-2"><i class="bi bi-journal-text text-primary"></i> Suas observações do período</div>
+                            <p class="small text-secondary" th:text="${f.periodoObservacoes()}">período</p>
+                            <p class="small text-secondary mb-0" th:if="${#lists.isEmpty(f.observacoes)}">Você não registrou
+                                observações sobre <span th:text="${f.avaliado.nome}">a pessoa</span> neste período.</p>
+                            <ul class="lista-observacoes" th:unless="${#lists.isEmpty(f.observacoes)}">
+                                <li th:each="o : ${f.observacoes}" th:classappend="${o.positivo()} ? 'obs-positivo' : 'obs-melhoria'">
+                                    <div class="d-flex gap-2 align-items-center mb-1">
+                                        <i class="bi" th:classappend="${o.positivo()} ? 'bi-hand-thumbs-up-fill' : 'bi-lightbulb-fill'" aria-hidden="true"></i>
+                                        <span class="small fw-semibold" th:text="${o.tipoRotulo()}">Tipo</span>
+                                        <span class="small text-secondary ms-auto" th:text="${o.dataFatoTexto()}">data</span>
+                                    </div>
+                                    <div class="small" th:text="${o.descricao}">descrição</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cartao">
+                            <div class="cartao-titulo mb-2"><i class="bi bi-bar-chart text-primary"></i> Resultado do ciclo anterior</div>
+                            <p class="small text-secondary mb-0" th:if="${f.resultadoAnterior == null}">Sem resultado anterior
+                                para <span th:text="${f.avaliado.nome}">a pessoa</span>.</p>
+                            <th:block th:if="${f.resultadoAnterior != null}" th:with="r=${f.resultadoAnterior}">
+                                <div class="small text-secondary mb-2" th:text="${r.cicloNome}">Ciclo</div>
+                                <div class="d-flex align-items-baseline gap-2 mb-2" th:if="${r.mediaGeral != null}">
+                                    <span class="cartao-numero" th:text="${r.mediaGeralTexto}">3,8</span>
+                                    <span class="small text-secondary" th:text="'média geral (1 a ' + ${r.escalaMax} + ')'">média</span>
+                                </div>
+                                <div class="media-competencia" th:each="m : ${r.competencias}">
+                                    <div class="d-flex small"><span th:text="${m.nome}">Comp.</span>
+                                        <strong class="ms-auto" th:text="${m.mediaTexto}">3,5</strong></div>
+                                    <div class="progress" style="height: 6px" th:if="${m.media != null}">
+                                        <div class="progress-bar" th:style="'width:' + ${m.media * 100 / r.escalaMax} + '%'"></div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" th:classappend="${f.mostraContexto} ? 'col-xl-8 order-xl-1'">
+                    <div th:replace="~{avaliacoes/questionario :: formulario}"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script th:src="@{/js/responder-avaliacao.js}"></script>
+</body>
+</html>

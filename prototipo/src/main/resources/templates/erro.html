@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head(${titulo} ?: 'Erro')}"></head>
+<body>
+<div class="app">
+    <th:block sec:authorize="isAuthenticated()"><aside th:replace="~{fragments/layout :: menu('')}"></aside></th:block>
+    <div class="app-main">
+        <th:block sec:authorize="isAuthenticated()"><header th:replace="~{fragments/layout :: topo(${titulo} ?: 'Erro')}"></header></th:block>
+        <main class="app-content">
+            <div class="cartao text-center py-5">
+                <i class="bi bi-exclamation-circle display-5 text-secondary"></i>
+                <h1 class="h4 mt-3" th:text="${titulo} ?: 'Algo deu errado'">Algo deu errado</h1>
+                <p class="text-secondary" th:text="${mensagem} ?: 'Tente de novo em instantes.'">Mensagem</p>
+                <a sec:authorize="isAuthenticated()" th:href="@{/}" class="btn btn-outline-secondary">Voltar à página inicial</a>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

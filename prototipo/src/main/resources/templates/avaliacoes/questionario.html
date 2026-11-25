@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="formulario">
+    <div class="cartao cabeca-avaliacao">
+        <div class="d-flex flex-wrap align-items-center gap-3">
+            <span class="app-avatar avatar-grande" th:text="${f.avaliado.iniciais()}">CD</span>
+            <div class="me-auto min-w-0">
+                <div class="rotulo-discreto" th:text="${f.autoavaliacao()} ? 'AUTOAVALIAÇÃO' : 'AVALIANDO'">AVALIANDO</div>
+                <div class="fs-5 fw-semibold text-truncate" th:text="${f.avaliado.nome}">Nome</div>
+                <div class="small text-secondary" th:text="${f.avaliado.cargoNome}">Cargo</div>
+            </div>
+            <div class="progresso-avaliacao" th:if="${f.editavel}">
+                <div class="small text-end"><span id="respondidas" th:text="${f.respondidas()}">0</span> de
+                    <span th:text="${f.totalPerguntas()}">0</span> respondidas</div>
+                <div class="progress" role="progressbar" aria-label="Perguntas respondidas"
+                     th:attr="aria-valuenow=${f.percentual()}" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" id="barraProgresso" th:style="'width:' + ${f.percentual()} + '%'"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="aviso-anonimato mt-3" th:classappend="${f.anonima()} ? 'anonima' : 'identificada'">
+            <i class="bi" th:classappend="${f.anonima()} ? 'bi-incognito' : 'bi-person-check'" aria-hidden="true"></i>
+            <div th:if="${f.anonima()}"><strong>Resposta anônima.</strong> Ninguém, nem o RH, sabe quem respondeu. Suas notas aparecem só somadas às dos outros avaliadores.</div>
+            <div th:if="${f.autoavaliacao()}"><strong>Autoavaliação identificada.</strong> Ela serve de base para a
+                conversa de feedback com o seu gestor.</div>
+            <div th:if="${!f.anonima() and !f.autoavaliacao()}"><strong>Avaliação identificada.</strong> Como gestor,
+                a sua resposta aparece como a avaliação do chefe.</div>
+        </div>
+    </div>
+
+    <div th:if="${!f.editavel}" class="cartao text-center py-5">
+        <i class="bi display-6 text-secondary" th:classappend="${f.designacao.enviada()} ? 'bi-send-check' : 'bi-lock'"></i>
+        <p class="mt-3 mb-1 fw-semibold" th:text="${f.motivoBloqueio}">Bloqueada</p>
+        <p class="small text-secondary mb-0" th:if="${f.designacao.enviada() and f.anonima()}">Depois do envio, as respostas não ficam ligadas ao seu nome e não podem ser vistas de novo.</p>
+    </div>
+
+    <th:block th:if="${f.editavel}">
+        <div th:if="${pedirConfirmacao}" class="cartao border-primary" id="confirmacao">
+            <div class="cartao-titulo"><i class="bi bi-send text-primary"></i> Enviar a avaliação?</div>
+            <p>Todas as perguntas obrigatórias estão respondidas. <strong>Depois de enviada, a avaliação não poderá ser
+                alterada.</strong> Se precisar corrigir algo depois, só o RH pode reabrir.</p>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" type="submit" form="formAvaliacao" name="confirmado" value="true"
+                        th:formaction="@{${acao + '/enviar'}}"><i class="bi bi-send"></i> Sim, enviar</button>
+                <a class="btn btn-outline-secondary" href="#formAvaliacao">Revisar as respostas</a>
+            </div>
+        </div>
+
+        <div th:if="${erroEnvio}" class="alert alert-danger" role="alert" id="caixaErro">
+            <i class="bi bi-exclamation-triangle"></i> <span th:text="${erroEnvio}">erro</span>
+            <ul class="mb-0 mt-2 small" th:unless="${#lists.isEmpty(f.pendentes)}">
+                <li th:each="p : ${f.pendentes}"><a class="alert-link" th:href="'#p-' + ${p.id}" th:text="${p.texto}">Pergunta</a></li>
+            </ul>
+        </div>
+        <div class="alert alert-danger d-none" role="alert" id="caixaPendentesJs">
+            <i class="bi bi-exclamation-triangle"></i> <span></span>
+        </div>
+
+        <details class="cartao escala-legenda">
+            <summary><i class="bi bi-info-circle text-primary"></i> O que cada nota significa</summary>
+            <dl class="mb-0 mt-3">
+                <th:block th:each="n : ${f.questionario.niveis}">
+                    <dt th:text="${n.valor} + '. ' + ${n.rotuloCurto()}">1. Nunca</dt>
+                    <dd class="small text-secondary" th:text="${n.descricao}">descrição</dd>
+                </th:block>
+                <dt>Não tenho como avaliar</dt>
+                <dd class="small text-secondary mb-0">Use quando você não acompanhou esse comportamento no período. Não
+                    conta na média.</dd>
+            </dl>
+        </details>
+
+        <form id="formAvaliacao" method="post" th:action="@{${acao + '/rascunho'}}"
+              th:attr="data-salvar=@{${acao + '/resposta'}}">
+            <section class="cartao competencia" th:each="c, i : ${f.questionario.competencias}" th:id="'c-' + ${c.id}">
+                <div class="d-flex align-items-start gap-2 mb-1">
+                    <span class="secao-numero" th:text="${i.count}">1</span>
+                    <div>
+                        <h2 class="h5 mb-1" th:text="${c.nome}">Competência</h2>
+                        <p class="text-secondary mb-0" th:text="${c.descricao}">Descrição</p>
+                    </div>
+                </div>
+
+                <div class="pergunta" th:each="p : ${c.perguntas}" th:id="'p-' + ${p.id}"
+                     th:classappend="${erroEnvio != null and f.pendente(p.id)} ? 'pendente'"
+                     th:attr="data-pergunta=${p.id},data-obrigatoria=${p.obrigatoria},data-tipo=${p.tipo}">
+                    <div class="pergunta-texto" th:id="'t-' + ${p.id}">
+                        <span th:text="${p.texto}">Pergunta</span>
+                        <span class="text-danger" th:if="${p.obrigatoria}" title="Obrigatória">*</span>
+                        <span class="small text-secondary" th:unless="${p.obrigatoria}">(opcional)</span>
+                    </div>
+
+                    <th:block th:if="${p.escala()}">
+                        <div class="escala" role="radiogroup" th:attr="aria-labelledby='t-' + ${p.id}">
+                            <th:block th:each="n : ${f.questionario.niveis}">
+                                <input type="radio" th:id="'p' + ${p.id} + 'n' + ${n.valor}" th:name="'nota_' + ${p.id}"
+                                       th:value="${n.valor}" th:checked="${f.marcada(p.id, n.valor)}"
+                                       th:attr="data-descricao=${n.descricao}">
+                                <label th:for="'p' + ${p.id} + 'n' + ${n.valor}" th:title="${n.descricao}">
+                                    <strong th:text="${n.valor}">1</strong><small th:text="${n.rotuloCurto()}">Nunca</small>
+                                </label>
+                            </th:block>
+                            <input type="radio" class="nao-avalia" th:id="'p' + ${p.id} + 'na'" th:name="'nota_' + ${p.id}"
+                                   value="NA" th:checked="${f.naoAvalia(p.id)}"
+                                   data-descricao="Você não acompanhou esse comportamento no período. Não conta na média.">
+                            <label th:for="'p' + ${p.id} + 'na'"><i class="bi bi-dash-circle"></i><small>Não tenho como avaliar</small></label>
+                        </div>
+                        <div class="nivel-descricao small text-secondary" aria-live="polite"></div>
+                    </th:block>
+
+                    <th:block th:if="${p.aberta()}">
+                        <textarea class="form-control" rows="3" maxlength="2000" th:name="'texto_' + ${p.id}"
+                                  th:attr="aria-labelledby='t-' + ${p.id}" th:text="${f.texto(p.id)}"
+                                  th:placeholder="${f.anonima()} ? 'Escreva com respeito e foco em fatos. O comentário é anônimo.' : 'Escreva com respeito e foco em fatos.'"></textarea>
+                    </th:block>
+                    <div class="aviso-pendente small"><i class="bi bi-exclamation-circle"></i> Responda esta pergunta para poder enviar.</div>
+                </div>
+            </section>
+
+            <div class="barra-avaliacao">
+                <span class="salvo-status" id="statusSalvo" aria-live="polite"
+                      th:text="${f.ultimoSalvamentoTexto() != null} ? 'Salvo às ' + ${f.ultimoSalvamentoTexto()} : 'As respostas são salvas automaticamente'">Salvo</span>
+                <div class="ms-auto d-flex gap-2">
+                    <button class="btn btn-light" type="submit"><i class="bi bi-save"></i> Salvar rascunho</button>
+                    <button class="btn btn-primary" type="submit" id="botaoEnviar"
+                            th:formaction="@{${acao + '/enviar'}}">Enviar <i class="bi bi-arrow-right"></i></button>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal fade" id="modalEnviar" tabindex="-1" aria-labelledby="modalEnviarTitulo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="modalEnviarTitulo">Enviar a avaliação?</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Você está enviando a avaliação de <strong th:text="${f.avaliado.nome}">Nome</strong>.</p>
+                        <p class="mb-0"><strong>Depois de enviada, ela não poderá ser alterada.</strong> Se precisar
+                            corrigir algo, só o RH pode reabrir.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Revisar</button>
+                        <button type="submit" class="btn btn-primary" form="formAvaliacao" name="confirmado" value="true"
+                                th:formaction="@{${acao + '/enviar'}}"><i class="bi bi-send"></i> Sim, enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>

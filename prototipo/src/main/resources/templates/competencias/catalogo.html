@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Competências e questionários')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/competencias.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('competencias')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Competências e questionários')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <h1 class="titulo-pagina">Competências e questionários</h1>
+            <p class="subtitulo-pagina">Organize as competências e prepare os questionários dos ciclos de avaliação.</p>
+
+            <ul th:replace="~{competencias/abas :: abas('catalogo', ${totalCompetencias})}"></ul>
+
+            <div class="cartao p-0">
+                <div class="d-flex flex-wrap align-items-center gap-2 p-3">
+                    <form class="flex-grow-1" style="max-width: 360px" method="get" th:action="@{/competencias/catalogo}" role="search">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                            <input class="form-control" type="search" name="busca" th:value="${busca}"
+                                   placeholder="Buscar por nome ou descrição..." aria-label="Buscar competência">
+                        </div>
+                    </form>
+                    <span class="small text-secondary me-auto" th:text="${#lists.size(competencias)} + ' competências'
+                          + (${#strings.isEmpty(busca)} ? ' cadastradas' : ' encontradas')">8 competências cadastradas</span>
+                    <a class="btn btn-primary" th:href="@{/competencias/catalogo/nova}"><i class="bi bi-plus-lg"></i> Adicionar nova competência</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                        <tr><th>Nome da competência</th><th>Descrição</th><th>Tipo</th><th>Em uso</th><th class="text-end">Ações</th></tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c : ${competencias}" th:classappend="${!c.ativa} ? 'inativa'">
+                            <td class="fw-medium">
+                                <span th:text="${c.nome}">Comunicação</span>
+                                <span th:unless="${c.ativa}" class="selo selo-encerrado ms-1">Desativada</span>
+                            </td>
+                            <td class="small" th:text="${c.descricao}">Descrição</td>
+                            <td class="small text-nowrap" th:text="${c.tipoRotulo()}">Comportamental</td>
+                            <td class="small text-nowrap"
+                                th:with="n=${uso.get(c.id)}"
+                                th:text="${n == null} ? '—' : (${n} + (${n == 1} ? ' questionário' : ' questionários'))">—</td>
+                            <td class="text-end text-nowrap">
+                                <a class="btn btn-sm btn-outline-secondary" th:href="@{/competencias/catalogo/{id}/editar(id=${c.id})}"
+                                   title="Editar" th:attr="aria-label='Editar ' + ${c.nome}"><i class="bi bi-pencil"></i></a>
+                                <form th:if="${c.ativa}" class="d-inline" method="post" th:action="@{/competencias/catalogo/{id}/desativar(id=${c.id})}">
+                                    <button class="btn btn-sm btn-outline-danger" type="submit" title="Desativar"
+                                            th:attr="aria-label='Desativar ' + ${c.nome}"><i class="bi bi-slash-circle"></i><span class="d-none d-md-inline"> Desativar</span></button>
+                                </form>
+                                <form th:unless="${c.ativa}" class="d-inline" method="post" th:action="@{/competencias/catalogo/{id}/reativar(id=${c.id})}">
+                                    <button class="btn btn-sm btn-outline-success" type="submit" title="Reativar"
+                                            th:attr="aria-label='Reativar ' + ${c.nome}"><i class="bi bi-arrow-counterclockwise"></i><span class="d-none d-md-inline"> Reativar</span></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(competencias)}">
+                            <td colspan="5" class="text-center text-secondary py-4">Nenhuma competência encontrada.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="small text-secondary mt-3"><i class="bi bi-shield-check"></i> Histórico preservado: competências em uso são
+                desativadas, sem apagar avaliações anteriores.</p>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

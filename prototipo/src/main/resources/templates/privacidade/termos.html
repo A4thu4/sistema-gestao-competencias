@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Termo de consentimento')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/privacidade.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('solicitacoes')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Solicitações LGPD › Termo de consentimento')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <h1 class="titulo-pagina">Termo de consentimento</h1>
+            <p class="subtitulo-pagina">Uma nova versão pede novo aceite de todos no próximo acesso.</p>
+
+            <div class="row g-3">
+                <div class="col-12 col-lg-5">
+                    <div class="cartao" th:if="${vigente != null}">
+                        <div class="cartao-titulo">Versão vigente</div>
+                        <div class="cartao-numero text-primary" th:text="${vigente.versao}">1.0</div>
+                        <div class="small text-secondary mb-2">desde <span th:text="${vigente.vigenteDesdeTexto()}">data</span></div>
+                        <div><strong th:text="${aceitesVigente}">10</strong> de <strong th:text="${ativos}">11</strong>
+                            pessoas ativas já aceitaram.</div>
+                    </div>
+                    <div class="cartao p-0">
+                        <div class="cartao-titulo px-4 pt-3 mb-2">Histórico</div>
+                        <div class="table-responsive">
+                            <table class="table table-sm align-middle mb-0">
+                                <thead><tr><th class="ps-4">Versão</th><th>Vigente desde</th><th>O que mudou</th></tr></thead>
+                                <tbody>
+                                <tr th:each="v : ${versoes}">
+                                    <td class="ps-4 fw-semibold" th:text="${v.versao}">1.0</td>
+                                    <td class="small text-nowrap" th:text="${v.vigenteDesdeTexto()}">data</td>
+                                    <td class="small" style="white-space: pre-line" th:text="${v.temMudancas()} ? ${v.resumoMudancas} : 'Primeira versão'">—</td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(versoes)}"><td colspan="3" class="ps-4 text-secondary">Nenhuma versão publicada.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <div class="cartao">
+                        <div class="cartao-titulo">Publicar nova versão</div>
+                        <form th:action="@{/privacidade/termos}" th:object="${form}" method="post" novalidate>
+                            <div class="mb-3">
+                                <label for="versao" class="form-label">Versão</label>
+                                <input type="text" class="form-control" th:field="*{versao}" maxlength="20"
+                                       placeholder="Ex.: 1.1" th:errorclass="is-invalid" style="max-width: 12rem">
+                                <div class="invalid-feedback" th:errors="*{versao}">erro</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="resumoMudancas" class="form-label">O que mudou (as pessoas veem isto em destaque)</label>
+                                <textarea class="form-control" th:field="*{resumoMudancas}" rows="3" maxlength="1000"
+                                          th:errorclass="is-invalid"
+                                          placeholder="Ex.: os dados passam a ser guardados por 5 anos depois do desligamento."></textarea>
+                                <div class="invalid-feedback" th:errors="*{resumoMudancas}">erro</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="texto" class="form-label">Texto do termo</label>
+                                <textarea class="form-control termo-texto-rh" th:field="*{texto}" rows="16"
+                                          th:errorclass="is-invalid"></textarea>
+                                <div class="invalid-feedback" th:errors="*{texto}">erro</div>
+                                <div class="form-text">Use linguagem simples. Linha começando com "## " vira título;
+                                    com "- ", item de lista; linha em branco separa parágrafos.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"
+                                    onclick="return confirm('Publicar a nova versão? Todas as pessoas vão precisar aceitar de novo.')">
+                                Publicar nova versão</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Minhas avaliações')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('avaliacoes')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Minhas avaliações')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <h1 class="titulo-pagina">Minhas avaliações</h1>
+            <p class="subtitulo-pagina">As respostas ficam salvas enquanto você preenche.</p>
+
+            <div class="cartao text-center text-secondary py-5" th:if="${#lists.isEmpty(grupos)}">
+                <i class="bi bi-ui-checks display-6"></i>
+                <p class="mt-2 mb-0">Você não tem avaliações para responder agora.</p>
+            </div>
+
+            <section class="cartao p-0 mb-4" th:each="g : ${grupos}">
+                <div class="grupo-cabeca">
+                    <div class="me-auto">
+                        <h2 class="h5 mb-0" th:text="${g.cicloNome}">Ciclo</h2>
+                        <div class="small text-secondary">
+                            <span th:if="${g.aceitaRespostas}">Responda até <strong th:text="${g.encerramentoTexto()}">data</strong></span>
+                            <span th:unless="${g.aceitaRespostas}">Encerrado em <span th:text="${g.encerramentoTexto()}">data</span></span>
+                            · <span th:text="${g.enviadas()} + ' de ' + ${g.avaliacoes.size()} + ' enviadas'">0 de 0</span>
+                        </div>
+                    </div>
+                    <span class="selo" th:classappend="${g.aceitaRespostas} ? 'selo-aberto' : 'selo-encerrado'"
+                          th:text="${g.aceitaRespostas} ? 'Aberto' : 'Encerrado'">Aberto</span>
+                </div>
+                <div class="alert alert-success m-3 mb-0" th:if="${g.aceitaRespostas and g.pendentes() == 0}">
+                    <i class="bi bi-check-circle"></i> Todas as avaliações deste ciclo foram enviadas.
+                </div>
+                <ul class="lista-avaliacoes">
+                    <li th:each="a : ${g.avaliacoes}" th:with="d=${a.designacao}">
+                        <span class="app-avatar" th:text="${a.avaliado.iniciais()}">CD</span>
+                        <div class="me-auto min-w-0">
+                            <div class="fw-semibold text-truncate">
+                                <span th:text="${a.avaliado.nome}">Nome</span>
+                                <span class="text-secondary fw-normal" th:if="${d.relacao.name() == 'AUTO'}">(você)</span>
+                            </div>
+                            <div class="small text-secondary">
+                                <span th:text="${a.relacaoTexto()}">Relação</span>
+                                <span th:if="${a.anonima()}" class="ms-1" title="Resposta anônima"><i class="bi bi-incognito"></i> anônima</span>
+                            </div>
+                        </div>
+                        <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(d.situacao)}"
+                              th:text="${d.situacaoRotulo()}">Situação</span>
+                        <a class="btn btn-sm" th:href="@{/avaliacoes/{id}(id=${d.id})}"
+                           th:classappend="${g.aceitaRespostas and !d.enviada()} ? 'btn-primary' : 'btn-outline-secondary'"
+                           th:text="${!g.aceitaRespostas or d.enviada()} ? 'Ver' : (${d.emPreenchimento()} ? 'Continuar' : 'Começar')">Começar</a>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

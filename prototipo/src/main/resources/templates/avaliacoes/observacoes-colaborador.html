@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${colaborador.nome} + ' · Observações')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('observacoes')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Observações da equipe › ' + ${colaborador.nome})}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <a class="small text-decoration-none" th:href="@{/observacoes}"><i class="bi bi-arrow-left"></i> Observações da equipe</a>
+
+            <div class="d-flex flex-wrap align-items-center gap-3 mt-2 mb-4">
+                <span class="app-avatar avatar-grande" th:text="${colaborador.iniciais()}">CD</span>
+                <div class="me-auto">
+                    <h1 class="titulo-pagina mb-0" th:text="${colaborador.nome}">Nome</h1>
+                    <div class="text-secondary" th:text="${colaborador.cargoNome} + ' · ' + ${colaborador.area}">Cargo · Área</div>
+                </div>
+                <div class="d-flex gap-2">
+                    <span class="selo selo-positivo"><i class="bi bi-hand-thumbs-up-fill"></i>
+                        <span th:text="${positivos}">0</span> positivos</span>
+                    <span class="selo selo-melhoria"><i class="bi bi-lightbulb-fill"></i>
+                        <span th:text="${melhorias}">0</span> de melhoria</span>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-12 col-lg-5 order-lg-2">
+                    <form id="formulario" class="cartao formulario-fixo" method="post"
+                          th:action="${editandoId == null} ? @{/observacoes} : @{/observacoes/{c}/{id}/editar(c=${colaborador.id},id=${editandoId})}">
+                        <div class="cartao-titulo">
+                            <i class="bi text-primary" th:classappend="${editandoId == null} ? 'bi-journal-plus' : 'bi-pencil'"></i>
+                            <span th:text="${editandoId == null} ? 'Nova observação' : 'Editar observação'">Nova observação</span>
+                        </div>
+                        <div th:if="${erro}" class="alert alert-danger py-2" role="alert">
+                            <i class="bi bi-exclamation-triangle"></i> <span th:text="${erro}">erro</span>
+                        </div>
+                        <input type="hidden" name="colaboradorId" th:value="${colaborador.id}">
+                        <th:block th:replace="~{avaliacoes/fragmentos :: campos}"></th:block>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-primary" type="submit"><i class="bi bi-check-lg"></i>
+                                <span th:text="${editandoId == null} ? 'Registrar' : 'Salvar alterações'">Registrar</span></button>
+                            <a th:if="${editandoId != null}" class="btn btn-outline-secondary"
+                               th:href="@{/observacoes/{c}(c=${colaborador.id})}">Cancelar</a>
+                        </div>
+                        <p class="small text-secondary mt-3 mb-0"><i class="bi bi-lock"></i> Só você vê esta anotação.</p>
+                    </form>
+                </div>
+
+                <div class="col-12 col-lg-7 order-lg-1">
+                    <h2 class="cartao-titulo">Linha do tempo <span class="text-secondary fw-normal small">· mais recentes primeiro</span></h2>
+                    <div class="cartao text-center text-secondary py-5" th:if="${#lists.isEmpty(observacoes)}">
+                        <i class="bi bi-journal display-6"></i>
+                        <p class="mt-2 mb-0">Nenhuma observação sobre <span th:text="${colaborador.nome}">a pessoa</span> ainda.
+                            Registre a primeira no formulário.</p>
+                    </div>
+                    <div class="linha-tempo">
+                        <div class="obs-item" th:each="item : ${observacoes}" th:with="o=${item.observacao}"
+                             th:classappend="${o.positivo()} ? 'obs-positivo' : 'obs-melhoria'">
+                            <div class="obs-icone" aria-hidden="true">
+                                <i class="bi" th:classappend="${o.positivo()} ? 'bi-hand-thumbs-up-fill' : 'bi-lightbulb-fill'"></i>
+                            </div>
+                            <div class="obs-corpo" th:classappend="${editandoId == o.id} ? 'editando'">
+                                <div class="d-flex flex-wrap align-items-center gap-2">
+                                    <span class="selo" th:classappend="${o.positivo()} ? 'selo-positivo' : 'selo-melhoria'"
+                                          th:text="${o.tipoRotulo()}">Ponto positivo</span>
+                                    <span class="small">Fato em <strong th:text="${o.dataFatoTexto()}">01/01/2026</strong></span>
+                                    <span class="ms-auto small text-secondary" th:if="${item.minha and item.travadaPor != null}"
+                                          title="Já fez parte de uma avaliação encerrada; não pode mais ser alterada.">
+                                        <i class="bi bi-lock"></i> Usada no <span th:text="${item.travadaPor}">ciclo</span></span>
+                                    <div class="ms-auto d-flex gap-1" th:if="${item.podeAlterar}">
+                                        <a class="btn btn-sm btn-light" title="Editar"
+                                           th:href="@{/observacoes/{c}/{id}/editar(c=${colaborador.id},id=${o.id})} + '#formulario'">
+                                            <i class="bi bi-pencil"></i><span class="visually-hidden">Editar</span></a>
+                                        <form method="post" class="d-inline"
+                                              th:action="@{/observacoes/{c}/{id}/excluir(c=${colaborador.id},id=${o.id})}"
+                                              onsubmit="return confirm('Excluir esta observação? Não dá para desfazer.');">
+                                            <button class="btn btn-sm btn-light text-danger" type="submit" title="Excluir">
+                                                <i class="bi bi-trash"></i><span class="visually-hidden">Excluir</span></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <p class="obs-texto" th:text="${o.descricao}">Descrição</p>
+                                <div class="obs-meta">Registrada em <span th:text="${o.criadaEmTexto()}">data</span>
+                                    <span th:unless="${item.minha}"> · por <span th:text="${item.autor}">gestor anterior</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

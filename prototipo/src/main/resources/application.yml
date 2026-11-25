@@ -19,3 +19,24 @@ spring:
 
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        # DA-07: HttpOnly e SameSite. O Secure é ligado em produção, atrás do proxy com HTTPS.
+        http-only: true
+        same-site: lax
+
+sgc:
+  # Carrega a empresa de exemplo (pessoas, competências, ciclos e respostas) quando o banco está vazio.
+  demo:
+    carregar: true
+  # Chave do HMAC que liga uma avaliação enviada à designação só para a reabertura (UC-09, DA-06).
+  # Em produção vem de variável de ambiente.
+  chave-verificador: ${SGC_CHAVE_VERIFICADOR:troque-esta-chave-em-producao}
+  # Endereço usado nos links dos e-mails (convites e link do avaliador externo).
+  url-base: ${SGC_URL_BASE:http://localhost:8080}
+
+logging:
+  level:
+    br.edu.pucgoias.sgc: INFO

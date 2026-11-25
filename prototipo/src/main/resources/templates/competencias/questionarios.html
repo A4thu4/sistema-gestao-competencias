@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Competências e questionários')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/competencias.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('competencias')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Competências e questionários')}"></header>
+        <main class="app-content">
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <div class="d-flex flex-wrap align-items-start gap-3 mb-3">
+                <div class="me-auto">
+                    <h1 class="titulo-pagina">Competências e questionários</h1>
+                    <p class="subtitulo-pagina mb-0">Organize as competências e prepare os questionários dos ciclos de avaliação.</p>
+                </div>
+                <a class="btn btn-primary" th:href="@{/competencias/questionarios/novo}"><i class="bi bi-plus-lg"></i> Novo questionário</a>
+            </div>
+
+            <ul th:replace="~{competencias/abas :: abas('questionarios', ${totalCompetencias})}"></ul>
+
+            <div class="cartao p-0">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                        <tr><th>Questionário</th><th>Cargo</th><th>Situação</th><th>Usado nos ciclos</th><th class="text-end">Ações</th></tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="q : ${questionarios}">
+                            <td>
+                                <a class="fw-medium text-decoration-none" th:href="@{/competencias/questionarios/{id}(id=${q.id})}"
+                                   th:text="${#strings.isEmpty(q.nome)} ? '(sem nome)' : ${q.nome}">Nome</a>
+                                <div class="small text-secondary">
+                                    <span th:text="${q.competencias} + ' competências · ' + ${q.perguntas} + ' perguntas'">4 competências</span>
+                                    <span th:if="${q.origemNome}" th:text="' · cópia de ' + ${q.origemNome}">cópia</span>
+                                </div>
+                            </td>
+                            <td th:text="${q.cargoNome} ?: '—'">Cargo</td>
+                            <td>
+                                <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(q.situacao)}" th:text="${q.situacaoRotulo()}">Rascunho</span>
+                                <div th:if="${q.bloqueado}" class="small text-secondary mt-1"><i class="bi bi-lock"></i> em uso</div>
+                            </td>
+                            <td th:text="${#lists.isEmpty(q.ciclos)} ? '—' : ${#strings.listJoin(q.ciclos, ', ')}">—</td>
+                            <td class="text-end text-nowrap">
+                                <a th:unless="${q.bloqueado}" class="btn btn-sm btn-outline-secondary" title="Editar"
+                                   th:href="@{/competencias/questionarios/{id}(id=${q.id})}"><i class="bi bi-pencil"></i><span class="d-none d-md-inline"> Editar</span></a>
+                                <a class="btn btn-sm btn-outline-secondary" title="Pré-visualizar"
+                                   th:href="@{/competencias/questionarios/{id}/previa(id=${q.id})}"><i class="bi bi-eye"></i><span class="d-none d-md-inline"> Ver</span></a>
+                                <form class="d-inline" method="post" th:action="@{/competencias/questionarios/{id}/duplicar(id=${q.id})}">
+                                    <button class="btn btn-sm btn-outline-secondary" type="submit" title="Duplicar"><i class="bi bi-copy"></i><span class="d-none d-md-inline"> Duplicar</span></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(questionarios)}">
+                            <td colspan="5" class="text-center text-secondary py-4">Nenhum questionário ainda. Comece por “Novo questionário”.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="small text-secondary mt-3"><i class="bi bi-shield-check"></i> Questionário em uso não é alterado. Duplique para criar outra versão.</p>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

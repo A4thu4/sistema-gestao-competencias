@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Pré-visualização do questionário')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/competencias.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('competencias')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Pré-visualização')}"></header>
+        <main class="app-content" style="max-width: 980px">
+            <a class="small text-decoration-none" th:href="${q.modelo} ? @{/competencias/questionarios/novo} : @{/competencias/questionarios}">
+                <i class="bi bi-arrow-left"></i> <span th:text="${q.modelo} ? 'Novo questionário' : 'Questionários'">Questionários</span></a>
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                <h1 class="titulo-pagina mb-0" th:text="${#strings.isEmpty(q.nome)} ? 'Questionário sem nome' : ${q.nome}">Questionário</h1>
+                <span th:if="${q.modelo}" class="selo selo-agendado">Modelo pronto</span>
+                <span th:unless="${q.modelo}" class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(q.situacao)}"
+                      th:text="${q.publicado()} ? 'Publicado' : 'Rascunho'">Rascunho</span>
+            </div>
+            <p class="subtitulo-pagina">
+                <span th:if="${cargo}" th:text="'Cargo: ' + ${cargo} + ' · '">Cargo · </span>
+                <span th:text="'Escala de 1 a ' + ${q.escalaMax}">Escala</span> ·
+                Assim o avaliador verá o questionário.
+            </p>
+
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+
+            <div th:if="${uso.bloqueado()}" class="alert alert-secondary d-flex flex-wrap align-items-center gap-2" role="alert">
+                <span class="me-auto"><i class="bi bi-lock"></i> <span th:text="${uso.motivo()}">Em uso.</span></span>
+                <form method="post" th:action="@{/competencias/questionarios/{id}/duplicar(id=${q.id})}">
+                    <button class="btn btn-sm btn-primary" type="submit"><i class="bi bi-copy"></i> Duplicar como novo questionário</button>
+                </form>
+            </div>
+
+            <div th:if="${!q.modelo and !q.publicado() and !#lists.isEmpty(pendencias)}" class="alert alert-warning" role="alert">
+                <strong><i class="bi bi-list-check"></i> Ainda não dá para publicar. O que falta:</strong>
+                <ul class="mb-2 mt-1"><li th:each="p : ${pendencias}" th:text="${p}">pendência</li></ul>
+                <a class="alert-link" th:href="@{/competencias/questionarios/{id}(id=${q.id})}">Voltar a editar</a>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="small text-secondary">Ver como:</span>
+                <a class="btn btn-sm" th:classappend="${como == null} ? 'btn-primary' : 'btn-outline-secondary'"
+                   th:href="@{/competencias/questionarios/{id}/previa(id=${q.id})}">Todas as perguntas</a>
+                <a th:each="t : ${tipos}" class="btn btn-sm" th:classappend="${como == t} ? 'btn-primary' : 'btn-outline-secondary'"
+                   th:href="@{/competencias/questionarios/{id}/previa(id=${q.id},como=${t.name()})}" th:text="${t.rotulo}">Chefe</a>
+            </div>
+
+            <div class="cartao">
+                <h2 class="cartao-titulo">Como usar a escala</h2>
+                <dl class="row mb-0 small">
+                    <th:block th:each="n : ${q.niveis}">
+                        <dt class="col-2 col-sm-1 text-center" th:text="${n.valor}">1</dt>
+                        <dd class="col-10 col-sm-11" th:text="${#strings.isEmpty(n.descricao)} ? '(sem descrição)' : ${n.descricao}">Nunca</dd>
+                    </th:block>
+                    <dt class="col-2 col-sm-1 text-center">—</dt>
+                    <dd class="col-10 col-sm-11 mb-0">Não tenho como avaliar: use quando não convive com a pessoa nesse ponto. Não entra na média.</dd>
+                </dl>
+            </div>
+
+            <div class="cartao" th:each="c : ${q.competencias}">
+                <h2 class="h5 mb-1" th:text="${c.nome}">Comunicação</h2>
+                <p class="small text-secondary mb-2" th:text="${c.descricao}">Descrição</p>
+                <div class="previa-pergunta" th:each="p : ${c.perguntas}">
+                    <p class="fw-medium mb-2">
+                        <span th:text="${p.texto}">Pergunta</span>
+                        <span th:if="${p.obrigatoria}" class="text-danger" title="Obrigatória">*</span>
+                        <span th:unless="${p.obrigatoria}" class="small text-secondary fw-normal">(opcional)</span>
+                    </p>
+                    <div th:if="${como == null}" class="small text-secondary mb-2">
+                        Aparece para: <span th:each="t, st : ${p.avaliadores}" th:text="${t.rotulo} + (${st.last} ? '' : ', ')">Chefe</span>
+                    </div>
+                    <div th:if="${p.escala()}" class="escala" role="radiogroup" th:attr="aria-label=${p.texto}">
+                        <th:block th:each="n : ${q.niveis}">
+                            <input type="radio" th:name="|p-${p.id}|" th:id="|p-${p.id}-${n.valor}|" th:value="${n.valor}">
+                            <label th:for="|p-${p.id}-${n.valor}|" th:title="${n.descricao}">
+                                <strong th:text="${n.valor}">1</strong><small th:text="${n.rotuloCurto()}">Nunca</small>
+                            </label>
+                        </th:block>
+                        <input type="radio" class="nao-avalia" th:name="|p-${p.id}|" th:id="|p-${p.id}-na|" value="na">
+                        <label th:for="|p-${p.id}-na|"><i class="bi bi-dash-circle"></i><small>Não tenho como avaliar</small></label>
+                    </div>
+                    <textarea th:if="${p.aberta()}" class="form-control" rows="3" placeholder="Resposta livre do avaliador"
+                              th:attr="aria-label=${p.texto}"></textarea>
+                </div>
+            </div>
+            <div class="cartao text-secondary" th:if="${#lists.isEmpty(q.competencias)}">
+                <span th:text="${como == null} ? 'Nenhuma competência com perguntas ainda.' : 'Nenhuma pergunta para ' + ${#strings.toLowerCase(como.rotulo)} + '.'">Nada.</span>
+            </div>
+
+            <div class="barra-acoes d-flex flex-wrap gap-2">
+                <th:block th:if="${q.modelo}">
+                    <form method="post" th:action="@{/competencias/questionarios/modelo/{id}(id=${q.id})}">
+                        <button class="btn btn-primary" type="submit">Usar este modelo</button>
+                    </form>
+                </th:block>
+                <th:block th:if="${!q.modelo and !uso.bloqueado()}">
+                    <a class="btn btn-outline-secondary" th:href="@{/competencias/questionarios/{id}(id=${q.id})}"><i class="bi bi-pencil"></i> Voltar a editar</a>
+                    <th:block th:unless="${q.publicado()}">
+                        <form method="post" th:action="@{/competencias/questionarios/{id}/rascunho(id=${q.id})}">
+                            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-save"></i> Salvar como rascunho</button>
+                        </form>
+                        <form method="post" th:action="@{/competencias/questionarios/{id}/publicar(id=${q.id})}">
+                            <button class="btn btn-primary" type="submit" th:disabled="${!#lists.isEmpty(pendencias)}">
+                                <i class="bi bi-send-check"></i> Publicar</button>
+                        </form>
+                    </th:block>
+                </th:block>
+                <th:block th:if="${!q.modelo and uso.bloqueado()}">
+                    <a class="btn btn-outline-secondary" th:href="@{/competencias/questionarios}">Voltar à lista</a>
+                </th:block>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="cabecalho(acaoCiclo)">
+    <h1 class="titulo-pagina">Reabertura e moderação</h1>
+    <p class="subtitulo-pagina">Reabertura a pedido do avaliador e revisão de comentários.</p>
+    <ul class="nav abas-moderacao">
+        <li class="nav-item"><a class="nav-link" th:classappend="${aba == 'reabrir'} ? 'active'" th:href="@{/moderacao}">
+            <i class="bi bi-arrow-counterclockwise"></i> Reabrir avaliação</a></li>
+        <li class="nav-item"><a class="nav-link" th:classappend="${aba == 'comentarios'} ? 'active'" th:href="@{/moderacao/comentarios}">
+            <i class="bi bi-chat-square-text"></i> Moderar comentários</a></li>
+    </ul>
+    <form method="get" th:action="@{${acaoCiclo}}" class="d-flex flex-wrap align-items-end gap-2 mb-3" th:unless="${#lists.isEmpty(ciclos)}">
+        <div>
+            <label class="form-label small mb-1" for="ciclo">Ciclo</label>
+            <select class="form-select" id="ciclo" name="ciclo" onchange="this.form.submit()">
+                <option th:each="c : ${ciclos}" th:value="${c.id}" th:selected="${ciclo != null and c.id == ciclo.id}"
+                        th:text="${c.nome} + ' (' + ${c.situacaoRotulo()} + ')'">Ciclo</option>
+            </select>
+        </div>
+        <noscript><button class="btn btn-outline-secondary" type="submit">Mostrar</button></noscript>
+    </form>
+</th:block>
+</body>
+</html>

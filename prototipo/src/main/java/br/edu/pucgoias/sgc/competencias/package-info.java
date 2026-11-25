@@ -1,14 +1,6 @@
 /**
- * UC-01 Gerenciar competências e questionários.
- *
- * <p>Camadas dentro do pacote:
- * <ul>
- *   <li>{@code web}: controllers (rotas e telas Thymeleaf);</li>
- *   <li>{@code servico}: regras do caso de uso;</li>
- *   <li>{@code dominio}: entidades JPA e objetos de valor;</li>
- *   <li>{@code repositorio}: interfaces Spring Data.</li>
- * </ul>
- * <p>Migrações: V2_x em {@code src/main/resources/db/migration}.
- * <p>Responsável: José Eduardo (#56).
+ * Catálogo de competências, competências padrão por cargo e questionários por cargo, com escala, perguntas e
+ * modelos prontos. Caso de uso: UC-01. Declara {@code ConsultaUsoQuestionario}, implementada por ciclos e avaliacoes.
+ * Depende de: identidade e compartilhado.
  */
 package br.edu.pucgoias.sgc.competencias;

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Editar questionário')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/competencias.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('competencias')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Editar questionário')}"></header>
+        <main class="app-content">
+            <a class="small text-decoration-none" th:href="@{/competencias/questionarios}"><i class="bi bi-arrow-left"></i> Questionários</a>
+            <div class="d-flex flex-wrap align-items-center gap-2 mt-2">
+                <h1 class="titulo-pagina mb-0" th:text="${#strings.isEmpty(q.nome)} ? 'Questionário sem nome' : ${q.nome}">Questionário</h1>
+                <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(q.situacao)}"
+                      th:text="${q.publicado()} ? 'Publicado' : 'Rascunho'">Rascunho</span>
+            </div>
+            <p class="subtitulo-pagina">Fica como rascunho até você publicar.</p>
+
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+            <div th:if="${pendencias}" class="alert alert-warning" role="alert">
+                <strong><i class="bi bi-list-check"></i> O que falta para publicar:</strong>
+                <ul class="mb-0 mt-1"><li th:each="p : ${pendencias}" th:text="${p}">pendência</li></ul>
+            </div>
+            <div th:if="${q.publicado()}" class="alert alert-info" role="alert">
+                <i class="bi bi-info-circle"></i> Questionário publicado. Ao salvar, ele volta a rascunho até ser publicado de novo.
+            </div>
+
+            <form id="form-questionario" method="post" th:action="@{/competencias/questionarios/{id}(id=${q.id})}"
+                  th:attr="data-proximo-indice=${proximoIndice}">
+
+                <section class="cartao">
+                    <h2 class="cartao-titulo"><span class="secao-numero">1</span>Nome e cargo</h2>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-7">
+                            <label class="form-label" for="nome">Nome do questionário</label>
+                            <input class="form-control" id="nome" name="nome" th:value="${q.nome}" maxlength="120">
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <label class="form-label" for="cargoId">Cargo</label>
+                            <select class="form-select" id="cargoId" name="cargoId">
+                                <option value="">Escolha o cargo</option>
+                                <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"
+                                        th:selected="${c.id == q.cargoId}">Cargo</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cartao" id="competencias">
+                    <div class="d-flex flex-wrap align-items-start gap-2">
+                        <h2 class="cartao-titulo me-auto"><span class="secao-numero">2</span>Competências</h2>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="marcar-padrao">
+                            <i class="bi bi-check2-square"></i> Marcar padrão do cargo</button>
+                    </div>
+                    <p class="small text-secondary">Marque as competências que serão avaliadas.</p>
+                    <div class="row g-3 lista-competencias">
+                        <div class="col-12 col-md-6">
+                            <div class="small fw-semibold text-secondary mb-2">COMPORTAMENTAIS</div>
+                            <th:block th:each="c : ${comportamentais}"><div th:replace="~{competencias/fragmentos :: itemCompetencia(${c})}"></div></th:block>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="small fw-semibold text-secondary mb-2">TÉCNICAS</div>
+                            <th:block th:each="c : ${tecnicas}"><div th:replace="~{competencias/fragmentos :: itemCompetencia(${c})}"></div></th:block>
+                        </div>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="padraoDoCargo" name="padraoDoCargo" value="true">
+                        <label class="form-check-label" for="padraoDoCargo">Usar esta seleção como padrão do cargo</label>
+                    </div>
+
+                    <details class="mt-3" th:attr="open=${abrirNova} ? 'open'">
+                        <summary class="text-primary">A competência que você precisa não está na lista? Cadastre aqui</summary>
+                        <div class="border rounded p-3 mt-2 bg-light">
+                            <div class="row g-2">
+                                <div class="col-12 col-md-5">
+                                    <label class="form-label small" for="novaNome">Nome</label>
+                                    <input class="form-control" id="novaNome" name="novaNome" maxlength="100" th:value="${novaNome}">
+                                </div>
+                                <div class="col-12 col-md-7">
+                                    <label class="form-label small" for="novaDescricao">Descrição</label>
+                                    <input class="form-control" id="novaDescricao" name="novaDescricao" maxlength="500" th:value="${novaDescricao}">
+                                </div>
+                                <div class="col-12 d-flex flex-wrap align-items-center gap-3">
+                                    <div class="form-check form-check-inline m-0">
+                                        <input class="form-check-input" type="radio" name="novaTipo" id="novaTipoC" value="COMPORTAMENTAL" checked>
+                                        <label class="form-check-label small" for="novaTipoC">Comportamental</label>
+                                    </div>
+                                    <div class="form-check form-check-inline m-0">
+                                        <input class="form-check-input" type="radio" name="novaTipo" id="novaTipoT" value="TECNICA">
+                                        <label class="form-check-label small" for="novaTipoT">Técnica</label>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary ms-auto" type="submit" name="acao" value="nova-competencia">
+                                        <i class="bi bi-plus-lg"></i> Cadastrar e incluir no questionário</button>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="cartao">
+                    <h2 class="cartao-titulo"><span class="secao-numero">3</span>Perguntas de cada competência</h2>
+                    <p class="small text-secondary">Cada competência precisa de ao menos uma pergunta. O avaliador só vê as perguntas marcadas para a relação dele. Perguntas abertas não têm nota.</p>
+                    <p id="sem-competencias" class="text-secondary small" th:classappend="${#sets.isEmpty(selecionadas)} ? '' : 'd-none'">
+                        Marque ao menos uma competência acima para escrever as perguntas.</p>
+                    <div th:each="s : ${secoes}" class="secao-competencia" th:id="|secao-${s.competencia.id}|"
+                         th:classappend="${s.selecionada} ? '' : 'd-none'">
+                        <div class="d-flex flex-wrap align-items-baseline gap-2 mb-2">
+                            <h3 class="h6 mb-0" th:text="${s.competencia.nome}">Comunicação</h3>
+                            <span class="small text-secondary" th:text="${s.competencia.tipoRotulo()}">Comportamental</span>
+                        </div>
+                        <div class="lista-perguntas">
+                            <th:block th:each="l : ${s.linhas}">
+                                <div th:replace="~{competencias/fragmentos :: linhaPergunta(${l.indice}, ${l.pergunta}, ${s.competencia.id})}"></div>
+                            </th:block>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-primary adicionar-pergunta"
+                                th:attr="data-competencia=${s.competencia.id}"><i class="bi bi-plus-lg"></i> Adicionar pergunta</button>
+                    </div>
+                </section>
+
+                <section class="cartao">
+                    <h2 class="cartao-titulo"><span class="secao-numero">4</span>Escala de notas</h2>
+                    <div class="row g-3 align-items-end mb-3">
+                        <div class="col-12 col-sm-5 col-md-4">
+                            <label class="form-label" for="escalaMax">Escala</label>
+                            <select class="form-select" id="escalaMax" name="escalaMax">
+                                <option value="5" th:selected="${q.escalaMax == 5}">De 1 a 5</option>
+                                <option value="10" th:selected="${q.escalaMax == 10}">De 1 a 10</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-7 col-md-8">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="sugerir-niveis">
+                                <i class="bi bi-magic"></i> Preencher os níveis vazios com descrições sugeridas</button>
+                        </div>
+                    </div>
+                    <p class="small text-secondary">Descreva cada nível, como “Sempre: demonstra o comportamento em todas as situações”.</p>
+                    <div th:each="d, st : ${niveis}" class="row g-2 align-items-center mb-2 nivel-linha"
+                         th:attr="data-valor=${st.count}" th:classappend="${st.count > q.escalaMax} ? 'd-none'">
+                        <label class="col-2 col-sm-1 col-form-label fw-semibold text-center" th:for="|nivel-${st.count}|" th:text="${st.count}">1</label>
+                        <div class="col-10 col-sm-11">
+                            <input class="form-control" maxlength="200" th:id="|nivel-${st.count}|" th:name="|niveis[${st.index}]|" th:value="${d}"
+                                   th:placeholder="|Descrição do nível ${st.count}|">
+                        </div>
+                    </div>
+                </section>
+
+                <div class="barra-acoes d-flex flex-wrap gap-2">
+                    <button class="btn btn-outline-primary" type="submit" name="acao" value="salvar"><i class="bi bi-save"></i> Salvar rascunho</button>
+                    <button class="btn btn-primary" type="submit" name="acao" value="previa"><i class="bi bi-eye"></i> Pré-visualizar e publicar</button>
+                    <a class="btn btn-link text-secondary ms-auto" th:href="@{/competencias/questionarios}">Voltar sem salvar</a>
+                </div>
+            </form>
+
+            <template id="modelo-pergunta">
+                <div th:replace="~{competencias/fragmentos :: linhaPergunta('XINDICEX', null, 'XCOMPX')}"></div>
+            </template>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script th:inline="javascript">
+    window.padroesPorCargo = /*[[${padroesPorCargo}]]*/ {};
+</script>
+<script th:src="@{/js/questionario-editor.js}"></script>
+</body>
+</html>

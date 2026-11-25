@@ -1,0 +1,29 @@
+/* Privacidade e termo de consentimento. */
+.termo-fundo { min-height: 100vh; background: #747884; display: flex; align-items: flex-start; justify-content: center;
+    padding: 2.5rem 1rem; }
+.termo-caixa { background: #fff; border-radius: 12px; width: 100%; max-width: 680px;
+    box-shadow: 0 18px 50px rgba(16,24,40,.25); overflow: hidden; }
+.termo-cabeca { background: #f8f9fb; padding: 1.6rem 1.75rem 1.25rem; border-bottom: 1px solid var(--sgc-borda); }
+.termo-icone { width: 40px; height: 40px; border-radius: 50%; background: var(--sgc-primaria-clara); color: var(--sgc-primaria);
+    display: grid; place-items: center; font-size: 1.15rem; margin-bottom: .9rem; }
+.termo-cabeca h1 { font-size: 1.35rem; font-weight: 700; margin: 0; }
+.termo-corpo { padding: 1.4rem 1.75rem; color: #475467; font-size: .94rem; line-height: 1.6;
+    max-height: 56vh; overflow-y: auto; }
+.termo-corpo h2 { font-size: .98rem; font-weight: 600; color: #1d2433; margin: 1.1rem 0 .4rem; }
+.termo-corpo ul { padding-left: 1.2rem; margin-bottom: .6rem; }
+.termo-rodape { padding: 1.1rem 1.75rem 1.4rem; border-top: 1px solid var(--sgc-borda); }
+.termo-mudancas { background: #fff8eb; border: 1px solid #fedf9b; border-radius: 8px; padding: .9rem 1rem;
+    color: #7a4a06; margin-bottom: 1rem; }
+.termo-mudancas h2 { color: #7a4a06; margin-top: 0; }
+@media (max-width: 575.98px) {
+    .termo-fundo { padding: 0; }
+    .termo-caixa { border-radius: 0; min-height: 100vh; }
+    .termo-corpo { max-height: none; }
+    .termo-rodape .btn { width: 100%; }
+}
+.dado-rotulo { color: #667085; font-size: .82rem; }
+.dado-valor { font-weight: 500; }
+.tipo-opcao { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .7rem .85rem; height: 100%; cursor: pointer;
+    display: block; }
+.tipo-opcao:has(input:checked) { border-color: var(--sgc-primaria); background: var(--sgc-primaria-suave); box-shadow: 0 0 0 1px var(--sgc-primaria); }
+.termo-texto-rh { font-family: var(--bs-font-monospace); font-size: .85rem; }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Novo questionário')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/competencias.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('competencias')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Novo questionário')}"></header>
+        <main class="app-content">
+            <a class="small text-decoration-none" th:href="@{/competencias/questionarios}"><i class="bi bi-arrow-left"></i> Questionários</a>
+            <h1 class="titulo-pagina mt-2">Novo questionário</h1>
+            <p class="subtitulo-pagina">Fica como rascunho até você publicar.</p>
+            <div th:replace="~{fragments/layout :: alertas}"></div>
+
+            <div class="row g-3">
+                <div class="col-12 col-lg-4">
+                    <div class="cartao ponto-partida">
+                        <span class="icone"><i class="bi bi-file-earmark-plus"></i></span>
+                        <h2 class="cartao-titulo mb-1">Em branco</h2>
+                        <p class="small text-secondary">Informe o nome e o cargo. As competências padrão do cargo já vêm marcadas.</p>
+                        <form method="post" th:action="@{/competencias/questionarios/novo}">
+                            <div class="mb-2">
+                                <label class="form-label small" for="nome">Nome do questionário</label>
+                                <input class="form-control" id="nome" name="nome" th:value="${nome}" maxlength="120" required
+                                       placeholder="Ex.: Desenvolvedor 2027">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small" for="cargoId">Cargo</label>
+                                <select class="form-select" id="cargoId" name="cargoId" required>
+                                    <option value="">Escolha o cargo</option>
+                                    <option th:each="c : ${cargos}" th:value="${c.id}" th:text="${c.nome}"
+                                            th:selected="${c.id == cargoId}">Cargo</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small" for="escalaMax">Escala de notas</label>
+                                <select class="form-select" id="escalaMax" name="escalaMax">
+                                    <option value="5" th:selected="${escalaMax == 5}">De 1 a 5</option>
+                                    <option value="10" th:selected="${escalaMax == 10}">De 1 a 10</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" type="submit">Começar em branco</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="cartao ponto-partida">
+                        <span class="icone"><i class="bi bi-collection"></i></span>
+                        <h2 class="cartao-titulo mb-1">A partir de um modelo pronto</h2>
+                        <p class="small text-secondary">Competências, perguntas e escala já preenchidas. Você escolhe o cargo e personaliza.</p>
+                        <div class="list-group">
+                            <div class="list-group-item" th:each="m : ${modelos}">
+                                <div class="fw-medium" th:text="${m.nome}">Modelo</div>
+                                <div class="small text-secondary mb-2"
+                                     th:text="${#lists.size(m.competencias)} + ' competências · ' + ${m.totalPerguntas()} + ' perguntas · escala de 1 a ' + ${m.escalaMax}">4 competências</div>
+                                <div class="d-flex gap-2">
+                                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/competencias/questionarios/{id}/previa(id=${m.id})}"><i class="bi bi-eye"></i> Ver</a>
+                                    <form method="post" th:action="@{/competencias/questionarios/modelo/{id}(id=${m.id})}">
+                                        <button class="btn btn-sm btn-primary" type="submit">Usar este modelo</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="list-group-item text-secondary small" th:if="${#lists.isEmpty(modelos)}">Nenhum modelo cadastrado.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="cartao ponto-partida">
+                        <span class="icone"><i class="bi bi-copy"></i></span>
+                        <h2 class="cartao-titulo mb-1">Cópia de um questionário anterior</h2>
+                        <p class="small text-secondary">Reaproveite o questionário de um ciclo anterior com tudo o que ele tem e ajuste só o que mudou.</p>
+                        <form method="post" th:action="@{/competencias/questionarios/copiar}">
+                            <div class="mb-3">
+                                <label class="form-label small" for="origemId">Questionário</label>
+                                <select class="form-select" id="origemId" name="origemId" required>
+                                    <option value="">Escolha o questionário</option>
+                                    <option th:each="a : ${anteriores}" th:value="${a.id}"
+                                            th:text="${a.nome} + ' (' + ${#strings.toLowerCase(a.situacaoRotulo())} + ')'">Questionário</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary w-100" type="submit" th:disabled="${#lists.isEmpty(anteriores)}">Copiar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

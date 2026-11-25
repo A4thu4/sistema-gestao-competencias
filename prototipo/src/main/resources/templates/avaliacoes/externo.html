@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Avaliação externa')}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
+<header th:replace="~{avaliacoes/externo-indisponivel :: topoExterno}"></header>
+<main class="externo-conteudo">
+    <div th:replace="~{fragments/layout :: alertas}"></div>
+    <h1 class="titulo-pagina">Avaliação de <span th:text="${f.avaliado.nome}">Nome</span></h1>
+    <p class="subtitulo-pagina">
+        A Vértice Software pede a sua opinião sobre <span th:text="${f.avaliado.nome}">Nome</span>.
+        Responda até <strong th:text="${f.encerramentoTexto()}">data</strong>. Você pode parar e voltar pelo mesmo link.
+    </p>
+    <div th:replace="~{avaliacoes/questionario :: formulario}"></div>
+</main>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+<script th:src="@{/js/responder-avaliacao.js}"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${competencia == null ? 'Nova competência' : 'Editar competência'})}"></head>
+<body>
+<link rel="stylesheet" th:href="@{/css/competencias.css}">
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('competencias')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Catálogo de competências')}"></header>
+        <main class="app-content" style="max-width: 760px">
+            <a class="small text-decoration-none" th:href="@{/competencias/catalogo}"><i class="bi bi-arrow-left"></i> Catálogo de competências</a>
+            <h1 class="titulo-pagina mt-2" th:text="${competencia} == null ? 'Nova competência' : 'Editar competência'">Nova competência</h1>
+            <p class="subtitulo-pagina">A descrição aparece para o avaliador.</p>
+
+            <div th:if="${erro}" class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> <span th:text="${erro}">erro</span>
+                <span th:if="${duplicada}">
+                    <a class="alert-link" th:href="@{/competencias/catalogo/{id}/editar(id=${duplicada.id})}"
+                       th:text="'Abrir “' + ${duplicada.nome} + '”'">Abrir a existente</a>
+                </span>
+            </div>
+
+            <form class="cartao" method="post" th:object="${form}"
+                  th:action="@{${competencia == null ? '/competencias/catalogo/nova' : '/competencias/catalogo/' + competencia.id + '/editar'}}">
+                <div class="mb-3">
+                    <label class="form-label" for="nome">Nome</label>
+                    <input class="form-control" id="nome" th:field="*{nome}" maxlength="100" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="descricao">Descrição</label>
+                    <textarea class="form-control" id="descricao" th:field="*{descricao}" rows="3" maxlength="500" required></textarea>
+                </div>
+                <fieldset class="mb-4">
+                    <legend class="form-label fs-6">Tipo</legend>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="tipo-c" th:field="*{tipo}" value="COMPORTAMENTAL">
+                        <label class="form-check-label" for="tipo-c">Comportamental</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="tipo-t" th:field="*{tipo}" value="TECNICA">
+                        <label class="form-check-label" for="tipo-t">Técnica</label>
+                    </div>
+                </fieldset>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-check-lg"></i> Salvar</button>
+                    <a class="btn btn-outline-secondary" th:href="@{/competencias/catalogo}">Cancelar</a>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Cargos e equipes')}"></head>
+<body>
+<div class="app">
+    <aside th:replace="~{fragments/layout :: menu('pessoas')}"></aside>
+    <div class="app-main">
+        <header th:replace="~{fragments/layout :: topo('Cargos e equipes')}"></header>
+        <main class="app-content">
+            <h1 class="titulo-pagina">Cargos e equipes</h1>
+            <p class="subtitulo-pagina">Pessoas ativas, cargo, área e gestor direto.</p>
+            <div class="cartao p-0">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead><tr><th>Pessoa</th><th>Perfil</th><th>Cargo</th><th>Área</th><th>Gestor direto</th></tr></thead>
+                        <tbody>
+                        <tr th:each="p : ${pessoas}">
+                            <td><span class="app-avatar me-2" th:text="${p.iniciais()}">AB</span>
+                                <span th:text="${p.nome}">Nome</span>
+                                <div class="small text-secondary ms-5" th:text="${p.email}">email</div></td>
+                            <td th:text="${p.perfil.rotulo}">Perfil</td>
+                            <td th:text="${p.cargoNome}">Cargo</td>
+                            <td th:text="${p.area}">Área</td>
+                            <td th:text="${p.gestorId != null and porId[p.gestorId] != null} ? ${porId[p.gestorId].nome} : '—'">—</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
