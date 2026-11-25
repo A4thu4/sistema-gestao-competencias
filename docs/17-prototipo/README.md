@@ -27,7 +27,7 @@ Ajustes das telas apontados na revisão do Marco 4 que entram no protótipo: `P-
 
 Além dos UC-01 a UC-05, o protótipo implementa os UC-06 a UC-10: plano de desenvolvimento (`resultados`), andamento
 do ciclo (`ciclos`), observações do gestor, reabertura e moderação (`avaliacoes`) e autenticação (`identidade`).
-São 133 testes automatizados (`mvn verify`), e o roteiro abaixo também foi percorrido no navegador.
+São 135 testes automatizados (`mvn verify`), e o roteiro abaixo também foi percorrido no navegador.
 
 A empresa de exemplo é a Vértice Software, com três ciclos encerrados ou em andamento: 2025.2 e 2026.1 encerrados
 (resultados liberados), 2026.2 aberto e 2027.1 em rascunho.
@@ -74,4 +74,18 @@ Senha de todos: `senha123`. A lista completa está no [README do protótipo](../
 
 ### Capturas
 
-Capturas das telas implementadas em [`telas/`](telas), com o mesmo ID das telas do Figma (`TL-NN`).
+Capturas das telas implementadas em [`telas/`](telas), com o mesmo ID das telas do Figma (`TL-NN`), tiradas em
+25/11/2026 com a empresa de exemplo.
+
+| Tela | Caso de uso | Perfil | Captura |
+|------|-------------|--------|---------|
+| TL-01 | UC-01 Gerenciar competências e questionários | RH | [TL-01](telas/TL-01-gerenciar-competencias.png) |
+| TL-02 | UC-02 Criar ciclo de avaliação | RH | [TL-02](telas/TL-02-criar-ciclo.png) |
+| TL-03 | UC-03 Responder avaliação | Gestor | [TL-03](telas/TL-03-responder-avaliacao.png) |
+| TL-04 | UC-04 Consultar resultados | Colaborador | [TL-04](telas/TL-04-consultar-resultados.png) |
+| TL-05 | UC-05 Gerenciar consentimento | Colaborador | [TL-05](telas/TL-05-gerenciar-consentimento.png) |
+| TL-06 | UC-06 Plano de desenvolvimento | Gestor | [TL-06](telas/TL-06-plano-desenvolvimento.png) |
+| TL-07 | UC-07 Acompanhar andamento do ciclo | RH | [TL-07](telas/TL-07-andamento-ciclo.png) |
+| TL-08 | UC-08 Registrar observações | Gestor | [TL-08](telas/TL-08-observacoes.png) |
+| TL-09 | UC-09 Reabrir avaliação e moderar comentários | RH | [TL-09](telas/TL-09-reabrir-moderar.png) |
+| TL-10 | UC-10 Autenticar-se | Todos | [TL-10](telas/TL-10-autenticar-se.png) |
