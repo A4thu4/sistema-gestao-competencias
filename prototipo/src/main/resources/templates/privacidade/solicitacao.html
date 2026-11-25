@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Solicitação ' + ${s.protocolo})}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/privacidade.css}">
-<!-- UC-05: detalhe de uma solicitação do titular; no modo do RH, com o atendimento (10a e 10b). -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu(${modoRh} ? 'solicitacoes' : 'meus-dados')}"></aside>
     <div class="app-main">

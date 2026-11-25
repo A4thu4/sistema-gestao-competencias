@@ -33,7 +33,7 @@
                         <label class="form-label small mb-1" for="ciclo">Ciclo</label>
                         <select class="form-select" id="ciclo" name="ciclo" onchange="this.form.pessoa.value=''; this.form.submit()">
                             <option th:each="c : ${ciclos}" th:value="${c.id}" th:selected="${c.id == a.ciclo.id}"
-                                    th:text="${c.nome} + ' — ' + ${c.situacaoRotulo()} + ' (' + ${c.periodo()} + ')'">Ciclo</option>
+                                    th:text="${c.nome} + ' · ' + ${c.situacaoRotulo()} + ' (' + ${c.periodo()} + ')'">Ciclo</option>
                         </select>
                     </div>
                     <div class="flex-grow-1">

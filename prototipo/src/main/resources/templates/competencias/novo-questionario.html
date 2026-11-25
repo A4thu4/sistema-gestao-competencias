@@ -14,7 +14,6 @@
             <div th:replace="~{fragments/layout :: alertas}"></div>
 
             <div class="row g-3">
-                <!-- Em branco (passos 5 a 7) -->
                 <div class="col-12 col-lg-4">
                     <div class="cartao ponto-partida">
                         <span class="icone"><i class="bi bi-file-earmark-plus"></i></span>
@@ -24,7 +23,7 @@
                             <div class="mb-2">
                                 <label class="form-label small" for="nome">Nome do questionário</label>
                                 <input class="form-control" id="nome" name="nome" th:value="${nome}" maxlength="120" required
-                                       placeholder="Ex.: Questionário 2027 — Desenvolvedor">
+                                       placeholder="Ex.: Desenvolvedor 2027">
                             </div>
                             <div class="mb-2">
                                 <label class="form-label small" for="cargoId">Cargo</label>
@@ -46,7 +45,6 @@
                     </div>
                 </div>
 
-                <!-- Modelo pronto (extensão 5a) -->
                 <div class="col-12 col-lg-4">
                     <div class="cartao ponto-partida">
                         <span class="icone"><i class="bi bi-collection"></i></span>
@@ -69,7 +67,6 @@
                     </div>
                 </div>
 
-                <!-- Cópia de questionário anterior (extensão 5b) -->
                 <div class="col-12 col-lg-4">
                     <div class="cartao ponto-partida">
                         <span class="icone"><i class="bi bi-copy"></i></span>

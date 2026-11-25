@@ -37,7 +37,6 @@
                 </div></div>
             </div>
 
-            <!-- Passo 10: pendências (10b) e alertas (10a) -->
             <div class="cartao" th:if="${c.editavel()}">
                 <h2 class="cartao-titulo">Validação</h2>
                 <div th:if="${v.podeAgendar()}" class="text-success"><i class="bi bi-check-circle"></i> Tudo certo para agendar: cada pessoa tem avaliador em todos os tipos escolhidos.</div>
@@ -72,7 +71,6 @@
                 </div>
             </div>
 
-            <!-- Ações conforme a situação -->
             <div class="cartao">
                 <th:block th:if="${c.editavel()}">
                     <h2 class="cartao-titulo">Agendar</h2>

@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Observações da equipe')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/avaliacoes.css}">
-<!-- UC-08 Registrar observações sobre a equipe (RF-17): a equipe direta do gestor e o resumo das observações. -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu('observacoes')}"></aside>
     <div class="app-main">
@@ -62,7 +61,6 @@
     </div>
 </div>
 
-<!-- Registro rápido: escolhe a pessoa da equipe e volta para a lista dela. -->
 <div class="modal fade" id="novaObservacao" tabindex="-1" aria-labelledby="novaObservacaoTitulo" aria-hidden="true"
      th:if="${not #lists.isEmpty(equipe)}">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">

@@ -1,4 +1,4 @@
-/* Telas do UC-05 (privacidade). Termo no estilo da TL-05: caixa central sobre fundo escurecido. */
+/* Privacidade e termo de consentimento. */
 .termo-fundo { min-height: 100vh; background: #747884; display: flex; align-items: flex-start; justify-content: center;
     padding: 2.5rem 1rem; }
 .termo-caixa { background: #fff; border-radius: 12px; width: 100%; max-width: 680px;

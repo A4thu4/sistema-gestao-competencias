@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
-<!-- Abas da área de competências (TL-01): questionários e catálogo. -->
 <ul th:fragment="abas(ativa, total)" class="nav abas-uc01">
     <li class="nav-item">
         <a class="nav-link" th:classappend="${ativa == 'questionarios'} ? 'active'" th:href="@{/competencias}"

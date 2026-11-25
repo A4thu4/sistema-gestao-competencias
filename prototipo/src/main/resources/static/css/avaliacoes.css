@@ -1,4 +1,4 @@
-/* Telas do pacote avaliacoes. UC-08 (observações): não há tela no Figma; segue o estilo das TL-01 a TL-05. */
+/* Avaliações e observações. */
 .selo-positivo { background: #e7f6ec; color: #18794e; }
 .selo-melhoria { background: #fff4e5; color: #b54708; }
 .selo-alerta { background: #fff4e5; color: #b54708; }
@@ -51,7 +51,7 @@
 @media (min-width: 992px) { .formulario-fixo { position: sticky; top: 80px; } }
 .min-w-0 { min-width: 0; }
 
-/* UC-03 Responder avaliação (TL-03). */
+/* Responder avaliação. */
 .rotulo-discreto { font-size: .7rem; letter-spacing: .05em; color: #667085; }
 .selo-relacao { background: var(--sgc-primaria-clara); color: var(--sgc-primaria-escura); }
 .grupo-cabeca { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.25rem;
@@ -102,7 +102,7 @@
 .externo-topo strong { display: block; font-weight: 700; letter-spacing: .04em; }
 .externo-conteudo { max-width: 860px; margin: 0 auto; padding: 1.75rem 1rem 3rem; }
 
-/* UC-09 Reabrir avaliação e moderar comentários. */
+/* Reabertura e moderação. */
 .comentario { border: 1px solid var(--sgc-borda); border-radius: 10px; padding: .85rem 1rem; background: #fff;
     margin-bottom: .75rem; }
 .comentario.oculto { background: #f9fafb; }

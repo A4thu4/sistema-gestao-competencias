@@ -1,4 +1,4 @@
-/* Telas do UC-01 (competências e questionários), a partir da TL-01. */
+/* Competências e questionários. */
 .abas-uc01 { border-bottom: 1px solid var(--sgc-borda); margin-bottom: 1.25rem; }
 .abas-uc01 .nav-link { color: #667085; padding: .6rem .2rem; margin-right: 1.5rem; }
 .abas-uc01 .nav-link.active { color: var(--sgc-primaria); font-weight: 600; }

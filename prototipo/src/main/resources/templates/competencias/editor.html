@@ -29,7 +29,6 @@
             <form id="form-questionario" method="post" th:action="@{/competencias/questionarios/{id}(id=${q.id})}"
                   th:attr="data-proximo-indice=${proximoIndice}">
 
-                <!-- 1. Nome e cargo (passos 6 e 7) -->
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">1</span>Nome e cargo</h2>
                     <div class="row g-3">
@@ -48,7 +47,6 @@
                     </div>
                 </section>
 
-                <!-- 2. Competências (passos 8 e 9, extensões 9a e 9c) -->
                 <section class="cartao" id="competencias">
                     <div class="d-flex flex-wrap align-items-start gap-2">
                         <h2 class="cartao-titulo me-auto"><span class="secao-numero">2</span>Competências</h2>
@@ -100,7 +98,6 @@
                     </details>
                 </section>
 
-                <!-- 3. Perguntas (passo 10) -->
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">3</span>Perguntas de cada competência</h2>
                     <p class="small text-secondary">Cada competência precisa de ao menos uma pergunta. Marque para quem cada pergunta aparece:
@@ -123,7 +120,6 @@
                     </div>
                 </section>
 
-                <!-- 4. Escala (passo 11) -->
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">4</span>Escala de notas</h2>
                     <div class="row g-3 align-items-end mb-3">

@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Termo de consentimento')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/privacidade.css}">
-<!-- TL-05 / UC-05 passos 1 a 4: termo de consentimento antes de liberar o sistema (RF-29). -->
 <div class="termo-fundo">
     <div class="termo-caixa">
         <div class="termo-cabeca">
@@ -32,7 +31,6 @@
                 Você já aceitou esta versão. <a th:href="@{/}">Ir para a página inicial</a>.
             </div>
 
-            <!-- 2a: nova versão, com o resumo do que mudou em destaque. -->
             <div th:if="${novaVersao}" class="termo-mudancas">
                 <h2><i class="bi bi-info-circle"></i> O termo mudou desde o seu último aceite</h2>
                 <p class="small mb-2" th:if="${ultimoAceite != null}">

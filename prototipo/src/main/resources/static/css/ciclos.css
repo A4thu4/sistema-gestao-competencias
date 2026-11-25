@@ -1,4 +1,4 @@
-/* Ciclos de avaliação (TL-02). */
+/* Ciclos de avaliação. */
 .etapas { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.25rem; padding: 0; list-style: none; }
 .etapas li { flex: 1 1 180px; }
 .etapas li > a, .etapas li > span { display: flex; align-items: center; gap: .6rem; padding: .65rem .85rem; border-radius: 10px;

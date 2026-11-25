@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
-<!--
-  Linha de pergunta do editor. i = posição no formulário; p = pergunta (PerguntaResumo) ou null para uma nova;
-  cid = id da competência. O modelo das linhas novas usa i = XINDICEX e cid = XCOMPX, trocados pelo JavaScript.
--->
 <div th:fragment="linhaPergunta(i, p, cid)" class="pergunta-linha">
     <input type="hidden" th:name="|perguntas[${i}].id|" th:value="${p?.id}">
     <input type="hidden" th:name="|perguntas[${i}].competenciaId|" th:value="${cid}">
@@ -41,7 +37,6 @@
     </div>
 </div>
 
-<!-- Item de competência para marcar no editor. -->
 <div th:fragment="itemCompetencia(c)" class="form-check">
     <input class="form-check-input" type="checkbox" name="competencias" th:value="${c.id}" th:id="|comp-${c.id}|"
            th:checked="${selecionadas.contains(c.id)}">

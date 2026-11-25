@@ -3,7 +3,6 @@
 <head th:replace="~{fragments/layout :: head('Meus dados')}"></head>
 <body>
 <link rel="stylesheet" th:href="@{/css/privacidade.css}">
-<!-- UC-05 passos 5 a 10: consentimento, dados mantidos e solicitações do titular (RF-30). -->
 <div class="app">
     <aside th:replace="~{fragments/layout :: menu('meus-dados')}"></aside>
     <div class="app-main">
@@ -48,7 +47,6 @@
                 </div>
 
                 <div class="col-12 col-lg-7">
-                    <!-- 7c: exclusão durante um ciclo em andamento pede confirmação. -->
                     <div th:if="${pedirConfirmacao}" class="cartao border-warning">
                         <div class="cartao-titulo text-warning-emphasis"><i class="bi bi-exclamation-triangle"></i>
                             Você está participando de um ciclo de avaliação</div>

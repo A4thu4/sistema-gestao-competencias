@@ -1,4 +1,4 @@
-/* Estilos do sistema, a partir das telas do Figma (TL-01 a TL-05). */
+/* Estilos gerais. */
 :root {
     --sgc-lateral: #16213a;
     --sgc-lateral-ativo: #24365c;
@@ -90,7 +90,7 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 .selo-negada { background: #fdecec; color: #b42318; }
 .selo-atendida_parcial { background: #fff4e5; color: #b54708; }
 
-/* Escala de notas como cartões clicáveis (TL-03). */
+/* Escala de notas. */
 .escala { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: .5rem; }
 .escala input { position: absolute; opacity: 0; }
 .escala label { border: 1px solid var(--sgc-borda); border-radius: 8px; padding: .65rem .4rem; text-align: center;
@@ -107,7 +107,7 @@ body { background: var(--sgc-fundo); color: #1d2433; }
 .login-fundo { min-height: 100vh; display: grid; place-items: center; background: var(--sgc-lateral); padding: 1rem; }
 .login-caixa { background: #fff; border-radius: 14px; padding: 2.2rem; width: 100%; max-width: 410px; }
 
-/* Tabela que vira lista de cartões no celular (RNF-07). Cada <td data-rotulo="..."> mostra o rótulo em cima. */
+/* Tabela em cartões no celular: cada <td data-rotulo> mostra o rótulo em cima. */
 @media (max-width: 575.98px) {
     .tabela-empilhada thead { display: none; }
     .tabela-empilhada, .tabela-empilhada tbody, .tabela-empilhada tr, .tabela-empilhada td { display: block; width: 100%; }
