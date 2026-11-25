@@ -77,10 +77,10 @@
                 </div>
 
                 <div class="info-suave mt-3" th:unless="${aberto}">
-                    <i class="bi bi-info-circle"></i> Ao salvar, o ciclo fica como rascunho. O agendamento e os convites são definidos no resumo, depois de escolher avaliados e avaliadores.
+                    <i class="bi bi-info-circle"></i> Ao salvar, o ciclo fica como rascunho. O agendamento e os convites são definidos depois.
                 </div>
                 <div class="info-suave mt-3" th:if="${aberto}">
-                    <i class="bi bi-lock"></i> Tipos, questionários e abertura ficam travados com o ciclo aberto, para não invalidar respostas já enviadas.
+                    <i class="bi bi-lock"></i> Com o ciclo aberto, tipos, questionários e abertura não mudam.
                 </div>
 
                 <div class="cartao-rodape" th:unless="${ciclo != null and ciclo.encerrado()}">

@@ -87,7 +87,7 @@ class PlanoDesenvolvimentoTest extends CenarioResultados {
         liberado(false);
         mvc.perform(get("/planos/" + carla.id()).with(como("gestor@exemplo.com")))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("depois que o resultado do ciclo é liberado")));
+                .andExpect(content().string(containsString("Ainda não há resultado liberado para esta pessoa")));
         mvc.perform(post("/planos/" + carla.id() + "/metas").with(csrf()).with(como("gestor@exemplo.com"))
                         .param("competenciaId", trabalho.toString())
                         .param("descricao", "Meta")

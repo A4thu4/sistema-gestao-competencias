@@ -17,8 +17,7 @@
                     <ul>
                         <li th:each="nome : ${afetados}" th:text="${nome}">Questionário</li>
                     </ul>
-                    <p class="small text-secondary">Esses questionários continuam como estão. Para tirar a competência de um deles, edite-o
-                        (se ainda não estiver em uso) ou duplique-o.</p>
+                    <p class="small text-secondary">Esses questionários não mudam. Para tirar a competência de um deles, edite ou duplique o questionário.</p>
                 </th:block>
                 <p th:if="${#lists.isEmpty(afetados)}">Nenhum questionário publicado usa esta competência.</p>
                 <form class="d-flex flex-wrap gap-2" method="post" th:action="@{/competencias/catalogo/{id}/desativar(id=${competencia.id})}">

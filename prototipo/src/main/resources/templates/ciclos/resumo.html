@@ -39,7 +39,7 @@
 
             <div class="cartao" th:if="${c.editavel()}">
                 <h2 class="cartao-titulo">Validação</h2>
-                <div th:if="${v.podeAgendar()}" class="text-success"><i class="bi bi-check-circle"></i> Tudo certo para agendar: cada pessoa tem avaliador em todos os tipos escolhidos.</div>
+                <div th:if="${v.podeAgendar()}" class="text-success"><i class="bi bi-check-circle"></i> Pronto para agendar.</div>
                 <div th:unless="${v.podeAgendar()}">
                     <p class="text-danger mb-1"><i class="bi bi-x-circle"></i> Resolva antes de agendar:</p>
                     <ul class="mb-2"><li th:each="p : ${v.pendencias}" th:text="${p}">pendência</li></ul>
@@ -93,7 +93,7 @@
 
                 <th:block th:if="${c.aberto()}">
                     <h2 class="cartao-titulo">Ciclo aberto</h2>
-                    <p class="small text-secondary">Com o ciclo aberto, tipos, questionários e abertura ficam travados. Você pode mudar o encerramento e incluir avaliadores.</p>
+                    <p class="small text-secondary">Com o ciclo aberto, só mudam o encerramento e os avaliadores.</p>
                     <div class="alert alert-warning d-flex flex-wrap align-items-center gap-2" th:if="${m.convitesPendentes > 0}">
                         <span class="me-auto"><i class="bi bi-envelope-exclamation"></i>
                             <span th:text="${m.convitesPendentes} + ' convite(s) ainda não foram enviados.'">2 convites pendentes</span></span>

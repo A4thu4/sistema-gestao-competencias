@@ -31,7 +31,7 @@
                           th:text="${g.aceitaRespostas} ? 'Aberto' : 'Encerrado'">Aberto</span>
                 </div>
                 <div class="alert alert-success m-3 mb-0" th:if="${g.aceitaRespostas and g.pendentes() == 0}">
-                    <i class="bi bi-check-circle"></i> Tudo certo! Você já enviou todas as avaliações deste ciclo.
+                    <i class="bi bi-check-circle"></i> Todas as avaliações deste ciclo foram enviadas.
                 </div>
                 <ul class="lista-avaliacoes">
                     <li th:each="a : ${g.avaliacoes}" th:with="d=${a.designacao}">

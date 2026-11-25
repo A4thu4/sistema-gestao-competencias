@@ -75,7 +75,7 @@
                 <div class="cartao">
                     <div class="cartao-cabecalho">
                         <h2>Questionário de cada cargo</h2>
-                        <p>Só questionários publicados aparecem. Ao incluir um cargo novo, o sistema escolhe o publicado dele; troque aqui se houver mais de um.</p>
+                        <p>Só aparecem questionários publicados.</p>
                     </div>
                     <div th:if="${#lists.isEmpty(m.questionarios)}" class="text-secondary small">Escolha as pessoas e salve para ver os cargos.</div>
                     <div class="row g-2 align-items-center py-2 border-bottom" th:each="q : ${m.questionarios}">

@@ -36,9 +36,7 @@
                                 <div class="dado-valor text-break" th:text="${d.valor}">Valor</div>
                             </div>
                         </div>
-                        <p class="small text-secondary mt-3 mb-3">Guardamos só o necessário para a avaliação. Além desses
-                            dados, o sistema guarda as avaliações em que você participa, as observações do seu gestor e o
-                            seu plano de desenvolvimento.</p>
+                        <p class="small text-secondary mt-3 mb-3">Além destes dados, o sistema guarda as suas avaliações, as observações do seu gestor e o seu plano de desenvolvimento.</p>
                         <a th:href="@{/privacidade/meus-dados/copia}" class="btn btn-sm btn-outline-primary">
                             <i class="bi bi-eye"></i> Ver a cópia completa</a>
                         <a th:href="@{/privacidade/meus-dados/copia.pdf}" class="btn btn-sm btn-outline-secondary">
@@ -50,9 +48,7 @@
                     <div th:if="${pedirConfirmacao}" class="cartao border-warning">
                         <div class="cartao-titulo text-warning-emphasis"><i class="bi bi-exclamation-triangle"></i>
                             Você está participando de um ciclo de avaliação</div>
-                        <p>Se os seus dados forem excluídos agora, você pode deixar de participar do ciclo em andamento:
-                            avaliações pendentes não poderão ser respondidas e o seu resultado pode não ser gerado.
-                            Quer mesmo pedir a exclusão?</p>
+                        <p>Com a exclusão, as suas avaliações pendentes não poderão ser respondidas e o seu resultado pode não sair. Pedir mesmo assim?</p>
                         <form th:action="@{/privacidade/meus-dados/solicitacoes}" method="post" class="d-flex flex-wrap gap-2">
                             <input type="hidden" name="tipo" value="EXCLUSAO">
                             <input type="hidden" name="descricao" th:value="${form.descricao}">

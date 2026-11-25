@@ -22,8 +22,7 @@
                 <ul class="mb-0 mt-1"><li th:each="p : ${pendencias}" th:text="${p}">pendência</li></ul>
             </div>
             <div th:if="${q.publicado()}" class="alert alert-info" role="alert">
-                <i class="bi bi-info-circle"></i> Este questionário está publicado. Se você salvar alterações, ele volta a rascunho
-                até ser publicado de novo.
+                <i class="bi bi-info-circle"></i> Questionário publicado. Ao salvar, ele volta a rascunho até ser publicado de novo.
             </div>
 
             <form id="form-questionario" method="post" th:action="@{/competencias/questionarios/{id}(id=${q.id})}"
@@ -100,8 +99,7 @@
 
                 <section class="cartao">
                     <h2 class="cartao-titulo"><span class="secao-numero">3</span>Perguntas de cada competência</h2>
-                    <p class="small text-secondary">Cada competência precisa de ao menos uma pergunta. Marque para quem cada pergunta aparece:
-                        o avaliador só vê as perguntas da relação dele com o avaliado. Perguntas abertas recebem texto livre, sem nota.</p>
+                    <p class="small text-secondary">Cada competência precisa de ao menos uma pergunta. O avaliador só vê as perguntas marcadas para a relação dele. Perguntas abertas não têm nota.</p>
                     <p id="sem-competencias" class="text-secondary small" th:classappend="${#sets.isEmpty(selecionadas)} ? '' : 'd-none'">
                         Marque ao menos uma competência acima para escrever as perguntas.</p>
                     <div th:each="s : ${secoes}" class="secao-competencia" th:id="|secao-${s.competencia.id}|"
@@ -135,8 +133,7 @@
                                 <i class="bi bi-magic"></i> Preencher os níveis vazios com descrições sugeridas</button>
                         </div>
                     </div>
-                    <p class="small text-secondary">Descreva cada nível para que todos avaliem do mesmo jeito. Dica: comece pelo nome curto
-                        e use dois-pontos, como “Sempre: demonstra o comportamento em todas as situações”.</p>
+                    <p class="small text-secondary">Descreva cada nível, como “Sempre: demonstra o comportamento em todas as situações”.</p>
                     <div th:each="d, st : ${niveis}" class="row g-2 align-items-center mb-2 nivel-linha"
                          th:attr="data-valor=${st.count}" th:classappend="${st.count > q.escalaMax} ? 'd-none'">
                         <label class="col-2 col-sm-1 col-form-label fw-semibold text-center" th:for="|nivel-${st.count}|" th:text="${st.count}">1</label>

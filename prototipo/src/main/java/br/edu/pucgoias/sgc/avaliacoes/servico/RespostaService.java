@@ -198,7 +198,7 @@ public class RespostaService {
                                 + "você recebeu.", false));
         if (d.enviada()) {
             throw new LinkExternoIndisponivelException("Avaliação já enviada",
-                    "Esta avaliação já foi enviada. Obrigado pela sua participação!", true);
+                    "Esta avaliação já foi enviada. Obrigado.", true);
         }
         if (!ciclos.aceitaRespostas(d.cicloId())) {
             throw new LinkExternoIndisponivelException("Avaliação encerrada",

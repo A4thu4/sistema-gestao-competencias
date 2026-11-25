@@ -22,8 +22,7 @@
 
         <div class="aviso-anonimato mt-3" th:classappend="${f.anonima()} ? 'anonima' : 'identificada'">
             <i class="bi" th:classappend="${f.anonima()} ? 'bi-incognito' : 'bi-person-check'" aria-hidden="true"></i>
-            <div th:if="${f.anonima()}"><strong>Resposta anônima.</strong> Ninguém, nem o RH, vai saber que foi você
-                quem respondeu. As suas notas aparecem só somadas às dos outros avaliadores.</div>
+            <div th:if="${f.anonima()}"><strong>Resposta anônima.</strong> Ninguém, nem o RH, sabe quem respondeu. Suas notas aparecem só somadas às dos outros avaliadores.</div>
             <div th:if="${f.autoavaliacao()}"><strong>Autoavaliação identificada.</strong> Ela serve de base para a
                 conversa de feedback com o seu gestor.</div>
             <div th:if="${!f.anonima() and !f.autoavaliacao()}"><strong>Avaliação identificada.</strong> Como gestor,
@@ -34,8 +33,7 @@
     <div th:if="${!f.editavel}" class="cartao text-center py-5">
         <i class="bi display-6 text-secondary" th:classappend="${f.designacao.enviada()} ? 'bi-send-check' : 'bi-lock'"></i>
         <p class="mt-3 mb-1 fw-semibold" th:text="${f.motivoBloqueio}">Bloqueada</p>
-        <p class="small text-secondary mb-0" th:if="${f.designacao.enviada() and f.anonima()}">Por causa do anonimato,
-            as respostas enviadas não ficam ligadas ao seu nome e não podem ser mostradas de novo.</p>
+        <p class="small text-secondary mb-0" th:if="${f.designacao.enviada() and f.anonima()}">Depois do envio, as respostas não ficam ligadas ao seu nome e não podem ser vistas de novo.</p>
     </div>
 
     <th:block th:if="${f.editavel}">

@@ -29,7 +29,7 @@
 
             <div th:if="${pl.somenteLeitura()}" class="alert alert-secondary"><i class="bi bi-eye"></i> Consulta do RH: o plano é registrado e atualizado pelo gestor direto e pela pessoa.</div>
             <div th:if="${pl.cicloBase == null}" class="alert alert-info"><i class="bi bi-info-circle"></i>
-                O plano é montado depois que o resultado do ciclo é liberado pelo RH. Ainda não há resultado liberado para esta pessoa.</div>
+                Ainda não há resultado liberado para esta pessoa.</div>
 
             <div class="cartao mb-3" th:if="${!#lists.isEmpty(pl.sugestoes)}">
                 <div class="cartao-titulo-linha"><h2>Competências sugeridas</h2></div>

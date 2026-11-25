@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <p th:if="${#lists.isEmpty(ciclos)}" class="text-secondary mb-0">
-                            Ainda não há resultado para você. O resultado aparece depois que o ciclo é encerrado e o RH o libera.</p>
+                            Ainda não há resultado liberado para você.</p>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                         <div class="d-flex flex-wrap align-items-center gap-3">
                             <div class="me-auto">
                                 <div class="fw-semibold">Resultado ainda não liberado aos colaboradores</div>
-                                <div class="small text-secondary">Revise o resultado das pessoas abaixo. Ao liberar, cada pessoa avaliada recebe um aviso por e-mail e passa a ver o próprio resultado.</div>
+                                <div class="small text-secondary">Ao liberar, cada pessoa recebe um e-mail e passa a ver o próprio resultado.</div>
                             </div>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmarLiberacao">
                                 <i class="bi bi-unlock"></i> Liberar resultado</button>
@@ -61,7 +61,7 @@
                                     <div class="modal-header"><h5 class="modal-title">Liberar o resultado?</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
                                     <div class="modal-body">
-                                        <p>O resultado do <strong th:text="${escolhido.ciclo.nome}">ciclo</strong> ficará visível para cada pessoa avaliada, que será avisada por e-mail. A liberação fica registrada no log de auditoria e não pode ser desfeita.</p>
+                                        <p>O resultado do <strong th:text="${escolhido.ciclo.nome}">ciclo</strong> fica visível para cada pessoa avaliada, que recebe um e-mail. Não dá para desfazer.</p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -131,8 +131,7 @@
                     </div>
                     <div class="cartao" sec:authorize="hasRole('RH')" th:if="${escolhido.ciclo.encerrado()}">
                         <form class="d-flex flex-wrap align-items-center gap-3" th:action="@{/resultados/{id}/recalcular(id=${escolhido.ciclo.id})}" method="post">
-                            <div class="me-auto small text-secondary">As médias são calculadas das respostas armazenadas no encerramento do ciclo.
-                                Recalcular refaz a conta e chega sempre ao mesmo resultado.</div>
+                            <div class="me-auto small text-secondary">As médias saem das respostas guardadas. Recalcular chega sempre ao mesmo resultado.</div>
                             <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-arrow-repeat"></i> Recalcular</button>
                         </form>
                     </div>

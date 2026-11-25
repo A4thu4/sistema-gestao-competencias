@@ -86,7 +86,7 @@ class CriarCicloTest extends TesteIntegracao {
         mvc.perform(get("/ciclos/" + id).with(como(RH)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Agendar ciclo")))
-                .andExpect(content().string(containsString("Tudo certo para agendar")));
+                .andExpect(content().string(containsString("Pronto para agendar")));
         int antes = emails.enviadosPara("elisa@exemplo.com").size();
         mvc.perform(post("/ciclos/" + id + "/agendar").with(como(RH)).with(csrf()))
                 .andExpect(redirectedUrl("/ciclos/" + id))
