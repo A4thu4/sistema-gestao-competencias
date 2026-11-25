@@ -248,7 +248,7 @@ public class QuestionarioService {
         }
         q.publicar();
         eventos.publishEvent(EventoAuditoria.de("QUESTIONARIO_PUBLICADO",
-                "Questionário “" + q.getNome() + "” (nº " + q.getId() + ")"));
+                "Questionário “" + q.getNome() + "”"));
         return List.of();
     }
 

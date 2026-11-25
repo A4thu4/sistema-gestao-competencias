@@ -293,7 +293,7 @@ class CriarCicloTest extends TesteIntegracao {
                 .allMatch(AvaliadorNoCiclo::conviteEnviado);
         assertThat(montagem.montagem(id).convitesPendentes()).isZero();
         mvc.perform(get("/auditoria").with(como(RH)))
-                .andExpect(content().string(containsString("CICLO_ABERTO")));
+                .andExpect(content().string(containsString("Abriu ciclo")));
 
         // 2b: com o ciclo aberto, só se inclui avaliador (convite na hora) e se muda o encerramento.
         PessoaResumo elisa = pessoa("elisa");

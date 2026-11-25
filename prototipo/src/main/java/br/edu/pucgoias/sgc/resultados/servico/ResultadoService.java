@@ -171,7 +171,7 @@ public class ResultadoService {
     public PainelIndividual painel(UsuarioAutenticado eu, Long cicloId, Long pessoaId) {
         PainelIndividual p = painelSemRegistro(eu, cicloId, pessoaId);
         eventos.publishEvent(EventoAuditoria.de("RESULTADO_ACESSADO", "Resultado de " + p.pessoa().nome()
-                + " (nº " + pessoaId + ") no " + descricao(p.ciclo())));
+                + " no " + descricao(p.ciclo())));
         return p;
     }
 
@@ -184,7 +184,7 @@ public class ResultadoService {
                 ? new ArquivoExportado(nome + ".xlsx", ArquivoExportado.EXCEL, exportacao.painelExcel(p))
                 : new ArquivoExportado(nome + ".pdf", ArquivoExportado.PDF, exportacao.painelPdf(p));
         eventos.publishEvent(EventoAuditoria.de("RESULTADO_EXPORTADO", "Resultado de " + p.pessoa().nome()
-                + " (nº " + pessoaId + ") no " + descricao(p.ciclo()) + " em " + (excel(formato) ? "Excel" : "PDF")));
+                + " no " + descricao(p.ciclo()) + " em " + (excel(formato) ? "Excel" : "PDF")));
         return arquivo;
     }
 
@@ -439,7 +439,7 @@ public class ResultadoService {
     }
 
     static String descricao(CicloResumo c) {
-        return c.nome() + " (ciclo nº " + c.id() + ")";
+        return c.nome();
     }
 
     static String primeiroNome(String nome) {

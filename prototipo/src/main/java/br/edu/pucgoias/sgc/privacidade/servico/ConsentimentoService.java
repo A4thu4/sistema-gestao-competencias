@@ -97,7 +97,7 @@ public class ConsentimentoService {
         }
         aceites.save(new Aceite(eu.id(), vigente, OffsetDateTime.now()));
         eventos.publishEvent(EventoAuditoria.de("ACEITE_TERMO",
-                "Aceitou o termo de consentimento versão " + vigente.getVersao(), "RF-29"));
+                "Versão " + vigente.getVersao()));
     }
 
     /** A recusa não libera nada; fica só o registro no log. */
@@ -105,7 +105,7 @@ public class ConsentimentoService {
     public void registrarRecusa(UsuarioAutenticado eu) {
         String versao = termoVigente().map(TermoResumo::versao).orElse("—");
         eventos.publishEvent(EventoAuditoria.de("RECUSA_TERMO",
-                "Não aceitou o termo de consentimento versão " + versao, "RF-29: acesso continua bloqueado"));
+                "Versão " + versao, "Acesso continua bloqueado"));
     }
 
     public List<TermoResumo> versoes() {

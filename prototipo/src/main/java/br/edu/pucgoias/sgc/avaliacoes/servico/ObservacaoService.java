@@ -230,7 +230,7 @@ public class ObservacaoService {
 
     private void auditar(String acao, Observacao o) {
         String nome = usuarios.buscar(o.getColaboradorId()).nome();
-        eventos.publishEvent(EventoAuditoria.de(acao, "Observação nº " + o.getId() + " sobre " + nome + " ("
+        eventos.publishEvent(EventoAuditoria.de(acao, "Observação sobre " + nome + " ("
                 + o.getTipo().getRotulo().toLowerCase() + ", fato em " + Calendario.data(o.getDataFato()) + ")"));
     }
 }

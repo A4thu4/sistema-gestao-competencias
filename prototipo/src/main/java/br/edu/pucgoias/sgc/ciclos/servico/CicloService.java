@@ -210,7 +210,7 @@ public class CicloService {
     }
 
     static String descricao(Ciclo c) {
-        return "Ciclo “" + c.getNome() + "” (nº " + c.getId() + ")";
+        return c.getNome();
     }
 
     CicloResumo resumo(Ciclo c) {

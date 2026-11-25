@@ -198,8 +198,8 @@ public class PlanoService {
                         + " registrou uma meta no seu plano de desenvolvimento:\n\n" + competencia + ": " + descricao
                         + "\nAções: " + acoes + "\nPrazo: " + Formatos.data(dados.prazo()) + "\n\nRegistre o seu "
                         + "progresso em " + urlBase + "/planos/" + colaboradorId + ".", "PLANO_META");
-        eventos.publishEvent(EventoAuditoria.de("META_CRIADA", "Meta nº " + meta.getId() + " (" + competencia
-                + ") no plano de " + colaborador.nome()));
+        eventos.publishEvent(EventoAuditoria.de("META_CRIADA", "Meta de " + competencia + " no plano de "
+                + colaborador.nome()));
         return meta.getId();
     }
 

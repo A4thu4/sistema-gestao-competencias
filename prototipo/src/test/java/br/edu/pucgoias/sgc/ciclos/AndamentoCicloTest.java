@@ -112,7 +112,7 @@ class AndamentoCicloTest extends TesteIntegracao {
                 .andExpect(flash().attribute("aviso", containsString("já receberam lembrete hoje")));
         assertThat(emails.enviadosPara("colaborador@exemplo.com")).hasSize(antesCarla + 1);
         mvc.perform(get("/auditoria").with(como("rh@exemplo.com")))
-                .andExpect(content().string(containsString("LEMBRETE_ENVIADO")));
+                .andExpect(content().string(containsString("Enviou lembrete")));
     }
 
     @Test

@@ -15,9 +15,9 @@
                         <thead><tr><th>Data e hora</th><th>Para</th><th>Tipo</th><th>Assunto e mensagem</th></tr></thead>
                         <tbody>
                         <tr th:each="e : ${emails.content}">
-                            <td class="text-nowrap" th:text="${#temporals.format(e.criadoEm, 'dd/MM/yyyy HH:mm')}">data</td>
+                            <td class="text-nowrap" th:text="${#temporals.format(e.criadoEmBrasilia, 'dd/MM/yyyy HH:mm')}">data</td>
                             <td th:text="${e.para}">para</td>
-                            <td><span class="selo selo-rascunho" th:text="${e.tipo}">tipo</span></td>
+                            <td><span class="selo selo-rascunho" th:text="${@rotulos.tipoEmail(e.tipo)}">tipo</span></td>
                             <td><strong th:text="${e.assunto}">assunto</strong>
                                 <div class="small text-secondary" style="white-space: pre-line" th:text="${e.corpo}">corpo</div></td>
                         </tr>

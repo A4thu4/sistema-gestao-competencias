@@ -110,7 +110,7 @@ public class SolicitacaoService {
 
         PessoaResumo titular = usuarios.buscar(usuarioId);
         eventos.publishEvent(EventoAuditoria.de("SOLICITACAO_TITULAR",
-                s.getProtocolo() + ": " + pedido.tipo().getRotulo(), "RF-30"));
+                s.getProtocolo() + ": " + pedido.tipo().getRotulo()));
         email.enviar(titular.email(), "Recebemos a sua solicitação " + s.getProtocolo(), corpoConfirmacao(titular, s),
                 "LGPD");
         return SolicitacaoResumo.de(s);
