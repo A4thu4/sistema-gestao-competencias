@@ -193,7 +193,8 @@ public class DadosExemploCompetencias implements ApplicationRunner {
 
     /**
      * Monta o questionário com as perguntas do banco acima. {@code para} decide a quem cada pergunta se aplica;
-     * {@code comAberta} inclui a pergunta aberta opcional "Comentários e sugestões" em Comunicação.
+     * {@code comAberta} inclui a pergunta aberta opcional "Comentários e sugestões" em cada competência, para os
+     * mesmos avaliadores das perguntas de escala dela.
      */
     private static DadosQuestionario dados(String nome, Long cargoId, List<String> competencias, Map<String, Long> ids,
                                            Function<P, Set<TipoAvaliador>> para, boolean comAberta) {
@@ -203,9 +204,11 @@ public class DadosExemploCompetencias implements ApplicationRunner {
             for (P p : PERGUNTAS.get(comp)) {
                 perguntas.add(new DadosPergunta(null, cid, p.texto(), "ESCALA", true, para.apply(p)));
             }
-            if (comAberta && comp.equals("Comunicação")) {
+            if (comAberta) {
+                Set<TipoAvaliador> quemResponde = EnumSet.noneOf(TipoAvaliador.class);
+                PERGUNTAS.get(comp).forEach(p -> quemResponde.addAll(p.para()));
                 perguntas.add(new DadosPergunta(null, cid, "Comentários e sugestões", "ABERTA", false,
-                        para.apply(new P("", TODOS))));
+                        para.apply(new P("", quemResponde))));
             }
         }
         return new DadosQuestionario(nome, cargoId, 5, competencias.stream().map(ids::get).toList(), perguntas,
