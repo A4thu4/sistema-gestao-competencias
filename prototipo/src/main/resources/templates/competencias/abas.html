@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
-<!-- Abas da área de competências (TL-01): questionários e catálogo. -->
 <ul th:fragment="abas(ativa, total)" class="nav abas-uc01">
     <li class="nav-item">
-        <a class="nav-link" th:classappend="${ativa == 'questionarios'} ? 'active'" th:href="@{/competencias}"
-           th:attr="aria-current=${ativa == 'questionarios'} ? 'page'">Questionários</a>
+        <a class="nav-link" th:classappend="${ativa == 'catalogo'} ? 'active'" th:href="@{/competencias/catalogo}"
+           th:attr="aria-current=${ativa == 'catalogo'} ? 'page'">Competências<span class="contador" th:text="${total}">8</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" th:classappend="${ativa == 'catalogo'} ? 'active'" th:href="@{/competencias/catalogo}"
-           th:attr="aria-current=${ativa == 'catalogo'} ? 'page'">Catálogo de competências<span class="contador" th:text="${total}">8</span></a>
+        <a class="nav-link" th:classappend="${ativa == 'questionarios'} ? 'active'" th:href="@{/competencias/questionarios}"
+           th:attr="aria-current=${ativa == 'questionarios'} ? 'page'">Questionários</a>
     </li>
 </ul>
 </body>

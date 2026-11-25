@@ -85,7 +85,7 @@ class CatalogoCompetenciasTest extends TesteIntegracao {
         assertThat(catalogo.buscar(lideranca.id()).ativa()).isTrue();
         mvc.perform(get("/competencias/catalogo/" + lideranca.id() + "/desativar").with(como(RH)))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Questionário 2026 — Coordenador de Suporte")));
+                .andExpect(content().string(containsString("Questionário — Coordenador de Suporte")));
 
         mvc.perform(post("/competencias/catalogo/" + lideranca.id() + "/desativar").param("confirmado", "true")
                         .with(como(RH)).with(csrf()))

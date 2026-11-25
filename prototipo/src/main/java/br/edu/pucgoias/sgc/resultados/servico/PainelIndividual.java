@@ -5,6 +5,7 @@ import br.edu.pucgoias.sgc.competencias.servico.TipoAvaliador;
 import br.edu.pucgoias.sgc.identidade.servico.PessoaResumo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * mesmo objeto (RF-23).
  *
  * @param grupos colunas da tabela (grupos do ciclo, na ordem da TL-04)
- * @param gruposInsuficientes grupos que ficaram sem média em alguma competência
+ * @param gruposInsuficientes grupos que ficaram sem média em alguma competência (o aviso lista quais)
  */
 public record PainelIndividual(PessoaResumo pessoa, CicloResumo ciclo, int escalaMax, List<TipoAvaliador> grupos,
                                List<LinhaCompetencia> linhas, BigDecimal mediaGeral, String pontoForte, String foco,
@@ -32,13 +33,31 @@ public record PainelIndividual(PessoaResumo pessoa, CicloResumo ciclo, int escal
         return Grupos.rotulo(grupo);
     }
 
+    /** Aviso de anonimato por grupo, com as competências em que a média do grupo ficou de fora. */
     public String avisoInsuficientes() {
-        if (gruposInsuficientes.isEmpty()) {
+        List<String> partes = new ArrayList<>();
+        for (TipoAvaliador g : gruposInsuficientes) {
+            List<String> afetadas = linhas.stream().filter(l -> l.grupo(g).insuficiente())
+                    .map(LinhaCompetencia::competencia).toList();
+            if (afetadas.isEmpty()) {
+                continue;
+            }
+            partes.add(Grupos.rotulo(g) + " em " + (afetadas.size() == linhas.size()
+                    ? "todas as competências" : emLista(afetadas)));
+        }
+        if (partes.isEmpty()) {
             return null;
         }
-        return String.join(", ", gruposInsuficientes.stream().map(Grupos::rotulo).toList())
-                + ": " + RegrasDeExibicao.AVISO_ANONIMATO + " (menos de " + RegrasDeExibicao.MINIMO_RESPOSTAS
-                + " respostas). A média desse grupo não aparece e não entra na nota final.";
+        return String.join("; ", partes) + ": " + RegrasDeExibicao.AVISO_ANONIMATO + " (menos de "
+                + RegrasDeExibicao.MINIMO_RESPOSTAS + "). Nesses casos, a média do grupo não aparece e não entra "
+                + "na nota final.";
+    }
+
+    private static String emLista(List<String> itens) {
+        if (itens.size() == 1) {
+            return itens.get(0);
+        }
+        return String.join(", ", itens.subList(0, itens.size() - 1)) + " e " + itens.get(itens.size() - 1);
     }
 
     public String ajudaNotaFinal() {

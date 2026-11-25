@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -44,6 +45,8 @@ import java.util.stream.Stream;
  *
  * <p><b>Moderar:</b> o RH vê os comentários das perguntas abertas sem autor e sem relação e oculta (com motivo) ou
  * volta a exibir; comentário oculto some dos resultados ({@link ConsultaRespostasService#comentariosVisiveis}).
+ * Em ciclo aberto, os comentários sobre quem tem menos de {@value #MINIMO_AVALIACOES} avaliações enviadas não
+ * aparecem: a lista de enviadas da reabertura deixaria deduzir o autor.
  *
  * <p>O verificador e o id das avaliações enviadas nunca saem deste serviço: as telas usam o id da designação
  * (reabrir) e o id da resposta (comentário).
@@ -53,6 +56,7 @@ import java.util.stream.Stream;
 public class ModeracaoService {
 
     static final int TAMANHO_MAXIMO_MOTIVO = 300;
+    static final int MINIMO_AVALIACOES = 3;
 
     private final AvaliacaoEnviadaRepository avaliacoes;
     private final RespostaRepository respostas;
@@ -165,8 +169,9 @@ public class ModeracaoService {
 
     /** Comentários do ciclo, sem autor e sem relação, por pessoa avaliada, competência e pergunta. */
     public List<ComentarioParaModeracao> comentarios(Long cicloId) {
-        ciclos.ciclo(cicloId);
-        List<AvaliacaoEnviada> enviadas = avaliacoes.findByCicloId(cicloId);
+        Set<Long> aguardando = aguardando(cicloId);
+        List<AvaliacaoEnviada> enviadas = avaliacoes.findByCicloId(cicloId).stream()
+                .filter(a -> !aguardando.contains(a.getAvaliadoId())).toList();
         Map<UUID, AvaliacaoEnviada> porId = enviadas.stream()
                 .collect(Collectors.toMap(AvaliacaoEnviada::getId, Function.identity()));
         Map<Long, Local> locais = locaisDas(enviadas);
@@ -187,6 +192,32 @@ public class ModeracaoService {
                         .thenComparing(i -> i.c().texto()))
                 .map(Item::c)
                 .toList();
+    }
+
+    /** Quem tem comentário esperando: ciclo aberto e menos de {@value #MINIMO_AVALIACOES} avaliações enviadas. */
+    public List<String> aguardandoAvaliacoes(Long cicloId) {
+        Set<Long> aguardando = aguardando(cicloId);
+        if (aguardando.isEmpty()) {
+            return List.of();
+        }
+        Map<UUID, Long> avaliadoDa = avaliacoes.findByCicloId(cicloId).stream()
+                .filter(a -> aguardando.contains(a.getAvaliadoId()))
+                .collect(Collectors.toMap(AvaliacaoEnviada::getId, AvaliacaoEnviada::getAvaliadoId));
+        Set<Long> comComentario = respostas.findByAvaliacaoEnviadaIdIn(avaliadoDa.keySet()).stream()
+                .filter(Resposta::temComentario).map(r -> avaliadoDa.get(r.getAvaliacaoEnviadaId()))
+                .collect(Collectors.toSet());
+        return usuarios.buscarPorIds(comComentario).values().stream().map(PessoaResumo::nome).sorted().toList();
+    }
+
+    private Set<Long> aguardando(Long cicloId) {
+        if (!ciclos.aceitaRespostas(cicloId)) {
+            ciclos.ciclo(cicloId);
+            return Set.of();
+        }
+        return avaliacoes.findByCicloId(cicloId).stream()
+                .collect(Collectors.groupingBy(AvaliacaoEnviada::getAvaliadoId, Collectors.counting()))
+                .entrySet().stream().filter(e -> e.getValue() < MINIMO_AVALIACOES).map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
 
     /** Oculta o comentário nos resultados (RF-22), com motivo obrigatório. O texto continua guardado. */
@@ -227,6 +258,11 @@ public class ModeracaoService {
         Resposta r = respostas.findById(respostaId)
                 .orElseThrow(() -> new NaoEncontradoException("Comentário não encontrado."));
         if (!r.temComentario()) {
+            throw new NaoEncontradoException("Comentário não encontrado.");
+        }
+        AvaliacaoEnviada a = avaliacoes.findById(r.getAvaliacaoEnviadaId())
+                .orElseThrow(() -> new NaoEncontradoException("Comentário não encontrado."));
+        if (aguardando(a.getCicloId()).contains(a.getAvaliadoId())) {
             throw new NaoEncontradoException("Comentário não encontrado.");
         }
         return r;

@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,8 +32,19 @@ public class AuditoriaService {
     @EventListener
     @Transactional
     public void registrar(EventoAuditoria evento) {
+        if (evento.usuario() == null) {
+            evento = evento.comUsuario(usuarioAtual());
+        }
         repositorio.save(new RegistroAuditoria(evento));
         log.info("auditoria: {} {} {}", evento.usuario(), evento.acao(), evento.detalhe());
+    }
+
+    private static String usuarioAtual() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || auth instanceof AnonymousAuthenticationToken) {
+            return "sistema";
+        }
+        return auth.getName();
     }
 
     @Transactional(readOnly = true)

@@ -155,6 +155,32 @@ class ModeracaoTest extends TesteIntegracao {
     }
 
     @Test
+    void emCicloAbertoComentarioSoApareceComTresAvaliacoesEnviadas() throws Exception {
+        CicloResumo aberto = apoio.aberto();
+        String carla = "colaborador@exemplo.com";
+        for (var envio : List.of(java.util.Map.entry(carla, TipoAvaliador.AUTO),
+                java.util.Map.entry("gestor@exemplo.com", TipoAvaliador.CHEFE),
+                java.util.Map.entry("diego@exemplo.com", TipoAvaliador.PAR))) {
+            DesignacaoResumo d = apoio.designacao(aberto, envio.getKey(), carla, envio.getValue());
+            mvc.perform(apoio.tudoRespondido(post("/avaliacoes/" + d.id() + "/enviar"), d)
+                            .param("confirmado", "true").with(como(envio.getKey())).with(csrf()))
+                    .andExpect(redirectedUrl("/avaliacoes"));
+            int enviadas = 0;
+            for (TipoAvaliador t : TipoAvaliador.values()) {
+                enviadas += consulta.avaliacoesEnviadas(aberto.id(), apoio.id(carla), t);
+            }
+            if (enviadas < 3) {
+                assertThat(moderacao.comentarios(aberto.id())).noneMatch(c -> c.avaliadoNome().equals("Carla Dias"));
+                mvc.perform(get("/moderacao/comentarios").param("ciclo", aberto.id().toString()).with(como(RH)))
+                        .andExpect(status().isOk())
+                        .andExpect(content().string(containsString("aparecem quando houver 3 avaliações enviadas")))
+                        .andExpect(content().string(containsString("Carla Dias")));
+            }
+        }
+        assertThat(moderacao.comentarios(aberto.id())).anyMatch(c -> c.avaliadoNome().equals("Carla Dias"));
+    }
+
+    @Test
     void soORhAcessaAModeracao() throws Exception {
         mvc.perform(get("/moderacao").with(como("colaborador@exemplo.com"))).andExpect(status().isForbidden());
         mvc.perform(get("/moderacao/comentarios").with(como("gestor@exemplo.com"))).andExpect(status().isForbidden());

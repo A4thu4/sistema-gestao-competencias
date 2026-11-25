@@ -78,7 +78,7 @@ class QuestionarioEmUsoTest extends TesteIntegracao {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Ciclo 2026")))
                 .andExpect(content().string(containsString("Duplicar como novo questionário")));
-        mvc.perform(get("/competencias").with(como(RH)))
+        mvc.perform(get("/competencias/questionarios").with(como(RH)))
                 .andExpect(content().string(containsString("Ciclo 2026")));
 
         mvc.perform(post("/competencias/questionarios/" + id).with(como(RH)).with(csrf())

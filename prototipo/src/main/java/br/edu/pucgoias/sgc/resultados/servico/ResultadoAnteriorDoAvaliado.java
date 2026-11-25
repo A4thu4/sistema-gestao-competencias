@@ -34,8 +34,10 @@ public class ResultadoAnteriorDoAvaliado implements ResultadoAnterior {
                 .map(c -> {
                     MontagemPainel.Montagem m = resultados.montagem(c.id(), avaliadoId);
                     return new ResumoResultadoAnterior(c.id(), c.nome(), m.escalaMax(), duplo(m.mediaGeral()),
+                            Formatos.nota(m.mediaGeral()),
                             m.linhas().stream().map(l -> new ResumoResultadoAnterior.MediaCompetencia(
-                                    l.competenciaId(), l.competencia(), duplo(l.notaFinal()))).toList());
+                                    l.competenciaId(), l.competencia(), duplo(l.notaFinal()), l.notaFinalTexto()))
+                                    .toList());
                 });
     }
 

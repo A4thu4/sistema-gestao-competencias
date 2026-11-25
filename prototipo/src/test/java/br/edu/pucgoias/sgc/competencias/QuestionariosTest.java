@@ -79,7 +79,7 @@ class QuestionariosTest extends TesteIntegracao {
                 .andExpect(content().string(containsString("Explica as ideias com clareza.")));
 
         mvc.perform(post("/competencias/questionarios/" + id + "/publicar").with(como(RH)).with(csrf()))
-                .andExpect(redirectedUrl("/competencias"))
+                .andExpect(redirectedUrl("/competencias/questionarios"))
                 .andExpect(flash().attributeExists("sucesso"));
 
         QuestionarioCompleto q = questionarios.detalhar(id);
@@ -91,7 +91,7 @@ class QuestionariosTest extends TesteIntegracao {
         assertThat(q.perguntas().get(1).obrigatoria()).isFalse();
         assertThat(q.niveis()).hasSize(5);
         assertThat(questionarios.publicadosDoCargo(cargo)).anyMatch(r -> r.id().equals(id));
-        mvc.perform(get("/competencias").with(como(RH)))
+        mvc.perform(get("/competencias/questionarios").with(como(RH)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Questionário de teste")));
     }
@@ -228,7 +228,8 @@ class QuestionariosTest extends TesteIntegracao {
 
     @Test
     void paginasDoRhAbrem() throws Exception {
-        for (String url : List.of("/competencias", "/competencias/questionarios/novo", "/competencias/catalogo",
+        mvc.perform(get("/competencias").with(como(RH))).andExpect(redirectedUrl("/competencias/catalogo"));
+        for (String url : List.of("/competencias/questionarios", "/competencias/questionarios/novo", "/competencias/catalogo",
                 "/competencias/catalogo/nova", "/competencias/catalogo?busca=lider")) {
             mvc.perform(get(url).with(como(RH))).andExpect(status().isOk());
         }
@@ -247,7 +248,8 @@ class QuestionariosTest extends TesteIntegracao {
     @Test
     void quemNaoERhRecebe403() throws Exception {
         for (String email : List.of("colaborador@exemplo.com", "gestor@exemplo.com")) {
-            for (String url : List.of("/competencias", "/competencias/catalogo", "/competencias/questionarios/novo")) {
+            for (String url : List.of("/competencias", "/competencias/catalogo", "/competencias/questionarios",
+                    "/competencias/questionarios/novo")) {
                 mvc.perform(get(url).with(como(email))).andExpect(status().isForbidden());
             }
         }
