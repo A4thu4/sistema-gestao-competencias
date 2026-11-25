@@ -162,8 +162,24 @@ class ConsolidacaoTest extends TesteIntegracao {
         assertThat(r.get().escalaMax()).isEqualTo(5);
         assertThat(r.get().competencias()).isNotEmpty();
         assertThat(r.get().mediaGeral()).isNotNull();
-        // Sem ciclo encerrado antes do 2026.1: extensão 4b.
-        assertThat(resultadoAnterior.doAvaliado(carla.id(), anterior.id())).isEmpty();
+        // Antes do 2026.1 vem o 2025.2; antes deste, nenhum (extensão 4b).
+        CicloResumo primeiro = ciclos.encerrados().stream().filter(c -> c.nome().equals("Ciclo 2025.2"))
+                .findFirst().orElseThrow();
+        assertThat(resultadoAnterior.doAvaliado(carla.id(), anterior.id())).get()
+                .extracting(ResumoResultadoAnterior::cicloNome).isEqualTo("Ciclo 2025.2");
+        assertThat(resultadoAnterior.doAvaliado(carla.id(), primeiro.id())).isEmpty();
+    }
+
+    @Test
+    void cargaDeExemploTemEvolucaoEntreCiclos() throws Exception {
+        PessoaResumo carla = usuarios.buscarPorEmail("colaborador@exemplo.com");
+        mvc.perform(get("/resultados/" + ciclo20261().id() + "/pessoas/" + carla.id())
+                        .with(como("colaborador@exemplo.com")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("graficoEvolucao")))
+                .andExpect(content().string(containsString("Ciclo 2025.2")))
+                .andExpect(content().string(org.hamcrest.Matchers.not(
+                        containsString("Ainda não há histórico para comparar"))));
     }
 
     @Test

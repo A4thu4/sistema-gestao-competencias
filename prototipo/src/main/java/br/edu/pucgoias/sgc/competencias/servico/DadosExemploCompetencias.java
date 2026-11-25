@@ -146,7 +146,7 @@ public class DadosExemploCompetencias implements ApplicationRunner {
             }
             List<Long> ids = e.getValue().stream().map(c::get).toList();
             catalogo.definirPadraoDoCargo(cargoId, ids);
-            String nome = "Questionário 2026 — " + e.getKey();
+            String nome = "Questionário — " + e.getKey();
             Long id = questionarios.criarEmBranco(nome, cargoId, 5);
             questionarios.salvar(id, dados(nome, cargoId, e.getValue(), c, P::para, true));
             List<String> faltas = questionarios.publicar(id);
@@ -159,7 +159,7 @@ public class DadosExemploCompetencias implements ApplicationRunner {
             }
         }
 
-        registros.datar(antesDaPublicacao, LocalDate.of(2026, 4, 22).atTime(15, 40)
+        registros.datar(antesDaPublicacao, LocalDate.of(2025, 10, 20).atTime(15, 40)
                 .atZone(ZoneId.of("America/Sao_Paulo")).toOffsetDateTime());
 
         questionarios.criarModelo("Modelo chefe–colaborador", dados("Modelo chefe–colaborador", null,

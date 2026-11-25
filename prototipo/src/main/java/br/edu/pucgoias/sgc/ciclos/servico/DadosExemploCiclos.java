@@ -30,15 +30,15 @@ import java.util.Set;
  * Ciclos de exemplo para a demonstração. Roda depois das cargas do identidade e do competencias e só com a tabela
  * de ciclos vazia:
  * <ol>
- *   <li>"Ciclo 2026.1", encerrado (maio de 2026), com todas as avaliações enviadas (as respostas vêm do
- *       pacote avaliacoes);</li>
+ *   <li>"Ciclo 2025.2" (novembro de 2025) e "Ciclo 2026.1" (maio de 2026), encerrados, com todas as avaliações
+ *       enviadas (as respostas vêm do pacote avaliacoes);</li>
  *   <li>"Ciclo 2026.2", aberto (abriu há 10 dias, encerra em 12), com um avaliador externo para a Carla e
  *       situações variadas. Ficam não iniciadas as avaliações em que Carla, Bruno e Diego avaliam, e a do externo;
  *       os convites ficam com a data da abertura;</li>
  *   <li>"Ciclo 2027.1", em rascunho, para mostrar a edição.</li>
  * </ol>
  * Os ciclos no passado são gravados direto pelo repositório, sem a validação "abertura não anterior a hoje".
- * A Kátia foi contratada depois do 2026.2 abrir: não avalia nem é avaliada nos dois ciclos. A Ana (RH) responde à
+ * A Kátia foi contratada depois do 2026.2 abrir: não avalia nem é avaliada nos ciclos de exemplo. A Ana (RH) responde à
  * Helena, mas não avalia Bruno e Gustavo como par.
  */
 @Component
@@ -82,18 +82,9 @@ public class DadosExemploCiclos implements ApplicationRunner {
         List<Long> avaliados = AVALIADOS.stream().map(this::pessoa).map(PessoaResumo::id).toList();
         LocalDate hoje = Datas.hoje();
 
-        // 1. Ciclo encerrado.
-        Ciclo encerrado = ciclos.save(new Ciclo("Ciclo 2026.1", QUATRO_TIPOS,
-                LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31)));
-        montagem.salvarAvaliados(encerrado.getId(), avaliados, null, null, Map.of());
-        ajustarDesignacoes(encerrado);
-        OffsetDateTime abertura1 = LocalDate.of(2026, 5, 1).atTime(8, 0).atZone(Datas.ZONA).toOffsetDateTime();
-        encerrado.forcarSituacao(SituacaoCiclo.ENCERRADO, abertura1,
-                LocalDate.of(2026, 6, 1).atTime(0, 5).atZone(Datas.ZONA).toOffsetDateTime());
-        for (Designacao d : designacoes.findByCicloIdOrderById(encerrado.getId())) {
-            d.definirSituacao(SituacaoDesignacao.ENVIADA);
-            d.registrarConvite(abertura1);
-        }
+        // 1. Ciclos encerrados.
+        encerrado("Ciclo 2025.2", avaliados, LocalDate.of(2025, 11, 3), LocalDate.of(2025, 11, 28));
+        encerrado("Ciclo 2026.1", avaliados, LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31));
 
         // 2. Ciclo aberto, com externo e situações variadas.
         Ciclo aberto = ciclos.save(new Ciclo("Ciclo 2026.2", QUATRO_TIPOS, hoje.minusDays(10), hoje.plusDays(12)));
@@ -131,11 +122,24 @@ public class DadosExemploCiclos implements ApplicationRunner {
         montagem.salvarAvaliados(rascunho.getId(), List.of(), List.of(pessoa("colaborador").cargoId()), null,
                 Map.of());
 
-        log.info("Dados de exemplo: 3 ciclos (encerrado, aberto e rascunho); {} convites do ciclo aberto na caixa "
+        log.info("Dados de exemplo: 4 ciclos (2 encerrados, aberto e rascunho); {} convites do ciclo aberto na caixa "
                 + "de e-mails", envio.enviados());
         designacoes.findByCicloIdOrderById(aberto.getId()).stream().filter(Designacao::isExterna).findFirst()
                 .ifPresent(d -> log.info("Link do avaliador externo (Marcos Tavares, avalia a Carla): {}",
                         convites.linkExterno(d.getToken())));
+    }
+
+    private void encerrado(String nome, List<Long> avaliados, LocalDate abertura, LocalDate encerramento) {
+        Ciclo c = ciclos.save(new Ciclo(nome, QUATRO_TIPOS, abertura, encerramento));
+        montagem.salvarAvaliados(c.getId(), avaliados, null, null, Map.of());
+        ajustarDesignacoes(c);
+        OffsetDateTime abertoEm = abertura.atTime(8, 0).atZone(Datas.ZONA).toOffsetDateTime();
+        c.forcarSituacao(SituacaoCiclo.ENCERRADO, abertoEm,
+                encerramento.plusDays(1).atTime(0, 5).atZone(Datas.ZONA).toOffsetDateTime());
+        for (Designacao d : designacoes.findByCicloIdOrderById(c.getId())) {
+            d.definirSituacao(SituacaoDesignacao.ENVIADA);
+            d.registrarConvite(abertoEm);
+        }
     }
 
     private void ajustarDesignacoes(Ciclo ciclo) {

@@ -47,13 +47,13 @@ import static br.edu.pucgoias.sgc.avaliacoes.dominio.TipoObservacao.POSITIVO;
  *       equipe, mas a do Fábio é antiga (mais de 60 dias), para o aviso da página inicial; Gustavo tem algumas sobre
  *       Igor e Júlia e nenhuma sobre a Kátia;</li>
  *   <li>UC-03: respostas dos ciclos de exemplo do pacote ciclos. Nas designações que o ciclos gravou como
- *       ENVIADA (todas do Ciclo 2026.1 e parte do 2026.2) grava a avaliação enviada pelo mesmo caminho do envio
- *       ({@code RespostaService.gravarEnviadaDoExemplo}: UUID, verificador HMAC, sem designação nem avaliador); nas
- *       EM_PREENCHIMENTO grava um rascunho parcial. As NAO_INICIADA ficam para a demonstração ao vivo. Notas com
- *       perfil por pessoa (Carla forte em atendimento e fraca em resolução de problemas técnicos, Diego o inverso,
- *       Bruno bem avaliado em comunicação e pior em liderança), algum "não tenho como avaliar", comentários
- *       plausíveis e um comentário grosseiro sobre o Bruno no 2026.1, para a demonstração da moderação.
- *       {@link Random} com semente fixa: o exemplo é sempre o mesmo.</li>
+ *       ENVIADA (todas dos ciclos 2025.2 e 2026.1 e parte do 2026.2) grava a avaliação enviada pelo mesmo caminho
+ *       do envio ({@code RespostaService.gravarEnviadaDoExemplo}: UUID, verificador HMAC, sem designação nem
+ *       avaliador); nas EM_PREENCHIMENTO grava um rascunho parcial. As NAO_INICIADA ficam para a demonstração ao
+ *       vivo. Notas com perfil por pessoa (Carla forte em atendimento e fraca em resolução de problemas técnicos,
+ *       Diego o inverso, Bruno bem avaliado em comunicação e pior em liderança), um pouco menores no 2025.2, algum
+ *       "não tenho como avaliar", comentários plausíveis e um comentário grosseiro sobre o Bruno no 2026.1, para a
+ *       demonstração da moderação. {@link Random} com semente fixa: o exemplo é sempre o mesmo.</li>
  * </ul>
  */
 @Component
@@ -208,19 +208,26 @@ public class DadosExemploAvaliacoes implements ApplicationRunner {
         }
         Map<Long, PessoaResumo> pessoas = usuarios.listarAtivos().stream()
                 .collect(Collectors.toMap(PessoaResumo::id, p -> p));
-        Random aleatorio = new Random(20261);
+        Random principal = new Random(20261);
+        Random anterior = new Random(20252);
         int enviadas = 0;
         int parciais = 0;
         boolean grosseiroGravado = false;
         for (CicloResumo ciclo : comRespostas) {
-            double evolucao = ciclo.encerrado() ? 0.0 : 0.2;
+            Random aleatorio = ciclo.nome().equals("Ciclo 2025.2") ? anterior : principal;
+            double evolucao = switch (ciclo.nome()) {
+                case "Ciclo 2025.2" -> -0.3;
+                case "Ciclo 2026.1" -> 0.0;
+                default -> 0.2;
+            };
             for (DesignacaoResumo d : ciclos.designacoesDoCiclo(ciclo.id())) {
                 PessoaResumo avaliado = pessoas.get(d.avaliadoId());
                 if (d.questionarioId() == null || avaliado == null || !(d.enviada() || d.emPreenchimento())) {
                     continue;
                 }
                 QuestionarioCompleto q = questionarios.detalharPara(d.questionarioId(), d.relacao());
-                boolean grosseiro = !grosseiroGravado && ciclo.encerrado() && d.relacao() == TipoAvaliador.SUBORDINADO
+                boolean grosseiro = !grosseiroGravado && ciclo.nome().equals("Ciclo 2026.1")
+                        && d.relacao() == TipoAvaliador.SUBORDINADO
                         && avaliado.email().equals("gestor@exemplo.com");
                 Map<Long, RespostaInformada> geradas = gerar(q, d, avaliado, evolucao, d.enviada(), grosseiro, aleatorio);
                 if (d.enviada()) {

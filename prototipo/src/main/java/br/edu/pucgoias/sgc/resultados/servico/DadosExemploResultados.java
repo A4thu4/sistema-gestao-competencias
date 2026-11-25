@@ -27,9 +27,10 @@ import java.time.OffsetDateTime;
  * Dados de exemplo do pacote resultados. Roda depois das respostas do avaliacoes ({@code @Order(40)}) e só com
  * {@code sgc.demo.carregar=true}. Cada parte é idempotente:
  * <ul>
- *   <li>com a tabela {@code resultado_consolidado} vazia: consolida o "Ciclo 2026.1" (encerrado) a partir das
- *       respostas e libera o resultado, com os avisos por e-mail, datados de junho de 2026. O 2026.2 (aberto)
- *       não é tocado: a demonstração o encerra ao vivo e a consolidação acontece pelo evento;</li>
+ *   <li>com a tabela {@code resultado_consolidado} vazia: consolida os ciclos 2025.2 e 2026.1 (encerrados) a
+ *       partir das respostas e libera o resultado, com os avisos por e-mail datados de dezembro de 2025 e de junho
+ *       de 2026; assim o painel mostra a evolução entre ciclos. O 2026.2 (aberto) não é tocado: a demonstração o
+ *       encerra ao vivo e a consolidação acontece pelo evento;</li>
  *   <li>com a tabela {@code meta_desenvolvimento} vazia: plano da Carla (resolução de problemas técnicos, em
  *       andamento com duas atualizações, e conhecimento do produto, não iniciada) e do Diego (uma meta). Datas
  *       recentes, para o lembrete trimestral não disparar logo na subida.</li>
@@ -42,6 +43,7 @@ public class DadosExemploResultados implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(DadosExemploResultados.class);
     private static final String CICLO = "Ciclo 2026.1";
+    private static final String CICLO_ANTERIOR = "Ciclo 2025.2";
 
     private final ResultadoConsolidadoRepository consolidado;
     private final MetaDesenvolvimentoRepository metas;
@@ -69,24 +71,37 @@ public class DadosExemploResultados implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
-        CicloResumo ciclo = ciclos.encerrados().stream().filter(c -> CICLO.equals(c.nome())).findFirst().orElse(null);
+        CicloResumo ciclo = encerrado(CICLO);
         if (ciclo == null) {
             log.warn("Dados de exemplo de resultados não carregados: não há o {} encerrado.", CICLO);
             return;
         }
         if (consolidado.count() == 0) {
-            RegistrosDaCarga.Marca marca = registros.marcar();
-            int linhas = consolidacao.consolidarResultados(ciclo.id());
-            registros.datar(marca, LocalDate.of(2026, 6, 1).atTime(0, 5).atZone(Formatos.ZONA).toOffsetDateTime());
-            marca = registros.marcar();
-            int avisos = ciclo.resultadoLiberado() ? 0 : resultados.liberarCiclo(ciclo.id());
-            registros.datar(marca, LocalDate.of(2026, 6, 3).atTime(10, 20).atZone(Formatos.ZONA).toOffsetDateTime());
-            log.info("Dados de exemplo: {} consolidado ({} médias) e liberado ({} avisos por e-mail)", CICLO, linhas,
-                    avisos);
+            CicloResumo anterior = encerrado(CICLO_ANTERIOR);
+            if (anterior != null) {
+                consolidarELiberar(anterior, LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 4));
+            }
+            consolidarELiberar(ciclo, LocalDate.of(2026, 6, 1), LocalDate.of(2026, 6, 3));
         }
         if (metas.count() == 0) {
             criarPlanos(ciclo);
         }
+    }
+
+    private CicloResumo encerrado(String nome) {
+        return ciclos.encerrados().stream().filter(c -> nome.equals(c.nome())).findFirst().orElse(null);
+    }
+
+    /** Consolida e libera, com o log e os e-mails datados de quando isso teria acontecido. */
+    private void consolidarELiberar(CicloResumo ciclo, LocalDate consolidadoEm, LocalDate liberadoEm) {
+        RegistrosDaCarga.Marca marca = registros.marcar();
+        int linhas = consolidacao.consolidarResultados(ciclo.id());
+        registros.datar(marca, consolidadoEm.atTime(0, 5).atZone(Formatos.ZONA).toOffsetDateTime());
+        marca = registros.marcar();
+        int avisos = ciclo.resultadoLiberado() ? 0 : resultados.liberarCiclo(ciclo.id());
+        registros.datar(marca, liberadoEm.atTime(10, 20).atZone(Formatos.ZONA).toOffsetDateTime());
+        log.info("Dados de exemplo: {} consolidado ({} médias) e liberado ({} avisos por e-mail)", ciclo.nome(),
+                linhas, avisos);
     }
 
     private void criarPlanos(CicloResumo ciclo) {

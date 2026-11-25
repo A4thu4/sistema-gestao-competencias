@@ -80,6 +80,7 @@ abstract class CenarioResultados extends TesteIntegracao {
         trabalho = porNome.get("Trabalho em equipe");
 
         consolidado.apagarDoCiclo(ciclo);
+        consolidado.apagarDoCiclo(idDoCiclo("Ciclo 2025.2")); // cenário sem histórico
         consolidado.saveAll(List.of(
                 linha(carla, atendimento, AUTO, "4.00", 1), linha(carla, atendimento, CHEFE, "4.50", 1),
                 linha(carla, atendimento, PAR, "4.75", 3),

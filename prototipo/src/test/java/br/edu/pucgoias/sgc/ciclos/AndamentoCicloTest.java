@@ -151,7 +151,7 @@ class AndamentoCicloTest extends TesteIntegracao {
 
         // Questionário usado aparece como "em uso" no UC-01 (ConsultaUsoQuestionario).
         Long q = ciclos.questionarioDoAvaliado(aberto.id(), pessoa("colaborador").id());
-        assertThat(questionarios.resumo(q).nome()).isEqualTo("Questionário 2026 — Analista de Suporte");
+        assertThat(questionarios.resumo(q).nome()).isEqualTo("Questionário — Analista de Suporte");
         assertThat(questionarios.uso(q).ciclos()).contains("Ciclo 2026.1", "Ciclo 2026.2");
     }
 

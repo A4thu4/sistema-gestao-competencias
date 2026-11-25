@@ -33,15 +33,15 @@ estar rodando. Cada teste desfaz o que gravou.
 ## Empresa de exemplo
 
 Com o banco vazio, a aplicação carrega uma empresa fictícia (`sgc.demo.carregar: true` no `application.yml`):
-pessoas, competências, questionários publicados, um ciclo encerrado com resultados (2026.1), um ciclo aberto
-(2026.2) e um rascunho (2027.1). **Senha de todos: `senha123`.**
+pessoas, competências, questionários publicados, dois ciclos encerrados com resultados (2025.2 e 2026.1, para a
+evolução entre ciclos), um ciclo aberto (2026.2) e um rascunho (2027.1). **Senha de todos: `senha123`.**
 
 | Usuário | Pessoa | Perfil | Para demonstrar |
 |---------|--------|--------|-----------------|
 | `rh@exemplo.com` | Ana Souza | RH | competências, ciclos, andamento, moderação, liberação de resultados, LGPD, auditoria, e-mails |
 | `gestor@exemplo.com` | Bruno Lima | Gestor (Suporte) | avaliar a equipe com as observações, andamento da equipe, resultados e plano da equipe |
 | `colaborador@exemplo.com` | Carla Dias | Colaborador | autoavaliação, avaliar pares e o líder (anônimo), resultado e plano |
-| `katia@exemplo.com` | Kátia Freitas | Colaborador | primeiro acesso: o termo de consentimento aparece antes de tudo |
+| `katia@exemplo.com` | Kátia Freitas | Colaborador | primeiro acesso (contratação recente, fora dos ciclos): o termo de consentimento aparece antes de tudo |
 | `helena@exemplo.com`, `gustavo@exemplo.com` | Helena Prado, Gustavo Reis | Gestores | gerente de operações e coordenador de desenvolvimento |
 | `diego@`, `elisa@`, `fabio@`, `igor@`, `julia@` | equipe | Colaborador | demais avaliadores |
 
