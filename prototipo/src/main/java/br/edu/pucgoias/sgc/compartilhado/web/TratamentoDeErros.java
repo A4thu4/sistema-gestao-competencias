@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * Converte as exceções em páginas com mensagem simples (RNF-09). O acesso negado responde 403 sem mostrar
- * nenhum dado (RNF-03). Erros de validação esperados devem ser tratados no próprio controller, que volta à tela
- * do formulário; este tratamento é a rede de segurança.
+ * Converte as exceções em páginas com mensagem simples. O acesso negado responde 403 sem mostrar nenhum dado. Erros
+ * de validação esperados devem ser tratados no próprio controller, que volta à tela do formulário; este tratamento é
+ * a rede de segurança.
  */
 @ControllerAdvice
 public class TratamentoDeErros {

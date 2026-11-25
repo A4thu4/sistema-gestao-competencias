@@ -37,14 +37,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * UC-04 Consultar resultados: lista de ciclos por perfil, liberação pelo RH (2a), painel individual (passos 4 a 6),
- * relatório de equipe ou área (3a) e exportação (passos 7 e 8).
+ * <b>Quem vê o quê, conferido no servidor:</b> o RH e o gestor (equipe direta) veem assim que o ciclo é encerrado;
+ * cada pessoa vê o próprio resultado só depois que o RH o libera. Qualquer outra combinação lança
+ * {@link AccessDeniedException} (página 403 sem dados).
  *
- * <p><b>Quem vê o quê (RNF-03), conferido aqui no servidor:</b> o RH vê todos assim que o ciclo é encerrado; o
- * gestor vê a equipe direta assim que o ciclo é encerrado; cada pessoa vê o próprio resultado só depois que o RH o
- * libera (2b). Qualquer outra combinação lança {@link AccessDeniedException} (página 403 sem dados, *a).
- *
- * <p>Cada abertura de painel, relatório, liberação e exportação vai para o log de auditoria (RNF-05).
+ * <p>Cada abertura de painel, relatório, liberação e exportação vai para o log de auditoria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -99,7 +96,7 @@ public class ResultadoService {
         return lista;
     }
 
-    /** Passo 3: pessoas com resultado no ciclo que o usuário pode consultar. */
+    /** Pessoas com resultado no ciclo que o usuário pode consultar. */
     public List<PessoaComResultado> pessoasDoCiclo(UsuarioAutenticado eu, Long cicloId) {
         CicloResumo c = ciclos.ciclo(cicloId);
         if (!c.encerrado()) {
@@ -123,8 +120,8 @@ public class ResultadoService {
     // ==== 2a: liberação pelo RH ====
 
     /**
-     * Libera o resultado do ciclo aos colaboradores (RF-24): marca como liberado, avisa por e-mail cada pessoa com
-     * resultado e registra no log. Devolve quantos avisos foram enviados.
+     * Marca o resultado do ciclo como liberado, avisa por e-mail cada pessoa com resultado e registra no log. Devolve
+     * quantos avisos foram enviados.
      */
     @Transactional
     public int liberar(UsuarioAutenticado eu, Long cicloId) {
@@ -169,7 +166,7 @@ public class ResultadoService {
 
     // ==== Passos 4 a 6: painel individual ====
 
-    /** Painel individual; confere o acesso e registra a abertura no log (RNF-05). */
+    /** Confere o acesso e registra a abertura no log. */
     @Transactional
     public PainelIndividual painel(UsuarioAutenticado eu, Long cicloId, Long pessoaId) {
         PainelIndividual p = painelSemRegistro(eu, cicloId, pessoaId);
@@ -178,7 +175,7 @@ public class ResultadoService {
         return p;
     }
 
-    /** Passos 7 e 8: o mesmo painel em PDF ou Excel, com as mesmas restrições; registra no log. */
+    /** O mesmo painel em PDF ou Excel, com as mesmas restrições; registra no log. */
     @Transactional
     public ArquivoExportado exportarPainel(UsuarioAutenticado eu, Long cicloId, Long pessoaId, String formato) {
         PainelIndividual p = painelSemRegistro(eu, cicloId, pessoaId);
@@ -218,13 +215,13 @@ public class ResultadoService {
                 evolucao(eu, pessoaId, c));
     }
 
-    /** Comentários das perguntas abertas, sem autor e sem os ocultados na moderação (RF-22, 5a). */
+    /** Comentários das perguntas abertas, sem autor e sem os ocultados na moderação. */
     private List<ComentarioPainel> comentarios(Long cicloId, Long pessoaId) {
         return respostas.comentariosVisiveis(cicloId, pessoaId).stream()
                 .map(c -> new ComentarioPainel(c.competenciaNome(), c.perguntaTexto(), c.texto())).toList();
     }
 
-    /** RF-26: nota final por competência nos ciclos encerrados da pessoa que o usuário pode ver, até o atual. */
+    /** Nota final por competência nos ciclos encerrados da pessoa que o usuário pode ver, até o atual. */
     private Evolucao evolucao(UsuarioAutenticado eu, Long pessoaId, CicloResumo atual) {
         List<CicloResumo> doHistorico = resultados.ciclosDoAvaliado(pessoaId).stream().map(ciclos::ciclo)
                 .filter(c -> c.encerrado() && liberadoPara(eu, pessoaId, c))
@@ -366,7 +363,7 @@ public class ResultadoService {
 
     // ==== Regras de acesso (RNF-03) ====
 
-    /** *a: só a própria pessoa, o gestor direto dela ou o RH. */
+    /** Só a própria pessoa, o gestor direto dela ou o RH. */
     private void conferirAcesso(UsuarioAutenticado eu, Long pessoaId) {
         if (eu.ehRh() || eu.id().equals(pessoaId)) {
             return;
@@ -377,7 +374,6 @@ public class ResultadoService {
         throw new AccessDeniedException("Resultado de outra pessoa.");
     }
 
-    /** 2c, 2b e pessoa sem resultado no ciclo. */
     private void conferirDisponivel(UsuarioAutenticado eu, CicloResumo c, Long pessoaId) {
         if (!c.encerrado()) {
             throw new ResultadoIndisponivelException("Resultado ainda não disponível",
@@ -395,7 +391,7 @@ public class ResultadoService {
         }
     }
 
-    /** A própria pessoa só vê depois da liberação; gestor e RH veem desde o encerramento (Q-05). */
+    /** A própria pessoa só vê depois da liberação; gestor e RH veem desde o encerramento. */
     private static boolean liberadoPara(UsuarioAutenticado eu, Long pessoaId, CicloResumo c) {
         return c.resultadoLiberado() || eu.ehRh() || !eu.id().equals(pessoaId);
     }

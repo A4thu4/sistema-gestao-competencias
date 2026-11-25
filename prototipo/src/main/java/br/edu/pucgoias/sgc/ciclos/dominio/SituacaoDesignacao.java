@@ -1,6 +1,6 @@
 package br.edu.pucgoias.sgc.ciclos.dominio;
 
-/** Andamento de uma designação (RF-13). Não guarda nada da resposta (RNF-01). */
+/** Andamento de uma designação. Não guarda nada da resposta. */
 public enum SituacaoDesignacao {
     NAO_INICIADA("Não iniciada"),
     EM_PREENCHIMENTO("Em preenchimento"),

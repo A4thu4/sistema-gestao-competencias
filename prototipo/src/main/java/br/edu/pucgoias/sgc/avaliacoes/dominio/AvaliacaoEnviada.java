@@ -14,10 +14,10 @@ import org.springframework.data.domain.Persistable;
 import java.util.UUID;
 
 /**
- * Avaliação enviada (UC-03, passo 10). Anonimato por construção (RNF-01, DA-06): guarda só ciclo, avaliado, relação e
- * questionário. Não tem designação, avaliador, data nem número sequencial (o id é um UUID aleatório). O
- * {@code verificador} é um HMAC da designação com a chave do servidor; só serve para o RH reabrir a avaliação a pedido
- * do avaliador (UC-09) e nunca aparece em tela, URL, log ou exportação.
+ * Avaliação enviada, anônima por construção: guarda só ciclo, avaliado, relação e questionário. Não tem designação,
+ * avaliador, data nem número sequencial (o id é um UUID aleatório). O {@code verificador} é um HMAC da designação com
+ * a chave do servidor; só serve para o RH reabrir a avaliação a pedido do avaliador e nunca aparece em tela, URL, log
+ * ou exportação.
  */
 @Entity
 @Table(name = "avaliacao_enviada")

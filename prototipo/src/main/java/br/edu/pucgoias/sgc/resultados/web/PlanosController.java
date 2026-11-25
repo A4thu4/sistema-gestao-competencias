@@ -17,16 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * UC-06 Gerenciar plano de desenvolvimento. Quem pode ver e alterar cada plano é conferido no
- * {@link PlanoService} (RNF-03).
- *
- * <ul>
- *   <li>{@code GET /planos}: gestor, a equipe direta; RH, todas as pessoas; colaborador vai para o próprio plano;</li>
- *   <li>{@code GET /planos/{pessoa}}: metas, sugestões e linha do tempo;</li>
- *   <li>{@code POST /planos/{pessoa}/metas}: nova meta (gestor direto);</li>
- *   <li>{@code POST /planos/metas/{meta}/atualizacoes}: progresso e situação (a pessoa ou o gestor direto);</li>
- *   <li>{@code POST /planos/{pessoa}/lembrete}: lembrete de revisão agora (gestor direto).</li>
- * </ul>
+ * Quem pode ver e alterar cada plano é conferido no {@link PlanoService}. Em {@code /planos}, o colaborador vai
+ * direto para o próprio plano.
  */
 @Controller
 @RequestMapping("/planos")

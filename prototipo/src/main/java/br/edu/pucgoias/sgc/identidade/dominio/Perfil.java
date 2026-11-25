@@ -1,6 +1,6 @@
 package br.edu.pucgoias.sgc.identidade.dominio;
 
-/** Perfis de acesso (RF-33). O avaliador externo não tem perfil: entra só pelo link individual (RF-34). */
+/** O avaliador externo não tem perfil: entra só pelo link individual. */
 public enum Perfil {
     RH("RH"),
     GESTOR("Gestor"),

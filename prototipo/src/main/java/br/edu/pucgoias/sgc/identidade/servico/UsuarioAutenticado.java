@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Usuário da sessão. Os controllers recebem com {@code @AuthenticationPrincipal UsuarioAutenticado eu} e
- * usam {@link #id()} e {@link #perfil()} para conferir o acesso no servidor (RNF-03).
+ * usam {@link #id()} e {@link #perfil()} para conferir o acesso no servidor.
  */
 public class UsuarioAutenticado implements UserDetails {
 

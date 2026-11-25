@@ -1,7 +1,7 @@
 package br.edu.pucgoias.sgc.competencias.servico;
 
 /**
- * Relação do avaliador com o avaliado (RF-11). Os nomes são os mesmos da coluna {@code relacao} das tabelas
+ * Relação do avaliador com o avaliado. Os nomes são os mesmos da coluna {@code relacao} das tabelas
  * {@code designacao} e {@code avaliacao_enviada}, para os pacotes ciclos e avaliacoes converterem com
  * {@link #valueOf(String)}.
  */

@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-/** Formulário de nova meta do plano (UC-06). */
 public class MetaForm {
 
     private Long competenciaId;

@@ -285,7 +285,7 @@ class CriarCicloTest extends TesteIntegracao {
         assertThat(ciclos.ciclo(id).situacao()).isEqualTo("ABERTO");
         assertThat(ciclos.aceitaRespostas(id)).isTrue();
         assertThat(emails.enviadosPara("fabio@exemplo.com"))
-                .anySatisfy(e -> assertThat(e.getAssunto()).isEqualTo("Convite para avaliação — Ciclo relâmpago"));
+                .anySatisfy(e -> assertThat(e.getAssunto()).isEqualTo("Convite para avaliação: Ciclo relâmpago"));
         assertThat(emails.enviadosPara("gestor@exemplo.com")).hasSize(convitesBruno + 1);
         assertThat(emails.enviadosPara("rui@fornecedor.com"))
                 .anySatisfy(e -> assertThat(e.getCorpo()).contains("/externo/"));

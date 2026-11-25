@@ -18,10 +18,8 @@ public interface CicloRepository extends JpaRepository<Ciclo, Long> {
 
     List<Ciclo> findBySituacaoInOrderByDataAberturaDescIdDesc(Collection<SituacaoCiclo> situacoes);
 
-    /** Agendados cuja abertura já chegou. */
     List<Ciclo> findBySituacaoAndDataAberturaLessThanEqual(SituacaoCiclo situacao, LocalDate data);
 
-    /** Abertos cujo encerramento já passou. */
     List<Ciclo> findBySituacaoAndDataEncerramentoBefore(SituacaoCiclo situacao, LocalDate data);
 
     /** Nomes dos ciclos (de qualquer situação) que usam o questionário (UC-01, extensão 2b). */

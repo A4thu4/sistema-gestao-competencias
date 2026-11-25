@@ -11,7 +11,7 @@ import java.util.UUID;
 public record NotaParaConsolidar(UUID avaliacaoId, Long avaliadoId, TipoAvaliador grupo, Long competenciaId,
                                  Integer nota, boolean naoAvalia) {
 
-    /** Entra na média: tem nota e não é "não tenho como avaliar" (RF-06). */
+    /** Entra na média: tem nota e não é "não tenho como avaliar". */
     public boolean contaNaMedia() {
         return !naoAvalia && nota != null;
     }

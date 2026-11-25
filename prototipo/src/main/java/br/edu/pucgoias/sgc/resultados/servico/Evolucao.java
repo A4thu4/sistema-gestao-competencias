@@ -10,7 +10,7 @@ import java.util.List;
  */
 public record Evolucao(List<String> ciclos, List<SerieGrafico> series, boolean normalizada) {
 
-    /** Extensão 6a: só um ciclo, nada para comparar. */
+    /** Com um ciclo só, não há o que comparar. */
     public boolean temHistorico() {
         return ciclos.size() > 1;
     }

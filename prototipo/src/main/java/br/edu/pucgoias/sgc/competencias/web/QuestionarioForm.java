@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-/** Formulário do editor de questionário (UC-01, passos 7 a 11), com a competência nova da extensão 9a. */
+/** Formulário do editor de questionário, com o cadastro de competência nova sem sair do fluxo. */
 public class QuestionarioForm {
 
     private String nome;

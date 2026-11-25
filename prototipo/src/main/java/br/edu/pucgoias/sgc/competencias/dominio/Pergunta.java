@@ -12,8 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
- * Pergunta de uma competência do questionário (RF-03, RF-05). As marcações {@code para*} dizem a quais tipos de
- * avaliador ela aparece (RF-11): chefe, autoavaliação, par, subordinado e externo.
+ * Pergunta de uma competência do questionário. As marcações {@code para*} dizem a quais tipos de avaliador ela
+ * aparece: chefe, autoavaliação, par, subordinado e externo.
  */
 @Entity
 @Table(name = "pergunta")

@@ -1,9 +1,7 @@
 /**
- * UC-10 Autenticar-se: login, perfis (RH, gestor e colaborador), pessoas, cargos e estrutura das equipes,
- * página inicial e layout. Interface para os outros pacotes: {@code servico.UsuarioService} (devolve
- * {@code PessoaResumo}), {@code servico.UsuarioAutenticado} (usuário da sessão) e o ponto de extensão
- * {@code servico.ContribuicaoPainel} (cartões da página inicial).
- *
- * <p>Depende só de {@code compartilhado}. Migrações: V1_x.
+ * Login, perfis (RH, gestor e colaborador), pessoas, cargos, estrutura das equipes e página inicial.
+ * Caso de uso: UC-10. Oferece {@code UsuarioService}, {@code UsuarioAutenticado} e o ponto de extensão
+ * {@code ContribuicaoPainel} (cartões da página inicial).
+ * Depende de: compartilhado.
  */
 package br.edu.pucgoias.sgc.identidade;

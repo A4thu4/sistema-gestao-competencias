@@ -57,7 +57,6 @@ public class ConviteService {
         this.urlBase = urlBase.endsWith("/") ? urlBase.substring(0, urlBase.length() - 1) : urlBase;
     }
 
-    /** Resultado de um envio: quantas pessoas receberam e quantas falharam. */
     public record ResultadoEnvio(int enviados, int falhas, int jaLembradosHoje) {
     }
 
@@ -136,8 +135,8 @@ public class ConviteService {
     }
 
     private static String assunto(Ciclo c, boolean convite) {
-        return convite ? "Convite para avaliação — " + c.getNome()
-                : "Lembrete: avaliação pendente — " + c.getNome();
+        return convite ? "Convite para avaliação: " + c.getNome()
+                : "Lembrete de avaliação pendente: " + c.getNome();
     }
 
     private String corpoInterno(Ciclo c, PessoaResumo avaliador, List<Designacao> grupo,

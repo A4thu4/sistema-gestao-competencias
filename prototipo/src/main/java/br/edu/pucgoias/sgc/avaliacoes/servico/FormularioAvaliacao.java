@@ -14,14 +14,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Tudo o que a tela de responder avaliação mostra (UC-03, passo 4): o questionário do cargo do avaliado só com as
- * perguntas da relação (RF-11), a escala com a descrição dos níveis (RF-25), as respostas já salvas (RF-14), as
- * obrigatórias pendentes (RF-15) e, para o gestor do avaliado, as observações do período (RF-17) e o resultado
- * anterior (RF-18).
+ * Tudo o que a tela de responder avaliação mostra.
  *
  * @param editavel         ciclo aceita respostas e a avaliação não foi enviada
  * @param motivoBloqueio   por que não dá para editar (ciclo encerrado ou avaliação enviada), ou {@code null}
- * @param mostraContexto   relação CHEFE: mostra observações e resultado anterior (a autoavaliação não mostra, 4a)
+ * @param mostraContexto   relação CHEFE: mostra observações e resultado anterior (a autoavaliação não mostra)
  * @param observacoes      observações do período (vazia quando {@code mostraContexto} é falso)
  */
 public record FormularioAvaliacao(DesignacaoResumo designacao, PessoaResumo avaliado, QuestionarioCompleto questionario,

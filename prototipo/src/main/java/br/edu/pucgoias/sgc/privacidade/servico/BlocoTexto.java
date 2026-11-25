@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * Trecho do termo pronto para a tela: título de seção, parágrafo ou lista. O texto do termo é guardado com
- * marcações simples — linha que começa com "## " é título, linha que começa com "- " é item de lista e linha em
- * branco separa parágrafos —, assim o RH escreve sem HTML e a tela nunca interpreta o texto como código.
+ * marcações simples: linha que começa com "## " é título, linha que começa com "- " é item de lista e linha em
+ * branco separa parágrafos. Assim o RH escreve sem HTML e a tela nunca interpreta o texto como código.
  */
 public record BlocoTexto(String tipo, String texto, List<String> itens) {
 

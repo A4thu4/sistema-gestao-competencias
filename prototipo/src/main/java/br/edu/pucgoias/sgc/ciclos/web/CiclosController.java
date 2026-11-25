@@ -33,10 +33,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
- * UC-02 Criar ciclo de avaliação, só para o RH (extensão 1a, conferido no servidor): lista (passo 2), dados
- * (passos 4 a 6), avaliados e questionários (7 e 8), avaliadores (9), resumo e agendamento (10 a 13), alterações em
- * ciclo agendado ou aberto (2a, 2b), consulta de ciclo encerrado (2c) e os botões "Abrir agora" e "Encerrar agora"
- * da demonstração.
+ * Criação e manutenção de ciclos, só para o RH (conferido no servidor), com os botões "Abrir agora" e
+ * "Encerrar agora" da demonstração.
  */
 @Controller
 @PreAuthorize("hasRole('RH')")

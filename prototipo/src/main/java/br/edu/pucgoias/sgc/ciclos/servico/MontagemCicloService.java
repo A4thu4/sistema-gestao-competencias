@@ -40,12 +40,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * UC-02 Criar ciclo de avaliação (só RH): dados do ciclo (passos 4 a 6), avaliados e questionários (7 e 8),
- * avaliadores sugeridos e ajustados (8 e 9, extensões 9a e 9b), validação (10, 10a e 10b), resumo e agendamento
- * (11 a 13, 12a e 13a) e alterações em ciclo agendado ou aberto (2a, 2b, 2c).
+ * Montagem do ciclo pelo RH: dados, avaliados, questionários, avaliadores, validação e agendamento.
  *
- * <p>Tudo o que o RH informa fica gravado como rascunho (extensão *a). Alterar um ciclo agendado o devolve a
- * rascunho, para ser conferido e agendado de novo.
+ * <p>Tudo o que o RH informa fica gravado como rascunho. Alterar um ciclo agendado o devolve a rascunho, para ser
+ * conferido e agendado de novo.
  */
 @Service
 @Transactional
@@ -95,7 +93,6 @@ public class MontagemCicloService {
 
     // ==== Passos 4 a 6: dados do ciclo ====
 
-    /** Passos 5 e 6: cria o rascunho com nome, tipos e período (extensão 6a se houver problema). */
     public Long criar(DadosCiclo dados) {
         validarDados(dados);
         Ciclo c = ciclos.save(new Ciclo(dados.nome(), dados.tipos(), dados.abertura(), dados.encerramento()));
@@ -126,7 +123,7 @@ public class MontagemCicloService {
         return c.voltarARascunho();
     }
 
-    /** Extensão 2b: em ciclo aberto só a data de encerramento muda. */
+    /** Em ciclo aberto, só a data de encerramento muda. */
     public void alterarEncerramento(Long cicloId, LocalDate novaData) {
         Ciclo c = cicloService.entidade(cicloId);
         Map<String, String> erros = new LinkedHashMap<>();
@@ -146,7 +143,7 @@ public class MontagemCicloService {
                 "Encerramento mudou de " + Datas.data(antes) + " para " + Datas.data(novaData)));
     }
 
-    /** Extensão 6a: nome, ao menos um tipo, abertura não anterior a hoje e encerramento depois da abertura. */
+    /** Exige nome, ao menos um tipo, abertura não anterior a hoje e encerramento depois da abertura. */
     public static Map<String, String> errosDosDados(DadosCiclo dados, LocalDate hoje) {
         Map<String, String> erros = new LinkedHashMap<>();
         if (dados.nome() == null || dados.nome().isBlank()) {
@@ -220,7 +217,7 @@ public class MontagemCicloService {
         return c.voltarARascunho();
     }
 
-    /** Extensão 8a: tira do ciclo as pessoas de um cargo sem questionário publicado. */
+    /** Tira do ciclo as pessoas de um cargo sem questionário publicado. */
     public boolean removerCargo(Long cicloId, Long cargoId) {
         Ciclo c = cicloService.entidade(cicloId);
         c.exigirEditavel();
@@ -230,7 +227,7 @@ public class MontagemCicloService {
         return c.voltarARascunho();
     }
 
-    /** Extensão 8b: retira do ciclo um tipo sem perguntas no questionário. */
+    /** Retira do ciclo um tipo sem perguntas no questionário. */
     public boolean retirarTipo(Long cicloId, TipoAvaliador tipo) {
         Ciclo c = cicloService.entidade(cicloId);
         c.retirarTipo(tipo);
@@ -455,7 +452,6 @@ public class MontagemCicloService {
             pendencias.add("Escolha ao menos uma pessoa para ser avaliada.");
         }
 
-        // 8a e 8b, por cargo.
         List<Verificacao.CargoSemQuestionario> semQuestionario = new ArrayList<>();
         List<Verificacao.TipoSemPerguntas> semPerguntas = new ArrayList<>();
         Map<Long, Boolean> temEquipe = new HashMap<>();
@@ -497,7 +493,6 @@ public class MontagemCicloService {
             }
         }
 
-        // 9a, 10, 10a e 10b, por pessoa avaliada.
         List<AvaliadoNoCiclo> avaliados = new ArrayList<>();
         Map<TipoAvaliador, Integer> totalPorTipo = new EnumMap<>(TipoAvaliador.class);
         for (Long id : c.getAvaliados().keySet()) {

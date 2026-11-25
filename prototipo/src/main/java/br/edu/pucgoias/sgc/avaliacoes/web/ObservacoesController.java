@@ -20,15 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-/**
- * UC-08 Registrar observações sobre a equipe (RF-17). Só gestor; a equipe é conferida no serviço (RNF-03).
- *
- * <ul>
- *   <li>{@code GET /observacoes}: a equipe direta com o resumo das observações e um atalho para registrar;</li>
- *   <li>{@code GET /observacoes/{colaboradorId}}: lista cronológica e formulário de nova observação;</li>
- *   <li>{@code POST /observacoes}: registra; {@code POST .../{id}/editar} e {@code .../{id}/excluir}: só o autor.</li>
- * </ul>
- */
+/** Só gestor; a equipe é conferida no serviço. Editar e excluir, só o autor. */
 @Controller
 @PreAuthorize("hasRole('GESTOR')")
 @RequestMapping("/observacoes")

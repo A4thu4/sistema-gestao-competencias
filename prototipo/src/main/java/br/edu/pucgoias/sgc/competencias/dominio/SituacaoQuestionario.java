@@ -1,6 +1,6 @@
 package br.edu.pucgoias.sgc.competencias.dominio;
 
-/** Rascunho pode ter pendências; publicado está completo e pode ser usado em ciclos (UC-01, passo 15). */
+/** Rascunho pode ter pendências; publicado está completo e pode ser usado em ciclos. */
 public enum SituacaoQuestionario {
     RASCUNHO("Rascunho"),
     PUBLICADO("Publicado");

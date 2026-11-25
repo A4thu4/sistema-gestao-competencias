@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface ObservacaoRepository extends JpaRepository<Observacao, Long> {
 
-    /** Lista cronológica do colaborador, da mais recente para a mais antiga. */
     List<Observacao> findByColaboradorIdOrderByDataFatoDescCriadaEmDesc(Long colaboradorId);
 
     List<Observacao> findByColaboradorIdAndDataFatoBetweenOrderByDataFatoDescCriadaEmDesc(

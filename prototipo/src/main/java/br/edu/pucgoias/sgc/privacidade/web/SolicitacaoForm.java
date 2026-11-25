@@ -5,7 +5,6 @@ import br.edu.pucgoias.sgc.privacidade.servico.NovaSolicitacao;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-/** Formulário de nova solicitação do titular (UC-05, passo 7). */
 public class SolicitacaoForm {
 
     @NotNull(message = "Escolha o tipo de solicitação.")

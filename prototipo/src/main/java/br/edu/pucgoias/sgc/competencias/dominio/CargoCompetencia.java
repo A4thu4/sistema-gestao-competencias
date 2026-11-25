@@ -8,10 +8,7 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Competência do conjunto padrão de um cargo (RF-02). O cargo pertence ao pacote identidade, por isso aqui fica
- * só o id dele.
- */
+/** Competência do conjunto padrão de um cargo. O cargo pertence ao pacote identidade, por isso aqui fica só o id. */
 @Entity
 @Table(name = "cargo_competencia")
 @IdClass(CargoCompetencia.Chave.class)

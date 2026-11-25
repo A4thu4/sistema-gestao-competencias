@@ -26,10 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-/**
- * Telas do RH no UC-05: atendimento das solicitações dos titulares (10a e 10b) e publicação de nova versão do
- * termo (pré-condição e extensão 2a).
- */
+/** Telas do RH: atendimento das solicitações dos titulares e publicação de nova versão do termo. */
 @Controller
 @PreAuthorize("hasRole('RH')")
 public class AtendimentoController {

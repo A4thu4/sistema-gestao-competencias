@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-/** Formulário de nova observação e de edição (UC-08). */
 public class ObservacaoForm {
 
     private Long colaboradorId;

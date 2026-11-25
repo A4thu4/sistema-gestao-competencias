@@ -93,7 +93,6 @@ public class Designacao {
         situacao = SituacaoDesignacao.ENVIADA;
     }
 
-    /** UC-09: o RH reabre uma avaliação enviada, a pedido do avaliador. */
     public void reabrir() {
         if (situacao != SituacaoDesignacao.ENVIADA) {
             throw new RegraDeNegocioException("Só uma avaliação enviada pode ser reaberta.");

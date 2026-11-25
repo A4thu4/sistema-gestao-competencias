@@ -23,10 +23,10 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Questionário de um cargo (RF-03): competências em ordem, perguntas de cada uma e escala com a descrição de cada
- * nível (RF-04). Os modelos prontos (RF-07) são questionários com {@code modelo = true} e sem cargo.
+ * Questionário de um cargo: competências em ordem, perguntas de cada uma e escala com a descrição de cada nível. Os
+ * modelos prontos são questionários com {@code modelo = true} e sem cargo.
  *
- * <p>A regra "nenhum questionário incompleto é publicado" (UC-01, garantia mínima) fica em {@link #pendencias}.
+ * <p>A regra "nenhum questionário incompleto é publicado" fica em {@link #pendencias}.
  */
 @Entity
 @Table(name = "questionario")
@@ -72,7 +72,7 @@ public class Questionario {
         definirEscala(escalaMax, List.of());
     }
 
-    /** Cópia com a estrutura completa (competências, perguntas e escala), sem respostas, como rascunho (RF-07). */
+    /** Cópia com a estrutura completa (competências, perguntas e escala), sem respostas, como rascunho. */
     public Questionario copiar(String novoNome) {
         Questionario c = new Questionario(novoNome, modelo ? null : cargoId, escalaMax, false);
         c.origemId = id;
@@ -94,7 +94,6 @@ public class Questionario {
         this.cargoId = cargoId;
     }
 
-    /** Competências na ordem informada. */
     public void definirCompetencias(List<Long> competenciaIds) {
         competencias.clear();
         int ordem = 1;
@@ -110,8 +109,8 @@ public class Questionario {
     }
 
     /**
-     * Escala de 1 a 5 ou de 1 a 10 (RF-04). Os níveis são alterados no lugar (e não apagados e recriados) por causa
-     * da regra "um valor por questionário" do banco.
+     * Escala de 1 a 5 ou de 1 a 10. Os níveis são alterados no lugar (e não apagados e recriados) por causa da regra
+     * "um valor por questionário" do banco.
      */
     public void definirEscala(int maximo, List<String> descricoes) {
         if (maximo != 5 && maximo != 10) {
@@ -149,7 +148,7 @@ public class Questionario {
     }
 
     /**
-     * O que falta para publicar (UC-01, passo 12 e extensão 12a), em linguagem simples. Lista vazia = pode publicar.
+     * O que falta para publicar, em linguagem simples. Lista vazia = pode publicar.
      *
      * @param competencia busca a competência do catálogo pelo id
      */

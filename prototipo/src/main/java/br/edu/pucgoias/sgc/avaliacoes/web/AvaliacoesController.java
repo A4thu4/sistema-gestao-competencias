@@ -23,18 +23,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-/**
- * UC-03 Responder avaliação, avaliador interno (qualquer perfil logado). O serviço confere que a designação é do
- * usuário (RNF-03).
- *
- * <ul>
- *   <li>{@code GET /avaliacoes}: avaliações do usuário por ciclo (passo 2);</li>
- *   <li>{@code GET /avaliacoes/{id}}: formulário (passo 4);</li>
- *   <li>{@code POST /avaliacoes/{id}/resposta}: salvamento automático de uma resposta, por {@code fetch} (RF-14);</li>
- *   <li>{@code POST /avaliacoes/{id}/rascunho}: "Salvar rascunho" (funciona sem JavaScript);</li>
- *   <li>{@code POST /avaliacoes/{id}/enviar}: envio com confirmação (passos 7 a 10).</li>
- * </ul>
- */
+/** Avaliador interno (qualquer perfil logado). O serviço confere que a designação é do usuário. */
 @Controller
 @RequestMapping("/avaliacoes")
 public class AvaliacoesController {

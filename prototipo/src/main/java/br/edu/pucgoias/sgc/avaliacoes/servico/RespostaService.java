@@ -34,15 +34,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * UC-03 Responder avaliação (RF-06, RF-11, RF-14 a RF-18, RF-25, RF-34, RNF-01, RNF-03).
- *
- * <p>Enquanto o avaliador preenche, cada resposta fica em {@code rascunho_resposta}, ligada à designação, para o
- * salvamento automático. No envio ({@link #enviarAvaliacao}, contrato CO-02) as respostas são copiadas para uma
+ * Enquanto o avaliador preenche, cada resposta fica em {@code rascunho_resposta}, ligada à designação, para o
+ * salvamento automático. No envio ({@link #enviarAvaliacao}) as respostas são copiadas para uma
  * {@code avaliacao_enviada} que não guarda designação, avaliador nem data (id UUID aleatório) e o rascunho é apagado,
- * tudo na mesma transação: depois disso nenhum perfil consegue ligar a resposta a quem respondeu (RNF-01, DA-06).
+ * tudo na mesma transação: depois disso nenhum perfil consegue ligar a resposta a quem respondeu.
  *
  * <p>Acesso: o avaliador interno só abre as designações dele (senão 403); o externo entra pelo token do link
- * individual, sem login (RF-34).
+ * individual, sem login.
  */
 @Service
 @Transactional(readOnly = true)
@@ -114,7 +112,7 @@ public class RespostaService {
         return formulario(doAvaliador(eu, designacaoId));
     }
 
-    /** Extensão 1a: avaliador externo pelo link individual. Link inválido, já enviado ou ciclo encerrado: exceção. */
+    /** Link inválido, avaliação já enviada ou ciclo encerrado: exceção. */
     public FormularioAvaliacao abrirExterno(String token) {
         return formulario(externaDisponivel(token));
     }
@@ -147,9 +145,9 @@ public class RespostaService {
     // ---------------------------------------------------------------- passos 7 a 10: enviar (CO-02)
 
     /**
-     * Envia a avaliação (CO-02): confere que a designação é do usuário, que o ciclo aceita respostas e que não há
-     * obrigatória pendente; cria a avaliação enviada anônima, copia as respostas, apaga o rascunho e marca a
-     * designação como enviada no pacote ciclos. Tudo numa transação.
+     * Confere que a designação é do usuário, que o ciclo aceita respostas e que não há obrigatória pendente; cria a
+     * avaliação enviada anônima, copia as respostas, apaga o rascunho e marca a designação como enviada no pacote
+     * ciclos. Tudo numa transação.
      */
     @Transactional
     public void enviarAvaliacao(UsuarioAutenticado eu, Long designacaoId) {
@@ -343,7 +341,7 @@ public class RespostaService {
         return new RespostaInformada(null, false, texto == null || texto.isEmpty() ? null : texto);
     }
 
-    /** RF-15: obrigatórias sem nota nem "não tenho como avaliar" (escala) ou sem texto (aberta). */
+    /** Obrigatórias sem nota nem "não tenho como avaliar" (escala) ou sem texto (aberta). */
     static List<PerguntaResumo> pendentes(QuestionarioCompleto q, Map<Long, RespostaInformada> atuais) {
         return q.perguntas().stream()
                 .filter(PerguntaResumo::obrigatoria)

@@ -12,7 +12,7 @@ import java.util.Objects;
  * Regras de exibição dos resultados, iguais na tela, nos gráficos, nos relatórios e nos arquivos exportados.
  *
  * <ul>
- *   <li><b>Mínimo de 3 (RNF-02):</b> a média de pares, subordinados e externos só aparece com pelo menos
+ *   <li><b>Mínimo de 3:</b> a média de pares, subordinados e externos só aparece com pelo menos
  *       {@value #MINIMO_RESPOSTAS} avaliações no grupo. Chefe e autoavaliação não têm mínimo (são identificados por
  *       natureza);</li>
  *   <li><b>Nota final da competência:</b> média das médias dos grupos exibíveis, sem a autoavaliação (a visão da
@@ -60,7 +60,7 @@ public final class RegrasDeExibicao {
         return soma.divide(BigDecimal.valueOf(presentes.size()), CalculoConsolidacao.CASAS, RoundingMode.HALF_UP);
     }
 
-    /** Nota em percentual da escala (para comparar ciclos com escalas diferentes, RF-26). */
+    /** Nota em percentual da escala, para comparar ciclos com escalas diferentes. */
     public static BigDecimal percentualDaEscala(BigDecimal nota, int escalaMax) {
         if (nota == null || escalaMax <= 0) {
             return null;

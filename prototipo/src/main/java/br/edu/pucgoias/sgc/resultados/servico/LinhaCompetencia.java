@@ -20,7 +20,6 @@ public record LinhaCompetencia(Long competenciaId, String competencia, Map<TipoA
         return Formatos.nota(notaFinal);
     }
 
-    /** Classe CSS da nota final. */
     public String corNotaFinal() {
         if (maior) {
             return "nota-maior";

@@ -12,9 +12,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.Optional;
 
 /**
- * Barreira do termo (RF-29, UC-05 passos 1 a 4 e extensão 2a): o usuário autenticado que ainda não aceitou a
- * versão vigente do termo é levado para {@code /privacidade/termo} antes de qualquer outra tela. É assim que o
- * UC-10 apresenta o termo no primeiro acesso.
+ * O usuário autenticado que ainda não aceitou a versão vigente do termo é levado para {@code /privacidade/termo}
+ * antes de qualquer outra tela.
  *
  * <p>Para não consultar o banco a cada requisição, a sessão guarda o id do termo aceito; quando o RH publica uma
  * versão nova, o id vigente muda e a conferência volta a ser feita.

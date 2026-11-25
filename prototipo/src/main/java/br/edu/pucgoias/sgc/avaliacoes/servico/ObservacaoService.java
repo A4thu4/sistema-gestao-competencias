@@ -24,14 +24,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * UC-08 Registrar observações sobre a equipe (RF-17). O gestor registra, ao longo do ano, pontos positivos e de
- * melhoria sobre as pessoas da sua equipe direta; o sistema guarda a data do fato e a data do registro e mostra a
- * lista cronológica por colaborador. No UC-03 (passo 4) o gestor vê as observações do período ao avaliar
- * ({@link #observacoesDoPeriodo}).
+ * O gestor registra, ao longo do ano, pontos positivos e de melhoria sobre a equipe direta; o sistema guarda a data do
+ * fato e a data do registro.
  *
- * <p>Acesso (RNF-03): só a equipe direta do gestor logado; fora dela, {@link AccessDeniedException} (página 403).
- * Só quem registrou pode editar ou excluir, e só até a observação entrar numa avaliação de ciclo encerrado. O colaborador não vê estas anotações na tela; elas entram na cópia dos
- * dados pessoais dele (LGPD, {@link FonteObservacoes}).
+ * <p>Acesso só à equipe direta do gestor logado; fora dela, {@link AccessDeniedException}. O colaborador não vê estas
+ * anotações na tela; elas entram na cópia dos dados pessoais dele ({@link FonteObservacoes}).
  */
 @Service
 @Transactional(readOnly = true)
@@ -142,9 +139,9 @@ public class ObservacaoService {
     // ---------------------------------------------------------------- interface para o UC-03 e a LGPD
 
     /**
-     * UC-03, passo 4 (RF-17): observações sobre o colaborador com data do fato entre {@code inicio} e {@code fim}
-     * (inclusive), da mais recente para a mais antiga. Só para o gestor direto do colaborador (RNF-03); para
-     * qualquer outra pessoa lança {@link AccessDeniedException}.
+     * Observações sobre o colaborador com data do fato entre {@code inicio} e {@code fim} (inclusive), da mais recente
+     * para a mais antiga. Só para o gestor direto do colaborador; para qualquer outra pessoa lança
+     * {@link AccessDeniedException}.
      */
     public List<ObservacaoResumo> observacoesDoPeriodo(Long gestorId, Long colaboradorId, LocalDate inicio,
                                                        LocalDate fim) {

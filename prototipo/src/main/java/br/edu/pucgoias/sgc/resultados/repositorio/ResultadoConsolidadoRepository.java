@@ -30,7 +30,6 @@ public interface ResultadoConsolidadoRepository extends JpaRepository<ResultadoC
     @Query("select distinct r.cicloId from ResultadoConsolidado r")
     List<Long> ciclosConsolidados();
 
-    /** Apaga o consolidado do ciclo antes de gravar de novo (RNF-12). */
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("delete from ResultadoConsolidado r where r.cicloId = :cicloId")
     int apagarDoCiclo(@Param("cicloId") Long cicloId);

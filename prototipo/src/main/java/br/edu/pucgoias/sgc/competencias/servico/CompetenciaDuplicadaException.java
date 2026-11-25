@@ -2,7 +2,7 @@ package br.edu.pucgoias.sgc.competencias.servico;
 
 import br.edu.pucgoias.sgc.compartilhado.dominio.RegraDeNegocioException;
 
-/** Já existe competência com esse nome (UC-01, extensão 9b). Traz a existente, para a tela sugerir usá-la. */
+/** Já existe competência com esse nome. Traz a existente, para a tela sugerir usá-la. */
 public class CompetenciaDuplicadaException extends RegraDeNegocioException {
 
     private final CompetenciaResumo existente;

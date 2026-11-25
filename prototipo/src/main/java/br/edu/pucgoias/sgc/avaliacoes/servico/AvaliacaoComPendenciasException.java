@@ -5,7 +5,7 @@ import br.edu.pucgoias.sgc.competencias.servico.PerguntaResumo;
 
 import java.util.List;
 
-/** UC-03, extensão 8a: há perguntas obrigatórias sem resposta; o envio é barrado (RF-15). */
+/** Há perguntas obrigatórias sem resposta; o envio é barrado. */
 public class AvaliacaoComPendenciasException extends RegraDeNegocioException {
 
     private final List<PerguntaResumo> pendentes;

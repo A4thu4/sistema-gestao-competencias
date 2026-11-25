@@ -1,6 +1,5 @@
 package br.edu.pucgoias.sgc.ciclos.dominio;
 
-/** Situação do ciclo (RF-09): rascunho → agendado → aberto → encerrado. */
 public enum SituacaoCiclo {
     RASCUNHO("Rascunho"),
     AGENDADO("Agendado"),
