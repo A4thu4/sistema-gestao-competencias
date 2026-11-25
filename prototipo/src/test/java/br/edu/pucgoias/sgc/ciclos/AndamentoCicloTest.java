@@ -190,7 +190,7 @@ class AndamentoCicloTest extends TesteIntegracao {
     @Test
     void paginaInicialMostraOsCartoesDosCiclos() throws Exception {
         mvc.perform(get("/").with(como("rh@exemplo.com")))
-                .andExpect(content().string(containsString("Ciclo 2026.2 aberto")));
+                .andExpect(content().string(containsString("Ciclo 2026.2")));
         mvc.perform(get("/").with(como("gestor@exemplo.com")))
                 .andExpect(content().string(containsString("Pendentes da equipe")));
     }

@@ -48,7 +48,7 @@ class ResultadosTest extends CenarioResultados {
     void colaboradorVeOProprioPainelComCartoesTabelaEGrupoPequenoEscondido() throws Exception {
         mvc.perform(get(painel(ciclo, carla.id())).with(como("colaborador@exemplo.com")))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Resultado da Avaliação")))
+                .andExpect(content().string(containsString("Resultado da avaliação")))
                 .andExpect(content().string(containsString("Carla Dias")))
                 .andExpect(content().string(containsString("Atendimento ao cliente")))
                 .andExpect(content().string(containsString("4,6")))   // nota final do ponto forte
@@ -259,7 +259,8 @@ class ResultadosTest extends CenarioResultados {
     void paginaInicialAvisaResultadoLiberadoECiclosParaLiberar() throws Exception {
         mvc.perform(get("/").with(como("colaborador@exemplo.com")))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Seu resultado do Ciclo 2026.1 foi liberado")));
+                .andExpect(content().string(containsString("Seu resultado")))
+                .andExpect(content().string(containsString("Ciclo 2026.1")));
         liberado(false);
         mvc.perform(get("/").with(como("rh@exemplo.com")))
                 .andExpect(status().isOk())

@@ -11,8 +11,7 @@
         <main class="app-content">
             <div th:replace="~{fragments/layout :: alertas}"></div>
             <h1 class="titulo-pagina">Minhas avaliações</h1>
-            <p class="subtitulo-pagina">As avaliações que você precisa responder em cada ciclo. As respostas são salvas
-                automaticamente: você pode parar e continuar depois.</p>
+            <p class="subtitulo-pagina">As respostas ficam salvas enquanto você preenche.</p>
 
             <div class="cartao text-center text-secondary py-5" th:if="${#lists.isEmpty(grupos)}">
                 <i class="bi bi-ui-checks display-6"></i>

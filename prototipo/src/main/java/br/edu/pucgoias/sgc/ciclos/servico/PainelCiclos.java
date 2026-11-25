@@ -28,23 +28,23 @@ public class PainelCiclos implements ContribuicaoPainel {
             List<CicloNaLista> todos = montagem.listar();
             List<CicloNaLista> abertos = todos.stream().filter(c -> c.ciclo().aberto()).toList();
             for (CicloNaLista c : abertos) {
-                cartoes.add(new CartaoPainel(ordem++, c.ciclo().nome() + " aberto",
+                cartoes.add(new CartaoPainel(ordem++, c.ciclo().nome(),
                         c.percentualRespondido() + "%",
-                        c.enviadas() + " de " + c.designacoes() + " avaliações enviadas · encerra em "
-                                + Datas.data(c.ciclo().dataEncerramento()),
+                        "respondido · encerra em " + Datas.data(c.ciclo().dataEncerramento()),
                         "/ciclos/andamento?ciclo=" + c.ciclo().id(), "primary"));
             }
             if (abertos.isEmpty()) {
                 long agendados = todos.stream().filter(c -> c.ciclo().agendado()).count();
                 cartoes.add(new CartaoPainel(10, "Ciclos abertos", "0",
-                        agendados == 0 ? "nenhum ciclo em andamento" : agendados + " agendado(s) para abrir",
+                        agendados == 0 ? "nenhum em andamento"
+                                : agendados == 1 ? "1 agendado" : agendados + " agendados",
                         "/ciclos", "secondary"));
             }
         } else if (usuario.ehGestor()) {
             long pendentes = andamento.pendentesDaEquipe(usuario);
             cartoes.add(new CartaoPainel(15, "Pendentes da equipe", String.valueOf(pendentes),
-                    pendentes == 0 ? "sua equipe está em dia com as avaliações"
-                            : pendentes == 1 ? "avaliação ainda não enviada" : "avaliações ainda não enviadas",
+                    pendentes == 0 ? "equipe em dia"
+                            : pendentes == 1 ? "avaliação não enviada" : "avaliações não enviadas",
                     "/ciclos/andamento", pendentes == 0 ? "success" : "warning"));
         }
         return cartoes;

@@ -12,8 +12,8 @@
             <div class="d-flex flex-wrap align-items-start gap-3 mb-3">
                 <div class="me-auto">
                     <h1 class="titulo-pagina">Plano de desenvolvimento</h1>
-                    <p class="subtitulo-pagina mb-0" sec:authorize="hasRole('GESTOR')">Escolha uma pessoa da sua equipe. O plano é montado depois que o resultado do ciclo dela é liberado, a partir das competências de menor nota.</p>
-                    <p class="subtitulo-pagina mb-0" sec:authorize="hasRole('RH')">Planos de todas as pessoas, só para consulta. Quem registra as metas é o gestor direto, junto com a pessoa.</p>
+                    <p class="subtitulo-pagina mb-0" sec:authorize="hasRole('GESTOR')">O plano parte das competências de menor nota no resultado liberado.</p>
+                    <p class="subtitulo-pagina mb-0" sec:authorize="hasRole('RH')">Só consulta. As metas são registradas pelo gestor direto.</p>
                 </div>
                 <a class="btn btn-outline-secondary" th:href="@{/planos/{id}(id=${#authentication.principal.id()})}">
                     <i class="bi bi-person"></i> Meu plano

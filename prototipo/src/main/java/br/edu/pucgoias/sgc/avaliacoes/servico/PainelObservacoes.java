@@ -33,10 +33,9 @@ public class PainelObservacoes implements ContribuicaoPainel {
                 Calendario.hoje().minusDays(ObservacaoService.DIAS_PERIODO_RECENTE));
         List<String> semObservacao = equipe.stream().filter(MembroEquipe::semObservacaoRecente)
                 .map(m -> primeiroNome(m.pessoa().nome())).toList();
-        String periodo = "nos últimos " + ObservacaoService.DIAS_PERIODO_RECENTE + " dias";
         String descricao = semObservacao.isEmpty()
-                ? periodo + " · toda a equipe tem observação recente"
-                : periodo + " · sem observação há mais de " + ObservacaoService.DIAS_SEM_OBSERVACAO + " dias: "
+                ? "nos últimos " + ObservacaoService.DIAS_PERIODO_RECENTE + " dias"
+                : "sem observação há mais de " + ObservacaoService.DIAS_SEM_OBSERVACAO + " dias: "
                         + juntar(semObservacao);
         return List.of(new CartaoPainel(30, "Observações da equipe", String.valueOf(recentes), descricao,
                 "/observacoes", semObservacao.isEmpty() ? "primary" : "warning"));

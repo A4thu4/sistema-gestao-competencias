@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -241,7 +242,7 @@ class QuestionariosTest extends TesteIntegracao {
                     .andExpect(status().isOk());
         }
         mvc.perform(get("/").with(como(RH)))
-                .andExpect(status().isOk()).andExpect(content().string(containsString("Questionários publicados")));
+                .andExpect(status().isOk()).andExpect(content().string(not(containsString("Questionários publicados"))));
     }
 
     @Test

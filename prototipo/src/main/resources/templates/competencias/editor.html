@@ -14,8 +14,7 @@
                 <span class="selo" th:classappend="'selo-' + ${#strings.toLowerCase(q.situacao)}"
                       th:text="${q.publicado()} ? 'Publicado' : 'Rascunho'">Rascunho</span>
             </div>
-            <p class="subtitulo-pagina">Escolha as competências, escreva as perguntas e descreva a escala. Tudo fica salvo como
-                rascunho até você publicar.</p>
+            <p class="subtitulo-pagina">Fica como rascunho até você publicar.</p>
 
             <div th:replace="~{fragments/layout :: alertas}"></div>
             <div th:if="${pendencias}" class="alert alert-warning" role="alert">
@@ -54,10 +53,9 @@
                     <div class="d-flex flex-wrap align-items-start gap-2">
                         <h2 class="cartao-titulo me-auto"><span class="secao-numero">2</span>Competências</h2>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="marcar-padrao">
-                            <i class="bi bi-check2-square"></i> Marcar as padrão do cargo</button>
+                            <i class="bi bi-check2-square"></i> Marcar padrão do cargo</button>
                     </div>
-                    <p class="small text-secondary">Marque as competências que serão avaliadas. As marcadas com “padrão do cargo” são o
-                        conjunto usual desse cargo.</p>
+                    <p class="small text-secondary">Marque as competências que serão avaliadas.</p>
                     <div class="row g-3 lista-competencias">
                         <div class="col-12 col-md-6">
                             <div class="small fw-semibold text-secondary mb-2">COMPORTAMENTAIS</div>

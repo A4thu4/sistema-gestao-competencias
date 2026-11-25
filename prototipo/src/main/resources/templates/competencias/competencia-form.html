@@ -10,7 +10,7 @@
         <main class="app-content" style="max-width: 760px">
             <a class="small text-decoration-none" th:href="@{/competencias/catalogo}"><i class="bi bi-arrow-left"></i> Catálogo de competências</a>
             <h1 class="titulo-pagina mt-2" th:text="${competencia} == null ? 'Nova competência' : 'Editar competência'">Nova competência</h1>
-            <p class="subtitulo-pagina">Nome, descrição e tipo. A descrição ajuda o avaliador a entender o que está avaliando.</p>
+            <p class="subtitulo-pagina">A descrição aparece para o avaliador.</p>
 
             <div th:if="${erro}" class="alert alert-danger" role="alert">
                 <i class="bi bi-exclamation-triangle"></i> <span th:text="${erro}">erro</span>

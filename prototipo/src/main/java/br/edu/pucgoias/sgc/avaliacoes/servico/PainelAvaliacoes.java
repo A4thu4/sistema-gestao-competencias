@@ -24,8 +24,6 @@ public class PainelAvaliacoes implements ContribuicaoPainel {
             return List.of();
         }
         return List.of(new CartaoPainel(5, "Avaliações pendentes", String.valueOf(pendentes),
-                pendentes == 1 ? "avaliação para responder no ciclo aberto"
-                        : "avaliações para responder no ciclo aberto",
-                "/avaliacoes", "warning"));
+                "para você responder", "/avaliacoes", "warning"));
     }
 }

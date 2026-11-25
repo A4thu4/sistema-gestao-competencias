@@ -4,8 +4,7 @@
 <!-- UC-09: abas e escolha do ciclo. Modelo: ${aba}, ${ciclos}, ${ciclo}. -->
 <th:block th:fragment="cabecalho(acaoCiclo)">
     <h1 class="titulo-pagina">Reabertura e moderação</h1>
-    <p class="subtitulo-pagina">Reabra uma avaliação a pedido de quem avaliou e revise os comentários antes de irem
-        para os resultados. Tudo fica registrado no log de auditoria.</p>
+    <p class="subtitulo-pagina">Reabertura a pedido do avaliador e revisão de comentários.</p>
     <ul class="nav abas-moderacao">
         <li class="nav-item"><a class="nav-link" th:classappend="${aba == 'reabrir'} ? 'active'" th:href="@{/moderacao}">
             <i class="bi bi-arrow-counterclockwise"></i> Reabrir avaliação</a></li>

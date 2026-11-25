@@ -15,7 +15,7 @@
                     <h1 class="titulo-pagina" th:text="${pl.proprio} ? 'Meu plano de desenvolvimento' : 'Plano de ' + ${pl.colaborador.nome}">Plano</h1>
                     <p class="subtitulo-pagina mb-0">
                         <span th:text="${pl.colaborador.nome} + ' · ' + ${pl.colaborador.cargoNome}">Carla · Analista</span>
-                        <th:block th:if="${pl.cicloBase != null}"> | Base: resultado do <a th:href="@{/resultados/{c}/pessoas/{p}(c=${pl.cicloBase.id},p=${pl.colaborador.id})}" th:text="${pl.cicloBase.nome}">2026.1</a></th:block>
+                        <th:block th:if="${pl.cicloBase != null}"> · Base: <a th:href="@{/resultados/{c}/pessoas/{p}(c=${pl.cicloBase.id},p=${pl.colaborador.id})}" th:text="${pl.cicloBase.nome}">2026.1</a></th:block>
                     </p>
                 </div>
                 <div class="d-flex gap-2 flex-wrap">

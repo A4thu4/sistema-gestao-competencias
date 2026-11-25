@@ -45,9 +45,7 @@
                             <a th:if="${editandoId != null}" class="btn btn-outline-secondary"
                                th:href="@{/observacoes/{c}(c=${colaborador.id})}">Cancelar</a>
                         </div>
-                        <p class="small text-secondary mt-3 mb-0"><i class="bi bi-lock"></i> Anotação sua para a
-                            avaliação. <span th:text="${#strings.arraySplit(colaborador.nome, ' ')[0]}">Nome</span> não
-                            a vê nesta área, mas ela entra na cópia dos dados pessoais (LGPD).</p>
+                        <p class="small text-secondary mt-3 mb-0"><i class="bi bi-lock"></i> Só você vê esta anotação.</p>
                     </form>
                 </div>
 
